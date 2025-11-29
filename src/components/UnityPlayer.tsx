@@ -67,21 +67,20 @@ export default function UnityPlayer({
       const viewportHeight = window.innerHeight;
       const viewportWidth = window.innerWidth;
 
-      // Reserve space for header/footer/controls
+      // Reserve space for header/footer/controls/page-padding
+      // Mobile (<768): nav(32) + logo(60) + footer(32) + controls(28) + page-py(16) + buffer(32) = 200
+      // Tablet (768-1023): nav(64) + logo(104) + footer(64) + controls(32) + page-py(32) + buffer(32) = 328
+      // Desktop (1024+): nav(64) + logo(136) + footer(64) + controls(32) + page-py(32) + buffer(32) = 360
       const isMobile = viewportWidth < 768;
       const isLarge = viewportWidth >= 1024;
 
-      // Total fixed height needed (generous estimates):
-      // Mobile (<768): ~180px
-      // Tablet (768-1023): ~300px
-      // Desktop (1024+): ~320px
       let headerFooterSpace: number;
       if (isMobile) {
-        headerFooterSpace = 180;
+        headerFooterSpace = 200;
       } else if (isLarge) {
-        headerFooterSpace = 320;
+        headerFooterSpace = 360;
       } else {
-        headerFooterSpace = 300;
+        headerFooterSpace = 328;
       }
 
       const availableWidth = viewportWidth - padding;

@@ -10,12 +10,12 @@ function Navigation() {
   const isHome = pathname === "/";
 
   return (
-    <nav className="flex h-10 w-full items-center justify-end bg-slate-700 px-4 text-sm text-white md:h-20 md:px-8 md:text-lg">
+    <nav className="flex h-8 w-full items-center justify-end bg-slate-700 px-3 text-xs text-white md:h-16 md:px-6 md:text-base">
       <Link
         href="/"
-        className={`mr-6 transition-opacity ${isHome ? "pointer-events-none opacity-50" : "opacity-100 hover:opacity-80"}`}
+        className={`mr-4 transition-opacity ${isHome ? "pointer-events-none opacity-50" : "opacity-100 hover:opacity-80"}`}
       >
-        <HomeIcon className="h-6 w-6 text-slate-950 md:h-8 md:w-8" />
+        <HomeIcon className="h-5 w-5 text-slate-950 md:h-6 md:w-6" />
       </Link>
     </nav>
   );
@@ -23,24 +23,24 @@ function Navigation() {
 
 function Logo() {
   return (
-    <div className="flex w-full items-center justify-center bg-slate-600 p-2 md:p-4 lg:p-6">
+    <div className="flex w-full items-center justify-center bg-slate-600 p-1.5 md:p-3 lg:p-5">
       <Image
         src="/sci5th_Logo_Black.svg"
         alt="sci5th Logo Black"
-        className="mx-2 w-16 md:mx-4 md:w-24 lg:w-32"
-        width={128}
-        height={128}
+        className="mx-1.5 w-12 md:mx-3 md:w-20 lg:w-24"
+        width={96}
+        height={96}
         unoptimized
       />
-      <h1 className="whitespace-nowrap px-1 text-xl text-slate-950 md:px-2 md:text-3xl lg:text-4xl">
+      <h1 className="whitespace-nowrap px-1 text-lg text-slate-950 md:px-1.5 md:text-2xl lg:text-3xl">
         sci5th
       </h1>
       <Image
         src="/sci5th_Logo_Blue.svg"
         alt="sci5th Logo Blue"
-        className="mx-2 w-16 md:mx-4 md:w-24 lg:w-32"
-        width={128}
-        height={128}
+        className="mx-1.5 w-12 md:mx-3 md:w-20 lg:w-24"
+        width={96}
+        height={96}
         unoptimized
       />
     </div>
@@ -50,8 +50,8 @@ function Logo() {
 function Footer() {
   const currentYear = new Date().getFullYear();
   return (
-    <footer className="mt-auto flex h-10 w-full items-center justify-center bg-slate-800 p-4 text-white md:h-20">
-      <p className="text-sm text-slate-500 md:text-base">
+    <footer className="mt-auto flex h-8 w-full items-center justify-center bg-slate-800 p-3 text-white md:h-16">
+      <p className="text-xs text-slate-500 md:text-sm">
         &copy; {currentYear} sci5th
       </p>
     </footer>
@@ -63,14 +63,6 @@ export default function MainLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const pathname = usePathname();
-  const isGamePage = pathname.startsWith("/games/");
-
-  // Game pages use their own layout
-  if (isGamePage) {
-    return <div className="flex min-h-screen flex-col">{children}</div>;
-  }
-
   return (
     <div className="flex min-h-screen flex-col">
       <Navigation />
