@@ -67,15 +67,15 @@ export default function UnityPlayer({
       const viewportHeight = window.innerHeight;
       const viewportWidth = window.innerWidth;
 
-      // Dynamic header/footer space based on viewport
-      // Mobile: nav(40) + logo(~68) + footer(40) + controls(28) + padding(16)
-      // Desktop: nav(80) + logo(~120) + footer(80) + controls(32) + padding(16)
+      // Smaller header/footer for game pages (20% reduction)
+      // Mobile: nav(32) + logo(~54) + footer(32) + controls(24) + padding(12)
+      // Desktop: nav(64) + logo(~96) + footer(64) + controls(28) + padding(12)
       const isMobile = viewportWidth < 768;
-      const navHeight = isMobile ? 40 : 80;
-      const logoHeight = isMobile ? 68 : 120;
-      const footerHeight = isMobile ? 40 : 80;
-      const controlsHeight = 32;
-      const verticalPadding = 16;
+      const navHeight = isMobile ? 32 : 64;
+      const logoHeight = isMobile ? 54 : 96;
+      const footerHeight = isMobile ? 32 : 64;
+      const controlsHeight = 28;
+      const verticalPadding = 12;
 
       const headerFooterSpace =
         navHeight +

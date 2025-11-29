@@ -30,6 +30,7 @@ function Logo() {
         className="mx-2 w-16 md:mx-4 md:w-24 lg:w-32"
         width={128}
         height={128}
+        unoptimized
       />
       <h1 className="whitespace-nowrap px-1 text-xl text-slate-950 md:px-2 md:text-3xl lg:text-4xl">
         sci5th
@@ -40,6 +41,7 @@ function Logo() {
         className="mx-2 w-16 md:mx-4 md:w-24 lg:w-32"
         width={128}
         height={128}
+        unoptimized
       />
     </div>
   );
@@ -61,6 +63,14 @@ export default function MainLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
+  const isGamePage = pathname.startsWith("/games/");
+
+  // Game pages use their own layout
+  if (isGamePage) {
+    return <div className="flex min-h-screen flex-col">{children}</div>;
+  }
+
   return (
     <div className="flex min-h-screen flex-col">
       <Navigation />
