@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: GamePageProps) {
   }
 
   return {
-    title: `${game.name} | sci5th`,
+    title: `sci5th | ${game.name}`,
     description: game.description,
   };
 }
