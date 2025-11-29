@@ -10,10 +10,10 @@ function Navigation() {
   const isHome = pathname === "/";
 
   return (
-    <nav className="flex h-8 w-full items-center justify-end bg-slate-700 px-3 text-xs text-white md:h-16 md:px-6 md:text-base">
+    <nav className="flex h-8 w-full items-center justify-start bg-slate-700 px-3 text-xs text-white md:h-16 md:px-6 md:text-base">
       <Link
         href="/"
-        className={`mr-4 transition-opacity ${isHome ? "pointer-events-none opacity-50" : "opacity-100 hover:opacity-80"}`}
+        className={`transition-opacity ${isHome ? "pointer-events-none opacity-50" : "opacity-100 hover:opacity-80"}`}
       >
         <HomeIcon className="h-5 w-5 text-slate-950 md:h-6 md:w-6" />
       </Link>
