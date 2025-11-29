@@ -67,16 +67,27 @@ export default function UnityPlayer({
       const viewportHeight = window.innerHeight;
       const viewportWidth = window.innerWidth;
 
-      // Calculate actual header/footer space
-      // Mobile: nav(40) + logo(~68) + footer(40) + controls(28) + padding(16) = ~192
-      // Desktop: nav(80) + logo(~120) + footer(80) + controls(32) + padding(32) = ~344
+      // Dynamic header/footer space based on viewport
+      // Mobile: nav(40) + logo(~68) + footer(40) + controls(28) + padding(16)
+      // Desktop: nav(80) + logo(~120) + footer(80) + controls(32) + padding(16)
       const isMobile = viewportWidth < 768;
-      const headerFooterSpace = isMobile ? 200 : 320;
+      const navHeight = isMobile ? 40 : 80;
+      const logoHeight = isMobile ? 68 : 120;
+      const footerHeight = isMobile ? 40 : 80;
+      const controlsHeight = 32;
+      const verticalPadding = 16;
+
+      const headerFooterSpace =
+        navHeight +
+        logoHeight +
+        footerHeight +
+        controlsHeight +
+        verticalPadding;
 
       const availableWidth = viewportWidth - padding;
       const availableHeight = viewportHeight - headerFooterSpace;
 
-      // Calculate width based on available space, clamped between min and max
+      // Calculate based on available space (ignore maxWidth/maxHeight if viewport is smaller)
       let newWidth = Math.min(availableWidth, maxWidth);
       let newHeight = newWidth / aspectRatio;
 
@@ -86,9 +97,9 @@ export default function UnityPlayer({
         newWidth = newHeight * aspectRatio;
       }
 
-      // Final clamp to ensure within bounds
-      newWidth = Math.max(minWidth, Math.min(newWidth, maxWidth));
-      newHeight = Math.max(minHeight, Math.min(newHeight, maxHeight));
+      // Only apply minimum, let it shrink below max if needed
+      newWidth = Math.max(minWidth, newWidth);
+      newHeight = Math.max(minHeight, newHeight);
 
       setDimensions({
         width: Math.floor(newWidth),
@@ -210,8 +221,8 @@ export default function UnityPlayer({
         />
       </div>
 
-      <div className="relative mt-2 flex items-center justify-center">
-        <p className="text-base text-white md:text-lg">{gameName}</p>
+      <div className="relative mt-1 flex items-center justify-center">
+        <p className="text-sm text-white md:text-lg">{gameName}</p>
         <button
           onClick={toggleFullscreen}
           className="absolute right-0 text-white transition-opacity hover:opacity-80"
