@@ -67,37 +67,34 @@ export default function UnityPlayer({
       const viewportHeight = window.innerHeight;
       const viewportWidth = window.innerWidth;
 
-      // Smaller header/footer for game pages (20% reduction)
-      // Mobile: nav(32) + logo(~54) + footer(32) + controls(24) + padding(12)
-      // Desktop: nav(64) + logo(~96) + footer(64) + controls(28) + padding(12)
+      // Reserve space for header/footer/controls
       const isMobile = viewportWidth < 768;
-      const navHeight = isMobile ? 32 : 64;
-      const logoHeight = isMobile ? 54 : 96;
-      const footerHeight = isMobile ? 32 : 64;
-      const controlsHeight = 28;
-      const verticalPadding = 12;
+      const isLarge = viewportWidth >= 1024;
 
-      const headerFooterSpace =
-        navHeight +
-        logoHeight +
-        footerHeight +
-        controlsHeight +
-        verticalPadding;
+      // Total fixed height needed (generous estimates):
+      // Mobile (<768): ~180px
+      // Tablet (768-1023): ~300px
+      // Desktop (1024+): ~320px
+      let headerFooterSpace: number;
+      if (isMobile) {
+        headerFooterSpace = 180;
+      } else if (isLarge) {
+        headerFooterSpace = 320;
+      } else {
+        headerFooterSpace = 300;
+      }
 
       const availableWidth = viewportWidth - padding;
       const availableHeight = viewportHeight - headerFooterSpace;
 
-      // Calculate based on available space (ignore maxWidth/maxHeight if viewport is smaller)
       let newWidth = Math.min(availableWidth, maxWidth);
       let newHeight = newWidth / aspectRatio;
 
-      // If height exceeds available space, recalculate based on height
       if (newHeight > availableHeight) {
         newHeight = availableHeight;
         newWidth = newHeight * aspectRatio;
       }
 
-      // Only apply minimum, let it shrink below max if needed
       newWidth = Math.max(minWidth, newWidth);
       newHeight = Math.max(minHeight, newHeight);
 
