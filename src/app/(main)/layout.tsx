@@ -13,9 +13,20 @@ function Navigation() {
     <nav className="flex h-8 w-full items-center justify-start bg-slate-700 px-3 text-xs text-white md:h-16 md:px-6 md:text-base">
       <Link
         href="/"
-        className={`transition-opacity ${isHome ? "pointer-events-none opacity-50" : "opacity-100 hover:opacity-80"}`}
+        className={`transition-all ${isHome ? "pointer-events-none opacity-60" : "opacity-100 hover:scale-110"}`}
       >
-        <HomeIcon className="h-5 w-5 text-slate-950 md:h-6 md:w-6" />
+        <div className="relative">
+          {/* Shadow layer */}
+          <HomeIcon className="absolute left-0.5 top-0.5 h-5 w-5 text-slate-900/50 md:h-6 md:w-6" />
+          {/* Main icon with gradient effect */}
+          <HomeIcon 
+            className="relative h-5 w-5 md:h-6 md:w-6" 
+            style={{
+              color: 'rgb(15, 23, 42)',
+              filter: 'drop-shadow(1px 1px 0px rgba(255,255,255,0.3)) drop-shadow(-0.5px -0.5px 0px rgba(0,0,0,0.4))',
+            }}
+          />
+        </div>
       </Link>
     </nav>
   );

@@ -22,7 +22,7 @@ export default function HomePage() {
                 unoptimized
               />
               <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-opacity group-hover:opacity-100">
-                <span className="rounded-full bg-white/90 px-6 py-3 text-lg font-semibold text-slate-800">
+                <span className="rounded-full bg-white/90 px-4 text-lg text-slate-800">
                   ▶ Play
                 </span>
               </div>
