@@ -4,22 +4,22 @@ import { games } from "@/config/games";
 
 export default function HomePage() {
   return (
-    <div className="flex flex-1 px-4 py-8 md:px-8 lg:px-8">
-      <div className="grid gap-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+    <div className="flex flex-1 justify-center px-4 py-8 md:px-8 lg:px-8">
+      <div className="grid w-full gap-8" style={{ gridTemplateColumns: "repeat(auto-fit, 360px)", justifyContent: "center" }}>
         {games.map((game) => (
           <div key={game.id} className="flex flex-col">
             <Link
               href={`/games/${game.id}`}
-              className="group relative max-w-[555px] overflow-hidden rounded-lg shadow-lg transition-transform hover:scale-105"
+              className="group relative aspect-video w-[360px] overflow-hidden rounded-lg shadow-lg transition-transform hover:scale-105"
             >
               <Image
                 src={game.thumbnail}
                 alt={game.name}
-                width={555}
-                height={312}
-                className="h-auto max-h-[312px] w-full max-w-[555px] object-cover"
+                fill
+                className="object-cover"
                 priority
                 unoptimized
+                sizes="480px"
               />
               <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-opacity group-hover:opacity-100">
                 <span className="rounded-full bg-white/90 px-4 text-lg text-slate-800">
