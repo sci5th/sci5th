@@ -29,6 +29,7 @@ interface UnityPlayerProps {
   minHeight?: number;
   maxWidth?: number;
   maxHeight?: number;
+  useUnityWebExtension?: boolean;
 }
 
 export default function UnityPlayer({
@@ -38,6 +39,7 @@ export default function UnityPlayer({
   minHeight = 270,
   maxWidth = 1280,
   maxHeight = 720,
+  useUnityWebExtension = true,
 }: UnityPlayerProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -115,14 +117,16 @@ export default function UnityPlayer({
     script.src = `${gamePath}/WebGL_build.loader.js`;
     script.async = true;
 
+        const extension = useUnityWebExtension ? ".unityweb" : "";
+
     script.onload = async () => {
       try {
         await createUnityInstance(
           canvasRef.current!,
           {
-            dataUrl: `${gamePath}/WebGL_build.data.unityweb`,
-            frameworkUrl: `${gamePath}/WebGL_build.framework.js.unityweb`,
-            codeUrl: `${gamePath}/WebGL_build.wasm.unityweb`,
+            dataUrl: `${gamePath}/WebGL_build.data${extension}`,
+            frameworkUrl: `${gamePath}/WebGL_build.framework.js${extension}`,
+            codeUrl: `${gamePath}/WebGL_build.wasm${extension}`,
             streamingAssetsUrl: "StreamingAssets",
             companyName: "sci5th",
             productName: gameName,
@@ -136,7 +140,7 @@ export default function UnityPlayer({
         setLoading(false);
       }
     };
-
+    
     script.onerror = () => {
       setError("Failed to load Unity loader");
       setLoading(false);

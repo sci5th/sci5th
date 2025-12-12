@@ -43,6 +43,7 @@ export default async function GamePage({ params }: GamePageProps) {
         minHeight={game.minHeight}
         maxWidth={game.maxWidth}
         maxHeight={game.maxHeight}
+        useUnityWebExtension={game.useUnityWebExtension}
       />
     </div>
   );
