@@ -4,7 +4,7 @@ import { games } from "@/config/games";
 
 export default function HomePage() {
   return (
-    <div className="flex flex-1 justify-center px-4 py-8 md:px-8 lg:px-8">
+    <div className="flex flex-1 justify-center px-4 py-16 md:px-8 lg:px-8">
       <div className="grid w-full gap-8" style={{ gridTemplateColumns: "repeat(auto-fit, 360px)", justifyContent: "center" }}>
         {games.map((game) => (
           <div key={game.id} className="flex flex-col">
