@@ -179,13 +179,12 @@ export default function UnityPlayer({
     <div className="flex flex-col">
       <div
         ref={containerRef}
-        className={`relative ${isFullscreen ? "flex items-center justify-center bg-black" : ""}`}
-        style={isFullscreen ? { width: "100vw", height: "100vh" } : {}}
+        className={`relative overflow-hidden ${isFullscreen ? "flex items-center justify-center bg-black" : ""}`}
+        style={isFullscreen ? { width: "100vw", height: "100vh" } : {width: dimensions.width, height: dimensions.height}}
       >
         {loading && (
           <div
-            className="absolute inset-0 flex flex-col items-center justify-center rounded-lg bg-slate-800"
-            style={{ width: dimensions.width, height: dimensions.height }}
+            className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-slate-800"
           >
             <p className="mb-2 text-sm text-white md:text-base">
               Loading {gameName}... {progress}%
@@ -201,8 +200,7 @@ export default function UnityPlayer({
 
         {error && (
           <div
-            className="absolute inset-0 flex items-center justify-center rounded-lg bg-slate-800"
-            style={{ width: dimensions.width, height: dimensions.height }}
+            className="absolute inset-0 z-10 flex items-center justify-center bg-slate-800"
           >
             <p className="text-red-400">{error}</p>
           </div>
@@ -213,10 +211,12 @@ export default function UnityPlayer({
           id="unity-canvas"
           width={dimensions.width}
           height={dimensions.height}
-          className="rounded-lg"
+          className="block"
           style={{
             width: dimensions.width,
             height: dimensions.height,
+            backgroundColor: '#000',
+            marginTop: isFullscreen ? -8 : -2,
           }}
         />
       </div>
