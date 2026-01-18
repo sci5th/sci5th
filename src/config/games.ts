@@ -36,6 +36,18 @@ export const games: GameConfig[] = [
     maxHeight: 720,
     useUnityWebExtension: false,
   },
+  {
+    id: "goapHospital",
+    name: "GOAP Hospital",
+    description: "GOAP Hospital simulation game.",
+    thumbnail: "/GOAPHospital.png",
+    path: "/UnityGames/GOAP_Hospital",
+    minWidth: 480,
+    minHeight: 270,
+    maxWidth: 1280,
+    maxHeight: 720,
+    useUnityWebExtension: true,
+  },
 ];
 
 export function getGameById(id: string): GameConfig | undefined {
