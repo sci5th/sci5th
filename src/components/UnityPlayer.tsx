@@ -178,9 +178,9 @@ export default function UnityPlayer({
   return (
     <div className="flex flex-col">
       <div
-        ref={containerRef}
-        className={`relative overflow-hidden ${isFullscreen ? "flex items-center justify-center bg-black" : ""}`}
-        style={isFullscreen ? { width: "100vw", height: "100vh" } : {width: dimensions.width, height: dimensions.height}}
+          ref={containerRef}
+          className={`relative overflow-hidden ${isFullscreen ? "fixed inset-0 flex items-center justify-center bg-black" : ""}`}
+          style={isFullscreen ? undefined : { width: dimensions.width, height: dimensions.height }}
       >
         {loading && (
           <div
@@ -216,7 +216,7 @@ export default function UnityPlayer({
             width: dimensions.width,
             height: dimensions.height,
             backgroundColor: '#000',
-            marginTop: isFullscreen ? -8 : -2,
+            marginTop: isFullscreen ? 0 : -2,
           }}
         />
       </div>
