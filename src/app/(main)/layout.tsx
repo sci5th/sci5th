@@ -27,7 +27,7 @@ function Navigation() {
 
   const links = [
     { href: "/", label: "Games" },
-    { href: "/videos", label: "Videos" },
+    // { href: "/videos", label: "Videos" },
     { href: "/pictures", label: "Pictures" },
   ];
 
