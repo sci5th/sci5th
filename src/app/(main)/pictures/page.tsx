@@ -10,6 +10,7 @@ const pictures = [
   { src: "/picturesGallery/Point.jpg", horizontal: true },
   { src: "/picturesGallery/Science.jpg", horizontal: true },
   { src: "/picturesGallery/Space-Object.jpg" },
+  { src: "/picturesGallery/L_1.png", horizontal: true },
 ];
 
 export default function PicturesPage() {
