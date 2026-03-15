@@ -4,13 +4,14 @@ const pictures = [
   { src: "/picturesGallery/IMG_4960.JPG" },
   { src: "/picturesGallery/IMG_5159.jpeg" },
   { src: "/picturesGallery/IMG_5171.jpeg" },
-{ src: "/picturesGallery/IMG_5172.jpeg", horizontal: true },
+  { src: "/picturesGallery/IMG_5172.jpeg", horizontal: true },
   { src: "/picturesGallery/IMG_6515.JPG" },
   { src: "/picturesGallery/IMG_7285.JPG" },
   { src: "/picturesGallery/Point.jpg", horizontal: true },
   { src: "/picturesGallery/Science.jpg", horizontal: true },
   { src: "/picturesGallery/Space-Object.jpg" },
   { src: "/picturesGallery/L_1.png", horizontal: true },
+  { src: "/picturesGallery/komarik.jpeg", horizontal: true },
 ];
 
 export default function PicturesPage() {
