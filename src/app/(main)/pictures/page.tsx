@@ -12,6 +12,7 @@ const pictures = [
   { src: "/picturesGallery/Space-Object.jpg" },
   { src: "/picturesGallery/L_1.png", horizontal: true },
   { src: "/picturesGallery/komarik.jpeg", horizontal: true },
+  { src: "/picturesGallery/1april2026.jpg" },
 ];
 
 export default function PicturesPage() {
@@ -20,25 +21,25 @@ export default function PicturesPage() {
       <div
         className="grid w-full gap-8"
         style={{
-          gridTemplateColumns: "repeat(auto-fit, minmax(280px, 360px))",// 280px is the minimum width for a picture, and 360px is the maximum width
+          gridTemplateColumns: "repeat(auto-fit, minmax(280px, 360px))", // 280px is the minimum width for a picture, and 360px is the maximum width
           justifyContent: "center",
         }}
       >
-{pictures.map((pic) => (
-  <div
-    key={pic.src}
-    className={`flex items-center justify-center overflow-hidden rounded-lg bg-slate-800 shadow-lg ${pic.horizontal ? "col-span-2" : ""}`}
-  >
-    <Image
-      src={pic.src}
-      alt={pic.src.split("/").pop()?.split(".")[0] ?? ""}
-      width={360}// 360px is the maximum width for a picture
-      height={270}// 270px is the maximum height for a picture (16:9 aspect ratio)
-      className="h-auto max-h-full max-w-full object-contain"
-      unoptimized
-    />
-  </div>
-))}
+        {pictures.map((pic) => (
+          <div
+            key={pic.src}
+            className={`flex items-center justify-center overflow-hidden rounded-lg bg-slate-800 shadow-lg ${pic.horizontal ? "col-span-2" : ""}`}
+          >
+            <Image
+              src={pic.src}
+              alt={pic.src.split("/").pop()?.split(".")[0] ?? ""}
+              width={360} // 360px is the maximum width for a picture
+              height={270} // 270px is the maximum height for a picture (16:9 aspect ratio)
+              className="h-auto max-h-full max-w-full object-contain"
+              unoptimized
+            />
+          </div>
+        ))}
       </div>
     </div>
   );
