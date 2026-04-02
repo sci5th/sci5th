@@ -13,6 +13,7 @@ const pictures = [
   { src: "/picturesGallery/L_1.png", horizontal: true },
   { src: "/picturesGallery/komarik.jpeg", horizontal: true },
   { src: "/picturesGallery/1april2026.jpg" },
+  { src: "/picturesGallery/2april2026.jpg" },
 ];
 
 export default function PicturesPage() {
