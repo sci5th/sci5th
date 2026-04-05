@@ -12,6 +12,7 @@ const pictures = [
   { src: "/picturesGallery/Science.jpg", horizontal: true },
   { src: "/picturesGallery/Space-Object.jpg" },
   { src: "/picturesGallery/L_1.png", horizontal: true },
+  { src: "/picturesGallery/fuguInquisition.PNG" },
   { src: "/picturesGallery/komarik.jpeg", horizontal: true },
   { src: "/picturesGallery/1april2026.jpg" },
   { src: "/picturesGallery/2april2026.jpeg" },
