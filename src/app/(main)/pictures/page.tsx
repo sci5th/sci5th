@@ -5,6 +5,7 @@ const pictures = [
   { src: "/picturesGallery/IMG_5159.jpeg" },
   { src: "/picturesGallery/IMG_5171.jpeg" },
   { src: "/picturesGallery/IMG_5172.jpeg", horizontal: true },
+  { src: "/picturesGallery/LPG_Unity4.jpeg", horizontal: true },
   { src: "/picturesGallery/IMG_6515.JPG" },
   { src: "/picturesGallery/IMG_7285.JPG" },
   { src: "/picturesGallery/Point.jpg", horizontal: true },
