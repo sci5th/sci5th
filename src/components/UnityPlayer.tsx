@@ -117,7 +117,7 @@ export default function UnityPlayer({
     script.src = `${gamePath}/WebGL_build.loader.js`;
     script.async = true;
 
-        const extension = useUnityWebExtension ? ".unityweb" : "";
+    const extension = useUnityWebExtension ? ".unityweb" : "";
 
     script.onload = async () => {
       try {
@@ -140,7 +140,7 @@ export default function UnityPlayer({
         setLoading(false);
       }
     };
-    
+
     script.onerror = () => {
       setError("Failed to load Unity loader");
       setLoading(false);
@@ -178,14 +178,16 @@ export default function UnityPlayer({
   return (
     <div className="flex flex-col">
       <div
-          ref={containerRef}
-          className={`relative overflow-hidden ${isFullscreen ? "fixed inset-0 flex items-center justify-center bg-black" : ""}`}
-          style={isFullscreen ? undefined : { width: dimensions.width, height: dimensions.height }}
+        ref={containerRef}
+        className={`relative overflow-hidden ${isFullscreen ? "fixed inset-0 flex items-center justify-center bg-black" : ""}`}
+        style={
+          isFullscreen
+            ? undefined
+            : { width: dimensions.width, height: dimensions.height }
+        }
       >
         {loading && (
-          <div
-            className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-slate-800"
-          >
+          <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-slate-800">
             <p className="mb-2 text-sm text-white md:text-base">
               Loading {gameName}... {progress}%
             </p>
@@ -199,9 +201,7 @@ export default function UnityPlayer({
         )}
 
         {error && (
-          <div
-            className="absolute inset-0 z-10 flex items-center justify-center bg-slate-800"
-          >
+          <div className="absolute inset-0 z-10 flex items-center justify-center bg-slate-800">
             <p className="text-red-400">{error}</p>
           </div>
         )}
@@ -215,7 +215,7 @@ export default function UnityPlayer({
           style={{
             width: dimensions.width,
             height: dimensions.height,
-            backgroundColor: '#000',
+            backgroundColor: "#000",
             marginTop: isFullscreen ? 0 : -2,
           }}
         />

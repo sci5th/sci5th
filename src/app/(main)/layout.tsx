@@ -3,53 +3,35 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-// import { HomeIcon } from "@heroicons/react/24/solid";
-
-
-// function Navigation() {
-//   const pathname = usePathname();
-//   const isHome = pathname === "/";
-
-//   return (
-//     <nav className="flex h-8 w-full items-center justify-start bg-slate-700 px-3 text-xs text-white md:h-16 md:px-6 md:text-base">
-//       <Link
-//         href="/"
-//         className={`transition-opacity ${isHome ? "pointer-events-none opacity-50" : "opacity-100 hover:opacity-80"}`}
-//       >
-//         <HomeIcon className="h-5 w-5 text-slate-950 md:h-6 md:w-6" />
-//       </Link>
-//     </nav>
-//   );
-// }
 
 function Navigation() {
   const pathname = usePathname();
 
   const links = [
     { href: "/", label: "Games" },
-    // { href: "/videos", label: "Videos" },
     { href: "/pictures", label: "Pictures" },
+    { href: "/videos", label: "Videos" },
   ];
 
   return (
     <nav className="flex h-8 w-full items-center bg-slate-700 px-3 text-xs text-white md:h-16 md:px-6 md:text-base">
-    <div className="ml-auto mr-[10%] flex gap-4 md:gap-6">
-      {links.map((link) => {
-        const isActive =
-          link.href === "/"
-            ? pathname === "/"
-            : pathname.startsWith(link.href);
-        return (
-          <Link
-            key={link.href}
-            href={link.href}
-            className={`transition-opacity ${isActive ? "pointer-events-none font-bold opacity-50" : "opacity-100 hover:opacity-80"}`}
-          >
-            {link.label}
-          </Link>
-        );
-      })}
-    </div>
+      <div className="ml-auto mr-[10%] flex gap-4 md:gap-6">
+        {links.map((link) => {
+          const isActive =
+            link.href === "/"
+              ? pathname === "/"
+              : pathname.startsWith(link.href);
+          return (
+            <Link
+              key={link.href}
+              href={link.href}
+              className={`transition-opacity ${isActive ? "pointer-events-none font-bold opacity-50" : "opacity-100 hover:opacity-80"}`}
+            >
+              {link.label}
+            </Link>
+          );
+        })}
+      </div>
     </nav>
   );
 }

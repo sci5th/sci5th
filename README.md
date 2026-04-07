@@ -1,36 +1,103 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# sci5th Website
+
+A portfolio website showcasing science and technology through interactive Unity WebGL games, a picture gallery, and a video gallery.
+
+## Tech Stack
+
+- **Framework:** [Next.js 15](https://nextjs.org/) (App Router)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS
+- **Linting:** ESLint, Prettier
+- **Runtime:** Node.js
+
+## Project Structure
+
+```
+src/
+├── app/
+│   ├── globals.css            # Global styles
+│   ├── layout.tsx             # Root layout (metadata, viewport)
+│   └── (main)/
+│       ├── layout.tsx         # Main layout (nav, logo, footer)
+│       ├── page.tsx           # Home — game cards grid
+│       ├── games/
+│       │   └── [gameId]/
+│       │       └── page.tsx   # Dynamic game page (Unity player)
+│       ├── pictures/
+│       │   └── page.tsx       # Picture gallery
+│       └── videos/
+│           └── page.tsx       # Video gallery
+├── components/
+│   └── UnityPlayer.tsx        # Unity WebGL loader component
+└── config/
+    └── games.ts               # Game definitions and metadata
+public/
+├── picturesGallery/           # Gallery images
+├── videosGallery/             # Gallery videos
+└── UnityGames/                # Unity WebGL builds
+    ├── BehaviourTree_Gallery/
+    └── GOAP_Hospital/
+```
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+
+- npm
+
+### Install
+
+```bash
+npm install
+```
+
+### Development
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm build
+```
 
-## Learn More
+### Lint & Format
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run lint
+npm run format
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Pages
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Route             | Description                                     |
+| ----------------- | ----------------------------------------------- |
+| `/`               | Home — grid of playable Unity WebGL games       |
+| `/games/[gameId]` | Individual game page with embedded Unity player |
+| `/pictures`       | Responsive image gallery                        |
+| `/videos`         | Responsive video gallery                        |
 
-## Deploy on Vercel
+## Adding Content
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Games
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Place the Unity WebGL build in `public/UnityGames/<GameName>/`.
+2. Add a thumbnail image to `public/`.
+3. Add a `GameConfig` entry in `src/config/games.ts`.
+
+### Pictures
+
+Add image files to `public/picturesGallery/` and add an entry to the `pictures` array in `src/app/(main)/pictures/page.tsx`. Set `horizontal: true` for landscape images that should span two columns.
+
+### Videos
+
+Add video files to `public/videosGallery/` and add an entry to the `videos` array in `src/app/(main)/videos/page.tsx`. Set `horizontal: true` for landscape videos that should span two columns.
+
+## License
+
+Private — all rights reserved.
