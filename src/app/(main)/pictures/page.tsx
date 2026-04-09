@@ -21,31 +21,68 @@ const pictures = [
 ];
 
 export default function PicturesPage() {
+  const horizontalPics = pictures.filter((p) => p.horizontal);
+  const verticalPics = pictures.filter((p) => !p.horizontal);
+
   return (
-    <div className="flex flex-1 justify-center px-4 py-16 md:px-8 lg:px-8">
-      <div
-        className="grid w-full gap-8"
-        style={{
-          gridTemplateColumns: "repeat(auto-fit, minmax(280px, 360px))", // 280px is the minimum width for a picture, and 360px is the maximum width
-          justifyContent: "center",
-        }}
-      >
-        {pictures.map((pic) => (
+    <div className="flex flex-1 flex-col items-center gap-12 px-4 py-8 md:px-8 md:py-16">
+      {horizontalPics.length > 0 && (
+        <section className="w-full">
           <div
-            key={pic.src}
-            className={`flex items-center justify-center overflow-hidden rounded-lg bg-slate-800 shadow-lg ${pic.horizontal ? "col-span-2" : ""}`}
+            className="grid w-full gap-4 md:gap-6"
+            style={{
+              gridTemplateColumns:
+                "repeat(auto-fit, minmax(min(100%, 370px), 560px))",
+              justifyContent: "center",
+            }}
           >
-            <Image
-              src={pic.src}
-              alt={pic.src.split("/").pop()?.split(".")[0] ?? ""}
-              width={360} // 360px is the maximum width for a picture
-              height={270} // 270px is the maximum height for a picture (16:9 aspect ratio)
-              className="h-auto max-h-full max-w-full object-contain"
-              unoptimized
-            />
+            {horizontalPics.map((pic) => (
+              <div
+                key={pic.src}
+                className="aspect-video overflow-hidden rounded-lg bg-slate-800 shadow-lg"
+              >
+                <Image
+                  src={pic.src}
+                  alt={pic.src.split("/").pop()?.split(".")[0] ?? ""}
+                  width={560}
+                  height={315}
+                  className="h-full w-full object-cover"
+                  unoptimized
+                />
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
+        </section>
+      )}
+
+      {verticalPics.length > 0 && (
+        <section className="w-full">
+          <div
+            className="grid w-full gap-4 md:gap-6"
+            style={{
+              gridTemplateColumns:
+                "repeat(auto-fit, minmax(min(100%, 270px), 360px))",
+              justifyContent: "center",
+            }}
+          >
+            {verticalPics.map((pic) => (
+              <div
+                key={pic.src}
+                className="aspect-[9/14] overflow-hidden rounded-lg bg-slate-800 shadow-lg"
+              >
+                <Image
+                  src={pic.src}
+                  alt={pic.src.split("/").pop()?.split(".")[0] ?? ""}
+                  width={360}
+                  height={640}
+                  className="h-full w-full object-cover"
+                  unoptimized
+                />
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   );
 }

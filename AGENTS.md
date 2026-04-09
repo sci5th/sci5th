@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This is a Next.js 15 (App Router) website built with TypeScript and Tailwind CSS. It serves as a portfolio for Unity WebGL games, pictures, and videos.
+This is a Next.js 15 (App Router) website built with TypeScript and Tailwind CSS. It explores ontology and science, featuring Unity WebGL algorithm demos, pictures, and videos.
 
 ## Conventions
 
@@ -22,8 +22,8 @@ This is a Next.js 15 (App Router) website built with TypeScript and Tailwind CSS
 
 ## Key Patterns
 
-- The `(main)` route group provides a shared layout with navigation, logo, and footer.
-- Game definitions live in `src/config/games.ts` as a typed array of `GameConfig` objects.
+- The `(main)` route group provides a shared layout with navigation (Algorithms, Pictures, Videos), logo, and footer.
+- Algorithm/game definitions live in `src/config/games.ts` as a typed array of `GameConfig` objects.
 - Gallery pages (pictures, videos) use a CSS Grid with `repeat(auto-fit, minmax(...))` for responsive layouts.
 - Horizontal/landscape items use `col-span-2` to span two grid columns.
 - Unity WebGL games are loaded via the `UnityPlayer` component which handles script loading, canvas sizing, and fullscreen.

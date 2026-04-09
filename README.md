@@ -1,6 +1,6 @@
 # sci5th Website
 
-A portfolio website showcasing science and technology through interactive Unity WebGL games, a picture gallery, and a video gallery.
+A website that explores ontology and science to help you find yourself and understand the structure of reality. Features interactive Unity WebGL algorithm demos, a picture gallery, and a video gallery.
 
 ## Tech Stack
 
@@ -75,12 +75,12 @@ npm run format
 
 ## Pages
 
-| Route             | Description                                     |
-| ----------------- | ----------------------------------------------- |
-| `/`               | Home — grid of playable Unity WebGL games       |
-| `/games/[gameId]` | Individual game page with embedded Unity player |
-| `/pictures`       | Responsive image gallery                        |
-| `/videos`         | Responsive video gallery                        |
+| Route             | Description                                          |
+| ----------------- | ---------------------------------------------------- |
+| `/`               | Home — grid of algorithm demos (Unity WebGL)         |
+| `/games/[gameId]` | Individual algorithm page with embedded Unity player |
+| `/pictures`       | Responsive image gallery                             |
+| `/videos`         | Responsive video gallery                             |
 
 ## Adding Content
 

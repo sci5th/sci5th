@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "sci5th",
   description:
-    "sci5th explores ontology and science to help you find yourself and understand the structure of reality.",
+    "sci5th explores ontology and science to help you find yourself and understand the structure of reality",
   keywords: [
     "science",
     "technology",
