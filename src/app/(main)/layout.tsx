@@ -8,7 +8,7 @@ function Navigation() {
   const pathname = usePathname();
 
   const links = [
-    { href: "/", label: "Games" },
+    { href: "/", label: "Gaming" },
     { href: "/pictures", label: "Pictures" },
     { href: "/videos", label: "Videos" },
   ];

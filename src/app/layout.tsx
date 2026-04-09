@@ -3,8 +3,18 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "sci5th",
-  description: "Science and Technology through Games by sci5th",
-  keywords: ["science", "technology", "sci5th", "games", "unity", "ai"],
+  description:
+    "sci5th explores ontology and science to help you find yourself and understand the structure of reality.",
+  keywords: [
+    "science",
+    "technology",
+    "sci5th",
+    "games",
+    "unity",
+    "ai",
+    "ai agents",
+    "ontology",
+  ],
   authors: [{ name: "sci5th" }],
   icons: {
     icon: "/sci5th_Logo_Blue.svg",

@@ -16,6 +16,8 @@ const pictures = [
   { src: "/picturesGallery/komarik.jpeg", horizontal: true },
   { src: "/picturesGallery/1april2026.jpg" },
   { src: "/picturesGallery/2april2026.jpeg" },
+  { src: "/picturesGallery/crow.jpeg" },
+  { src: "/picturesGallery/amberDay.jpeg" },
 ];
 
 export default function PicturesPage() {
