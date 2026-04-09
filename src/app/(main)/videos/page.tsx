@@ -1,4 +1,7 @@
-const videos = [{ src: "/videosGallery/AI_Opal.mp4", horizontal: true }];
+const videos = [
+  { src: "/videosGallery/AI_Opal.mp4", horizontal: true },
+  { src: "/videosGallery/Hoe&Rale_Opal.mp4", horizontal: true },
+];
 
 export default function VideosPage() {
   return (
@@ -8,7 +11,6 @@ export default function VideosPage() {
         style={{
           gridTemplateColumns: "repeat(auto-fit, minmax(280px, 360px))",
           gridAutoRows: "minmax(200px, 360px)",
-          // gridAutoRows: "270px",
           justifyContent: "center",
         }}
       >
