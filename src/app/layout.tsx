@@ -13,6 +13,7 @@ export const metadata: Metadata = {
     "unity",
     "ai",
     "ai agents",
+    "algorithms",
     "ontology",
   ],
   authors: [{ name: "sci5th" }],
