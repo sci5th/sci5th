@@ -11,6 +11,7 @@ function Navigation() {
     { href: "/", label: "Algorithms" },
     { href: "/pictures", label: "Pictures" },
     { href: "/videos", label: "Videos" },
+    { href: "/about", label: "About" },
   ];
 
   return (
