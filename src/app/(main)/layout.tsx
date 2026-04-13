@@ -9,7 +9,7 @@ function Navigation() {
 
   const links = [
     { href: "/", label: "Home" },
-    { href: "/algorithms", label: "Algorithms" },
+    { href: "/games", label: "Algorithms" },
     { href: "/pictures", label: "Pictures" },
     { href: "/videos", label: "Videos" },
   ];

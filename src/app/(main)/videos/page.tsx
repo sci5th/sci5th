@@ -1,7 +1,4 @@
-const videos = [
-  { src: "/videosGallery/AI_Opal.mp4", horizontal: true },
-  { src: "/videosGallery/Hoe&Rale_Opal.mp4", horizontal: true },
-];
+const videos = [{ src: "/videosGallery/AI_Opal.mp4", horizontal: true }];
 
 export default function VideosPage() {
   const horizontalVids = videos.filter((v) => v.horizontal);

@@ -3,21 +3,12 @@ import Image from "next/image";
 const pictures = [
   { src: "/picturesGallery/IMG_4960.JPG" },
   { src: "/picturesGallery/IMG_5159.jpeg" },
-  { src: "/picturesGallery/IMG_5172.jpeg", horizontal: true },
   { src: "/picturesGallery/IMG_5171.jpeg" },
-  { src: "/picturesGallery/LPG_Unity4.jpeg", horizontal: true },
   { src: "/picturesGallery/IMG_6515.JPG" },
-  { src: "/picturesGallery/IMG_7285.JPG" },
-  { src: "/picturesGallery/Point.jpg", horizontal: true },
-  { src: "/picturesGallery/Science.jpg", horizontal: true },
-  { src: "/picturesGallery/Space-Object.jpg", horizontal: true },
-  { src: "/picturesGallery/L_1.png", horizontal: true },
-  { src: "/picturesGallery/fuguInquisition.PNG" },
   { src: "/picturesGallery/komarik.jpeg", horizontal: true },
-  { src: "/picturesGallery/1april2026.jpg" },
-  { src: "/picturesGallery/2april2026.jpeg" },
+  { src: "/picturesGallery/Point.jpg", horizontal: true },
+  { src: "/picturesGallery/fuguInquisition.PNG" },
   { src: "/picturesGallery/crow.jpeg" },
-  { src: "/picturesGallery/amberDay.jpeg" },
 ];
 
 export default function PicturesPage() {

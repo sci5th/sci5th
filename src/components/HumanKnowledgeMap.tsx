@@ -458,7 +458,15 @@ const DATA: KnowledgeNode = {
 
 // ── Tree node component ───────────────────────────────────────────────────────
 
-function TreeNode({ node, query, depth = 0 }: { node: KnowledgeNode; query: string; depth?: number }) {
+function TreeNode({
+  node,
+  query,
+  depth = 0,
+}: {
+  node: KnowledgeNode;
+  query: string;
+  depth?: number;
+}) {
   const [open, setOpen] = useState(node.o ?? false);
   const hasChildren = !!node.c?.length;
 
@@ -482,7 +490,12 @@ function TreeNode({ node, query, depth = 0 }: { node: KnowledgeNode; query: stri
       {hasChildren && (
         <div className="ch" style={{ display: open ? "block" : "none" }}>
           {node.c!.map((child) => (
-            <TreeNode key={child.name} node={child} query={query} depth={depth + 1} />
+            <TreeNode
+              key={child.name}
+              node={child}
+              query={query}
+              depth={depth + 1}
+            />
           ))}
         </div>
       )}
@@ -492,7 +505,15 @@ function TreeNode({ node, query, depth = 0 }: { node: KnowledgeNode; query: stri
 
 // ── Filtered tree (search) ────────────────────────────────────────────────────
 
-function FilteredNode({ node, query, depth = 0 }: { node: KnowledgeNode; query: string; depth?: number }) {
+function FilteredNode({
+  node,
+  query,
+  depth = 0,
+}: {
+  node: KnowledgeNode;
+  query: string;
+  depth?: number;
+}) {
   const q = query.toLowerCase().trim();
 
   // Does this node or any descendant match?
@@ -516,7 +537,12 @@ function FilteredNode({ node, query, depth = 0 }: { node: KnowledgeNode; query: 
       {hasChildren && (
         <div className="ch">
           {node.c!.filter(matches).map((child) => (
-            <FilteredNode key={child.name} node={child} query={query} depth={depth + 1} />
+            <FilteredNode
+              key={child.name}
+              node={child}
+              query={query}
+              depth={depth + 1}
+            />
           ))}
         </div>
       )}
@@ -547,7 +573,7 @@ export default function HumanKnowledgeMap() {
         /* ── CSS variables (light / dark) ── */
         .km-root {
           --bg: #1a1a1a; --bg2: #2a2a2a; --bg3: #3a3a3a;
-          --text: #e8e7e3; --text2: #9c9a92; --text3: #6b6a65;
+          --text: #e8e7e3; --text2: #9c9a92; --text3: #6b6a65; --text4:#E06C75;
           --border: rgba(255,255,255,0.1);
           --accent: #85B7EB;
           font-family: 'DM Sans', 'DM Sans fallback', sans-serif;
@@ -556,7 +582,7 @@ export default function HumanKnowledgeMap() {
         /* ── Layout ── */
         .km-root { background: var(--bg); color: var(--text); padding: 2rem; border-radius: 12px; }
         .km-title { font-size: 1.75rem; font-weight: 400; letter-spacing: -0.02em; margin-bottom: 0.2rem; text-align: center; }
-        .km-subtitle { color: var(--text3); font-size: 0.875rem; margin-bottom: 1.25rem; text-align: center; }
+        .km-subtitle { color: var(--text4); font-size: 0.875rem; margin-bottom: 1.25rem; text-align: center; }
 
         /* ── Toolbar ── */
         .km-toolbar { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 1rem; }
