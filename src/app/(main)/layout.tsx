@@ -8,6 +8,7 @@ function Navigation() {
   const pathname = usePathname();
 
   const links = [
+    { href: "/home", label: "Home" },
     { href: "/", label: "Algorithms" },
     { href: "/pictures", label: "Pictures" },
     { href: "/videos", label: "Videos" },
