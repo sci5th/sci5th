@@ -8,16 +8,15 @@ function Navigation() {
   const pathname = usePathname();
 
   const links = [
-    { href: "/home", label: "Home" },
-    { href: "/", label: "Algorithms" },
+    { href: "/", label: "Home" },
+    { href: "/algorithms", label: "Algorithms" },
     { href: "/pictures", label: "Pictures" },
     { href: "/videos", label: "Videos" },
-    { href: "/about", label: "About" },
   ];
 
   return (
     <nav className="flex h-8 w-full items-center bg-slate-700 px-3 text-xs text-white md:h-16 md:px-6 md:text-base">
-      <div className="ml-auto mr-[10%] flex gap-4 md:gap-6">
+      <div className="ml-auto flex gap-4 md:gap-6">
         {links.map((link) => {
           const isActive =
             link.href === "/"
