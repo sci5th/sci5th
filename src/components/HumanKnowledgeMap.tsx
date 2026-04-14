@@ -77,7 +77,19 @@ const DATA: KnowledgeNode = {
             {
               name: "Theoretical CS",
               c: [
-                { name: "Algorithms & Data Structures" },
+                {
+                  name: "Algorithms & Data Structures",
+                  c: [
+                    { name: "Sorting & Searching" },
+                    { name: "Graph Algorithms" },
+                    { name: "Dynamic Programming" },
+                    { name: "Trees & Heaps" },
+                    { name: "Hash Tables" },
+                    { name: "String Algorithms" },
+                    { name: "Greedy Algorithms" },
+                    { name: "Randomized Algorithms" },
+                  ],
+                },
                 { name: "Computational Complexity" },
                 { name: "Automata & Formal Languages" },
                 { name: "Information Theory" },
@@ -89,7 +101,17 @@ const DATA: KnowledgeNode = {
               c: [
                 { name: "Operating Systems" },
                 { name: "Distributed Systems" },
-                { name: "Databases" },
+                {
+                  name: "Databases",
+                  c: [
+                    { name: "Relational Databases (SQL)" },
+                    { name: "NoSQL Databases" },
+                    { name: "Query Optimization" },
+                    { name: "Transactions & ACID" },
+                    { name: "Data Warehousing" },
+                    { name: "Distributed Databases" },
+                  ],
+                },
                 { name: "Computer Networks" },
                 { name: "Computer Architecture" },
               ],
@@ -160,8 +182,119 @@ const DATA: KnowledgeNode = {
         {
           name: "Physics",
           c: [
-            { name: "Classical Mechanics" },
-            { name: "Quantum Mechanics" },
+            {
+              name: "Classical Mechanics",
+              c: [
+                {
+                  name: "Newtonian Mechanics",
+                  c: [
+                    { name: "Newton's Laws of Motion" },
+                    { name: "Forces, Work & Energy" },
+                    { name: "Momentum & Collisions" },
+                    { name: "Circular Motion & Gravitation" },
+                  ],
+                },
+                {
+                  name: "Analytical Mechanics",
+                  c: [
+                    { name: "Lagrangian Mechanics" },
+                    { name: "Hamiltonian Mechanics" },
+                    { name: "Variational Principles" },
+                    { name: "Constraints & Generalized Coordinates" },
+                  ],
+                },
+                {
+                  name: "Rigid Body Dynamics",
+                  c: [
+                    { name: "Rotational Motion & Torque" },
+                    { name: "Moment of Inertia" },
+                    { name: "Gyroscopes & Precession" },
+                  ],
+                },
+                { name: "Oscillations & Waves" },
+                { name: "Fluid Mechanics (Classical)" },
+                { name: "Chaos & Nonlinear Dynamics" },
+              ],
+            },
+            {
+              name: "Quantum Mechanics",
+              c: [
+                {
+                  name: "Foundations",
+                  c: [
+                    { name: "Wave-Particle Duality" },
+                    { name: "Schrödinger Equation" },
+                    { name: "Uncertainty Principle" },
+                    { name: "Quantum States & Superposition" },
+                    { name: "Measurement & Collapse" },
+                  ],
+                },
+                {
+                  name: "Quantum Field Theory",
+                  c: [
+                    { name: "Second Quantization" },
+                    { name: "Feynman Diagrams" },
+                    { name: "Renormalization" },
+                    { name: "Standard Model" },
+                  ],
+                },
+                {
+                  name: "Quantum Information & Computing",
+                  c: [
+                    {
+                      name: "Quantum Hardware",
+                      c: [
+                        { name: "Superconducting Qubits (IBM, Google)" },
+                        { name: "Trapped Ion Qubits" },
+                        { name: "Photonic Quantum Computing" },
+                        { name: "Topological Qubits" },
+                        { name: "Quantum Annealing (D-Wave)" },
+                        { name: "Cryogenic Engineering & Dilution Refrigerators" },
+                      ],
+                    },
+                    {
+                      name: "Quantum Programming",
+                      c: [
+                        { name: "Qiskit (IBM)" },
+                        { name: "Cirq (Google)" },
+                        { name: "PennyLane (Xanadu)" },
+                        { name: "Q# (Microsoft)" },
+                        { name: "Quantum Circuit Design" },
+                        { name: "Hybrid Classical-Quantum Programs" },
+                        { name: "Quantum Assembly (QASM)" },
+                      ],
+                    },
+                    {
+                      name: "Quantum Algorithms",
+                      c: [
+                        { name: "Shor's Algorithm (Factoring)" },
+                        { name: "Grover's Algorithm (Search)" },
+                        { name: "Quantum Fourier Transform" },
+                        { name: "Variational Quantum Eigensolver (VQE)" },
+                        { name: "Quantum Approximate Optimization (QAOA)" },
+                        { name: "Quantum Machine Learning Algorithms" },
+                      ],
+                    },
+                    {
+                      name: "Quantum Error Correction",
+                      c: [
+                        { name: "Decoherence & Noise Models" },
+                        { name: "Stabilizer Codes" },
+                        { name: "Surface Codes" },
+                        { name: "Fault-Tolerant Quantum Computation" },
+                      ],
+                    },
+                    { name: "Quantum Entanglement & Teleportation" },
+                    { name: "Quantum Cryptography & QKD" },
+                    { name: "Quantum Complexity Theory" },
+                    { name: "Quantum Simulation" },
+                  ],
+                },
+                { name: "Quantum Optics" },
+                { name: "Many-Body Quantum Systems" },
+                { name: "Interpretations of Quantum Mechanics" },
+              ],
+            },
             { name: "Thermodynamics" },
             { name: "Electromagnetism" },
             { name: "Relativity" },
@@ -219,12 +352,84 @@ const DATA: KnowledgeNode = {
         {
           name: "Engineering",
           c: [
-            { name: "Mechanical Engineering" },
-            { name: "Electrical Engineering" },
-            { name: "Civil Engineering" },
-            { name: "Chemical Engineering" },
-            { name: "Aerospace Engineering" },
-            { name: "Biomedical Engineering" },
+            {
+              name: "Mechanical Engineering",
+              c: [
+                { name: "Thermodynamics & Heat Transfer" },
+                { name: "Fluid Mechanics" },
+                { name: "Solid Mechanics & Materials" },
+                { name: "Machine Design & Manufacturing" },
+                {
+                  name: "Robotics & Control Systems",
+                  c: [
+                    { name: "Kinematics & Dynamics" },
+                    { name: "Sensors & Actuators" },
+                    { name: "PID & Classical Control Theory" },
+                    { name: "Robot Operating System (ROS)" },
+                    { name: "Motion Planning & Path Finding" },
+                    { name: "Computer Vision for Robotics" },
+                    { name: "Human-Robot Interaction" },
+                    { name: "Autonomous & Mobile Robotics" },
+                  ],
+                },
+                { name: "CAD/CAM" },
+              ],
+            },
+            {
+              name: "Electrical Engineering",
+              c: [
+                { name: "Circuit Theory" },
+                { name: "Electronics & Semiconductors" },
+                { name: "Signal Processing" },
+                { name: "Power Systems & Energy" },
+                { name: "Electromagnetics" },
+                { name: "Control Engineering" },
+              ],
+            },
+            {
+              name: "Civil Engineering",
+              c: [
+                { name: "Structural Engineering" },
+                { name: "Geotechnical Engineering" },
+                { name: "Transportation Engineering" },
+                { name: "Hydraulics & Water Resources" },
+                { name: "Environmental Engineering" },
+                { name: "Construction Management" },
+              ],
+            },
+            {
+              name: "Chemical Engineering",
+              c: [
+                { name: "Reaction Engineering" },
+                { name: "Separation Processes" },
+                { name: "Transport Phenomena" },
+                { name: "Process Design & Control" },
+                { name: "Polymer Engineering" },
+                { name: "Catalysis" },
+              ],
+            },
+            {
+              name: "Aerospace Engineering",
+              c: [
+                { name: "Aerodynamics" },
+                { name: "Propulsion Systems" },
+                { name: "Structural Analysis" },
+                { name: "Flight Mechanics & Control" },
+                { name: "Spacecraft Systems" },
+                { name: "Avionics" },
+              ],
+            },
+            {
+              name: "Biomedical Engineering",
+              c: [
+                { name: "Biomechanics" },
+                { name: "Medical Imaging & Instrumentation" },
+                { name: "Biomaterials & Implants" },
+                { name: "Neural Engineering" },
+                { name: "Tissue Engineering" },
+                { name: "Clinical Engineering" },
+              ],
+            },
           ],
         },
         {
@@ -289,7 +494,17 @@ const DATA: KnowledgeNode = {
                 { name: "Protocell Engineering" },
               ],
             },
-            { name: "Nanobiotechnology" },
+            {
+              name: "Nanobiotechnology",
+              c: [
+                { name: "Nanoparticle Drug Delivery" },
+                { name: "DNA Nanotechnology" },
+                { name: "Nanoscale Biosensors" },
+                { name: "Quantum Dots in Biology" },
+                { name: "Nanostructured Biomaterials" },
+                { name: "Nano-imaging & Diagnostics" },
+              ],
+            },
             { name: "Bioprocess Engineering" },
           ],
         },
@@ -342,10 +557,104 @@ const DATA: KnowledgeNode = {
             { name: "Medical AI & Diagnostics" },
           ],
         },
-        { name: "Agriculture & Food Science" },
+        {
+          name: "Agriculture & Food Science",
+          c: [
+            {
+              name: "Crop Science & Agronomy",
+              c: [
+                { name: "Plant Breeding & Genetics" },
+                { name: "Soil Science & Fertility" },
+                { name: "Irrigation & Water Management" },
+                { name: "Pest & Disease Management" },
+              ],
+            },
+            {
+              name: "Animal Science & Livestock",
+              c: [
+                { name: "Animal Nutrition" },
+                { name: "Animal Breeding & Genetics" },
+                { name: "Veterinary Medicine" },
+                { name: "Aquaculture" },
+              ],
+            },
+            {
+              name: "Food Science & Technology",
+              c: [
+                { name: "Food Chemistry" },
+                { name: "Food Microbiology & Safety" },
+                { name: "Food Processing & Preservation" },
+                { name: "Sensory Science & Quality" },
+              ],
+            },
+            {
+              name: "Sustainable Agriculture",
+              c: [
+                { name: "Organic Farming" },
+                { name: "Agroecology" },
+                { name: "Precision Agriculture" },
+                { name: "Vertical & Urban Farming" },
+              ],
+            },
+            { name: "Agricultural Economics & Policy" },
+            { name: "Post-Harvest Technology" },
+          ],
+        },
         { name: "Environmental Science" },
         { name: "Materials Science" },
-        { name: "Information Science & Library Science" },
+        {
+          name: "Information Science & Library Science",
+          c: [
+            {
+              name: "Document & File Formats as Data Structures",
+              c: [
+                {
+                  name: "Plain-Text & Markup Formats",
+                  c: [
+                    { name: "Markdown (.md) — structured prose & notes" },
+                    { name: "HTML — hypertext document model" },
+                    { name: "reStructuredText & AsciiDoc" },
+                    { name: "LaTeX — typeset document as data" },
+                  ],
+                },
+                {
+                  name: "Structured Data Formats",
+                  c: [
+                    { name: "JSON — key-value & nested objects" },
+                    { name: "YAML — human-readable config trees" },
+                    { name: "XML — hierarchical tag-based data" },
+                    { name: "CSV/TSV — tabular flat-file databases" },
+                    { name: "TOML — typed config format" },
+                  ],
+                },
+                {
+                  name: "Binary & Columnar Formats",
+                  c: [
+                    { name: "Parquet — columnar analytics store" },
+                    { name: "Avro — schema-based row store" },
+                    { name: "Protocol Buffers & FlatBuffers" },
+                    { name: "SQLite — file-as-relational-database" },
+                  ],
+                },
+                {
+                  name: "Office & Document Databases",
+                  c: [
+                    { name: "XLSX — spreadsheet as structured grid" },
+                    { name: "DOCX/ODT — document as XML archive" },
+                    { name: "PDF — portable document container" },
+                    { name: "Obsidian Vaults / Zettelkasten — MD as knowledge graph" },
+                  ],
+                },
+                { name: "Schema Design & Validation (JSON Schema, XSD)" },
+                { name: "Semantic Web & Linked Data (RDF, OWL)" },
+              ],
+            },
+            { name: "Knowledge Organization & Classification" },
+            { name: "Digital Libraries & Archiving" },
+            { name: "Metadata Standards" },
+            { name: "Information Retrieval" },
+          ],
+        },
       ],
     },
     {
@@ -436,18 +745,226 @@ const DATA: KnowledgeNode = {
             { name: "Graphic Design" },
             { name: "Industrial Design" },
             { name: "UX/UI Design" },
+            {
+              name: "Interior Design",
+              c: [
+                { name: "Space Planning & Layout" },
+                { name: "Lighting Design" },
+                { name: "Color Theory & Material Selection" },
+                { name: "Furniture & Ergonomics" },
+                { name: "Sustainable & Biophilic Design" },
+                { name: "Architectural Detailing" },
+              ],
+            },
+            { name: "Fashion Design" },
+            { name: "Motion & Experience Design" },
+          ],
+        },
+        {
+          name: "Culinary Arts & Gastronomy",
+          c: [
+            {
+              name: "Bakery & Pastry Arts",
+              c: [
+                { name: "Bread & Fermentation Science" },
+                { name: "Pastry & Confectionery" },
+                { name: "Cake Design & Decoration" },
+                { name: "Gluten-Free & Alternative Baking" },
+                { name: "Chocolate & Sugar Work" },
+              ],
+            },
+            {
+              name: "Culinary Techniques",
+              c: [
+                { name: "Classic & Modern Cooking Methods" },
+                { name: "Knife Skills & Mise en Place" },
+                { name: "Sauces & Stocks" },
+                { name: "Molecular Gastronomy" },
+              ],
+            },
+            { name: "World Cuisines & Food Culture" },
+            { name: "Nutrition & Dietary Science" },
+            { name: "Food Pairing & Flavor Chemistry" },
+            { name: "Restaurant Management & Hospitality" },
           ],
         },
         { name: "Journalism & Media" },
         { name: "Military Science" },
-        { name: "Data Science" },
-        { name: "Bioinformatics" },
+        {
+          name: "Skilled Trades & Vocational Arts",
+          c: [
+            {
+              name: "Plumbing",
+              c: [
+                { name: "Pipe Systems & Materials" },
+                { name: "Water Supply & Distribution" },
+                { name: "Drainage, Waste & Vent Systems" },
+                { name: "Fixture Installation & Repair" },
+                { name: "Gas Piping & Safety" },
+                { name: "Heating Systems (Boilers, Radiant)" },
+                { name: "Codes, Permits & Inspections" },
+              ],
+            },
+            {
+              name: "Welding",
+              c: [
+                { name: "MIG Welding (GMAW)" },
+                { name: "TIG Welding (GTAW)" },
+                { name: "Stick Welding (SMAW)" },
+                { name: "Flux-Core Arc Welding (FCAW)" },
+                { name: "Metallurgy & Joint Design" },
+                { name: "Welding Safety & PPE" },
+                { name: "Inspection & Quality Control" },
+              ],
+            },
+            {
+              name: "Electrical Work & Wiring",
+              c: [
+                { name: "Electrical Theory & Fundamentals" },
+                { name: "Wiring Methods & Cable Types" },
+                { name: "Panels, Breakers & Load Calculation" },
+                { name: "Residential Wiring" },
+                { name: "Commercial & Industrial Wiring" },
+                { name: "Conduit Installation & Raceway Systems" },
+                { name: "Low-Voltage & Smart Home Systems" },
+                { name: "NEC Codes & Safety Standards" },
+              ],
+            },
+            { name: "HVAC & Refrigeration" },
+            { name: "Carpentry & Joinery" },
+            { name: "Masonry & Concrete Work" },
+          ],
+        },
+        {
+          name: "Data Science",
+          c: [
+            {
+              name: "Data Engineering",
+              c: [
+                { name: "Data Pipelines & ETL" },
+                { name: "Data Lakes & Warehouses" },
+                { name: "Stream Processing" },
+                { name: "Data Quality & Governance" },
+              ],
+            },
+            {
+              name: "Statistical Analysis",
+              c: [
+                { name: "Descriptive Statistics" },
+                { name: "Inferential Statistics" },
+                { name: "Bayesian Analysis" },
+                { name: "Experimental Design & A/B Testing" },
+              ],
+            },
+            {
+              name: "Machine Learning & Modeling",
+              c: [
+                { name: "Feature Engineering" },
+                { name: "Supervised & Unsupervised Learning" },
+                { name: "Model Evaluation & Selection" },
+                { name: "MLOps & Model Deployment" },
+              ],
+            },
+            {
+              name: "Data Visualization",
+              c: [
+                { name: "Exploratory Data Analysis" },
+                { name: "Dashboard Design" },
+                {
+                  name: "Storytelling with Data",
+                  c: [
+                    { name: "Narrative Structure & Flow" },
+                    { name: "Choosing the Right Chart" },
+                    { name: "Visual Hierarchy & Design Principles" },
+                    { name: "Audience & Context Framing" },
+                    { name: "Annotation & Highlighting Insights" },
+                    { name: "Presentation & Communication Skills" },
+                  ],
+                },
+              ],
+            },
+            {
+              name: "Big Data Technologies",
+              c: [
+                { name: "Hadoop & MapReduce" },
+                { name: "Apache Spark" },
+                { name: "Kafka & Event Streaming" },
+                { name: "Cloud Data Platforms (AWS, GCP, Azure)" },
+                { name: "Distributed File Systems (HDFS)" },
+                { name: "NoSQL at Scale (Cassandra, HBase)" },
+              ],
+            },
+            { name: "Ethics & Fairness in Data Science" },
+          ],
+        },
+        {
+          name: "Bioinformatics",
+          c: [
+            {
+              name: "Sequence Analysis",
+              c: [
+                { name: "DNA/RNA Sequence Alignment" },
+                { name: "Genome Assembly" },
+                { name: "Variant Calling & SNP Analysis" },
+                { name: "Phylogenetics & Evolution" },
+              ],
+            },
+            {
+              name: "Structural Bioinformatics",
+              c: [
+                { name: "Protein Structure Prediction" },
+                { name: "Molecular Docking" },
+                { name: "Molecular Dynamics Simulation" },
+              ],
+            },
+            {
+              name: "Functional Genomics",
+              c: [
+                { name: "Transcriptomics & RNA-seq" },
+                { name: "Proteomics" },
+                { name: "Metabolomics" },
+                { name: "Epigenomics" },
+              ],
+            },
+            {
+              name: "Computational Drug Discovery",
+              c: [
+                { name: "Virtual Screening" },
+                { name: "QSAR Modeling" },
+                { name: "Target Identification" },
+              ],
+            },
+            { name: "Biological Databases & Ontologies" },
+            { name: "Single-Cell Analysis" },
+            { name: "Systems Biology" },
+          ],
+        },
         {
           name: "Cognitive Science",
           c: [
             { name: "Philosophy of Mind" },
-            { name: "AI & Cognition" },
-            { name: "Neuroscience" },
+            {
+              name: "AI & Cognition",
+              c: [
+                { name: "Cognitive Architectures" },
+                { name: "Computational Models of Mind" },
+                { name: "Memory & Learning Models" },
+                { name: "Attention & Perception" },
+                { name: "Language & Thought" },
+                { name: "Human-AI Interaction" },
+              ],
+            },
+            {
+              name: "Neuroscience",
+              c: [
+                { name: "Cellular & Molecular Neuroscience" },
+                { name: "Systems Neuroscience" },
+                { name: "Cognitive Neuroscience" },
+                { name: "Computational Neuroscience" },
+                { name: "Neuroimaging (fMRI, EEG)" },
+                { name: "Neurological Disorders" },
+              ],
+            },
             { name: "Linguistics" },
           ],
         },
@@ -608,7 +1125,7 @@ export default function HumanKnowledgeMap() {
           display: flex; align-items: center; padding: 1px 6px; border-radius: 6px; transition: background 0.12s;
         }
         .node:hover { background: var(--bg2); }
-        .ic { width: 16px; text-align: center; margin-right: 4px; flex-shrink: 0; font-size: 14px; color: var(--text3); }
+        .ic { width: 16px; text-align: center; margin-right: 4px; flex-shrink: 0; font-size: 16px; color: var(--text3); }
         .lb { flex: 1; }
         .ch { padding-left: 20px; border-left: 1px solid var(--border); margin-left: 9px; }
 
@@ -625,7 +1142,8 @@ export default function HumanKnowledgeMap() {
       <div className="km-root">
         <h2 className="km-title">Map Of Human Knowledge</h2>
         <p className="km-subtitle">
-          [ Interactive folder tree — click to expand, search to filter ]
+          Interactive Folder Tree — click the triangle sign to expand, use the
+          search window to filter
         </p>
 
         {/* Toolbar */}
@@ -633,7 +1151,7 @@ export default function HumanKnowledgeMap() {
           <input
             className="km-search"
             type="text"
-            placeholder="Search domains..."
+            placeholder="Search..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
