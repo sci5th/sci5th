@@ -249,7 +249,9 @@ const DATA: KnowledgeNode = {
                         { name: "Photonic Quantum Computing" },
                         { name: "Topological Qubits" },
                         { name: "Quantum Annealing (D-Wave)" },
-                        { name: "Cryogenic Engineering & Dilution Refrigerators" },
+                        {
+                          name: "Cryogenic Engineering & Dilution Refrigerators",
+                        },
                       ],
                     },
                     {
@@ -642,7 +644,9 @@ const DATA: KnowledgeNode = {
                     { name: "XLSX — spreadsheet as structured grid" },
                     { name: "DOCX/ODT — document as XML archive" },
                     { name: "PDF — portable document container" },
-                    { name: "Obsidian Vaults / Zettelkasten — MD as knowledge graph" },
+                    {
+                      name: "Obsidian Vaults / Zettelkasten — MD as knowledge graph",
+                    },
                   ],
                 },
                 { name: "Schema Design & Validation (JSON Schema, XSD)" },
@@ -1103,12 +1107,21 @@ export default function HumanKnowledgeMap() {
 
         /* ── Toolbar ── */
         .km-toolbar { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 1rem; }
+        .km-search-wrap {
+          flex: 1; min-width: 200px; position: relative;
+        }
         .km-search {
-          flex: 1; min-width: 200px; padding: 8px 12px; font-size: 13px;
+          width: 100%; padding: 8px 32px 8px 12px; font-size: 13px;
           border: 1px solid var(--border); border-radius: 8px;
           background: var(--bg2); color: var(--text); outline: none; transition: border-color 0.2s;
         }
         .km-search:focus { border-color: var(--accent); }
+        .km-search-clear {
+          position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+          background: none; border: none; color: var(--text3); cursor: pointer;
+          font-size: 16px; line-height: 1; padding: 2px; display: flex; align-items: center; justify-content: center;
+        }
+        .km-search-clear:hover { color: var(--text); }
         .km-btn {
           padding: 6px 14px; font-size: 12px; font-weight: 500;
           border: 1px solid var(--border); border-radius: 8px;
@@ -1148,13 +1161,24 @@ export default function HumanKnowledgeMap() {
 
         {/* Toolbar */}
         <div className="km-toolbar">
-          <input
-            className="km-search"
-            type="text"
-            placeholder="Search..."
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-          />
+          <div className="km-search-wrap">
+            <input
+              className="km-search"
+              type="text"
+              placeholder="Search..."
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
+            {query && (
+              <button
+                className="km-search-clear"
+                onClick={() => setQuery("")}
+                aria-label="Clear search"
+              >
+                ×
+              </button>
+            )}
+          </div>
           <button className="km-btn" onClick={expandAll}>
             Expand all
           </button>
