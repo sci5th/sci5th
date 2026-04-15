@@ -9,7 +9,7 @@ This website is the home of sci5th and its projects. Its current flagship projec
 - **Framework:** [Next.js 15](https://nextjs.org/) (App Router)
 - **Language:** TypeScript (strict)
 - **Styling:** Tailwind CSS
-- **Visualization:** [`@xyflow/react`](https://reactflow.dev/) (to be added in Phase 2)
+- **Visualization:** [`@xyflow/react`](https://reactflow.dev/) (React Flow v12)
 - **Linting:** ESLint, Prettier
 - **Runtime:** Node.js 18+
 
@@ -23,14 +23,14 @@ src/
 │   └── (main)/
 │       ├── layout.tsx         # Shared shell: nav, logo, footer
 │       ├── page.tsx           # sci5th landing (tagline + CTA to Map)
-│       └── map/               # (Phase 2) Map of Human Knowledge
+│       └── map/               # Map of Human Knowledge
 │           ├── page.tsx       # Hub — card grid of subsets
 │           └── [subsetId]/
 │               └── page.tsx   # Dynamic subset page (shared visualization)
 ├── components/
-│   └── MapVisualization.tsx   # (Phase 2) Shared xyflow-based visualization
+│   └── MapVisualization.tsx   # Shared xyflow-based visualization
 ├── config/
-│   └── mapSubsets.ts          # (Phase 2) Typed SubsetConfig array
+│   └── mapSubsets.ts          # Typed SubsetConfig array (8 subsets)
 └── types/
     └── css.d.ts
 
