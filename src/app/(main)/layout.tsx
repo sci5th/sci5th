@@ -9,9 +9,7 @@ function Navigation() {
 
   const links = [
     { href: "/", label: "Home" },
-    { href: "/games", label: "Algorithms" },
-    { href: "/pictures", label: "Pictures" },
-    { href: "/videos", label: "Videos" },
+    { href: "/map", label: "Map of Human Knowledge" },
   ];
 
   return (
@@ -39,7 +37,10 @@ function Navigation() {
 
 function Logo() {
   return (
-    <div className="flex w-full items-center justify-center bg-slate-600 p-1.5 md:p-3 lg:p-5">
+    <Link
+      href="/"
+      className="flex w-full items-center justify-center bg-slate-600 p-1.5 transition-opacity hover:opacity-90 md:p-3 lg:p-5"
+    >
       <Image
         src="/sci5th_Logo_Black.svg"
         alt="sci5th Logo Black"
@@ -59,7 +60,7 @@ function Logo() {
         height={96}
         unoptimized
       />
-    </div>
+    </Link>
   );
 }
 

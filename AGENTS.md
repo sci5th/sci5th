@@ -2,14 +2,16 @@
 
 ## Project Overview
 
-This is a Next.js 15 (App Router) website built with TypeScript and Tailwind CSS. It explores ontology and science, featuring Unity WebGL algorithm demos, pictures, and videos.
+This is the sci5th website: a Next.js 15 (App Router) project in TypeScript with Tailwind CSS. sci5th explores science, technology, and the structure of knowledge. The site currently hosts one flagship project — the **Map of Human Knowledge**, an interactive graph-style visualization organized into 8 subsets.
+
+The site is a deep working prototype intended to scale into a larger application. Keep architecture production-shaped: dynamic routes, config-driven data, shared components.
 
 ## Conventions
 
 - **Language:** TypeScript (strict mode). No `any` types unless unavoidable.
-- **Styling:** Tailwind CSS utility classes only. No CSS modules or inline `style` objects unless necessary for dynamic grid layouts.
+- **Styling:** Tailwind CSS utility classes only. No CSS modules or inline `style` objects unless necessary for dynamic positioning (e.g., xyflow canvas sizing).
 - **Components:** React functional components with hooks. No class components.
-- **Imports:** Use `@/` path alias for `src/` imports (e.g., `@/config/games`).
+- **Imports:** Use `@/` path alias for `src/` imports (e.g., `@/config/mapSubsets`).
 - **Formatting:** Prettier with `prettier-plugin-tailwindcss`. Run `npm run format` before committing.
 - **Linting:** ESLint with `eslint-config-next`. Run `npm run lint` to check.
 
@@ -17,31 +19,33 @@ This is a Next.js 15 (App Router) website built with TypeScript and Tailwind CSS
 
 - **Pages** go in `src/app/(main)/` using Next.js App Router conventions.
 - **Shared components** go in `src/components/`.
-- **Configuration/data** goes in `src/config/`.
-- **Static assets** (images, videos, Unity builds) go in `public/`.
+- **Configuration / data** goes in `src/config/`.
+- **Static assets** (logos, images) go in `public/`.
 
 ## Key Patterns
 
-- The `(main)` route group provides a shared layout with navigation (Algorithms, Pictures, Videos), logo, and footer.
-- Algorithm/game definitions live in `src/config/games.ts` as a typed array of `GameConfig` objects.
-- Gallery pages (pictures, videos) use a CSS Grid with `repeat(auto-fit, minmax(...))` for responsive layouts.
-- Horizontal/landscape items use `col-span-2` to span two grid columns.
-- Unity WebGL games are loaded via the `UnityPlayer` component which handles script loading, canvas sizing, and fullscreen.
+- The `(main)` route group provides a shared shell (logo, nav, footer).
+- Map subsets live at `/map/[subsetId]` via a single dynamic route.
+- Subset definitions live in `src/config/mapSubsets.ts` as a typed `SubsetConfig[]` array (slug, title, description, nodes, edges).
+- Adding a subset = adding an array entry. No new page file needed.
+- All subsets render through the shared `MapVisualization` component for unified visual style and interaction.
+- sci5th is the site/brand; the Map is a *project of* sci5th. Future sci5th projects live at sibling top-level routes (e.g., `/[future-project]`), not nested inside `/map`.
 
 ## Do
 
-- Keep pages simple — data arrays at the top, a single default export component.
-- Use `unoptimized` on `<Image>` components (assets are local, not using Next.js image optimization).
+- Keep pages simple — data imported from `@/config/*` at the top, single default export component.
+- Use `unoptimized` on `<Image>` for local assets (no Next.js image optimization pipeline).
 - Maintain responsive design: mobile-first with Tailwind breakpoints (`md:`, `lg:`).
 - Use semantic HTML where appropriate (`<nav>`, `<main>`, `<footer>`).
+- Update `README.md` and this `AGENTS.md` when making significant structural changes (per project instructions).
 
 ## Do Not
 
-- Do not install additional CSS frameworks or UI libraries.
-- Do not add server-side API routes — this is a static portfolio site.
-- Do not modify Unity WebGL build files in `public/UnityGames/`.
+- Do not install additional CSS frameworks or UI libraries beyond what's already listed.
+- Do not add server-side API routes — this is a static site.
 - Do not add comments or docstrings to code unless they explain non-obvious logic.
 - Do not refactor or rename existing files without being asked.
+- Do not bypass the shared `MapVisualization` component — per-subset one-off visualizations break the unified-style requirement.
 
 ## Standing Rules
 
