@@ -1153,7 +1153,7 @@ export default function HumanKnowledgeMap() {
       `}</style>
 
       <div className="km-root">
-        <h2 className="km-title">Map Of Human Knowledge</h2>
+        <h2 className="km-title">System of Human Knowledge</h2>
         <p className="km-subtitle">
           Interactive Folder Tree — click the triangle sign to expand, use the
           search window to filter

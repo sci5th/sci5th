@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This is the sci5th website: a Next.js 15 (App Router) project in TypeScript with Tailwind CSS. sci5th explores science, technology, and the structure of knowledge.
+This is the sci5th website: a Next.js 15 (App Router) project in TypeScript with Tailwind CSS. sci5th — exploring the structure of human knowledge, with a focus on science and technology
 
 The site is a deep working prototype intended to scale into a larger application. Keep architecture production-shaped: dynamic routes, config-driven data, shared components.
 

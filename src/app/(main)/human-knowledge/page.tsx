@@ -3,7 +3,7 @@ import HumanKnowledgeMap from "@/components/HumanKnowledgeMap";
 export const metadata = {
   title: "Human Knowledge | sci5th",
   description:
-    "Interactive map of human knowledge — a visual representation of the interconnectedness of various fields of study and disciplines. Explore the vast landscape of human knowledge and discover how different areas of expertise are related to one another.",
+    "Interactive system of human knowledge — a visual representation of the interconnectedness of various fields of study and disciplines. Explore the vast landscape of human knowledge and discover how different areas of expertise are related to one another.",
 };
 
 export default function HumanKnowledgePage() {

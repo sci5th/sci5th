@@ -11,6 +11,7 @@ export const metadata: Metadata = {
     "technology",
     "human knowledge",
     "artificial intelligence",
+    "computer science",
     "data science",
   ],
   authors: [{ name: "sci5th" }],
