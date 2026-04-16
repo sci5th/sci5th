@@ -9,7 +9,7 @@ function Navigation() {
 
   const links = [
     { href: "/", label: "Home" },
-    { href: "/map", label: "Map of Human Knowledge" },
+    { href: "/human-knowledge", label: "Human Knowledge" },
   ];
 
   return (

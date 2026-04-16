@@ -1,25 +1,27 @@
-import Link from "next/link";
-
 export const metadata = {
   title: "sci5th",
   description:
-    "sci5th — exploring science, technology, and the structure of knowledge.",
+    "sci5th — exploring the structure of human knowledge, with a focus on science and technology",
 };
 
 export default function HomePage() {
   return (
-    <div className="flex flex-1 items-center justify-center px-4 py-16 md:px-8 md:py-24">
-      <div className="flex max-w-2xl flex-col items-center text-center">
-        <p className="text-lg text-slate-200 md:text-2xl">
-          sci5th — exploring science, technology, and the structure of
-          knowledge.
+    <div className="flex flex-1 flex-col items-center gap-6 px-4 pb-16 pt-6 md:gap-8 md:px-8 md:pb-24 md:pt-10">
+      <div className="flex max-w-lg flex-col items-center text-center">
+        <p className="text-xs text-slate-200 md:text-base">
+          sci5th — exploring the structure of human knowledge, with a focus on
+          science and technology.
         </p>
-        <Link
-          href="/map"
-          className="mt-10 rounded-md bg-slate-900 px-6 py-3 text-sm font-medium text-white transition-opacity hover:opacity-90 md:mt-14 md:px-8 md:py-4 md:text-base"
-        >
-          Enter the Map of Human Knowledge
-        </Link>
+      </div>
+
+      <div className="aspect-video w-full max-w-3xl overflow-hidden rounded-lg bg-slate-800 shadow-lg">
+        <video
+          src="/AI_Opal.mp4"
+          controls
+          playsInline
+          preload="metadata"
+          className="h-full w-full object-contain"
+        />
       </div>
     </div>
   );

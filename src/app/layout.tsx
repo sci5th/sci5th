@@ -4,22 +4,14 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "sci5th",
   description:
-    "sci5th — exploring science, technology, and the structure of knowledge. Home of the Map of Human Knowledge project.",
+    "sci5th — exploring the structure of human knowledge, with a focus on science and technology",
   keywords: [
     "sci5th",
     "science",
     "technology",
-    "knowledge",
-    "ontology",
-    "map of human knowledge",
-    "theories",
-    "algorithms",
-    "models",
-    "systems",
-    "data science",
+    "human knowledge",
     "artificial intelligence",
-    "robots",
-    "biotechnology",
+    "data science",
   ],
   authors: [{ name: "sci5th" }],
   icons: {
