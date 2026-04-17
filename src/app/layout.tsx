@@ -13,6 +13,7 @@ export const metadata: Metadata = {
     "artificial intelligence",
     "computer science",
     "data science",
+    "md files",
   ],
   authors: [{ name: "sci5th" }],
   icons: {
