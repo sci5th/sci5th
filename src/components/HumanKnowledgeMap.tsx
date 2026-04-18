@@ -329,15 +329,25 @@ const DATA: KnowledgeNode = {
             },
             { name: "Thermodynamics" },
             { name: "Electromagnetism" },
-            { name: "Relativity" },
+            {
+              name: "Relativity",
+              c: [
+                { name: "Special Relativity" },
+                { name: "General Relativity" },
+              ],
+            },
             { name: "Particle Physics" },
             { name: "Condensed Matter" },
-            { name: "Astrophysics & Cosmology" },
+            {
+              name: "Astrophysics & Cosmology",
+              c: [{ name: "Big Bang Theory" }],
+            },
           ],
         },
         {
           name: "Chemistry",
           c: [
+            { name: "Atomic Theory" },
             { name: "Organic Chemistry" },
             { name: "Inorganic Chemistry" },
             { name: "Physical Chemistry" },
@@ -362,7 +372,10 @@ const DATA: KnowledgeNode = {
         {
           name: "Earth Sciences",
           c: [
-            { name: "Geology" },
+            {
+              name: "Geology",
+              c: [{ name: "Plate Tectonics" }],
+            },
             { name: "Meteorology & Climatology" },
             { name: "Oceanography" },
             { name: "Paleontology" },
@@ -710,6 +723,7 @@ const DATA: KnowledgeNode = {
             { name: "Developmental Psychology" },
             { name: "Social Psychology" },
             { name: "Clinical Psychology" },
+            { name: "Systems Theory" },
           ],
         },
         { name: "Sociology" },
