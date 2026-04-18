@@ -57,20 +57,20 @@ export default function KnoGaGallery() {
       ) : (
         <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3">
           {KNOGA_ENTRIES.map((entry) => (
-            <li key={entry.slug}>
+            <li key={entry.slug} className="h-full">
               <Link
                 href={`/knoga/${entry.slug}`}
-                className="group block overflow-hidden rounded-lg border border-line-700 bg-ink-900 p-4 transition-colors hover:border-brand-pink focus-visible:border-brand-pink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue"
+                className="group flex h-full flex-col overflow-hidden rounded-lg border border-line-700 bg-ink-900 p-4 transition-colors hover:border-brand-pink focus-visible:border-brand-pink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue"
               >
                 <Thumbnail entry={entry} />
-                <div className="mt-3">
-                  <p className="font-mono text-xs uppercase tracking-wide text-text-500">
+                <div className="mt-3 flex flex-col">
+                  <p className="line-clamp-1 font-mono text-xs uppercase tracking-wide text-text-500">
                     {entry.breadcrumb}
                   </p>
-                  <h3 className="mt-1 text-lg font-medium text-text-100 group-hover:text-brand-pink">
+                  <h3 className="mt-1 line-clamp-1 text-lg font-medium text-text-100 group-hover:text-brand-pink">
                     {entry.title}
                   </h3>
-                  <p className="mt-1 text-sm text-text-300">
+                  <p className="mt-1 line-clamp-2 text-sm text-text-300">
                     {entry.summary}
                   </p>
                 </div>

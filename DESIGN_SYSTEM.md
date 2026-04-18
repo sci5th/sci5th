@@ -102,6 +102,8 @@ Type scale (rem): `xs 0.75` · `sm 0.875` · `base 1` · `lg 1.125` · `xl 1.375
 | Empty state | shown when filtered result set is empty | `.km-empty` (*"No matches for '{query}'."*) |
 | Focus ring | 2 px `brand-blue`, `outline-offset: -2px` on rows, `+2px` elsewhere | `:focus-visible` |
 | Category color | applied at depth 0, inherited by descendants | `.cat-formal` · `.cat-natural` · `.cat-applied` · `.cat-social` · `.cat-humanities` · `.cat-professions` |
+| KnoGa badge | default, hover, focus-visible; shown only on rows whose path matches a `KnoGaEntry.systemPath` | `.km-knoga-badge` (Pink outline pill, `font-mono`, right-aligned; `stopPropagation` on click so it doesn't toggle the row) |
+| Deep-link target | pulse (2s Pink ring + fading pink tint) when the row is the target of `?focus=<systemPath>`; static Pink ring under `prefers-reduced-motion` | `.km-node[data-highlight="true"]` (`@keyframes km-pulse`) |
 
 ## Iconography
 

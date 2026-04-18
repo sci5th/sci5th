@@ -43,7 +43,7 @@ export const KNOGA_ENTRIES: KnoGaEntry[] = [
       "Human Knowledge/Formal Sciences/Systems Science/Chaos Theory",
     breadcrumb: "Formal Sciences · Systems Science",
     category: "formal",
-    thumbnail: null,
+    thumbnail: "/ChaosTheory.webp",
     steps: [
       {
         title: "1 · Determinism without predictability",
@@ -67,8 +67,53 @@ export const KNOGA_ENTRIES: KnoGaEntry[] = [
       },
     ],
   },
+  {
+    slug: "game-theory",
+    title: "Game Theory",
+    summary:
+      "The mathematics of strategic decisions — what rational players should do when their best move depends on what everyone else does.",
+    systemPath:
+      "Human Knowledge/Formal Sciences/Mathematics/Applied Mathematics/Game Theory",
+    breadcrumb: "Formal Sciences · Applied Mathematics",
+    category: "formal",
+    thumbnail: "/GameTheory.webp",
+    steps: [
+      {
+        title: "1 · What is a game?",
+        body: "A game in this sense is any situation with players, a set of possible actions for each, and payoffs that depend on the combination of everyone's choices. Chess is a game; so is an auction, a price war between two firms, or two countries deciding whether to disarm. The formalism strips away the surface differences so the same tools apply to all of them.",
+      },
+      {
+        title: "2 · Strategies and payoffs",
+        body: "A strategy is a complete plan for how a player will act in every situation they might face. Payoffs express preferences as numbers — higher is better. The central object is the payoff matrix (for two players) or payoff function, which maps every combination of strategies to a number for each player. Everything else is built on this.",
+      },
+      {
+        title: "3 · Nash equilibrium",
+        body: "A Nash equilibrium is a set of strategies where no player can improve their payoff by unilaterally switching. It's the game-theoretic answer to 'what will rational players actually do?' John Nash proved that every finite game has at least one (possibly in mixed strategies — probabilistic play). Equilibria don't have to be fair or efficient; they just have to be stable.",
+      },
+      {
+        title: "4 · The classic examples",
+        body: "The Prisoner's Dilemma: two suspects do worse if they both defect, but defection is each one's best response — a stable bad outcome. The Stag Hunt: cooperating has the highest payoff but requires trust. Matching Pennies: no pure-strategy equilibrium exists, so players must randomize. These three games capture most of the recurring patterns in strategic life.",
+      },
+      {
+        title: "5 · Cooperative vs. non-cooperative, zero-sum vs. general",
+        body: "Non-cooperative games model individual choice under no binding agreements (most real-world strategic settings). Cooperative game theory asks how a group should split a jointly-won payoff (Shapley values, the core). Zero-sum games have a winner and a loser in strict proportion (poker, chess); general-sum games allow mutual gain or mutual loss (business, diplomacy). Different branches, different tools.",
+      },
+      {
+        title: "6 · Where it shows up",
+        body: "Auction design (spectrum auctions, ad markets), mechanism design (voting systems, matching algorithms like the Gale–Shapley deferred-acceptance procedure behind kidney exchanges and school admissions), evolutionary biology (replicator dynamics, hawk–dove), economics (oligopoly models), cryptography (incentive-compatible protocols), and AI (multi-agent reinforcement learning). It's one of the most portable frameworks in formal thought.",
+      },
+    ],
+  },
 ];
 
 export function findKnoGaEntry(slug: string): KnoGaEntry | undefined {
   return KNOGA_ENTRIES.find((e) => e.slug === slug);
 }
+
+/**
+ * Lookup by systemPath — used by the System tree to badge nodes that
+ * have a matching KnoGa entry. O(1) per row.
+ */
+export const KNOGA_BY_SYSTEM_PATH: Record<string, KnoGaEntry> = Object.freeze(
+  Object.fromEntries(KNOGA_ENTRIES.map((e) => [e.systemPath, e]))
+);

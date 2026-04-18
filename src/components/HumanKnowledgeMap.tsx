@@ -1,6 +1,9 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { KNOGA_BY_SYSTEM_PATH } from "@/config/knoga";
 import {
   BeakerIcon,
   BookOpenIcon,
@@ -1163,6 +1166,7 @@ interface TreeRowProps {
   onToggle: (path: string) => void;
   onFocus: (index: number) => void;
   registerRef: (index: number, el: HTMLDivElement | null) => void;
+  highlighted: boolean;
 }
 
 function TreeRow({
@@ -1173,10 +1177,12 @@ function TreeRow({
   onToggle,
   onFocus,
   registerRef,
+  highlighted,
 }: TreeRowProps) {
   const { node, depth, hasChildren, isOpen, path, category } = row;
   const Glyph = iconFor(node.name);
   const categoryClass = category ? `cat-${category}` : "";
+  const knoga = KNOGA_BY_SYSTEM_PATH[path];
 
   return (
     <div
@@ -1191,6 +1197,7 @@ function TreeRow({
       tabIndex={index === focusIndex ? 0 : -1}
       data-has-children={hasChildren ? "true" : "false"}
       data-path={path}
+      data-highlight={highlighted ? "true" : undefined}
       onClick={() => {
         onFocus(index);
         if (hasChildren) onToggle(path);
@@ -1214,6 +1221,16 @@ function TreeRow({
         </span>
       )}
       <span className="km-label">{node.name}</span>
+      {knoga && (
+        <Link
+          href={`/knoga/${knoga.slug}`}
+          className="km-knoga-badge"
+          onClick={(e) => e.stopPropagation()}
+          aria-label={`Open ${knoga.title} in KnoGa gallery`}
+        >
+          KnoGa →
+        </Link>
+      )}
     </div>
   );
 }
@@ -1224,7 +1241,11 @@ export default function HumanKnowledgeMap() {
   const [query, setQuery] = useState("");
   const [openMap, setOpenMap] = useState<Record<string, boolean>>({});
   const [focusIndex, setFocusIndex] = useState(0);
+  const [highlightPath, setHighlightPath] = useState<string | null>(null);
   const rowRefs = useRef<Array<HTMLDivElement | null>>([]);
+  const searchParams = useSearchParams();
+  const focusParam = searchParams.get("focus");
+  const handledFocusRef = useRef<string | null>(null);
 
   const registerRef = useCallback(
     (index: number, el: HTMLDivElement | null) => {
@@ -1266,6 +1287,64 @@ export default function HumanKnowledgeMap() {
   const rows: FlatRow[] = isFiltering
     ? flattenFiltered(DATA, query, 0, "", null)
     : flatten(DATA, openMap, 0, "", null);
+
+  // Deep-link support — when arriving with `?focus=<systemPath>`:
+  //   1. Expand every ancestor so the target row is present in `rows`.
+  //   2. After the re-render, find the row, scroll it into view, focus
+  //      it (keyboard + roving focus), and pulse a brief highlight.
+  // Guarded by handledFocusRef so it runs once per distinct focus param.
+  useEffect(() => {
+    if (!focusParam) return;
+    if (handledFocusRef.current === focusParam) return;
+
+    // Step 1 — expand ancestors of focusParam so the node becomes visible.
+    // Example: "Human Knowledge/Formal Sciences/Systems Science/Chaos Theory"
+    // → open "Human Knowledge", ".../Formal Sciences", ".../Systems Science".
+    const segments = focusParam.split("/");
+    const ancestors: Record<string, boolean> = {};
+    for (let i = 1; i < segments.length; i += 1) {
+      ancestors[segments.slice(0, i).join("/")] = true;
+    }
+    // Also clear any active search — deep-link lands on the un-filtered tree.
+    if (query) setQuery("");
+    setOpenMap((prev) => ({ ...prev, ...ancestors }));
+  }, [focusParam, query]);
+
+  useEffect(() => {
+    if (!focusParam) return;
+    if (handledFocusRef.current === focusParam) return;
+
+    const idx = rows.findIndex((r) => r.path === focusParam);
+    if (idx === -1) {
+      // Ancestors not yet expanded — wait for next render. If the path
+      // is invalid (typo, renamed node), mark it handled after a grace
+      // window so the effect doesn't re-run on unrelated rows changes.
+      const giveUp = window.setTimeout(() => {
+        handledFocusRef.current = focusParam;
+      }, 1000);
+      return () => window.clearTimeout(giveUp);
+    }
+
+    handledFocusRef.current = focusParam;
+    setFocusIndex(idx);
+    setHighlightPath(focusParam);
+
+    // Defer DOM access until after this render paints the row ref.
+    const t = window.setTimeout(() => {
+      const el = rowRefs.current[idx];
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "center" });
+        el.focus({ preventScroll: true });
+      }
+    }, 0);
+
+    // Clear highlight after the pulse animation finishes.
+    const clear = window.setTimeout(() => setHighlightPath(null), 2200);
+    return () => {
+      window.clearTimeout(t);
+      window.clearTimeout(clear);
+    };
+  }, [focusParam, rows]);
 
   // Keep focus index in range when the flat list changes.
   if (focusIndex >= rows.length && rows.length > 0) {
@@ -1444,6 +1523,7 @@ export default function HumanKnowledgeMap() {
                 onToggle={toggle}
                 onFocus={setFocusIndex}
                 registerRef={registerRef}
+                highlighted={highlightPath === row.path}
               />
             </div>
           ))}

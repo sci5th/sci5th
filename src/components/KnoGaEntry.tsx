@@ -14,7 +14,10 @@ export default function KnoGaEntryView({ entry }: { entry: KnoGaEntry }) {
           <span>Back to KnoGa</span>
         </Link>
         <Link
-          href="/human-knowledge"
+          href={{
+            pathname: "/human-knowledge",
+            query: { focus: entry.systemPath },
+          }}
           className="inline-flex items-center gap-1.5 text-text-300 transition-colors hover:text-text-100 focus-visible:text-text-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue"
         >
           <span>See in System</span>

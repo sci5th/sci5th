@@ -195,10 +195,15 @@ html {
 
 /* Tri-column toolbar row: left · center · right.
    Grid (not flex) so the center slot is geometrically centered
-   regardless of the widths of the side slots. */
+   regardless of the widths of the side slots.
+   When the help <details> is open (detected via :has()), the center
+   column grows (1fr) and the help panel stretches to fill it, so the
+   disclosure content aligns with the Search input on both sides while
+   Expand all / Collapse all stay in their usual left/right slots. */
 .km-toolbar-tri {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
+  grid-template-areas: "left center right";
   align-items: start;
   gap: 8px;
 }
@@ -209,27 +214,52 @@ html {
 }
 
 .km-toolbar-slot-left {
+  grid-area: left;
   justify-content: flex-start;
 }
 
 .km-toolbar-slot-center {
+  grid-area: center;
   justify-content: center;
 }
 
 .km-toolbar-slot-right {
+  grid-area: right;
   justify-content: flex-end;
 }
 
-/* On narrow screens, stack the tri-toolbar so each slot gets its full row
-   and the help dropdown can expand without being squeezed. */
+/* Open state: Expand all stays on the left, Collapse all stays on the right,
+   and the help panel stretches across the middle to fill the space between
+   them. The help summary and its content both sit within the center cell,
+   so the panel visually aligns with the Search input on both sides. */
+.km-toolbar-tri:has(details[open]) {
+  grid-template-columns: auto 1fr auto;
+}
+
+.km-toolbar-tri:has(details[open]) .km-toolbar-slot-center {
+  justify-content: stretch;
+}
+
+.km-toolbar-tri:has(details[open]) .km-help {
+  width: 100%;
+}
+
+/* On narrow screens, always stack the tri-toolbar. */
 @media (max-width: 640px) {
   .km-toolbar-tri {
     grid-template-columns: 1fr;
+    grid-template-areas:
+      "left"
+      "center"
+      "right";
   }
   .km-toolbar-slot-left,
   .km-toolbar-slot-center,
   .km-toolbar-slot-right {
     justify-content: stretch;
+  }
+  .km-toolbar-tri .km-help {
+    width: 100%;
   }
 }
 
@@ -402,6 +432,61 @@ html {
   overflow-wrap: anywhere;
 }
 
+/* KnoGa cross-link badge — appears on tree rows whose path matches a
+   KnoGa entry's systemPath. Pink to match the Gallery accent. Its own
+   click is stopped in JS so it doesn't toggle the row. */
+.km-knoga-badge {
+  flex-shrink: 0;
+  margin-left: 8px;
+  padding: 2px 8px;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem; /* 11px */
+  line-height: 1.4;
+  color: var(--brand-pink);
+  border: 1px solid var(--brand-pink);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background 0.12s,
+    color 0.12s;
+}
+
+.km-knoga-badge:hover {
+  background: var(--brand-pink);
+  color: var(--ink-900);
+}
+
+.km-knoga-badge:focus-visible {
+  outline: 2px solid var(--brand-blue);
+  outline-offset: 2px;
+  background: var(--brand-pink);
+  color: var(--ink-900);
+}
+
+/* Deep-link target highlight — briefly pulses a Pink ring around the row
+   reached via `/human-knowledge?focus=<systemPath>` so the user's eye
+   lands on it after the scroll. Auto-clears; no opt-out needed. */
+.km-node[data-highlight="true"] {
+  animation: km-pulse 2s ease-out 1;
+}
+
+@keyframes km-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(231, 185, 199, 0.7);
+    background: rgba(231, 185, 199, 0.18);
+  }
+  60% {
+    box-shadow: 0 0 0 6px rgba(231, 185, 199, 0);
+    background: rgba(231, 185, 199, 0.08);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(231, 185, 199, 0);
+    background: transparent;
+  }
+}
+
 .km-empty {
   color: var(--text-500);
   font-family: var(--font-sans);
@@ -454,10 +539,16 @@ html {
 @media (prefers-reduced-motion: reduce) {
   .km-node,
   .km-btn,
-  .km-search {
+  .km-search,
+  .km-knoga-badge {
     transition: none;
   }
   .km-btn:active:not(:disabled) {
     transform: none;
+  }
+  /* Keep the target call-out but swap the pulse for a static ring. */
+  .km-node[data-highlight="true"] {
+    animation: none;
+    box-shadow: 0 0 0 2px var(--brand-pink);
   }
 }

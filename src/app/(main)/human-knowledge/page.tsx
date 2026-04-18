@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import HumanKnowledgeMap from "@/components/HumanKnowledgeMap";
 
 export const metadata = {
@@ -10,7 +11,11 @@ export default function HumanKnowledgePage() {
   return (
     <div className="flex flex-1 justify-center px-4 py-8 md:px-8 md:py-12">
       <div className="w-full max-w-3xl">
-        <HumanKnowledgeMap />
+        {/* Suspense boundary required because HumanKnowledgeMap uses
+            useSearchParams() for deep-link focus support. */}
+        <Suspense fallback={null}>
+          <HumanKnowledgeMap />
+        </Suspense>
       </div>
     </div>
   );
