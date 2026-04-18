@@ -1,5 +1,18 @@
 import type { Metadata, Viewport } from "next";
+import { DM_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-sans",
+});
+
+const jetBrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-mono",
+});
 
 export const metadata: Metadata = {
   title: "sci5th",
@@ -33,8 +46,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className="antialiased">{children}</body>
+    <html lang="en" className={`${dmSans.variable} ${jetBrainsMono.variable}`}>
+      <body className="bg-ink-700 font-sans text-text-100 antialiased">
+        {children}
+      </body>
     </html>
   );
 }

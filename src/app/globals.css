@@ -1,3 +1,295 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  /* Surfaces */
+  --ink-950: #0f1218;
+  --ink-900: #161a22;
+  --ink-800: #1e2430;
+  --ink-700: #2a3140;
+  --ink-600: #3a4254;
+  --ink-500: #55607a;
+  --line-700: rgba(255, 255, 255, 0.08);
+
+  /* Text */
+  --text-100: #e9e8e2;
+  --text-300: #a5a79f;
+  --text-500: #6d6e68;
+
+  /* Brand accents */
+  --brand-blue: #a7c5e8;
+  --brand-pink: #e7b9c7;
+
+  /* Category accents (knowledge tree) */
+  --cat-formal: #b9d8c6;
+  --cat-natural: #a7c5e8;
+  --cat-applied: #e3cf9b;
+  --cat-social: #e7b9c7;
+  --cat-humanities: #cfb8e0;
+  --cat-professions: #e8bfa0;
+
+  /* Feedback */
+  --feedback-error: #d98b8b;
+
+  /* Radius scale */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+}
+
+html {
+  color-scheme: dark;
+  background-color: var(--ink-700);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   HumanKnowledgeMap — scoped component CSS (prefix `km-`)
+   Intentional Tailwind exception (see AGENTS.md). Consumes :root tokens above.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.km-root {
+  background: var(--ink-900);
+  color: var(--text-100);
+  padding: 2rem;
+  border-radius: var(--radius-lg);
+  font-family: var(--font-sans);
+}
+
+.km-title {
+  font-size: 1.75rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.2rem;
+  text-align: center;
+}
+
+.km-subtitle {
+  color: var(--text-300);
+  font-size: 0.875rem;
+  margin-bottom: 1.25rem;
+  text-align: center;
+}
+
+/* Toolbar */
+.km-toolbar {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.km-search-wrap {
+  flex: 1;
+  min-width: 200px;
+  position: relative;
+}
+
+.km-search {
+  width: 100%;
+  padding: 10px 32px 10px 12px;
+  font-size: 13px;
+  border: 1px solid var(--line-700);
+  border-radius: var(--radius-sm);
+  background: var(--ink-800);
+  color: var(--text-100);
+  outline: none;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+  font-family: var(--font-sans);
+}
+
+.km-search:focus-visible {
+  border-color: var(--brand-blue);
+  box-shadow: 0 0 0 2px rgba(167, 197, 232, 0.25);
+}
+
+.km-search::placeholder {
+  color: var(--text-500);
+}
+
+.km-search-clear {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--text-500);
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+}
+
+.km-search-clear:hover {
+  color: var(--text-100);
+}
+
+.km-search-clear:focus-visible {
+  outline: 2px solid var(--brand-blue);
+  outline-offset: 2px;
+}
+
+.km-btn {
+  padding: 8px 14px;
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid var(--line-700);
+  border-radius: var(--radius-sm);
+  background: var(--ink-800);
+  color: var(--text-300);
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    color 0.15s,
+    transform 0.08s;
+  user-select: none;
+  min-height: 36px;
+  font-family: var(--font-sans);
+}
+
+.km-btn:hover:not(:disabled) {
+  background: var(--ink-700);
+  color: var(--text-100);
+}
+
+.km-btn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.km-btn:focus-visible {
+  outline: 2px solid var(--brand-blue);
+  outline-offset: 2px;
+}
+
+.km-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Tree */
+.km-tree {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.75;
+}
+
+.km-node {
+  cursor: default;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 8px;
+  border-radius: var(--radius-sm);
+  transition: background 0.12s;
+  min-height: 32px;
+}
+
+@media (max-width: 768px) {
+  .km-node {
+    min-height: 40px;
+    padding: 10px 8px;
+  }
+}
+
+.km-node[data-has-children="true"] {
+  cursor: pointer;
+}
+
+.km-node:hover {
+  background: var(--ink-700);
+}
+
+.km-node:focus-visible {
+  outline: 2px solid var(--brand-blue);
+  outline-offset: -2px;
+  background: var(--ink-700);
+}
+
+.km-icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  color: var(--text-500);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.km-icon svg {
+  width: 14px;
+  height: 14px;
+}
+
+.km-glyph {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.km-glyph svg {
+  width: 14px;
+  height: 14px;
+}
+
+.km-label {
+  flex: 1;
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.km-empty {
+  color: var(--text-500);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+/* Category colors — top-level domain propagates to icon + label */
+.cat-formal .km-label,
+.cat-formal .km-glyph {
+  color: var(--cat-formal);
+}
+.cat-natural .km-label,
+.cat-natural .km-glyph {
+  color: var(--cat-natural);
+}
+.cat-applied .km-label,
+.cat-applied .km-glyph {
+  color: var(--cat-applied);
+}
+.cat-social .km-label,
+.cat-social .km-glyph {
+  color: var(--cat-social);
+}
+.cat-humanities .km-label,
+.cat-humanities .km-glyph {
+  color: var(--cat-humanities);
+}
+.cat-professions .km-label,
+.cat-professions .km-glyph {
+  color: var(--cat-professions);
+}
+
+/* Reduced-motion courtesy */
+@media (prefers-reduced-motion: reduce) {
+  .km-node,
+  .km-btn,
+  .km-search {
+    transition: none;
+  }
+  .km-btn:active:not(:disabled) {
+    transform: none;
+  }
+}

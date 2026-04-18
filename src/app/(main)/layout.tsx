@@ -13,7 +13,7 @@ function Navigation() {
   ];
 
   return (
-    <nav className="flex h-8 w-full items-center bg-slate-700 px-3 text-xs text-white md:h-16 md:px-6 md:text-base">
+    <nav className="flex h-8 w-full items-center bg-ink-800 px-3 text-xs text-text-100 md:h-16 md:px-6 md:text-base">
       <div className="ml-auto flex gap-4 md:gap-6">
         {links.map((link) => {
           const isActive =
@@ -24,7 +24,12 @@ function Navigation() {
             <Link
               key={link.href}
               href={link.href}
-              className={`transition-opacity ${isActive ? "pointer-events-none font-bold opacity-50" : "opacity-100 hover:opacity-80"}`}
+              aria-current={isActive ? "page" : undefined}
+              className={
+                isActive
+                  ? "pointer-events-none font-medium text-brand-blue"
+                  : "text-text-300 transition-colors hover:text-text-100 focus-visible:text-text-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue"
+              }
             >
               {link.label}
             </Link>
@@ -35,11 +40,17 @@ function Navigation() {
   );
 }
 
-function Logo() {
+function Logo({
+  accentSrc,
+  accentAlt,
+}: {
+  accentSrc: string;
+  accentAlt: string;
+}) {
   return (
     <Link
       href="/"
-      className="flex w-full items-center justify-center bg-slate-600 p-1.5 transition-opacity hover:opacity-90 md:p-3 lg:p-5"
+      className="flex w-full items-center justify-center bg-ink-600 p-1.5 transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue md:p-3 lg:p-5"
     >
       <Image
         src="/sci5th_Logo_Black.svg"
@@ -49,12 +60,12 @@ function Logo() {
         height={96}
         unoptimized
       />
-      <h1 className="whitespace-nowrap px-1 text-lg text-slate-950 md:px-1.5 md:text-2xl lg:text-3xl">
+      <h1 className="whitespace-nowrap px-1 font-sans text-lg text-ink-950 md:px-1.5 md:text-2xl lg:text-3xl">
         sci5th
       </h1>
       <Image
-        src="/sci5th_Logo_Blue.svg"
-        alt="sci5th Logo Blue"
+        src={accentSrc}
+        alt={accentAlt}
         className="mx-1.5 w-12 md:mx-3 md:w-20 lg:w-24"
         width={96}
         height={96}
@@ -67,8 +78,8 @@ function Logo() {
 function Footer() {
   const currentYear = new Date().getFullYear();
   return (
-    <footer className="mt-auto flex h-8 w-full items-center justify-center bg-slate-800 p-3 text-white md:h-16">
-      <p className="text-xs text-slate-500 md:text-sm">
+    <footer className="mt-auto flex h-8 w-full items-center justify-center bg-ink-900 p-3 md:h-16">
+      <p className="text-xs text-text-500 md:text-sm">
         &copy; {currentYear} sci5th
       </p>
     </footer>
@@ -80,11 +91,18 @@ export default function MainLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
+  const onHumanKnowledge = pathname.startsWith("/human-knowledge");
+  const accentSrc = onHumanKnowledge
+    ? "/sci5th_Logo_Pink.svg"
+    : "/sci5th_Logo_Blue.svg";
+  const accentAlt = onHumanKnowledge ? "sci5th Logo Pink" : "sci5th Logo Blue";
+
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col bg-ink-700">
       <Navigation />
-      <Logo />
-      <main className="flex grow flex-col bg-slate-700">{children}</main>
+      <Logo accentSrc={accentSrc} accentAlt={accentAlt} />
+      <main className="flex grow flex-col">{children}</main>
       <Footer />
     </div>
   );

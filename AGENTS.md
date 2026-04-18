@@ -10,6 +10,10 @@ The site is a deep working prototype intended to scale into a larger application
 
 - **Language:** TypeScript (strict mode). No `any` types unless unavoidable.
 - **Styling:** Tailwind CSS utility classes only. No CSS modules or inline `style` objects unless necessary for dynamic positioning.
+- **Design tokens:** All colors go through the `ink.*`, `text.*`, `brand.*`, `accent.*`, `feedback.*` tokens defined in `tailwind.config.ts` and mirrored as `:root` CSS variables in `globals.css`. Do not introduce hex literals or raw `slate-*` / `gray-*` classes. See `DESIGN_SYSTEM.md`.
+- **Theme:** Dark-only. No light mode, no theme toggle.
+- **Fonts:** DM Sans (`font-sans`) for body/shell; JetBrains Mono (`font-mono`) only for the knowledge tree. Loaded via `next/font/google` in `src/app/layout.tsx`.
+- **Icons:** `@heroicons/react/24/outline`. When adding a new field to the knowledge tree, extend `FIELD_ICONS` in `HumanKnowledgeMap.tsx` if an appropriate glyph exists.
 - **Components:** React functional components with hooks. No class components.
 - **Imports:** Use `@/` path alias for `src/` imports (e.g., `@/components/HumanKnowledgeMap`).
 - **Formatting:** Prettier with `prettier-plugin-tailwindcss`. Run `npm run format` before committing.
@@ -24,8 +28,9 @@ The site is a deep working prototype intended to scale into a larger application
 
 ## Key Patterns
 
-- The `(main)` route group provides a shared shell (logo, nav, footer).
-- The `HumanKnowledgeMap` component uses scoped `<style>` (CSS custom properties + class prefix `km-`). This is an intentional exception to the "Tailwind only" rule: it predates the current codebase and was ported verbatim from the earlier sci5th iteration. Leave its inline CSS as-is unless the user explicitly asks to rewrite it.
+- The `(main)` route group provides a shared shell (logo, nav, footer). The logo strip's right-hand accent is `sci5th_Logo_Blue.svg` on `/` and `sci5th_Logo_Pink.svg` on `/human-knowledge`.
+- The `HumanKnowledgeMap` component uses a scoped `km-*` CSS block (intentional Tailwind exception). The block lives at the bottom of `src/app/globals.css` and consumes the shared `:root` tokens — do not reintroduce local hex values. Category colors are applied via `cat-formal`, `cat-natural`, `cat-applied`, `cat-social`, `cat-humanities`, `cat-professions` classes at the top level, inherited by descendants.
+- The tree supports full ARIA `tree` / `treeitem` semantics with keyboard navigation (↑/↓ move, →/← expand/collapse, Enter/Space toggle, Home/End jump). Preserve these when editing.
 - sci5th is the site/brand; future sci5th projects live at sibling top-level routes (e.g., `/[future-project]`).
 
 ## Do
@@ -54,3 +59,4 @@ The site is a deep working prototype intended to scale into a larger application
 - 2026-04-16 — Removed the Map of Human Knowledge feature (xyflow-based): deleted `/map` routes, `MapVisualization` component, `mapSubsets` config, home-page CTA button, nav link, and the `@xyflow/react` dependency.
 - 2026-04-16 — Added a new **Human Knowledge** page at `/human-knowledge` by porting the legacy `HumanKnowledgeMap.tsx` tree component verbatim from `sci5th_website_copy_2026_04_15`. The Home page remains the minimal tagline landing; the knowledge tree is now a separate nav entry.
 - 2026-04-16 — Added `AI_Opal.mp4` (1.3 MB, 16:9) to `public/` and embedded it on the Home page beneath the tagline. Video is served directly from `/AI_Opal.mp4` using a native HTML `<video>` with `controls` — no external player dependency.
+- 2026-04-17 — Consolidated the site onto one dark design system (see `DESIGN_SYSTEM.md`): added `ink.*` / `text.*` / `brand.*` / `accent.*` tokens in `tailwind.config.ts` and mirrored as `:root` CSS variables in `globals.css`; migrated shell from `slate-*` literals to the new tokens; wired `DM Sans` + `JetBrains Mono` via `next/font`; moved the tree's scoped CSS into `globals.css`; added ARIA treeview semantics + keyboard navigation + No-matches empty state + label wrapping + ≥40px touch rows; retired the depth-based One-Dark rainbow in favor of six pastel category colors (mint/sky/sand/rose/lilac/peach) inherited from the top-level domain; replaced 📁/📄 emoji with a two-tier Heroicons system (domain + field icons; `·` marker on leaves); wired `sci5th_Logo_Pink.svg` into the logo strip on `/human-knowledge`.

@@ -1,6 +1,33 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useCallback, useRef, useState } from "react";
+import {
+  BeakerIcon,
+  BookOpenIcon,
+  BriefcaseIcon,
+  BuildingLibraryIcon,
+  CalculatorIcon,
+  ChartBarIcon,
+  ChevronDownIcon,
+  ChevronRightIcon,
+  CogIcon,
+  CpuChipIcon,
+  GlobeAltIcon,
+  HeartIcon,
+  LanguageIcon,
+  LightBulbIcon,
+  MusicalNoteIcon,
+  PaintBrushIcon,
+  PuzzlePieceIcon,
+  RocketLaunchIcon,
+  ScaleIcon,
+  SparklesIcon,
+  UserGroupIcon,
+  VariableIcon,
+  WrenchScrewdriverIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
+import type { ComponentType, SVGProps } from "react";
 
 // ── Types ────────────────────────────────────────────────────────────────────
 
@@ -977,96 +1004,216 @@ const DATA: KnowledgeNode = {
   ],
 };
 
-// ── Tree node component ───────────────────────────────────────────────────────
+// ── Icon mapping (two-tier semantic system) ───────────────────────────────────
 
-function TreeNode({
-  node,
-  query,
-  depth = 0,
-}: {
-  node: KnowledgeNode;
-  query: string;
-  depth?: number;
-}) {
-  const [open, setOpen] = useState(node.o ?? false);
-  const hasChildren = !!node.c?.length;
+type IconComponent = ComponentType<
+  SVGProps<SVGSVGElement> & { title?: string }
+>;
 
-  const toggle = useCallback(() => {
-    if (hasChildren) setOpen((v) => !v);
-  }, [hasChildren]);
+const DOMAIN_ICONS: Record<string, IconComponent> = {
+  "Formal Sciences": VariableIcon,
+  "Natural Sciences": BeakerIcon,
+  "Applied Sciences & Technology": CogIcon,
+  "Social Sciences": UserGroupIcon,
+  Humanities: BookOpenIcon,
+  "Professions & Interdisciplinary": BriefcaseIcon,
+};
 
-  return (
-    <div>
-      <div
-        className={`node depth-${Math.min(depth, 6)}`}
-        onClick={toggle}
-        role={hasChildren ? "button" : undefined}
-        aria-expanded={hasChildren ? open : undefined}
-      >
-        <span className="ic">{hasChildren ? (open ? "▾" : "▸") : "·"}</span>
-        <span className="lb">
-          {hasChildren ? "📁" : "📄"} {node.name}
-        </span>
-      </div>
-      {hasChildren && (
-        <div className="ch" style={{ display: open ? "block" : "none" }}>
-          {node.c!.map((child) => (
-            <TreeNode
-              key={child.name}
-              node={child}
-              query={query}
-              depth={depth + 1}
-            />
-          ))}
-        </div>
-      )}
-    </div>
-  );
+const FIELD_ICONS: Record<string, IconComponent> = {
+  // Formal
+  Mathematics: CalculatorIcon,
+  "Computer Science": CpuChipIcon,
+  Logic: PuzzlePieceIcon,
+  "Systems Science": SparklesIcon,
+  // Natural
+  Physics: SparklesIcon,
+  Chemistry: BeakerIcon,
+  Biology: SparklesIcon,
+  "Earth Sciences": GlobeAltIcon,
+  Astronomy: RocketLaunchIcon,
+  // Applied
+  Engineering: WrenchScrewdriverIcon,
+  Biotechnology: SparklesIcon,
+  "Medicine & Health Sciences": HeartIcon,
+  "Agriculture & Food Science": GlobeAltIcon,
+  "Information Science & Library Science": BuildingLibraryIcon,
+  "Data Science": ChartBarIcon,
+  Bioinformatics: CpuChipIcon,
+  // Social
+  Economics: ChartBarIcon,
+  Psychology: SparklesIcon,
+  Linguistics: LanguageIcon,
+  "Cognitive Science": LightBulbIcon,
+  // Humanities
+  Philosophy: LightBulbIcon,
+  History: BuildingLibraryIcon,
+  // Professions
+  "Business & Management": BriefcaseIcon,
+  Design: PaintBrushIcon,
+  "Culinary Arts & Gastronomy": SparklesIcon,
+  "Skilled Trades & Vocational Arts": WrenchScrewdriverIcon,
+};
+
+// Slug mapping used for the top-level `cat-*` class that propagates color + icon.
+const DOMAIN_CATEGORY: Record<string, string> = {
+  "Formal Sciences": "formal",
+  "Natural Sciences": "natural",
+  "Applied Sciences & Technology": "applied",
+  "Social Sciences": "social",
+  Humanities: "humanities",
+  "Professions & Interdisciplinary": "professions",
+};
+
+function iconFor(name: string): IconComponent | null {
+  return DOMAIN_ICONS[name] ?? FIELD_ICONS[name] ?? null;
 }
 
-// ── Filtered tree (search) ────────────────────────────────────────────────────
+// ── Flattening: translates the tree into a flat list of visible rows ──────────
 
-function FilteredNode({
-  node,
-  query,
-  depth = 0,
-}: {
+interface FlatRow {
   node: KnowledgeNode;
-  query: string;
-  depth?: number;
-}) {
-  const q = query.toLowerCase().trim();
+  depth: number;
+  parentPath: string;
+  path: string;
+  category: string | null; // null only for the root
+  hasChildren: boolean;
+  isOpen: boolean;
+}
 
-  // Does this node or any descendant match?
-  function matches(n: KnowledgeNode): boolean {
-    if (n.name.toLowerCase().includes(q)) return true;
-    return n.c?.some(matches) ?? false;
+function flatten(
+  node: KnowledgeNode,
+  openMap: Record<string, boolean>,
+  depth: number,
+  parentPath: string,
+  category: string | null
+): FlatRow[] {
+  const path = parentPath ? `${parentPath}/${node.name}` : node.name;
+  const hasChildren = !!node.c?.length;
+  const isOpen = openMap[path] ?? !!node.o;
+
+  const row: FlatRow = {
+    node,
+    depth,
+    parentPath,
+    path,
+    category,
+    hasChildren,
+    isOpen,
+  };
+
+  if (!hasChildren || !isOpen) return [row];
+
+  // First-level children under the root adopt their own category; deeper nodes inherit.
+  const rows: FlatRow[] = [row];
+  for (const child of node.c!) {
+    const childCategory = category ?? DOMAIN_CATEGORY[child.name] ?? null;
+    rows.push(...flatten(child, openMap, depth + 1, path, childCategory));
+  }
+  return rows;
+}
+
+// Filtered variant: only includes branches whose subtree matches the query.
+function flattenFiltered(
+  node: KnowledgeNode,
+  query: string,
+  depth: number,
+  parentPath: string,
+  category: string | null
+): FlatRow[] {
+  const q = query.toLowerCase().trim();
+  if (!q) return [];
+
+  const path = parentPath ? `${parentPath}/${node.name}` : node.name;
+  const hasChildren = !!node.c?.length;
+  const selfMatches = node.name.toLowerCase().includes(q);
+
+  const childResults: FlatRow[] = [];
+  if (hasChildren) {
+    for (const child of node.c!) {
+      const childCategory = category ?? DOMAIN_CATEGORY[child.name] ?? null;
+      childResults.push(
+        ...flattenFiltered(child, query, depth + 1, path, childCategory)
+      );
+    }
   }
 
-  if (!matches(node)) return null;
+  if (!selfMatches && childResults.length === 0) return [];
 
-  const hasChildren = !!node.c?.length;
+  const row: FlatRow = {
+    node,
+    depth,
+    parentPath,
+    path,
+    category,
+    hasChildren,
+    // Filtered view always shows matching branches expanded
+    isOpen: hasChildren && childResults.length > 0,
+  };
+
+  return [row, ...childResults];
+}
+
+// ── Row component ─────────────────────────────────────────────────────────────
+
+interface TreeRowProps {
+  row: FlatRow;
+  index: number;
+  focusIndex: number;
+  size: number;
+  onToggle: (path: string) => void;
+  onFocus: (index: number) => void;
+  registerRef: (index: number, el: HTMLDivElement | null) => void;
+}
+
+function TreeRow({
+  row,
+  index,
+  focusIndex,
+  size,
+  onToggle,
+  onFocus,
+  registerRef,
+}: TreeRowProps) {
+  const { node, depth, hasChildren, isOpen, path, category } = row;
+  const Glyph = iconFor(node.name);
+  const categoryClass = category ? `cat-${category}` : "";
 
   return (
-    <div>
-      <div className={`node depth-${Math.min(depth, 6)}`}>
-        <span className="ic">{hasChildren ? "▾" : "·"}</span>
-        <span className="lb">
-          {hasChildren ? "📁" : "📄"} {node.name}
+    <div
+      ref={(el) => registerRef(index, el)}
+      className={`km-node ${categoryClass}`.trim()}
+      role="treeitem"
+      aria-level={depth + 1}
+      aria-expanded={hasChildren ? isOpen : undefined}
+      aria-posinset={index + 1}
+      aria-setsize={size}
+      aria-selected={index === focusIndex}
+      tabIndex={index === focusIndex ? 0 : -1}
+      data-has-children={hasChildren ? "true" : "false"}
+      data-path={path}
+      onClick={() => {
+        onFocus(index);
+        if (hasChildren) onToggle(path);
+      }}
+      onFocus={() => onFocus(index)}
+    >
+      <span className="km-icon" aria-hidden="true">
+        {hasChildren ? (
+          isOpen ? (
+            <ChevronDownIcon />
+          ) : (
+            <ChevronRightIcon />
+          )
+        ) : (
+          <span style={{ fontSize: "14px", lineHeight: 1 }}>·</span>
+        )}
+      </span>
+      {Glyph && (
+        <span className="km-glyph" aria-hidden="true">
+          <Glyph />
         </span>
-      </div>
-      {hasChildren && (
-        <div className="ch">
-          {node.c!.filter(matches).map((child) => (
-            <FilteredNode
-              key={child.name}
-              node={child}
-              query={query}
-              depth={depth + 1}
-            />
-          ))}
-        </div>
       )}
+      <span className="km-label">{node.name}</span>
     </div>
   );
 }
@@ -1075,179 +1222,205 @@ function FilteredNode({
 
 export default function HumanKnowledgeMap() {
   const [query, setQuery] = useState("");
-  const [expandKey, setExpandKey] = useState(0);
-  const [collapseKey, setCollapseKey] = useState(0);
+  const [openMap, setOpenMap] = useState<Record<string, boolean>>({});
+  const [focusIndex, setFocusIndex] = useState(0);
+  const rowRefs = useRef<Array<HTMLDivElement | null>>([]);
 
-  // expand/collapse all: re-mount tree with forced open/close state via key
-  function expandAll() {
-    setExpandKey((k) => k + 1);
-  }
-  function collapseAll() {
-    setCollapseKey((k) => k + 1);
-  }
+  const registerRef = useCallback(
+    (index: number, el: HTMLDivElement | null) => {
+      rowRefs.current[index] = el;
+    },
+    []
+  );
+
+  const toggle = useCallback((path: string) => {
+    setOpenMap((prev) => {
+      // If absent, fall back to the node's `o`; here we just flip the explicit entry.
+      const current = prev[path];
+      const explicit = current !== undefined;
+      const defaultOpen = path === "Human Knowledge" ? true : false; // only the root is open by default
+      const next = explicit ? !current : !defaultOpen;
+      return { ...prev, [path]: next };
+    });
+  }, []);
+
+  const expandAll = useCallback(() => {
+    const all: Record<string, boolean> = {};
+    function walk(node: KnowledgeNode, parentPath: string) {
+      const path = parentPath ? `${parentPath}/${node.name}` : node.name;
+      if (node.c?.length) {
+        all[path] = true;
+        for (const child of node.c) walk(child, path);
+      }
+    }
+    walk(DATA, "");
+    setOpenMap(all);
+  }, []);
+
+  const collapseAll = useCallback(() => {
+    // Keep only the root open; collapse everything else.
+    setOpenMap({ "Human Knowledge": true });
+  }, []);
 
   const isFiltering = query.trim().length > 0;
+  const rows: FlatRow[] = isFiltering
+    ? flattenFiltered(DATA, query, 0, "", null)
+    : flatten(DATA, openMap, 0, "", null);
+
+  // Keep focus index in range when the flat list changes.
+  if (focusIndex >= rows.length && rows.length > 0) {
+    // Defer; doing it during render is fine since setState is queued.
+    queueMicrotask(() => setFocusIndex(Math.max(0, rows.length - 1)));
+  }
+
+  const moveFocus = useCallback(
+    (delta: number) => {
+      setFocusIndex((i) => {
+        const next = Math.min(Math.max(i + delta, 0), rows.length - 1);
+        rowRefs.current[next]?.focus();
+        return next;
+      });
+    },
+    [rows.length]
+  );
+
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLDivElement>) => {
+      const row = rows[focusIndex];
+      if (!row) return;
+      switch (e.key) {
+        case "ArrowDown":
+          e.preventDefault();
+          moveFocus(1);
+          break;
+        case "ArrowUp":
+          e.preventDefault();
+          moveFocus(-1);
+          break;
+        case "ArrowRight":
+          e.preventDefault();
+          if (row.hasChildren && !row.isOpen && !isFiltering) {
+            toggle(row.path);
+          } else if (row.hasChildren && row.isOpen) {
+            moveFocus(1);
+          }
+          break;
+        case "ArrowLeft":
+          e.preventDefault();
+          if (row.hasChildren && row.isOpen && !isFiltering) {
+            toggle(row.path);
+          } else if (row.depth > 0) {
+            // Focus parent
+            const parentIndex = rows.findIndex(
+              (r) => r.path === row.parentPath
+            );
+            if (parentIndex >= 0) {
+              setFocusIndex(parentIndex);
+              rowRefs.current[parentIndex]?.focus();
+            }
+          }
+          break;
+        case "Enter":
+        case " ":
+          if (row.hasChildren && !isFiltering) {
+            e.preventDefault();
+            toggle(row.path);
+          }
+          break;
+        case "Home":
+          e.preventDefault();
+          setFocusIndex(0);
+          rowRefs.current[0]?.focus();
+          break;
+        case "End":
+          e.preventDefault();
+          setFocusIndex(rows.length - 1);
+          rowRefs.current[rows.length - 1]?.focus();
+          break;
+      }
+    },
+    [rows, focusIndex, moveFocus, toggle, isFiltering]
+  );
 
   return (
-    <>
-      <style>{`
-        /* ── CSS variables (light / dark) ── */
-        .km-root {
-          --bg: #1a1a1a; --bg2: #2a2a2a; --bg3: #3a3a3a;
-          --text: #e8e7e3; --text2: #9c9a92; --text3: #6b6a65; --text4:#E06C75;
-          --border: rgba(255,255,255,0.1);
-          --accent: #85B7EB;
-          font-family: 'DM Sans', 'DM Sans fallback', sans-serif;
-        }
+    <div className="km-root">
+      <h2 className="km-title">System of Human Knowledge</h2>
+      <p className="km-subtitle">
+        Interactive Folder Tree — click the triangle to expand, or use the
+        search field to filter. Keyboard: ↑/↓ to move, →/← to expand/collapse,
+        Enter or Space to toggle.
+      </p>
 
-        /* ── Layout ── */
-        .km-root { background: var(--bg); color: var(--text); padding: 2rem; border-radius: 12px; }
-        .km-title { font-size: 1.75rem; font-weight: 400; letter-spacing: -0.02em; margin-bottom: 0.2rem; text-align: center; }
-        .km-subtitle { color: var(--text4); font-size: 0.875rem; margin-bottom: 1.25rem; text-align: center; }
-
-        /* ── Toolbar ── */
-        .km-toolbar { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 1rem; }
-        .km-search-wrap {
-          flex: 1; min-width: 200px; position: relative;
-        }
-        .km-search {
-          width: 100%; padding: 8px 32px 8px 12px; font-size: 13px;
-          border: 1px solid var(--border); border-radius: 8px;
-          background: var(--bg2); color: var(--text); outline: none; transition: border-color 0.2s;
-        }
-        .km-search:focus { border-color: var(--accent); }
-        .km-search-clear {
-          position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
-          background: none; border: none; color: var(--text3); cursor: pointer;
-          font-size: 16px; line-height: 1; padding: 2px; display: flex; align-items: center; justify-content: center;
-        }
-        .km-search-clear:hover { color: var(--text); }
-        .km-btn {
-          padding: 6px 14px; font-size: 12px; font-weight: 500;
-          border: 1px solid var(--border); border-radius: 8px;
-          background: var(--bg2); color: var(--text2);
-          cursor: pointer; transition: all 0.15s; user-select: none;
-        }
-        .km-btn:hover { background: var(--bg3); color: var(--text); }
-        .km-btn:active { transform: scale(0.97); }
-
-        /* ── Tree ── */
-        .km-tree { font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.9; }
-        .node {
-          cursor: pointer; user-select: none; white-space: nowrap;
-          display: flex; align-items: center; padding: 1px 6px; border-radius: 6px; transition: background 0.12s;
-        }
-        .node:hover { background: var(--bg2); }
-        .ic { width: 16px; text-align: center; margin-right: 4px; flex-shrink: 0; font-size: 16px; color: var(--text3); }
-        .lb { flex: 1; }
-        .ch { padding-left: 20px; border-left: 1px solid var(--border); margin-left: 9px; }
-
-        /* ── Depth colors ── */
-        .depth-0 .lb { color: #5DCAA5; }
-        .depth-1 .lb { color: #61AFEF; }
-        .depth-2 .lb { color: #C678DD; }
-        .depth-3 .lb { color: #E06C75; }
-        .depth-4 .lb { color: #56B6C2; }
-        .depth-5 .lb { color: #98C379; }
-        .depth-6 .lb { color: #D19A66; }
-      `}</style>
-
-      <div className="km-root">
-        <h2 className="km-title">System of Human Knowledge</h2>
-        <p className="km-subtitle">
-          Interactive Folder Tree — click the triangle sign to expand, use the
-          search window to filter
-        </p>
-
-        {/* Toolbar */}
-        <div className="km-toolbar">
-          <div className="km-search-wrap">
-            <input
-              className="km-search"
-              type="text"
-              placeholder="Search..."
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-            />
-            {query && (
-              <button
-                className="km-search-clear"
-                onClick={() => setQuery("")}
-                aria-label="Clear search"
-              >
-                ×
-              </button>
-            )}
-          </div>
-          <button className="km-btn" onClick={expandAll}>
-            Expand all
-          </button>
-          <button className="km-btn" onClick={collapseAll}>
-            Collapse all
-          </button>
-        </div>
-
-        {/* Tree */}
-        <div className="km-tree">
-          {isFiltering ? (
-            <FilteredNode key={`filter-${query}`} node={DATA} query={query} />
-          ) : (
-            <ExpandableTree
-              key={`tree-${expandKey}-${collapseKey}`}
-              node={DATA}
-              forceOpen={
-                expandKey > collapseKey
-                  ? true
-                  : collapseKey > expandKey
-                    ? false
-                    : undefined
-              }
-              depth={0}
-            />
+      {/* Toolbar */}
+      <div className="km-toolbar">
+        <div className="km-search-wrap">
+          <input
+            className="km-search"
+            type="text"
+            placeholder="Search..."
+            aria-label="Search the knowledge tree"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+          {query && (
+            <button
+              className="km-search-clear"
+              onClick={() => setQuery("")}
+              aria-label="Clear search"
+              type="button"
+            >
+              <XMarkIcon width={16} height={16} />
+            </button>
           )}
         </div>
+        <button
+          className="km-btn"
+          onClick={expandAll}
+          type="button"
+          disabled={isFiltering}
+          aria-disabled={isFiltering}
+        >
+          Expand all
+        </button>
+        <button
+          className="km-btn"
+          onClick={collapseAll}
+          type="button"
+          disabled={isFiltering}
+          aria-disabled={isFiltering}
+        >
+          Collapse all
+        </button>
       </div>
-    </>
-  );
-}
 
-// ── Expandable tree with forced open/close ────────────────────────────────────
-
-function ExpandableTree({
-  node,
-  forceOpen,
-  depth,
-}: {
-  node: KnowledgeNode;
-  forceOpen: boolean | undefined;
-  depth: number;
-}) {
-  const defaultOpen = forceOpen !== undefined ? forceOpen : (node.o ?? false);
-  const [open, setOpen] = useState(defaultOpen);
-  const hasChildren = !!node.c?.length;
-
-  return (
-    <div>
-      <div
-        className={`node depth-${Math.min(depth, 6)}`}
-        onClick={() => hasChildren && setOpen((v) => !v)}
-        role={hasChildren ? "button" : undefined}
-        aria-expanded={hasChildren ? open : undefined}
-      >
-        <span className="ic">{hasChildren ? (open ? "▾" : "▸") : "·"}</span>
-        <span className="lb">
-          {hasChildren ? "📁" : "📄"} {node.name}
-        </span>
-      </div>
-      {hasChildren && open && (
-        <div className="ch">
-          {node.c!.map((child) => (
-            <ExpandableTree
-              key={child.name}
-              node={child}
-              forceOpen={forceOpen}
-              depth={depth + 1}
-            />
+      {/* Tree */}
+      {rows.length === 0 ? (
+        <p className="km-empty">No matches for &ldquo;{query.trim()}&rdquo;.</p>
+      ) : (
+        <div
+          className="km-tree"
+          role="tree"
+          aria-label="System of Human Knowledge"
+          onKeyDown={handleKeyDown}
+        >
+          {rows.map((row, i) => (
+            <div
+              key={row.path}
+              style={{
+                paddingLeft: row.depth > 0 ? `${row.depth * 18}px` : undefined,
+                position: "relative",
+              }}
+            >
+              <TreeRow
+                row={row}
+                index={i}
+                focusIndex={focusIndex}
+                size={rows.length}
+                onToggle={toggle}
+                onFocus={setFocusIndex}
+                registerRef={registerRef}
+              />
+            </div>
           ))}
         </div>
       )}
