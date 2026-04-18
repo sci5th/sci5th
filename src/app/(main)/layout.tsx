@@ -10,6 +10,7 @@ function Navigation() {
   const links = [
     { href: "/", label: "Home" },
     { href: "/human-knowledge", label: "Human Knowledge" },
+    { href: "/knoga", label: "KnoGa" },
   ];
 
   return (
@@ -92,11 +93,13 @@ export default function MainLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const onHumanKnowledge = pathname.startsWith("/human-knowledge");
-  const accentSrc = onHumanKnowledge
+  // Pink accent on the two knowledge surfaces (System + Gallery); Blue on Home.
+  const onPinkRoute =
+    pathname.startsWith("/human-knowledge") || pathname.startsWith("/knoga");
+  const accentSrc = onPinkRoute
     ? "/sci5th_Logo_Pink.svg"
     : "/sci5th_Logo_Blue.svg";
-  const accentAlt = onHumanKnowledge ? "sci5th Logo Pink" : "sci5th Logo Blue";
+  const accentAlt = onPinkRoute ? "sci5th Logo Pink" : "sci5th Logo Blue";
 
   return (
     <div className="flex min-h-screen flex-col bg-ink-700">

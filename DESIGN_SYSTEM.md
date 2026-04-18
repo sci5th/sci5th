@@ -87,6 +87,8 @@ Type scale (rem): `xs 0.75` · `sm 0.875` · `base 1` · `lg 1.125` · `xl 1.375
 | Footer | `(main)/layout.tsx` | default | `bg-ink-900`, `text-text-500`. |
 | Home tagline + video | `(main)/page.tsx` | default | Video frame: `bg-ink-800`, `border border-line-700`, `rounded-lg`. |
 | `HumanKnowledgeMap` | `src/components/HumanKnowledgeMap.tsx` | see below | Scoped `km-*` CSS, category colors, full ARIA treeview. |
+| `KnoGaGallery` | `src/components/KnoGaGallery.tsx` | default, hover, focus-visible | Card grid on `/knoga`. Cards are `bg-ink-900` on `border-line-700`; hover/focus switches border to `brand.pink`. Thumbnails use an `aspect-video` placeholder with the entry's category class when no image is set. |
+| `KnoGaEntry` | `src/components/KnoGaEntry.tsx` | default | Step-by-step view on `/knoga/[slug]`. Top nav: "Back to KnoGa" (left) and "See in System" → `/human-knowledge` (right). Steps render as `bg-ink-900` cards on `border-line-700`. |
 
 ### Knowledge tree states
 
@@ -144,8 +146,8 @@ exists; when none fits, omit — the label carries its meaning.
 - **Focus ring** — `outline: 2px solid var(--brand-blue); outline-offset: 2px`
   via `:focus-visible`. Applied site-wide.
 - **Active nav link** — full opacity, `text-brand-blue`, `pointer-events-none`.
-- **Logo accent rotation** — Blue on `/`, Pink on `/human-knowledge`. Pick by
-  route in `MainLayout`.
+- **Logo accent rotation** — Blue on `/`, Pink on the knowledge surfaces
+  (`/human-knowledge` and `/knoga`). Pick by route in `MainLayout`.
 
 ## Accessibility
 
