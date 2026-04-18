@@ -1345,13 +1345,9 @@ export default function HumanKnowledgeMap() {
   return (
     <div className="km-root">
       <h2 className="km-title">System of Human Knowledge</h2>
-      <p className="km-subtitle">
-        Interactive Folder Tree — click the triangle to expand, or use the
-        search field to filter. Keyboard: ↑/↓ to move, →/← to expand/collapse,
-        Enter or Space to toggle.
-      </p>
+      <p className="km-subtitle">Interactive Folder Tree</p>
 
-      {/* Toolbar */}
+      {/* Toolbar — row 1: search */}
       <div className="km-toolbar">
         <div className="km-search-wrap">
           <input
@@ -1373,24 +1369,53 @@ export default function HumanKnowledgeMap() {
             </button>
           )}
         </div>
-        <button
-          className="km-btn"
-          onClick={expandAll}
-          type="button"
-          disabled={isFiltering}
-          aria-disabled={isFiltering}
-        >
-          Expand all
-        </button>
-        <button
-          className="km-btn"
-          onClick={collapseAll}
-          type="button"
-          disabled={isFiltering}
-          aria-disabled={isFiltering}
-        >
-          Collapse all
-        </button>
+      </div>
+
+      {/* Toolbar — row 2: Expand all (left) · How-to-use (center) · Collapse all (right) */}
+      <div className="km-toolbar km-toolbar-secondary km-toolbar-tri">
+        <div className="km-toolbar-slot km-toolbar-slot-left">
+          <button
+            className="km-btn"
+            onClick={expandAll}
+            type="button"
+            disabled={isFiltering}
+            aria-disabled={isFiltering}
+          >
+            Expand all
+          </button>
+        </div>
+        <div className="km-toolbar-slot km-toolbar-slot-center">
+          <details className="km-help">
+            <summary className="km-help-summary">
+              <span>How to use this tree</span>
+              <ChevronDownIcon className="km-help-chevron" />
+            </summary>
+            <div className="km-help-content">
+              <ul>
+                <li>Click a row with a triangle to expand or collapse it.</li>
+                <li>Use the search field above to filter by name.</li>
+                <li>
+                  Keyboard: <kbd>↑</kbd>/<kbd>↓</kbd> to move,{" "}
+                  <kbd>→</kbd>/<kbd>←</kbd> to expand/collapse,{" "}
+                  <kbd>Enter</kbd> or <kbd>Space</kbd> to toggle,{" "}
+                  <kbd>Home</kbd>/<kbd>End</kbd> to jump to first/last.
+                </li>
+                <li>Use the buttons on the sides to expand or collapse the whole tree.</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+        <div className="km-toolbar-slot km-toolbar-slot-right">
+          <button
+            className="km-btn"
+            onClick={collapseAll}
+            type="button"
+            disabled={isFiltering}
+            aria-disabled={isFiltering}
+          >
+            Collapse all
+          </button>
+        </div>
       </div>
 
       {/* Tree */}
