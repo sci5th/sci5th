@@ -320,7 +320,7 @@ export const KNOGA_ENTRIES: KnoGaEntry[] = [
       "Human Knowledge/Natural Sciences/Biology/Evolutionary Biology",
     breadcrumb: "Natural Sciences · Biology",
     category: "natural",
-    thumbnail: "/TheoryOfEveolution.webp",
+    thumbnail: "/TheoryOfEvolution.webp",
     steps: [
       {
         title: "1 · The problem Darwin was trying to solve",
@@ -447,7 +447,7 @@ export const KNOGA_ENTRIES: KnoGaEntry[] = [
       "Human Knowledge/Formal Sciences/Systems Science/General Systems Theory",
     breadcrumb: "Formal Sciences · Systems Science",
     category: "formal",
-    thumbnail: null,
+    thumbnail: "/GeneralSystemsTheory.webp",
     steps: [
       {
         title: "1 · Why a general theory of systems?",
@@ -488,7 +488,7 @@ export const KNOGA_ENTRIES: KnoGaEntry[] = [
       "Human Knowledge/Formal Sciences/Systems Science/Complex Adaptive Systems",
     breadcrumb: "Formal Sciences · Systems Science",
     category: "formal",
-    thumbnail: null,
+    thumbnail: "/ComplexAdaptiveSystems.webp",
     steps: [
       {
         title: "1 · What makes a system 'complex adaptive'",
@@ -533,7 +533,7 @@ export const KNOGA_ENTRIES: KnoGaEntry[] = [
       "Human Knowledge/Formal Sciences/Mathematics/Pure Mathematics/Logic & Foundations/Model Theory",
     breadcrumb: "Formal Sciences · Logic & Foundations",
     category: "formal",
-    thumbnail: null,
+    thumbnail: "/ModelTheory.webp",
     steps: [
       {
         title: "1 · Syntax vs. semantics",
