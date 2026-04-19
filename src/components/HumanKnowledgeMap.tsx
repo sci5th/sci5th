@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { KNOGA_BY_SYSTEM_PATH } from "@/config/knoga";
+import { KNOWLEDGE_GALLERY_BY_SYSTEM_PATH } from "@/config/knowledge-gallery";
 import {
   BeakerIcon,
   BookOpenIcon,
@@ -1197,7 +1197,7 @@ function TreeRow({
   const { node, depth, hasChildren, isOpen, path, category } = row;
   const Glyph = iconFor(node.name);
   const categoryClass = category ? `cat-${category}` : "";
-  const knoga = KNOGA_BY_SYSTEM_PATH[path];
+  const gallery = KNOWLEDGE_GALLERY_BY_SYSTEM_PATH[path];
 
   return (
     <div
@@ -1236,14 +1236,14 @@ function TreeRow({
         </span>
       )}
       <span className="km-label">{node.name}</span>
-      {knoga && (
+      {gallery && (
         <Link
-          href={`/knoga/${knoga.slug}`}
-          className="km-knoga-badge"
+          href={`/knowledge-gallery/${gallery.slug}`}
+          className="km-gallery-badge"
           onClick={(e) => e.stopPropagation()}
-          aria-label={`Open ${knoga.title} in KnoGa gallery`}
+          aria-label={`Open ${gallery.title} in Knowledge Gallery`}
         >
-          KnoGa →
+          Gallery →
         </Link>
       )}
     </div>

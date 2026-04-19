@@ -432,10 +432,10 @@ html {
   overflow-wrap: anywhere;
 }
 
-/* KnoGa cross-link badge — appears on tree rows whose path matches a
-   KnoGa entry's systemPath. Pink to match the Gallery accent. Its own
-   click is stopped in JS so it doesn't toggle the row. */
-.km-knoga-badge {
+/* Knowledge Gallery cross-link badge — appears on tree rows whose path
+   matches a Gallery entry's systemPath. Pink to match the Gallery accent.
+   Its own click is stopped in JS so it doesn't toggle the row. */
+.km-gallery-badge {
   flex-shrink: 0;
   margin-left: 8px;
   padding: 2px 8px;
@@ -453,12 +453,12 @@ html {
     color 0.12s;
 }
 
-.km-knoga-badge:hover {
+.km-gallery-badge:hover {
   background: var(--brand-pink);
   color: var(--ink-900);
 }
 
-.km-knoga-badge:focus-visible {
+.km-gallery-badge:focus-visible {
   outline: 2px solid var(--brand-blue);
   outline-offset: 2px;
   background: var(--brand-pink);
@@ -540,7 +540,7 @@ html {
   .km-node,
   .km-btn,
   .km-search,
-  .km-knoga-badge {
+  .km-gallery-badge {
     transition: none;
   }
   .km-btn:active:not(:disabled) {

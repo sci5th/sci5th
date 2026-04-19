@@ -1,17 +1,21 @@
 import Link from "next/link";
 import { ArrowLeftIcon, ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
-import type { KnoGaEntry } from "@/config/knoga";
+import type { KnowledgeGalleryEntry } from "@/config/knowledge-gallery";
 
-export default function KnoGaEntryView({ entry }: { entry: KnoGaEntry }) {
+export default function KnowledgeGalleryEntryView({
+  entry,
+}: {
+  entry: KnowledgeGalleryEntry;
+}) {
   return (
     <article className="w-full">
       <nav className="mb-6 flex items-center justify-between text-sm">
         <Link
-          href="/knoga"
+          href="/knowledge-gallery"
           className="inline-flex items-center gap-1.5 text-text-300 transition-colors hover:text-text-100 focus-visible:text-text-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue"
         >
           <ArrowLeftIcon className="h-4 w-4" />
-          <span>Back to KnoGa</span>
+          <span>Back to Knowledge Gallery</span>
         </Link>
         <Link
           href={{

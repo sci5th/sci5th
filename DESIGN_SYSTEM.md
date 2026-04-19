@@ -87,8 +87,8 @@ Type scale (rem): `xs 0.75` · `sm 0.875` · `base 1` · `lg 1.125` · `xl 1.375
 | Footer | `(main)/layout.tsx` | default | `bg-ink-900`, `text-text-500`. |
 | Home tagline + video | `(main)/page.tsx` | default | Video frame: `bg-ink-800`, `border border-line-700`, `rounded-lg`. |
 | `HumanKnowledgeMap` | `src/components/HumanKnowledgeMap.tsx` | see below | Scoped `km-*` CSS, category colors, full ARIA treeview. |
-| `KnoGaGallery` | `src/components/KnoGaGallery.tsx` | default, hover, focus-visible | Card grid on `/knoga`. Cards are `bg-ink-900` on `border-line-700`; hover/focus switches border to `brand.pink`. Thumbnails use an `aspect-video` placeholder with the entry's category class when no image is set. |
-| `KnoGaEntry` | `src/components/KnoGaEntry.tsx` | default | Step-by-step view on `/knoga/[slug]`. Top nav: "Back to KnoGa" (left) and "See in System" → `/human-knowledge` (right). Steps render as `bg-ink-900` cards on `border-line-700`. |
+| `KnowledgeGallery` | `src/components/KnowledgeGallery.tsx` | default, hover, focus-visible | Card grid on `/knowledge-gallery`. Cards are `bg-ink-900` on `border-line-700`; hover/focus switches border to `brand.pink`. Thumbnails use an `aspect-video` placeholder with the entry's category class when no image is set. |
+| `KnowledgeGalleryEntry` | `src/components/KnowledgeGalleryEntry.tsx` | default | Step-by-step view on `/knowledge-gallery/[slug]`. Top nav: "Back to Knowledge Gallery" (left) and "See in System" → `/human-knowledge` (right). Steps render as `bg-ink-900` cards on `border-line-700`. |
 
 ### Knowledge tree states
 
@@ -102,7 +102,7 @@ Type scale (rem): `xs 0.75` · `sm 0.875` · `base 1` · `lg 1.125` · `xl 1.375
 | Empty state | shown when filtered result set is empty | `.km-empty` (*"No matches for '{query}'."*) |
 | Focus ring | 2 px `brand-blue`, `outline-offset: -2px` on rows, `+2px` elsewhere | `:focus-visible` |
 | Category color | applied at depth 0, inherited by descendants | `.cat-formal` · `.cat-natural` · `.cat-applied` · `.cat-social` · `.cat-humanities` · `.cat-professions` |
-| KnoGa badge | default, hover, focus-visible; shown only on rows whose path matches a `KnoGaEntry.systemPath` | `.km-knoga-badge` (Pink outline pill, `font-mono`, right-aligned; `stopPropagation` on click so it doesn't toggle the row) |
+| Gallery badge | default, hover, focus-visible; shown only on rows whose path matches a `KnowledgeGalleryEntry.systemPath` | `.km-gallery-badge` (Pink outline pill, `font-mono`, right-aligned; `stopPropagation` on click so it doesn't toggle the row) |
 | Deep-link target | pulse (2s Pink ring + fading pink tint) when the row is the target of `?focus=<systemPath>`; static Pink ring under `prefers-reduced-motion` | `.km-node[data-highlight="true"]` (`@keyframes km-pulse`) |
 
 ## Iconography
@@ -149,7 +149,7 @@ exists; when none fits, omit — the label carries its meaning.
   via `:focus-visible`. Applied site-wide.
 - **Active nav link** — full opacity, `text-brand-blue`, `pointer-events-none`.
 - **Logo accent rotation** — Blue on `/`, Pink on the knowledge surfaces
-  (`/human-knowledge` and `/knoga`). Pick by route in `MainLayout`.
+  (`/human-knowledge` and `/knowledge-gallery`). Pick by route in `MainLayout`.
 
 ## Accessibility
 

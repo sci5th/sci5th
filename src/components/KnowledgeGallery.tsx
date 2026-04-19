@@ -1,7 +1,10 @@
 import Link from "next/link";
-import { KNOGA_ENTRIES, type KnoGaEntry } from "@/config/knoga";
+import {
+  KNOWLEDGE_GALLERY_ENTRIES,
+  type KnowledgeGalleryEntry,
+} from "@/config/knowledge-gallery";
 
-function Thumbnail({ entry }: { entry: KnoGaEntry }) {
+function Thumbnail({ entry }: { entry: KnowledgeGalleryEntry }) {
   if (entry.thumbnail) {
     // Use a plain <img> rather than next/image because the project uses
     // `unoptimized` on local assets (see AGENTS.md). A background div keeps
@@ -31,12 +34,12 @@ function Thumbnail({ entry }: { entry: KnoGaEntry }) {
   );
 }
 
-export default function KnoGaGallery() {
+export default function KnowledgeGallery() {
   return (
     <section className="w-full">
       <header className="mb-6 text-center md:mb-8">
         <h2 className="text-2xl font-medium tracking-tight text-text-100 md:text-3xl">
-          KnoGa — Knowledge Gallery
+          Knowledge Gallery
         </h2>
         <p className="mt-2 text-sm text-text-300 md:text-base">
           Step-by-step explorations of topics from the{" "}
@@ -50,16 +53,16 @@ export default function KnoGaGallery() {
         </p>
       </header>
 
-      {KNOGA_ENTRIES.length === 0 ? (
+      {KNOWLEDGE_GALLERY_ENTRIES.length === 0 ? (
         <p className="text-center text-sm text-text-500">
           No entries yet.
         </p>
       ) : (
         <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3">
-          {KNOGA_ENTRIES.map((entry) => (
+          {KNOWLEDGE_GALLERY_ENTRIES.map((entry) => (
             <li key={entry.slug} className="h-full">
               <Link
-                href={`/knoga/${entry.slug}`}
+                href={`/knowledge-gallery/${entry.slug}`}
                 className="group flex h-full flex-col overflow-hidden rounded-lg border border-line-700 bg-ink-900 p-4 transition-colors hover:border-brand-pink focus-visible:border-brand-pink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue"
               >
                 <Thumbnail entry={entry} />
