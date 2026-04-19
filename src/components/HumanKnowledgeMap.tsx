@@ -199,8 +199,10 @@ const DATA: KnowledgeNode = {
         {
           name: "Systems Science",
           c: [
+            { name: "General Systems Theory" },
             { name: "Cybernetics" },
             { name: "Complex Systems" },
+            { name: "Complex Adaptive Systems" },
             { name: "Chaos Theory" },
           ],
         },
@@ -723,7 +725,6 @@ const DATA: KnowledgeNode = {
             { name: "Developmental Psychology" },
             { name: "Social Psychology" },
             { name: "Clinical Psychology" },
-            { name: "Systems Theory" },
           ],
         },
         { name: "Sociology" },

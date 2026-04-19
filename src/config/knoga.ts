@@ -113,7 +113,7 @@ export const KNOGA_ENTRIES: KnoGaEntry[] = [
       "Human Knowledge/Formal Sciences/Mathematics/Pure Mathematics/Logic & Foundations/Set Theory",
     breadcrumb: "Formal Sciences · Logic & Foundations",
     category: "formal",
-    thumbnail: null,
+    thumbnail: "/SetTheory.webp",
     steps: [
       {
         title: "1 · What a set is",
@@ -150,7 +150,7 @@ export const KNOGA_ENTRIES: KnoGaEntry[] = [
       "Human Knowledge/Social Sciences/Psychology/Cognitive Psychology",
     breadcrumb: "Social Sciences · Psychology",
     category: "social",
-    thumbnail: null,
+    thumbnail: "/CognitiveTheory.webp",
     steps: [
       {
         title: "1 · The shift from behaviorism",
@@ -190,7 +190,7 @@ export const KNOGA_ENTRIES: KnoGaEntry[] = [
     systemPath: "Human Knowledge/Natural Sciences/Physics/Quantum Mechanics",
     breadcrumb: "Natural Sciences · Physics",
     category: "natural",
-    thumbnail: null,
+    thumbnail: "/QuantumMechanics.webp",
     steps: [
       {
         title: "1 · Why classical physics failed",
@@ -234,7 +234,7 @@ export const KNOGA_ENTRIES: KnoGaEntry[] = [
     systemPath: "Human Knowledge/Natural Sciences/Chemistry/Atomic Theory",
     breadcrumb: "Natural Sciences · Chemistry",
     category: "natural",
-    thumbnail: null,
+    thumbnail: "/AtomicTheory.webp",
     steps: [
       {
         title: "1 · The ancient guess",
@@ -320,7 +320,7 @@ export const KNOGA_ENTRIES: KnoGaEntry[] = [
       "Human Knowledge/Natural Sciences/Biology/Evolutionary Biology",
     breadcrumb: "Natural Sciences · Biology",
     category: "natural",
-    thumbnail: null,
+    thumbnail: "/TheoryOfEveolution.webp",
     steps: [
       {
         title: "1 · The problem Darwin was trying to solve",
@@ -361,7 +361,7 @@ export const KNOGA_ENTRIES: KnoGaEntry[] = [
       "Human Knowledge/Natural Sciences/Earth Sciences/Geology/Plate Tectonics",
     breadcrumb: "Natural Sciences · Earth Sciences",
     category: "natural",
-    thumbnail: null,
+    thumbnail: "/PlateTectonics.webp",
     steps: [
       {
         title: "1 · The suspicious puzzle of the continents",
@@ -402,7 +402,7 @@ export const KNOGA_ENTRIES: KnoGaEntry[] = [
       "Human Knowledge/Natural Sciences/Physics/Astrophysics & Cosmology/Big Bang Theory",
     breadcrumb: "Natural Sciences · Astrophysics & Cosmology",
     category: "natural",
-    thumbnail: null,
+    thumbnail: "/BigBangTheory.webp",
     steps: [
       {
         title: "1 · A static universe (until it wasn't)",
@@ -439,42 +439,133 @@ export const KNOGA_ENTRIES: KnoGaEntry[] = [
     ],
   },
   {
-    slug: "systems-theory",
-    title: "Systems Theory",
+    slug: "general-systems-theory",
+    title: "General Systems Theory",
     summary:
-      "People and problems understood as parts of interconnected systems — where the patterns between members matter more than any one member's traits.",
-    systemPath: "Human Knowledge/Social Sciences/Psychology/Systems Theory",
-    breadcrumb: "Social Sciences · Psychology",
-    category: "social",
+      "A unifying framework proposing that the same structural principles — wholeness, feedback, openness, hierarchy — govern systems across biology, engineering, and the social sciences.",
+    systemPath:
+      "Human Knowledge/Formal Sciences/Systems Science/General Systems Theory",
+    breadcrumb: "Formal Sciences · Systems Science",
+    category: "formal",
     thumbnail: null,
     steps: [
       {
-        title: "1 · From the individual to the system",
-        body: "Classical psychology — psychoanalysis, behaviorism, early cognitive work — locates the unit of study in the individual. You explain a person's suffering or behavior by what's inside them. Systems theory shifts the frame: a person's patterns are inseparable from the networks they live in (family, workplace, community, culture). Symptoms that look like one person's pathology often turn out to be the system's way of maintaining itself. You can't understand the part without understanding the whole.",
+        title: "1 · Why a general theory of systems?",
+        body: "By the 1940s, scientists in very different fields — biology, engineering, economics, psychology — were noticing that their problems shared structural features: interdependent parts, feedback, self-regulation, growth. Ludwig von Bertalanffy argued this wasn't coincidence. If the same patterns keep appearing, there should be a general science of them — a framework whose concepts cut across disciplines, analogous to how thermodynamics cuts across physics and chemistry. General Systems Theory (GST) was his answer.",
       },
       {
-        title: "2 · The general-systems roots",
-        body: "The move began outside psychology. Ludwig von Bertalanffy's General Systems Theory (1940s–60s) argued that the same structural principles govern biological organisms, machines, organizations, and ecosystems. Cybernetics (Wiener, 1948) added feedback loops: systems adjust behavior based on outputs, maintaining stability (homeostasis) or driving change. These ideas gave psychology a new vocabulary — feedback, boundary, subsystem, equilibrium — for describing how relationships work.",
+        title: "2 · The core definition",
+        body: "A system is a set of elements standing in interrelations. Its behavior is not reducible to the sum of the elements in isolation — the relationships matter as much as the parts. From this minimal definition, GST derives key properties: wholeness (the system behaves as a unit), hierarchy (systems nest inside larger systems and contain subsystems), boundary (what's inside vs. outside), and emergence (behavior at the system level that doesn't live in any one part).",
       },
       {
-        title: "3 · Bowen family systems theory",
-        body: "Murray Bowen (1950s–70s) applied systems thinking to families. His core claim: the family is the emotional unit, and an individual's functioning reflects their position in it. Key concepts include differentiation of self (the capacity to maintain your own perspective while remaining connected — the central developmental task), triangles (two-person tension gets stabilized by pulling in a third), family projection (parents' anxiety focused onto a child), and the multigenerational transmission of emotional patterns. Therapy aims not to fix a 'problem person' but to raise the differentiation of whoever is most willing to work.",
+        title: "3 · Open vs. closed systems",
+        body: "Classical physics mostly studied closed systems — isolated from their surroundings, heading toward thermodynamic equilibrium (maximum entropy, 'death'). But living organisms, organizations, and ecosystems are open: they exchange matter, energy, and information with their environment, and they maintain structure far from equilibrium. Bertalanffy's insight: open systems can sustain order by continuously importing energy and exporting entropy. This reframed life itself as a thermodynamically coherent phenomenon, not a mystery.",
       },
       {
-        title: "4 · Structural and strategic family therapy",
-        body: "Salvador Minuchin's structural model (1960s–70s) maps families as organizations with subsystems (parental, sibling, spousal) separated by boundaries that can be rigid, clear, or diffuse. Dysfunction lives in boundary patterns — an enmeshed parent-child subsystem that excludes the other parent, a rigid boundary that cuts off support. The strategic school (Haley, Madanes) focused on interactional sequences: symptoms are solutions a family has found to a relational problem, and therapy changes the sequence, not the insight.",
+        title: "4 · Feedback and self-regulation",
+        body: "Systems maintain themselves through feedback loops. Negative (balancing) feedback pushes the system back toward a set point — a thermostat cooling a room, a body regulating temperature, a market clearing prices. Positive (reinforcing) feedback amplifies change — compounding interest, viral spread, runaway climate effects. Homeostasis, adaptation, and learning all reduce, at their core, to patterns of feedback. Cybernetics (Wiener, 1948) developed this math in parallel, and GST absorbed it.",
       },
       {
-        title: "5 · Ecological systems (Bronfenbrenner)",
-        body: "Urie Bronfenbrenner (1979) zoomed out further. Development happens inside nested systems: the microsystem (immediate settings — family, classroom), the mesosystem (connections between microsystems), the exosystem (settings that affect you but don't contain you — a parent's workplace), the macrosystem (cultural values, economic conditions), and the chronosystem (change over time). You can't evaluate a child without the school, or a school without the neighborhood, or a neighborhood without the economy. The model reshaped developmental psychology and public policy research.",
+        title: "5 · Isomorphism across disciplines",
+        body: "GST's boldest claim: the same formal models describe wildly different systems. The logistic equation captures bacterial growth and market saturation. Input-process-output diagrams apply to a factory, a digestive tract, a news cycle. Control-theoretic stability analysis applies to an autopilot, a hormone axis, or a monetary policy regime. These isomorphisms aren't metaphor — they're the same equations with different labels. If true, a discovery in one domain can seed progress in another.",
       },
       {
-        title: "6 · Feedback loops and circular causality",
-        body: "A defining systems idea: causality is rarely linear. A withdraws → B pursues → A withdraws more → B pursues more. Who caused what? The system itself is doing the causing; each person's behavior is both cause and effect. Reinforcing loops amplify change; balancing loops resist it. Seeing an interaction as a loop rather than a chain is often the single most useful move for a therapist, manager, or coach — it dissolves the blame question into a design question.",
+        title: "6 · Critiques and limits",
+        body: "GST has been accused of being too abstract to do real work — a vocabulary more than a theory, with concepts so general they fit everything and predict nothing specific. Critics argue the unification is often superficial: the logistic equation describes bacteria and markets, but the mechanisms differ so much that the shared math yields little practical transfer. Defenders reply that frameworks (not just laws) are legitimate scientific tools, and that GST's descendants — cybernetics, complexity science, systems biology, system dynamics — have produced concrete results.",
       },
       {
-        title: "7 · Where systems thinking reaches today",
-        body: "Family therapy (still its clinical home), organizational development (Peter Senge's learning organizations), public health (ecological models of health behavior), social work, trauma theory (family-of-origin patterns and intergenerational transmission), couple therapy (Gottman's sound relationship house is systems-flavored), and policy analysis (systems dynamics modeling, from Forrester onward). Whenever someone says 'the problem isn't one person, it's a pattern,' they're speaking this dialect — even when they don't know it has a name.",
+        title: "7 · Where GST lives today",
+        body: "Systems biology (treating cells and organisms as networks, not just molecules), system dynamics (Forrester's stocks-and-flows modeling, still used in policy and sustainability), management cybernetics (Stafford Beer's Viable System Model), ecosystem ecology (energy and nutrient flows through trophic levels), organizational design (Senge's 'fifth discipline'), and the broader complexity sciences at institutions like Santa Fe. GST the grand unifying program faded, but its core moves — look at the whole, watch the feedback, cross the disciplinary boundary — are now default practice wherever systems get messy.",
+      },
+    ],
+  },
+  {
+    slug: "complex-adaptive-systems",
+    title: "Complex Adaptive Systems",
+    summary:
+      "Systems of many interacting agents that learn, adapt, and produce emergent behavior at the group level — from ant colonies and immune systems to economies and the internet.",
+    systemPath:
+      "Human Knowledge/Formal Sciences/Systems Science/Complex Adaptive Systems",
+    breadcrumb: "Formal Sciences · Systems Science",
+    category: "formal",
+    thumbnail: null,
+    steps: [
+      {
+        title: "1 · What makes a system 'complex adaptive'",
+        body: "A complex adaptive system (CAS) has three essentials: (1) many interacting components — 'agents' — each following relatively simple local rules, (2) those agents adapt their behavior based on experience or context, and (3) the system as a whole exhibits emergent behavior not designed into any single agent. An ant colony, a stock market, a neural network, a city, an ecosystem, the immune system, and the internet all fit. What they share isn't their substance — it's their structure.",
+      },
+      {
+        title: "2 · Emergence — the whole behaves like something the parts don't",
+        body: "Put a single ant on a table: it wanders. Put 10,000 ants together: they build bridges, farm fungus, wage wars, and solve shortest-path problems nobody taught them. The colony 'knows' things no ant knows. This is emergence — system-level properties arising from local interactions, not from central control or from any one agent's intelligence. Emergence is the signature phenomenon of CAS, and it's what makes reductionism (explaining the whole by the parts alone) incomplete for them.",
+      },
+      {
+        title: "3 · Adaptation and the fitness landscape",
+        body: "Agents in a CAS don't just interact — they update. Based on what works, they adjust strategies, rewire connections, or get replaced by more successful variants. Stuart Kauffman's metaphor: a fitness landscape where agents hill-climb toward better performance. But the landscape itself changes as other agents adapt, so the peaks move. This is coevolution — the Red Queen's race, where you must keep running just to stay in place. Economies, species in an ecosystem, and AI systems competing in markets all live in shifting landscapes.",
+      },
+      {
+        title: "4 · Nonlinearity, tipping points, and path dependence",
+        body: "CAS rarely behave proportionally. Small nudges can trigger outsized responses (a rumor goes viral, a financial panic cascades, an ecosystem flips). They exhibit tipping points where system behavior suddenly shifts regime, and path dependence where early accidents lock in long-term structure (QWERTY keyboards, VHS beating Betamax). Because the dynamics are nonlinear, long-term prediction is often impossible even if the rules are fully known — CAS sit at the intersection of complexity and chaos.",
+      },
+      {
+        title: "5 · Self-organization and the edge of chaos",
+        body: "CAS often produce order without a designer. Flocks of birds form coordinated shapes; slime molds solve mazes; cities develop neighborhoods; markets discover prices. This is self-organization — structure emerging from local interaction alone. Systems seem richest when they operate at the 'edge of chaos': ordered enough to remember and transmit information, disordered enough to explore and adapt. Too rigid and nothing changes; too chaotic and nothing persists. Life, intelligence, and innovation seem to cluster in this narrow band.",
+      },
+      {
+        title: "6 · How CAS is studied",
+        body: "Agent-based modeling is the workhorse: simulate thousands of simple agents with local rules and watch macro patterns emerge (NetLogo, MASON). Network science analyzes the topology of interactions (scale-free networks, small-world networks). Statistical physics borrows tools from phase transitions and critical phenomena (Per Bak's self-organized criticality — avalanches in a sandpile, extinction events in ecosystems). Reinforcement learning formalizes adaptive agents. The Santa Fe Institute has been the field's intellectual home since 1984.",
+      },
+      {
+        title: "7 · Where CAS thinking shows up",
+        body: "Epidemiology (disease spread on contact networks), ecology (food webs and ecosystem resilience), economics (Brian Arthur's increasing returns, agent-based macro models after 2008), immunology (the immune system as a distributed learning network), urban planning (Jane Jacobs read cities as CAS decades before the term existed), AI (multi-agent systems, swarm robotics, emergent behavior in large models), organizational design (teams over hierarchies), and climate science (tipping elements in the Earth system). Wherever central control is impossible and prediction is brittle, CAS is the frame that fits.",
+      },
+      {
+        title: "8 · Why it matters",
+        body: "The 20th century built most of its theory on linear, equilibrium, centralized models. Many of the things we most want to understand — economies, ecosystems, minds, societies, technologies — don't fit those assumptions. CAS is the attempt to study these phenomena on their own terms: decentralized, adaptive, emergent, nonlinear. It doesn't give neat closed-form answers; it gives a different posture — humble about prediction, alert to feedback, attentive to structure — that has become indispensable wherever the old tools failed.",
+      },
+    ],
+  },
+  {
+    slug: "model-theory",
+    title: "Model Theory",
+    summary:
+      "The branch of mathematical logic that studies the relationship between formal languages and the mathematical structures that satisfy them — the bridge between syntax and semantics.",
+    systemPath:
+      "Human Knowledge/Formal Sciences/Mathematics/Pure Mathematics/Logic & Foundations/Model Theory",
+    breadcrumb: "Formal Sciences · Logic & Foundations",
+    category: "formal",
+    thumbnail: null,
+    steps: [
+      {
+        title: "1 · Syntax vs. semantics",
+        body: "A formal language is a set of symbols and grammatical rules — pure syntax, with no meaning attached. A structure (or 'model') is a mathematical object — a set with operations and relations — that the symbols can be interpreted in. Model theory is the study of the relationship between the two: which sentences are true in which structures, and what does the set of a theory's models tell us about the theory? It sits at the meeting point of logic and ordinary mathematics.",
+      },
+      {
+        title: "2 · Theories, models, and satisfaction",
+        body: "A theory T is a set of sentences (axioms) in a first-order language. A structure M is a model of T — written M ⊨ T — if every sentence of T is true in M. The theory of groups has many models: the integers under addition, symmetries of a square, permutation groups. The theory of the real numbers as an ordered field has, up to isomorphism, exactly one model. The central question is: given a theory, what do its models look like, and how much do they have in common?",
+      },
+      {
+        title: "3 · Gödel's completeness theorem (1930)",
+        body: "Kurt Gödel's first major result (distinct from incompleteness): a sentence is provable from a first-order theory if and only if it is true in every model of that theory. This is the completeness theorem — it says first-order logic exactly captures the notion of 'follows from.' Syntax (proofs) and semantics (truth in all models) match up perfectly. This is why model theory works at all: it connects the formal manipulation of symbols to genuine mathematical content.",
+      },
+      {
+        title: "4 · The compactness theorem",
+        body: "A theory has a model if and only if every finite subset of it has a model. This almost sounds too weak to matter, but it's stunningly powerful. Compactness lets you build 'non-standard' models with infinitesimals (Robinson's non-standard analysis), construct models of arithmetic containing infinite natural numbers, and prove existence theorems that would be hopeless by direct construction. Much of model theory's firepower in pure math comes from creative uses of compactness.",
+      },
+      {
+        title: "5 · Löwenheim–Skolem and the multiplicity of models",
+        body: "The downward Löwenheim–Skolem theorem says: any theory with an infinite model has a countable model. The upward version: any theory with an infinite model has models of every larger infinite cardinality. Consequence: first-order theories can't pin down the 'size' of their intended structure. Even ZFC set theory, which talks about uncountable sets, has a countable model (Skolem's paradox). First-order logic is expressive, but it can't uniquely characterize most interesting infinite structures.",
+      },
+      {
+        title: "6 · Types, elementary equivalence, and classification",
+        body: "Two structures are elementarily equivalent if they satisfy exactly the same first-order sentences. A 'type' over a structure is a maximal consistent set of formulas describing a possible element. Much of modern model theory is about types — counting them, realizing them, classifying theories by how their types behave. Shelah's stability theory (1970s onward) gave a deep classification: stable theories (well-behaved — algebraically closed fields, differentially closed fields), unstable theories (wild — Peano arithmetic, the rationals as an ordered field).",
+      },
+      {
+        title: "7 · Where model theory does real work",
+        body: "Algebraic geometry (Ax–Grothendieck theorem: an injective polynomial map from ℂⁿ to itself is surjective — proved most cleanly via model theory). Number theory (Hrushovski's model-theoretic proof of the Mordell–Lang conjecture in positive characteristic). Differential algebra and o-minimality (Wilkie's theorem on the reals with exponentiation, with applications to transcendence theory). Non-standard analysis (Robinson's rigorous infinitesimals). Model theory earns its keep by giving clean proofs of hard results in 'ordinary' mathematics — not just studying logic for its own sake.",
+      },
+      {
+        title: "8 · Philosophical upshot",
+        body: "Model theory crystallizes a hard-won insight: mathematical theories don't describe unique structures — they describe families of structures that share formal properties. What we call 'the integers' or 'the reals' is really an isomorphism type picked out by a combination of axioms and intended interpretation; first-order axioms alone are rarely strong enough to do it. Model theory is how mathematicians measure this gap, and how they turn it from a limitation into a source of new mathematics.",
       },
     ],
   },
