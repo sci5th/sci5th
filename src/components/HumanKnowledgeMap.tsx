@@ -1249,7 +1249,7 @@ function TreeRow({
           onClick={(e) => e.stopPropagation()}
           aria-label={`Open ${gallery.title} in Knowledge Gallery`}
         >
-          Gallery →
+          gallery →
         </Link>
       )}
     </div>

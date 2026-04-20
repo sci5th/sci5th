@@ -30,6 +30,7 @@ export default function UnityHero({
           gamePath={unity.path}
           gameName={unity.name}
           useUnityWebExtension={unity.useUnityWebExtension ?? true}
+          onStop={() => setPlaying(false)}
         />
       </div>
     );

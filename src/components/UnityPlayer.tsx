@@ -5,6 +5,7 @@ import {
   ArrowsPointingInIcon,
   ArrowsPointingOutIcon,
 } from "@heroicons/react/24/outline";
+import { StopIcon } from "@heroicons/react/24/solid";
 
 // The Unity WebGL loader attaches `createUnityInstance` to the global scope
 // after `WebGL_build.loader.js` executes. We declare it here so TypeScript
@@ -29,10 +30,12 @@ declare global {
 interface UnityPlayerProps {
   /** Absolute URL path to the folder with the WebGL build (no trailing slash). */
   gamePath: string;
-  /** Human-readable game name shown under the canvas. */
+  /** Human-readable game name, used for aria labels and the loading indicator. */
   gameName: string;
   /** If true, asset filenames carry the `.unityweb` suffix (gzipped). */
   useUnityWebExtension?: boolean;
+  /** If provided, a Stop button is shown next to the fullscreen toggle. */
+  onStop?: () => void;
   minWidth?: number;
   minHeight?: number;
   maxWidth?: number;
@@ -43,6 +46,7 @@ export default function UnityPlayer({
   gamePath,
   gameName,
   useUnityWebExtension = true,
+  onStop,
   minWidth = 480,
   minHeight = 270,
   maxWidth = 1280,
@@ -50,8 +54,6 @@ export default function UnityPlayer({
 }: UnityPlayerProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [loading, setLoading] = useState(true);
-  const [progress, setProgress] = useState(0);
   const [error, setError] = useState<string | null>(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [dimensions, setDimensions] = useState({
@@ -118,26 +120,18 @@ export default function UnityPlayer({
     script.onload = async () => {
       if (cancelled || !canvasRef.current) return;
       try {
-        instance = await createUnityInstance(
-          canvasRef.current,
-          {
-            dataUrl: `${gamePath}/WebGL_build.data${ext}`,
-            frameworkUrl: `${gamePath}/WebGL_build.framework.js${ext}`,
-            codeUrl: `${gamePath}/WebGL_build.wasm${ext}`,
-            streamingAssetsUrl: "StreamingAssets",
-            companyName: "sci5th",
-            productName: gameName,
-            productVersion: "1.0",
-          },
-          (p) => {
-            if (!cancelled) setProgress(Math.round(p * 100));
-          },
-        );
-        if (!cancelled) setLoading(false);
+        instance = await createUnityInstance(canvasRef.current, {
+          dataUrl: `${gamePath}/WebGL_build.data${ext}`,
+          frameworkUrl: `${gamePath}/WebGL_build.framework.js${ext}`,
+          codeUrl: `${gamePath}/WebGL_build.wasm${ext}`,
+          streamingAssetsUrl: "StreamingAssets",
+          companyName: "sci5th",
+          productName: gameName,
+          productVersion: "1.0",
+        });
       } catch (err) {
         if (!cancelled) {
           setError(err instanceof Error ? err.message : "Failed to load game");
-          setLoading(false);
         }
       }
     };
@@ -145,7 +139,6 @@ export default function UnityPlayer({
     script.onerror = () => {
       if (!cancelled) {
         setError("Failed to load Unity loader");
-        setLoading(false);
       }
     };
 
@@ -193,20 +186,6 @@ export default function UnityPlayer({
             : { width: dimensions.width, height: dimensions.height }
         }
       >
-        {loading && (
-          <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-ink-900/90">
-            <p className="mb-3 font-mono text-xs uppercase tracking-wide text-text-300 md:text-sm">
-              Loading {gameName}… {progress}%
-            </p>
-            <div className="h-1.5 w-40 overflow-hidden rounded-full bg-ink-700 md:w-56">
-              <div
-                className="h-full bg-brand-pink transition-all"
-                style={{ width: `${progress}%` }}
-              />
-            </div>
-          </div>
-        )}
-
         {error && (
           <div className="absolute inset-0 z-10 flex items-center justify-center bg-ink-900/90 px-4 text-center">
             <p className="text-sm text-feedback-error md:text-base">{error}</p>
@@ -227,14 +206,25 @@ export default function UnityPlayer({
         />
       </div>
 
-      <div className="relative mt-2 flex w-full items-center justify-center">
-        <p className="font-mono text-xs uppercase tracking-wide text-text-500 md:text-sm">
-          {gameName}
-        </p>
+      <div className="mt-2 flex w-full items-center justify-between gap-3">
+        {onStop ? (
+          <button
+            type="button"
+            onClick={onStop}
+            className="inline-flex items-center gap-1.5 rounded-md border border-line-700 bg-ink-800 px-3 py-1.5 text-sm text-text-300 transition-colors hover:border-brand-pink hover:text-text-100 focus-visible:border-brand-pink focus-visible:text-text-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue"
+            aria-label={`Stop ${gameName}`}
+            title="Stop"
+          >
+            <StopIcon className="h-4 w-4" aria-hidden="true" />
+            <span>Stop</span>
+          </button>
+        ) : (
+          <span aria-hidden="true" />
+        )}
         <button
           type="button"
           onClick={toggleFullscreen}
-          className="absolute right-0 text-text-300 transition-colors hover:text-text-100 focus-visible:text-text-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue"
+          className="text-text-300 transition-colors hover:text-text-100 focus-visible:text-text-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue"
           title={isFullscreen ? "Exit fullscreen" : "Fullscreen"}
           aria-label={isFullscreen ? "Exit fullscreen" : "Fullscreen"}
         >

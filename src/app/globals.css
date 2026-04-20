@@ -438,12 +438,12 @@ html {
 .km-gallery-badge {
   flex-shrink: 0;
   margin-left: 8px;
-  padding: 2px 8px;
+  padding: 2px 6px;
   font-family: var(--font-mono);
-  font-size: 0.6875rem; /* 11px */
+  font-size: 0.625rem; /* 10px */
   line-height: 1.4;
   color: var(--brand-pink);
-  border: 1px solid var(--brand-pink);
+  border: none;
   border-radius: var(--radius-sm);
   background: transparent;
   text-decoration: none;
