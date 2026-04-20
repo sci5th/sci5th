@@ -2,7 +2,52 @@ import Link from "next/link";
 import {
   KNOWLEDGE_GALLERY_ENTRIES,
   type KnowledgeGalleryEntry,
+  type KnowledgeGalleryKind,
 } from "@/config/knowledge-gallery";
+
+// ── Sub-navbar sections ──────────────────────────────────────────────────────
+//
+// The Gallery is split into three groups. The tree-driven classification lives
+// on each entry's `kind` field; this file only decides how to present the tabs.
+//
+//  • other      — default landing tab. Everything that isn't a theory or an
+//                 algorithm (methods, frameworks, tools, people…).
+//  • theories   — scientific theories and foundational frameworks.
+//  • algorithms — named algorithms / procedures.
+
+type GallerySection = "other" | "theories" | "algorithms";
+
+const SECTIONS: ReadonlyArray<{
+  id: GallerySection;
+  label: string;
+  kind: KnowledgeGalleryKind;
+  empty: string;
+}> = [
+  {
+    id: "other",
+    label: "Other",
+    kind: "other",
+    empty: "No entries here yet.",
+  },
+  {
+    id: "theories",
+    label: "Theories",
+    kind: "theory",
+    empty: "No theories yet.",
+  },
+  {
+    id: "algorithms",
+    label: "Algorithms",
+    kind: "algorithm",
+    empty: "No algorithms yet.",
+  },
+];
+
+function resolveSection(raw: string | undefined): GallerySection {
+  return SECTIONS.find((s) => s.id === raw)?.id ?? "other";
+}
+
+// ── Card thumbnail ───────────────────────────────────────────────────────────
 
 function Thumbnail({ entry }: { entry: KnowledgeGalleryEntry }) {
   if (entry.thumbnail) {
@@ -34,7 +79,86 @@ function Thumbnail({ entry }: { entry: KnowledgeGalleryEntry }) {
   );
 }
 
-export default function KnowledgeGallery() {
+// ── Sub-navbar ──────────────────────────────────────────────────────────────
+
+function SectionTabs({
+  active,
+  counts,
+}: {
+  active: GallerySection;
+  counts: Record<GallerySection, number>;
+}) {
+  return (
+    <nav
+      aria-label="Knowledge Gallery sections"
+      className="mb-6 flex justify-center md:mb-8"
+    >
+      <ul className="flex flex-wrap items-center justify-center gap-1 rounded-lg border border-line-700 bg-ink-900 p-1">
+        {SECTIONS.map((section) => {
+          const isActive = section.id === active;
+          // Keep the URL clean for the default landing tab.
+          const href =
+            section.id === "other"
+              ? "/knowledge-gallery"
+              : `/knowledge-gallery?section=${section.id}`;
+          return (
+            <li key={section.id}>
+              <Link
+                href={href}
+                scroll={false}
+                aria-current={isActive ? "page" : undefined}
+                className={[
+                  "inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
+                  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue",
+                  isActive
+                    ? "bg-ink-800 text-brand-pink"
+                    : "text-text-300 hover:text-text-100",
+                ].join(" ")}
+              >
+                {section.label}
+                <span
+                  className={[
+                    "rounded-full px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-wide",
+                    isActive
+                      ? "bg-ink-900 text-text-300"
+                      : "bg-ink-800 text-text-500",
+                  ].join(" ")}
+                >
+                  {counts[section.id]}
+                </span>
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
+  );
+}
+
+// ── Page component ───────────────────────────────────────────────────────────
+
+export default function KnowledgeGallery({
+  section: rawSection,
+}: {
+  section?: string;
+}) {
+  const active = resolveSection(rawSection);
+  const activeMeta = SECTIONS.find((s) => s.id === active)!;
+
+  const counts: Record<GallerySection, number> = {
+    other: 0,
+    theories: 0,
+    algorithms: 0,
+  };
+  for (const entry of KNOWLEDGE_GALLERY_ENTRIES) {
+    const match = SECTIONS.find((s) => s.kind === entry.kind);
+    if (match) counts[match.id] += 1;
+  }
+
+  const visible = KNOWLEDGE_GALLERY_ENTRIES.filter(
+    (e) => e.kind === activeMeta.kind,
+  );
+
   return (
     <section className="w-full">
       <header className="mb-6 text-center md:mb-8">
@@ -53,13 +177,13 @@ export default function KnowledgeGallery() {
         </p>
       </header>
 
-      {KNOWLEDGE_GALLERY_ENTRIES.length === 0 ? (
-        <p className="text-center text-sm text-text-500">
-          No entries yet.
-        </p>
+      <SectionTabs active={active} counts={counts} />
+
+      {visible.length === 0 ? (
+        <p className="text-center text-sm text-text-500">{activeMeta.empty}</p>
       ) : (
         <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3">
-          {KNOWLEDGE_GALLERY_ENTRIES.map((entry) => (
+          {visible.map((entry) => (
             <li key={entry.slug} className="h-full">
               <Link
                 href={`/knowledge-gallery/${entry.slug}`}

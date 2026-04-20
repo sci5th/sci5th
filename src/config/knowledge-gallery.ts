@@ -17,6 +17,13 @@ export interface KnowledgeGalleryStep {
   body: string;
 }
 
+/**
+ * What kind of entry this is — used by the Gallery sub-navbar to split cards
+ * into filterable groups. `other` covers anything that isn't cleanly a theory
+ * or an algorithm (methods, frameworks, tools, people, etc.).
+ */
+export type KnowledgeGalleryKind = "theory" | "algorithm" | "other";
+
 export interface KnowledgeGalleryEntry {
   slug: string;
   title: string;
@@ -33,12 +40,265 @@ export interface KnowledgeGalleryEntry {
     | "social"
     | "humanities"
     | "professions";
+  /** Which sub-navbar group in the Gallery this entry belongs to. */
+  kind: KnowledgeGalleryKind;
   /** Path to a thumbnail image or short video poster in /public, or null for a placeholder. */
   thumbnail: string | null;
   steps: KnowledgeGalleryStep[];
 }
 
 export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
+  {
+    slug: "human-knowledge",
+    title: "Human Knowledge",
+    summary:
+      "A map of what humans have figured out — organized into six great branches that together cover the formal, the natural, the made, the social, the interpretive, and the practical.",
+    systemPath: "Human Knowledge",
+    breadcrumb: "System of Human Knowledge",
+    category: "formal",
+    kind: "other",
+    thumbnail: null,
+    steps: [
+      {
+        title: "1 · Formal Sciences",
+        body: "The study of form, structure, and abstract systems — mathematics, logic, computer science, and systems science. Formal sciences don't appeal to experiment; their claims are established by proof from axioms. They supply the languages (set theory, category theory, logic) and the tools (algorithms, probability, statistics) the rest of knowledge leans on.",
+      },
+      {
+        title: "2 · Natural Sciences",
+        body: "The study of the physical world and the life within it — physics, chemistry, biology, earth sciences, astronomy. Natural science proceeds by observation, hypothesis, and experiment, and it's where most of our testable theories of how reality behaves come from. The scale ranges from subatomic particles to the observable universe.",
+      },
+      {
+        title: "3 · Applied Sciences & Technology",
+        body: "Where knowledge becomes stuff that works — engineering, medicine, biotechnology, agriculture, materials, information science. Applied sciences take laws and models from the formal and natural sciences and use them to solve problems: to build bridges, cure disease, feed populations, move information. This is the branch closest to the human-made world.",
+      },
+      {
+        title: "4 · Social Sciences",
+        body: "The study of humans as individuals and in groups — economics, psychology, sociology, political science, anthropology, linguistics, geography, law. Social sciences borrow from the scientific method but contend with a subject that can read the theories about it and change in response. Its models are usually probabilistic and contested, not law-like.",
+      },
+      {
+        title: "5 · Humanities",
+        body: "The interpretive disciplines — philosophy, history, literature, religious studies, art history, music, performing arts, digital humanities. The humanities ask not what the world is made of but what it means: how humans have lived, argued, believed, imagined, and expressed. Their test is argument and interpretation rather than experiment.",
+      },
+      {
+        title: "6 · Professions & Interdisciplinary",
+        body: "The branches organized around practice — business, design, culinary arts, journalism, military science, skilled trades, data science, bioinformatics. These fields cut across the others: they borrow theory freely and are judged primarily by whether the practice actually works. Much modern knowledge growth happens here, at the seams between older disciplines.",
+      },
+    ],
+  },
+  {
+    slug: "formal-sciences",
+    title: "Formal Sciences",
+    summary:
+      "The study of form, structure, and valid inference — the branch of knowledge whose results are established by proof rather than experiment.",
+    systemPath: "Human Knowledge/Formal Sciences",
+    breadcrumb: "Human Knowledge · Formal Sciences",
+    category: "formal",
+    kind: "other",
+    thumbnail: null,
+    steps: [
+      {
+        title: "1 · Mathematics",
+        body: "The oldest and most developed formal science — the study of quantity, structure, space, and change. Split into pure mathematics (algebra, analysis, geometry & topology, logic & foundations) and applied mathematics (statistics & probability, numerical methods, optimization, dynamical systems, game theory). Mathematics is the language most of the other formal sciences (and much of natural science) speak.",
+      },
+      {
+        title: "2 · Computer Science",
+        body: "The science of computation — what problems are solvable, by what procedures, and how efficiently. It ranges from theoretical CS (algorithms, complexity, automata, cryptography) through systems (OS, databases, networks) and software engineering to artificial intelligence, HCI, graphics, and cybersecurity. Computer science is the youngest of the big formal fields and arguably the one reshaping the others fastest.",
+      },
+      {
+        title: "3 · Logic",
+        body: "The study of valid inference. Formal logic (propositional, predicate) defines what makes an argument correct regardless of content. Mathematical logic formalizes proof itself and gave us the great 20th-century results (Gödel, Turing, Tarski). Philosophical logic extends the toolkit to modality, time, relevance, and vagueness. Logic is the substrate on which both mathematics and computer science rest.",
+      },
+      {
+        title: "4 · Systems Science",
+        body: "The study of systems as systems — whatever their material. General systems theory, cybernetics, complex and complex adaptive systems, chaos theory. Systems science looks for structural patterns (feedback, hierarchy, emergence, nonlinearity) that recur across biology, economics, engineering, and ecology, and provides formal models for them.",
+      },
+    ],
+  },
+  {
+    slug: "natural-sciences",
+    title: "Natural Sciences",
+    summary:
+      "The empirical study of the physical world and the life within it — from subatomic particles to galaxies, from molecules to ecosystems.",
+    systemPath: "Human Knowledge/Natural Sciences",
+    breadcrumb: "Human Knowledge · Natural Sciences",
+    category: "natural",
+    kind: "other",
+    thumbnail: null,
+    steps: [
+      {
+        title: "1 · Physics",
+        body: "The most fundamental natural science — the study of matter, energy, space, and time, and the laws that govern them. Classical mechanics, quantum mechanics, relativity, thermodynamics, electromagnetism, astrophysics and cosmology. Physics sets the constraints every other natural science operates within, and its theories (quantum, relativity) are the most precisely tested in all of science.",
+      },
+      {
+        title: "2 · Chemistry",
+        body: "The science of matter at the scale of atoms and molecules — how they bond, react, and rearrange. Physical, organic, inorganic, analytical, and biochemistry. Chemistry is the natural bridge between physics (which explains why atoms behave as they do) and biology (whose machinery is, at bottom, chemistry running in water).",
+      },
+      {
+        title: "3 · Biology",
+        body: "The study of living systems — from the molecular biology of the cell through genetics, physiology, evolution, and ecology. Modern biology is unified by two ideas: evolution by natural selection (why life is the way it is) and the central dogma of molecular biology (how genetic information becomes biological structure). From these, the whole field unfolds.",
+      },
+      {
+        title: "4 · Earth Sciences",
+        body: "The sciences of our planet — geology, oceanography, meteorology, atmospheric and climate science. Earth science studies the solid earth, the oceans, the atmosphere, and how they interact on timescales from seconds (weather) to billions of years (plate tectonics). It's where many natural sciences converge to explain the one planet we know in detail.",
+      },
+      {
+        title: "5 · Astronomy & Space Sciences",
+        body: "The study of everything beyond Earth — stars, galaxies, planetary systems, cosmology. Astronomy is the oldest natural science (older records exist than for any other) and still pushes the frontier: exoplanets, gravitational waves, the cosmic microwave background, and the age, contents, and fate of the universe.",
+      },
+      {
+        title: "6 · Environmental & Interdisciplinary Natural Science",
+        body: "Where the classical natural sciences meet to study the biosphere as a whole — ecology, biogeochemistry, climate science, conservation biology. These fields are increasingly central as human activity has become a geological-scale force in its own right. They connect natural science to policy, economics, and ethics.",
+      },
+    ],
+  },
+  {
+    slug: "applied-sciences",
+    title: "Applied Sciences & Technology",
+    summary:
+      "The branches where knowledge becomes things that work — engineering, medicine, biotech, agriculture, materials, and information technology.",
+    systemPath: "Human Knowledge/Applied Sciences & Technology",
+    breadcrumb: "Human Knowledge · Applied Sciences & Technology",
+    category: "applied",
+    kind: "other",
+    thumbnail: null,
+    steps: [
+      {
+        title: "1 · Engineering",
+        body: "The systematic design of things that work under real-world constraints — mechanical, electrical, civil, chemical, aerospace, biomedical. Engineering turns physics and mathematics into bridges, engines, circuits, aircraft, and implants. Every engineering discipline is a negotiation between what the laws of nature allow and what budgets, materials, and safety margins require.",
+      },
+      {
+        title: "2 · Biotechnology",
+        body: "Using living systems (or parts of them) to make useful things — genetic engineering, pharmaceutical biotech, industrial biotech, synthetic biology, nanobiotechnology. Modern biotech (post-CRISPR) is moving from reading biology to writing it, reshaping medicine, agriculture, and materials along the way.",
+      },
+      {
+        title: "3 · Medicine & Health Sciences",
+        body: "The applied science of human health — clinical medicine, basic medical sciences, public health, allied health, medical informatics. Medicine blends biology, chemistry, physics, and statistics with an ethics-heavy practice that operates under uncertainty on individual patients. Public health scales the same reasoning up to populations.",
+      },
+      {
+        title: "4 · Agriculture & Food Science",
+        body: "The science of feeding billions — crop science, animal science, food science, sustainable agriculture, post-harvest technology. Agriculture is arguably the oldest applied science; modern agronomy combines genetics, ecology, economics, and engineering to manage yield, nutrition, and environmental impact.",
+      },
+      {
+        title: "5 · Environmental Science & Materials Science",
+        body: "Two foundational cross-cutting fields. Environmental science studies the interaction between human systems and natural ones — pollution, resource use, climate. Materials science invents the substances (alloys, polymers, semiconductors, composites, nanomaterials) that every other applied field relies on; new materials are usually what make new technology possible.",
+      },
+      {
+        title: "6 · Information Science & Library Science",
+        body: "How knowledge itself is organized, stored, retrieved, and preserved — document and file formats, knowledge organization, digital libraries, metadata standards, information retrieval. It's the infrastructure for everything downstream: a society's applied sciences are only as good as the systems that make their knowledge findable.",
+      },
+    ],
+  },
+  {
+    slug: "social-sciences",
+    title: "Social Sciences",
+    summary:
+      "The study of humans as individuals and in groups — the disciplines that try to turn something as messy as human behavior into something scientifically tractable.",
+    systemPath: "Human Knowledge/Social Sciences",
+    breadcrumb: "Human Knowledge · Social Sciences",
+    category: "social",
+    kind: "other",
+    thumbnail: null,
+    steps: [
+      {
+        title: "1 · Economics & Psychology",
+        body: "Two anchors of the social sciences. Economics studies how people and institutions allocate scarce resources — microeconomics, macroeconomics, behavioral economics, econometrics. Psychology studies mind and behavior at the individual scale — cognitive, developmental, social, and clinical. They converge in behavioral economics, which has been reshaping both fields since the 1980s.",
+      },
+      {
+        title: "2 · Sociology, Political Science, Anthropology",
+        body: "The group-level social sciences. Sociology studies the patterns and institutions of societies. Political science studies power, governance, and collective decision-making. Anthropology studies humans in full range — cultures, languages, evolution, archaeology. Together they try to explain why societies look the way they do and what makes them change.",
+      },
+      {
+        title: "3 · Linguistics",
+        body: "The scientific study of human language — phonetics and phonology (sound), syntax and semantics (structure and meaning), computational linguistics (language by machine), sociolinguistics (language in society). Linguistics sits on the boundary between the social sciences and the formal ones, and it powers much of modern AI.",
+      },
+      {
+        title: "4 · Geography",
+        body: "The study of how place shapes (and is shaped by) human and natural systems. Physical geography overlaps with earth science; human geography overlaps with sociology, economics, and politics. Cartography and GIS gave the discipline a powerful modern toolkit and now feed into everything from urban planning to logistics.",
+      },
+      {
+        title: "5 · Law",
+        body: "The formal system of rules a society uses to govern itself. As a field of study it covers how laws are made, interpreted, and enforced; how legal systems differ; and how law interacts with economics, politics, and ethics. It's a peculiar social science — partly empirical, partly normative, partly a profession.",
+      },
+      {
+        title: "6 · Education & Communication Studies",
+        body: "The sciences of teaching and of messaging. Education studies how people learn and how institutions can help or hinder it. Communication studies looks at how information moves through societies — media, rhetoric, journalism, digital platforms. Both are increasingly data-rich and increasingly central as modern societies run on information flows.",
+      },
+    ],
+  },
+  {
+    slug: "humanities",
+    title: "Humanities",
+    summary:
+      "The interpretive disciplines — the branches of knowledge that ask not what the world is made of but what it means.",
+    systemPath: "Human Knowledge/Humanities",
+    breadcrumb: "Human Knowledge · Humanities",
+    category: "humanities",
+    kind: "other",
+    thumbnail: null,
+    steps: [
+      {
+        title: "1 · Philosophy",
+        body: "The systematic examination of fundamental questions — metaphysics (what exists), epistemology (what we can know), ethics (how to live), aesthetics (what is beautiful), philosophy of mind, philosophy of science. Philosophy is where every other discipline eventually goes when it asks about its own foundations; it is also the oldest continuous conversation in the humanities.",
+      },
+      {
+        title: "2 · History",
+        body: "The disciplined study of the past — ancient, medieval, modern, and specialized threads like history of science. History is evidence-driven but interpretive: it asks not just what happened, but why, and what it meant. A society's self-understanding is largely a matter of which histories it tells.",
+      },
+      {
+        title: "3 · Literature & Literary Studies",
+        body: "The study of texts as works of art and of thought — poetry, fiction, drama, essay. Literary studies ranges from close reading through literary history, theory, and criticism to comparative literature across languages and cultures. It's how a civilization thinks about what its own imagination has produced.",
+      },
+      {
+        title: "4 · Religious Studies & Theology",
+        body: "The academic study of religion. Religious studies takes an outside, comparative view — anthropology, history, sociology, and philosophy of religion. Theology works from inside a tradition, asking what the tradition claims and how it coheres. Both matter: religion is one of the most persistent forces shaping cultures and individuals.",
+      },
+      {
+        title: "5 · Art History & Visual Arts",
+        body: "The study and practice of the visual — painting, sculpture, architecture, photography, and the scholarly history that tracks style, meaning, and influence across time and cultures. Art history turns works of art into evidence about the people who made them; the visual arts produce the evidence.",
+      },
+      {
+        title: "6 · Music, Performing Arts, Digital Humanities",
+        body: "The time-based and emerging humanities. Music and musicology study composition, performance, and the theory of sound as expression. Performing arts (theater, dance) extend the same attention to bodies in time. Digital humanities is the newest branch — using computation to analyze texts, artifacts, and cultures at scales humans can't read manually.",
+      },
+    ],
+  },
+  {
+    slug: "professions",
+    title: "Professions & Interdisciplinary",
+    summary:
+      "The branches organized around practice — fields that cut across theory and are judged by whether the work actually works.",
+    systemPath: "Human Knowledge/Professions & Interdisciplinary",
+    breadcrumb: "Human Knowledge · Professions & Interdisciplinary",
+    category: "professions",
+    kind: "other",
+    thumbnail: null,
+    steps: [
+      {
+        title: "1 · Business & Management",
+        body: "The applied discipline of running organizations — finance, marketing, operations, strategy. Business studies draw on economics, psychology, and statistics, but the test is pragmatic: does the organization meet its goals under real-world constraints? It's one of the biggest professional fields in modern education.",
+      },
+      {
+        title: "2 · Design",
+        body: "The craft of shaping things people use — graphic, industrial, UX/UI, interior, fashion, motion. Design sits between the humanities (form, meaning, aesthetics) and engineering (constraints, materials, function). Modern design practice is deeply user-centered and increasingly relies on research, prototyping, and iteration.",
+      },
+      {
+        title: "3 · Culinary Arts & Gastronomy",
+        body: "Cooking as a trained discipline — bakery and pastry, classical and modern techniques, world cuisines, nutrition, flavor chemistry, restaurant management. It's a profession with deep craft, growing scientific depth (molecular gastronomy, fermentation science), and heavy cultural load.",
+      },
+      {
+        title: "4 · Journalism, Media & Military Science",
+        body: "Three professions that shape public life. Journalism and media decide what a society pays attention to and how. Military science studies the planning and conduct of armed conflict — strategy, logistics, technology, ethics. All three blend practical skills with serious theoretical frameworks.",
+      },
+      {
+        title: "5 · Skilled Trades & Vocational Arts",
+        body: "The foundational hands-on professions — plumbing, welding, electrical work, HVAC, carpentry, masonry. These are knowledge-rich fields that keep the built environment functioning; each has its own codes, materials science, and safety culture. They're often undervalued academically but are indispensable to every modern society.",
+      },
+      {
+        title: "6 · Data Science & Bioinformatics",
+        body: "Two of the fastest-growing interdisciplinary professions. Data science combines statistics, computer science, and domain expertise to extract insight from data at scale. Bioinformatics applies the same toolkit to biological data (sequences, structures, expression). Both fields barely existed a generation ago and now power whole industries.",
+      },
+    ],
+  },
   {
     slug: "set-theory",
     title: "Set Theory",
@@ -48,6 +308,7 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
       "Human Knowledge/Formal Sciences/Mathematics/Pure Mathematics/Logic & Foundations/Set Theory",
     breadcrumb: "Formal Sciences · Logic & Foundations",
     category: "formal",
+    kind: "theory",
     thumbnail: "/SetTheory.webp",
     steps: [
       {
@@ -85,6 +346,7 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
       "Human Knowledge/Formal Sciences/Mathematics/Pure Mathematics/Logic & Foundations/Model Theory",
     breadcrumb: "Formal Sciences · Logic & Foundations",
     category: "formal",
+    kind: "theory",
     thumbnail: "/ModelTheory.webp",
     steps: [
       {
@@ -130,6 +392,7 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
       "Human Knowledge/Formal Sciences/Mathematics/Applied Mathematics/Game Theory",
     breadcrumb: "Formal Sciences · Applied Mathematics",
     category: "formal",
+    kind: "theory",
     thumbnail: "/GameTheory.webp",
     steps: [
       {
@@ -159,6 +422,86 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     ],
   },
   {
+    slug: "goal-oriented-action-planning",
+    title: "Goal-Oriented Action Planning",
+    summary:
+      "A classical-AI planning technique where agents choose what to do by searching backward from a goal through a library of actions — a staple of game AI and autonomous behavior.",
+    systemPath:
+      "Human Knowledge/Formal Sciences/Computer Science/Artificial Intelligence/Robotics & Embodied AI/Goal-Oriented Action Planning",
+    breadcrumb: "Formal Sciences · Artificial Intelligence",
+    category: "formal",
+    kind: "algorithm",
+    thumbnail: null,
+    steps: [
+      {
+        title: "1 · The problem GOAP solves",
+        body: "Hand-scripted AI behavior quickly becomes brittle: every new situation needs a new branch, and designers end up maintaining sprawling decision trees that break the moment the world changes. Goal-Oriented Action Planning (GOAP), introduced to game AI by Jeff Orkin for F.E.A.R. (2005), replaces the script with a planner. You describe actions, preconditions, and effects; the AI figures out, at runtime, which sequence of actions gets from its current state to a desired goal. Designers author capabilities; behavior emerges from search.",
+      },
+      {
+        title: "2 · World state, goals, and actions",
+        body: "A GOAP agent represents the world as a set of key-value facts (hasWeapon=true, enemyVisible=false, atCover=true). A goal is a target subset of those facts (enemyDead=true). An action is a bundle of three things: preconditions (facts that must hold before the action can run), effects (facts it sets afterward), and a cost (a number used to compare plans). 'Reload' might require hasWeapon and set ammoLoaded; 'AttackEnemy' might require ammoLoaded and enemyVisible and set enemyDead. Everything else is search.",
+      },
+      {
+        title: "3 · Planning as graph search",
+        body: "Finding a plan is finding a path through a graph whose nodes are world states and whose edges are applicable actions. GOAP typically runs A* search backward from the goal: 'what action makes enemyDead true?' → AttackEnemy, which needs ammoLoaded → Reload, which needs hasWeapon → PickUpWeapon, etc. The heuristic is usually the count of unsatisfied goal facts. Backward search prunes aggressively because you only expand actions whose effects are actually relevant to the goal. The output is an ordered list of actions the agent then executes.",
+      },
+      {
+        title: "4 · Dynamic replanning",
+        body: "A plan is never trusted blindly. Between (or during) steps, the agent re-checks whether the plan is still valid: did the enemy move, did the weapon break, did a new threat appear? If any precondition for the next action fails, the planner runs again from the new state. This is what made F.E.A.R.'s soldiers feel alive — they'd flank, retreat, or regroup not because a designer scripted those behaviors, but because the planner re-solved the problem with new facts.",
+      },
+      {
+        title: "5 · Strengths and limits",
+        body: "Strengths: authoring is local (add an action, declare its preconditions and effects, done — no central logic to rewrite); behavior is explicable (you can print the plan); it handles novel situations gracefully. Limits: the search space explodes if you have many actions or facts, so real systems keep both small; costs must be tuned carefully or the planner picks 'clever' but unnatural sequences; GOAP doesn't handle time, uncertainty, or continuous state well without extensions. For long-horizon reasoning, Hierarchical Task Networks (HTN) are usually preferred.",
+      },
+      {
+        title: "6 · Where GOAP shows up",
+        body: "F.E.A.R., S.T.A.L.K.E.R., Deus Ex: Human Revolution, Tomb Raider (2013), Middle-earth: Shadow of Mordor, and many others use GOAP or close cousins. Outside games: service robotics (a cleaning robot planning fetch-and-place tasks), autonomous drones, and AI companions in simulations. Conceptually GOAP is a cut-down STRIPS planner (classical AI, 1971) tuned for real-time constraints — which makes it a rare case of 1970s symbolic AI earning its keep in a 21st-century shipping product.",
+      },
+    ],
+  },
+  {
+    slug: "behavior-trees",
+    title: "Behavior Trees",
+    summary:
+      "A hierarchical, modular way to structure agent decision-making — the dominant AI architecture in modern games and a growing standard in robotics.",
+    systemPath:
+      "Human Knowledge/Formal Sciences/Computer Science/Artificial Intelligence/Robotics & Embodied AI/Behavior Trees",
+    breadcrumb: "Formal Sciences · Artificial Intelligence",
+    category: "formal",
+    kind: "algorithm",
+    thumbnail: null,
+    steps: [
+      {
+        title: "1 · Why not finite state machines?",
+        body: "For decades, game and robot AI was built on finite state machines (FSMs): a fixed set of states (Patrol, Attack, Flee) with transitions between them. FSMs are easy to start but scale terribly — with N states you get up to N² transitions, and adding a new state means touching many others. Reuse is hard: an 'attack' state in one character rarely drops into another. Behavior Trees (BTs), popularized by Halo 2 (2004) and refined across the 2010s, replace the transition mess with a composable tree of reusable nodes.",
+      },
+      {
+        title: "2 · The core node types",
+        body: "A behavior tree has three node kinds. Leaves are Actions (MoveTo, Attack, PlayAnim) or Conditions (IsEnemyVisible?, HasAmmo?). Composites combine children: a Sequence runs children left-to-right until one fails (logical AND), a Selector (or Fallback) runs children left-to-right until one succeeds (logical OR), and a Parallel runs children concurrently. Decorators wrap a single child to modify its result (Invert, Repeat, UntilSuccess, Cooldown). Every node returns one of three statuses: Success, Failure, or Running. That's the whole vocabulary.",
+      },
+      {
+        title: "3 · How a tick works",
+        body: "Each game frame (or control loop iteration) the tree is 'ticked' from the root. Control flows down: a Selector tries its first child, which might be a Sequence that checks 'IsEnemyVisible? → HasAmmo? → Attack'. If any check fails, the Sequence fails and the Selector moves to its next child (maybe 'Flee'). If an action returns Running, the tree remembers its position and resumes there next tick. This tick-based model makes behavior reactive — the tree re-evaluates priorities every frame, so a higher-priority branch (e.g., 'take cover when shot') can pre-empt a lower one automatically.",
+      },
+      {
+        title: "4 · The blackboard",
+        body: "Nodes don't hardcode data; they read and write a shared key-value store called a blackboard. One node writes targetEnemy; another reads it. This decouples decision logic from world state and makes subtrees reusable across agents — a 'flank and attack' subtree drops into any character whose blackboard exposes targetEnemy and selfPosition. The blackboard is also where designers plug in perception, memory, and squad-level coordination.",
+      },
+      {
+        title: "5 · Why BTs beat FSMs in practice",
+        body: "Modularity — any subtree is a self-contained behavior you can copy, paste, parameterize, or swap. Reactivity — because the tree re-ticks from the root, priority changes propagate automatically without explicit transitions. Authorability — visual editors (Unreal's Behavior Tree, Unity's Behavior Designer, Godot) let designers build and debug without code. Scalability — complexity grows linearly with behaviors, not quadratically with states. The trade-off: BTs are less expressive for long-term planning (use GOAP or HTN for that) and the 'tick every frame' model can waste CPU if unoptimized.",
+      },
+      {
+        title: "6 · Beyond games: BTs in robotics",
+        body: "Since ~2012, behavior trees have become a standard tool in robotics too. ROS 2's Nav2 navigation stack uses BTs to sequence recovery behaviors (if the path-planner fails, try clearing costmaps, then try spinning in place, then ask a human). Researchers (Colledanchise & Ögren) gave BTs a formal mathematical foundation — showing they subsume both decision trees and FSMs — and built proofs about robustness and safety. The same architecture that drives NPCs in AAA games now directs warehouse robots and service drones.",
+      },
+      {
+        title: "7 · BTs vs. GOAP vs. Utility AI",
+        body: "These are the three dominant paradigms for agent decisions, and they solve different problems. Behavior Trees are best for structured, hand-authored behavior with clear priorities. GOAP is best when the action space is combinatorial and plans must adapt to novel states. Utility AI scores every option continuously and picks the best — great for smooth, quantitative preferences (hunger vs. fatigue vs. curiosity). Real systems often combine them: a BT with a GOAP leaf that plans multi-step objectives, or a BT selector driven by utility scores. Knowing which tool fits which problem is the actual craft.",
+      },
+    ],
+  },
+  {
     slug: "general-systems-theory",
     title: "General Systems Theory",
     summary:
@@ -167,6 +510,7 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
       "Human Knowledge/Formal Sciences/Systems Science/General Systems Theory",
     breadcrumb: "Formal Sciences · Systems Science",
     category: "formal",
+    kind: "theory",
     thumbnail: "/GeneralSystemsTheory.webp",
     steps: [
       {
@@ -208,6 +552,7 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
       "Human Knowledge/Formal Sciences/Systems Science/Complex Adaptive Systems",
     breadcrumb: "Formal Sciences · Systems Science",
     category: "formal",
+    kind: "theory",
     thumbnail: "/ComplexAdaptiveSystems.webp",
     steps: [
       {
@@ -253,6 +598,7 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
       "Human Knowledge/Formal Sciences/Systems Science/Chaos Theory",
     breadcrumb: "Formal Sciences · Systems Science",
     category: "formal",
+    kind: "theory",
     thumbnail: "/ChaosTheory.webp",
     steps: [
       {
@@ -285,6 +631,7 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     systemPath: "Human Knowledge/Natural Sciences/Physics/Quantum Mechanics",
     breadcrumb: "Natural Sciences · Physics",
     category: "natural",
+    kind: "theory",
     thumbnail: "/QuantumMechanics.webp",
     steps: [
       {
@@ -330,6 +677,7 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
       "Human Knowledge/Natural Sciences/Physics/Relativity/General Relativity",
     breadcrumb: "Natural Sciences · Physics",
     category: "natural",
+    kind: "theory",
     thumbnail: "/GeneralRelativity.webp",
     steps: [
       {
@@ -371,6 +719,7 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
       "Human Knowledge/Natural Sciences/Physics/Astrophysics & Cosmology/Big Bang Theory",
     breadcrumb: "Natural Sciences · Astrophysics & Cosmology",
     category: "natural",
+    kind: "theory",
     thumbnail: "/BigBangTheory.webp",
     steps: [
       {
@@ -415,6 +764,7 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     systemPath: "Human Knowledge/Natural Sciences/Chemistry/Atomic Theory",
     breadcrumb: "Natural Sciences · Chemistry",
     category: "natural",
+    kind: "theory",
     thumbnail: "/AtomicTheory.webp",
     steps: [
       {
@@ -460,6 +810,7 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
       "Human Knowledge/Natural Sciences/Biology/Evolutionary Biology",
     breadcrumb: "Natural Sciences · Biology",
     category: "natural",
+    kind: "theory",
     thumbnail: "/TheoryOfEvolution.webp",
     steps: [
       {
@@ -501,6 +852,7 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
       "Human Knowledge/Natural Sciences/Earth Sciences/Geology/Plate Tectonics",
     breadcrumb: "Natural Sciences · Earth Sciences",
     category: "natural",
+    kind: "theory",
     thumbnail: "/PlateTectonics.webp",
     steps: [
       {
@@ -542,6 +894,7 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
       "Human Knowledge/Social Sciences/Psychology/Cognitive Psychology",
     breadcrumb: "Social Sciences · Psychology",
     category: "social",
+    kind: "theory",
     thumbnail: "/CognitiveTheory.webp",
     steps: [
       {

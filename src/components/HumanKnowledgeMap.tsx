@@ -177,7 +177,13 @@ const DATA: KnowledgeNode = {
                 },
                 { name: "Natural Language Processing" },
                 { name: "Computer Vision" },
-                { name: "Robotics & Embodied AI" },
+                {
+                  name: "Robotics & Embodied AI",
+                  c: [
+                    { name: "Goal-Oriented Action Planning" },
+                    { name: "Behavior Trees" },
+                  ],
+                },
                 { name: "Knowledge Representation" },
                 { name: "AI Safety & Alignment" },
                 { name: "Foundation Models & LLMs" },
