@@ -44,6 +44,20 @@ export interface KnowledgeGalleryEntry {
   kind: KnowledgeGalleryKind;
   /** Path to a thumbnail image or short video poster in /public, or null for a placeholder. */
   thumbnail: string | null;
+  /**
+   * Optional Unity WebGL build to launch when the user presses Play on the
+   * entry's hero. The folder must contain `WebGL_build.loader.js`,
+   * `WebGL_build.data[.unityweb]`, `WebGL_build.framework.js[.unityweb]` and
+   * `WebGL_build.wasm[.unityweb]`.
+   */
+  unity?: {
+    /** Absolute path under /public, no trailing slash (e.g. "/UnityGames/GOAP_Hospital"). */
+    path: string;
+    /** Label shown under the canvas. */
+    name: string;
+    /** Whether the build uses the `.unityweb` (gzipped) suffix. Defaults to true. */
+    useUnityWebExtension?: boolean;
+  };
   steps: KnowledgeGalleryStep[];
 }
 
@@ -431,7 +445,12 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     breadcrumb: "Formal Sciences · Artificial Intelligence",
     category: "formal",
     kind: "algorithm",
-    thumbnail: null,
+    thumbnail: "/GOAP.webp",
+    unity: {
+      path: "/UnityGames/GOAP_Hospital",
+      name: "GOAP Hospital",
+      useUnityWebExtension: true,
+    },
     steps: [
       {
         title: "1 · The problem GOAP solves",
@@ -469,7 +488,12 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     breadcrumb: "Formal Sciences · Artificial Intelligence",
     category: "formal",
     kind: "algorithm",
-    thumbnail: null,
+    thumbnail: "/BehaviourTrees.webp",
+    unity: {
+      path: "/UnityGames/BehaviourTree_Gallery",
+      name: "Behaviour Tree Gallery",
+      useUnityWebExtension: true,
+    },
     steps: [
       {
         title: "1 · Why not finite state machines?",

@@ -1,6 +1,10 @@
 import Link from "next/link";
-import { ArrowLeftIcon, ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
+import {
+  ArrowLeftIcon,
+  ArrowTopRightOnSquareIcon,
+} from "@heroicons/react/24/outline";
 import type { KnowledgeGalleryEntry } from "@/config/knowledge-gallery";
+import UnityHero from "./UnityHero";
 
 export default function KnowledgeGalleryEntryView({
   entry,
@@ -41,9 +45,16 @@ export default function KnowledgeGalleryEntryView({
         </p>
       </header>
 
-      {entry.thumbnail ? (
+      {entry.unity ? (
+        <UnityHero
+          title={entry.title}
+          thumbnail={entry.thumbnail}
+          category={entry.category}
+          unity={entry.unity}
+        />
+      ) : entry.thumbnail ? (
         <div
-          className="mb-8 aspect-video w-full overflow-hidden rounded-lg border border-line-700 bg-ink-800 bg-cover bg-center"
+          className="relative mb-8 aspect-video w-full overflow-hidden rounded-lg border border-line-700 bg-ink-800 bg-cover bg-center"
           style={{ backgroundImage: `url(${entry.thumbnail})` }}
           role="img"
           aria-label={`${entry.title} hero`}
