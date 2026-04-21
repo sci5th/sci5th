@@ -7,7 +7,7 @@ export const metadata = {
 };
 
 // Next 15: `searchParams` is async. We only care about `?section=…`, which
-// drives the sub-navbar filter (Other / Theories / Algorithms).
+// drives the sub-navbar filter (All / Theories / Algorithms).
 type SearchParams = { section?: string | string[] };
 
 export default async function KnowledgeGalleryPage({

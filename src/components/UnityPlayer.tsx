@@ -55,6 +55,7 @@ export default function UnityPlayer({
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [error, setError] = useState<string | null>(null);
+  const [unityReady, setUnityReady] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [dimensions, setDimensions] = useState({
     width: maxWidth,
@@ -117,8 +118,26 @@ export default function UnityPlayer({
 
     const ext = useUnityWebExtension ? ".unityweb" : "";
 
+    // Keep our "loading…" overlay visible for at least a short, perceptible
+    // window so the user sees immediate feedback after clicking Play even
+    // when the loader script is served from cache/same-origin in milliseconds.
+    // Unity's own progress UI takes over the canvas as soon as our overlay
+    // steps aside.
+    const startedAt = Date.now();
+    const MIN_OVERLAY_MS = 600;
+
+    const revealUnityUI = () => {
+      if (cancelled) return;
+      const elapsed = Date.now() - startedAt;
+      const wait = Math.max(0, MIN_OVERLAY_MS - elapsed);
+      window.setTimeout(() => {
+        if (!cancelled) setUnityReady(true);
+      }, wait);
+    };
+
     script.onload = async () => {
       if (cancelled || !canvasRef.current) return;
+      revealUnityUI();
       try {
         instance = await createUnityInstance(canvasRef.current, {
           dataUrl: `${gamePath}/WebGL_build.data${ext}`,
@@ -178,7 +197,7 @@ export default function UnityPlayer({
         className={
           isFullscreen
             ? "fixed inset-0 z-50 flex items-center justify-center overflow-hidden bg-black"
-            : "relative overflow-hidden rounded-lg border border-line-700 bg-ink-800"
+            : "relative overflow-hidden rounded-lg border border-line-700 bg-black"
         }
         style={
           isFullscreen
@@ -186,6 +205,14 @@ export default function UnityPlayer({
             : { width: dimensions.width, height: dimensions.height }
         }
       >
+        {!unityReady && !error && (
+          <div className="absolute inset-0 z-10 flex items-center justify-center bg-black">
+            <p className="font-mono text-xs uppercase tracking-wide text-text-300 md:text-sm">
+              loading…
+            </p>
+          </div>
+        )}
+
         {error && (
           <div className="absolute inset-0 z-10 flex items-center justify-center bg-ink-900/90 px-4 text-center">
             <p className="text-sm text-feedback-error md:text-base">{error}</p>

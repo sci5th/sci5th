@@ -10,23 +10,25 @@ import {
 // The Gallery is split into three groups. The tree-driven classification lives
 // on each entry's `kind` field; this file only decides how to present the tabs.
 //
-//  • other      — default landing tab. Everything that isn't a theory or an
-//                 algorithm (methods, frameworks, tools, people…).
+//  • all        — default landing tab. Shows every entry regardless of kind.
 //  • theories   — scientific theories and foundational frameworks.
 //  • algorithms — named algorithms / procedures.
+//
+// `kind` on a SECTIONS row is the filter applied to entries when that section
+// is active. `null` means "no filter" — show everything.
 
-type GallerySection = "other" | "theories" | "algorithms";
+type GallerySection = "all" | "theories" | "algorithms";
 
 const SECTIONS: ReadonlyArray<{
   id: GallerySection;
   label: string;
-  kind: KnowledgeGalleryKind;
+  kind: KnowledgeGalleryKind | null;
   empty: string;
 }> = [
   {
-    id: "other",
-    label: "Other",
-    kind: "other",
+    id: "all",
+    label: "All",
+    kind: null,
     empty: "No entries here yet.",
   },
   {
@@ -44,7 +46,7 @@ const SECTIONS: ReadonlyArray<{
 ];
 
 function resolveSection(raw: string | undefined): GallerySection {
-  return SECTIONS.find((s) => s.id === raw)?.id ?? "other";
+  return SECTIONS.find((s) => s.id === raw)?.id ?? "all";
 }
 
 // ── Card thumbnail ───────────────────────────────────────────────────────────
@@ -98,7 +100,7 @@ function SectionTabs({
           const isActive = section.id === active;
           // Keep the URL clean for the default landing tab.
           const href =
-            section.id === "other"
+            section.id === "all"
               ? "/knowledge-gallery"
               : `/knowledge-gallery?section=${section.id}`;
           return (
@@ -145,19 +147,23 @@ export default function KnowledgeGallery({
   const active = resolveSection(rawSection);
   const activeMeta = SECTIONS.find((s) => s.id === active)!;
 
+  // "All" counts every entry; kind-scoped tabs count only their matches.
   const counts: Record<GallerySection, number> = {
-    other: 0,
+    all: KNOWLEDGE_GALLERY_ENTRIES.length,
     theories: 0,
     algorithms: 0,
   };
   for (const entry of KNOWLEDGE_GALLERY_ENTRIES) {
-    const match = SECTIONS.find((s) => s.kind === entry.kind);
+    const match = SECTIONS.find(
+      (s) => s.kind !== null && s.kind === entry.kind,
+    );
     if (match) counts[match.id] += 1;
   }
 
-  const visible = KNOWLEDGE_GALLERY_ENTRIES.filter(
-    (e) => e.kind === activeMeta.kind,
-  );
+  const visible =
+    activeMeta.kind === null
+      ? KNOWLEDGE_GALLERY_ENTRIES
+      : KNOWLEDGE_GALLERY_ENTRIES.filter((e) => e.kind === activeMeta.kind);
 
   return (
     <section className="w-full">
