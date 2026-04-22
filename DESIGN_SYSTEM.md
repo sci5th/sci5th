@@ -30,7 +30,7 @@ the same values.
 |---|---|---|
 | `ink.950` | `#0f1218` | Deepest surface (footer) |
 | `ink.900` | `#161a22` | Card / panel (`.km-root`) |
-| `ink.800` | `#1e2430` | Secondary surface (nav bar, toolbar inputs, video frame) |
+| `ink.800` | `#1e2430` | Secondary surface (nav bar, toolbar inputs) |
 | `ink.700` | `#2a3140` | Page background, hover bg |
 | `ink.600` | `#3a4254` | Logo strip, pressed states |
 | `ink.500` | `#55607a` | Dividers, inactive chrome |
@@ -85,7 +85,7 @@ Type scale (rem): `xs 0.75` · `sm 0.875` · `base 1` · `lg 1.125` · `xl 1.375
 | Navigation | `(main)/layout.tsx` | default, hover, focus-visible, active | Active link: full opacity, `text-brand-blue`, `pointer-events-none`. Focus ring: `brand.blue`, 2 px offset. |
 | Logo strip | `(main)/layout.tsx` | default, hover, focus-visible | `bg-ink-600` with Black wordmark + Black/Blue/Pink SVG pair. |
 | Footer | `(main)/layout.tsx` | default | `bg-ink-900`, `text-text-500`. |
-| Home tagline + video | `(main)/page.tsx` | default | Video frame: `bg-ink-800`, `border border-line-700`, `rounded-lg`. |
+| Home tagline + hero | `(main)/page.tsx` + `FiveDimensionsHero.tsx` | default, reduced-motion | Frameless 16:9 container (`bg-ink-700`, no border, no radius) so the hero blends seamlessly into the page background. Hosts the animated five-dimensions hero (autoplay + loop, no controls); honors `prefers-reduced-motion` by holding a static near-end composition. |
 | `HumanKnowledgeMap` | `src/components/HumanKnowledgeMap.tsx` | see below | Scoped `km-*` CSS, category colors, full ARIA treeview. |
 | `KnowledgeGallery` | `src/components/KnowledgeGallery.tsx` | default, hover, focus-visible | Card grid on `/knowledge-gallery`. Cards are `bg-ink-900` on `border-line-700`; hover/focus switches border to `brand.pink`. Thumbnails use an `aspect-video` placeholder with the entry's category class when no image is set. |
 | `KnowledgeGalleryEntry` | `src/components/KnowledgeGalleryEntry.tsx` | default | Step-by-step view on `/knowledge-gallery/[slug]`. Top nav: "Back to Knowledge Gallery" (left) and "See in System" → `/human-knowledge` (right). Steps render as `bg-ink-900` cards on `border-line-700`. |

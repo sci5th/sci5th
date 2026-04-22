@@ -1,3 +1,5 @@
+import FiveDimensionsHero from "@/components/FiveDimensionsHero";
+
 export const metadata = {
   title: "sci5th",
   description:
@@ -13,14 +15,8 @@ export default function HomePage() {
         </p>
       </div>
 
-      <div className="aspect-video w-full max-w-3xl overflow-hidden rounded-lg border border-line-700 bg-ink-800">
-        <video
-          src="/AI_Opal.mp4"
-          controls
-          playsInline
-          preload="metadata"
-          className="h-full w-full object-contain"
-        />
+      <div className="relative aspect-video w-full max-w-3xl overflow-hidden bg-ink-700">
+        <FiveDimensionsHero />
       </div>
     </div>
   );

@@ -28,16 +28,16 @@ src/
 │   ├── layout.tsx                      # Root layout (metadata, viewport)
 │   └── (main)/
 │       ├── layout.tsx                  # Shared shell: nav, logo, footer
-│       ├── page.tsx                    # sci5th landing (tagline + AI_Opal video)
+│       ├── page.tsx                    # sci5th landing (tagline + animated hero)
 │       └── human-knowledge/
 │           └── page.tsx                # Human Knowledge — interactive tree
 ├── components/
+│   ├── FiveDimensionsHero.tsx          # Animated landing-page hero (React, rAF)
 │   └── HumanKnowledgeMap.tsx           # Interactive knowledge tree component
 └── types/
     └── css.d.ts
 
 public/
-├── AI_Opal.mp4                         # Landing-page video (horizontal 16:9)
 ├── sci5th_Logo_Black.svg
 ├── sci5th_Logo_Blue.svg
 └── sci5th_Logo_Pink.svg
@@ -47,7 +47,7 @@ public/
 
 | Route              | Description                                         |
 | ------------------ | --------------------------------------------------- |
-| `/`                | sci5th landing — tagline + AI_Opal video            |
+| `/`                | sci5th landing — tagline + animated hero            |
 | `/human-knowledge` | Human Knowledge — interactive folder tree of fields |
 
 ## Getting Started
