@@ -1225,23 +1225,25 @@ function TreeRow({
       }}
       onFocus={() => onFocus(index)}
     >
-      <span className="km-icon" aria-hidden="true">
-        {hasChildren ? (
-          isOpen ? (
-            <ChevronDownIcon />
+      <span className="km-row">
+        <span className="km-icon" aria-hidden="true">
+          {hasChildren ? (
+            isOpen ? (
+              <ChevronDownIcon />
+            ) : (
+              <ChevronRightIcon />
+            )
           ) : (
-            <ChevronRightIcon />
-          )
-        ) : (
-          <span style={{ fontSize: "14px", lineHeight: 1 }}>·</span>
-        )}
-      </span>
-      {Glyph && (
-        <span className="km-glyph" aria-hidden="true">
-          <Glyph />
+            <span style={{ fontSize: "14px", lineHeight: 1 }}>·</span>
+          )}
         </span>
-      )}
-      <span className="km-label">{node.name}</span>
+        {Glyph && (
+          <span className="km-glyph" aria-hidden="true">
+            <Glyph />
+          </span>
+        )}
+        <span className="km-label">{node.name}</span>
+      </span>
       {gallery && (
         <Link
           href={`/knowledge-gallery/${gallery.slug}`}
@@ -1267,6 +1269,11 @@ export default function HumanKnowledgeMap() {
   const searchParams = useSearchParams();
   const focusParam = searchParams.get("focus");
   const handledFocusRef = useRef<string | null>(null);
+  // Timer that clears the deep-link highlight. Held in a ref so it isn't
+  // torn down by unrelated re-renders of the focus effect (rows is recreated
+  // each render, so the effect's cleanup would otherwise cancel the timer
+  // before it fires).
+  const clearHighlightTimerRef = useRef<number | null>(null);
 
   const registerRef = useCallback(
     (index: number, el: HTMLDivElement | null) => {
@@ -1359,13 +1366,34 @@ export default function HumanKnowledgeMap() {
       }
     }, 0);
 
-    // Clear highlight after the pulse animation finishes.
-    const clear = window.setTimeout(() => setHighlightPath(null), 2200);
+    // Clear highlight flag shortly after the CSS animation (4.5s) finishes.
+    // The animation ends on `background: transparent` with no `forwards`
+    // fill, so even if this timer were somehow cancelled the row would
+    // still return to its natural look — belt and braces. Stored in a ref
+    // (outside the effect's cleanup) so unrelated re-renders — which change
+    // `rows` on every render and thus re-run this effect — don't cancel it.
+    if (clearHighlightTimerRef.current !== null) {
+      window.clearTimeout(clearHighlightTimerRef.current);
+    }
+    clearHighlightTimerRef.current = window.setTimeout(() => {
+      setHighlightPath(null);
+      clearHighlightTimerRef.current = null;
+    }, 5000);
+
     return () => {
       window.clearTimeout(t);
-      window.clearTimeout(clear);
     };
   }, [focusParam, rows]);
+
+  // Clear the highlight timer on unmount so it can't fire on a gone component.
+  useEffect(() => {
+    return () => {
+      if (clearHighlightTimerRef.current !== null) {
+        window.clearTimeout(clearHighlightTimerRef.current);
+        clearHighlightTimerRef.current = null;
+      }
+    };
+  }, []);
 
   // Keep focus index in range when the flat list changes.
   if (focusIndex >= rows.length && rows.length > 0) {

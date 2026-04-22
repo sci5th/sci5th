@@ -368,17 +368,14 @@ html {
   user-select: none;
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 6px 8px;
-  border-radius: var(--radius-sm);
-  transition: background 0.12s;
+  /* No padding or gap here — the inner `.km-row` owns the clickable label
+     region so the hover tint can stop before the Gallery badge. */
   min-height: 32px;
 }
 
 @media (max-width: 768px) {
   .km-node {
     min-height: 40px;
-    padding: 10px 8px;
   }
 }
 
@@ -386,13 +383,37 @@ html {
   cursor: pointer;
 }
 
-.km-node:hover {
-  background: var(--ink-700);
-}
-
 .km-node:focus-visible {
   outline: 2px solid var(--brand-blue);
   outline-offset: -2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Inner wrapper around the icon + glyph + label. Carries the row padding
+   and hover tint, so hovering the row highlights only up to the end of
+   the label — the Gallery badge sits outside this zone and keeps its own
+   Pink hover treatment. */
+.km-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 8px;
+  border-radius: var(--radius-sm);
+  transition: background 0.12s;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+@media (max-width: 768px) {
+  .km-row {
+    padding: 10px 8px;
+  }
+}
+
+/* Hover tint is scoped to `.km-row` (not `.km-node`) so hovering the
+   Gallery badge doesn't tint the label region — the badge sits outside
+   `.km-row` and has its own Pink hover treatment. */
+.km-row:hover {
   background: var(--ink-700);
 }
 
@@ -465,21 +486,29 @@ html {
   color: var(--ink-900);
 }
 
-/* Deep-link target highlight — briefly pulses a Pink ring around the row
-   reached via `/human-knowledge?focus=<systemPath>` so the user's eye
-   lands on it after the scroll. Auto-clears; no opt-out needed. */
+/* Deep-link target highlight — pulses a Pink ring + tint on the row
+   reached via `/human-knowledge?focus=<systemPath>`, holds a soft tint
+   briefly, then fades to fully transparent by the end of the animation.
+   The animation duration IS the visible lifetime; when it finishes, the
+   row returns to its natural background on its own. No `forwards` fill
+   mode, so there is zero risk of a lingering tint — even if JS misses
+   clearing the `data-highlight` flag, the CSS ends clean. */
 .km-node[data-highlight="true"] {
-  animation: km-pulse 2s ease-out 1;
+  animation: km-pulse 4.5s ease-out 1;
 }
 
 @keyframes km-pulse {
   0% {
-    box-shadow: 0 0 0 0 rgba(231, 185, 199, 0.7);
-    background: rgba(231, 185, 199, 0.18);
+    box-shadow: 0 0 0 0 rgba(231, 185, 199, 0.75);
+    background: rgba(231, 185, 199, 0.22);
   }
-  60% {
+  20% {
     box-shadow: 0 0 0 6px rgba(231, 185, 199, 0);
-    background: rgba(231, 185, 199, 0.08);
+    background: rgba(231, 185, 199, 0.16);
+  }
+  70% {
+    box-shadow: 0 0 0 0 rgba(231, 185, 199, 0);
+    background: rgba(231, 185, 199, 0.11);
   }
   100% {
     box-shadow: 0 0 0 0 rgba(231, 185, 199, 0);
@@ -546,9 +575,12 @@ html {
   .km-btn:active:not(:disabled) {
     transform: none;
   }
-  /* Keep the target call-out but swap the pulse for a static ring. */
+  /* Keep the target call-out but swap the pulse for a static ring. JS
+     clears the `data-highlight` flag after ~5s; no background is used so
+     nothing can linger even if that clear is delayed. */
   .km-node[data-highlight="true"] {
     animation: none;
     box-shadow: 0 0 0 2px var(--brand-pink);
+    background: transparent;
   }
 }

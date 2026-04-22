@@ -7,17 +7,20 @@ import {
 
 // ── Sub-navbar sections ──────────────────────────────────────────────────────
 //
-// The Gallery is split into three groups. The tree-driven classification lives
-// on each entry's `kind` field; this file only decides how to present the tabs.
+// The Gallery is split into filterable groups. The tree-driven classification
+// lives on each entry's `kind` field; this file only decides how to present
+// the tabs.
 //
 //  • all        — default landing tab. Shows every entry regardless of kind.
 //  • theories   — scientific theories and foundational frameworks.
 //  • algorithms — named algorithms / procedures.
+//  • models     — named models of something (scientific, statistical, ML…).
+//  • systems    — named systems (natural, engineered, or conceptual).
 //
 // `kind` on a SECTIONS row is the filter applied to entries when that section
 // is active. `null` means "no filter" — show everything.
 
-type GallerySection = "all" | "theories" | "algorithms";
+type GallerySection = "all" | "theories" | "algorithms" | "models" | "systems";
 
 const SECTIONS: ReadonlyArray<{
   id: GallerySection;
@@ -42,6 +45,18 @@ const SECTIONS: ReadonlyArray<{
     label: "Algorithms",
     kind: "algorithm",
     empty: "No algorithms yet.",
+  },
+  {
+    id: "models",
+    label: "Models",
+    kind: "model",
+    empty: "No models yet.",
+  },
+  {
+    id: "systems",
+    label: "Systems",
+    kind: "system",
+    empty: "No systems yet.",
   },
 ];
 
@@ -152,6 +167,8 @@ export default function KnowledgeGallery({
     all: KNOWLEDGE_GALLERY_ENTRIES.length,
     theories: 0,
     algorithms: 0,
+    models: 0,
+    systems: 0,
   };
   for (const entry of KNOWLEDGE_GALLERY_ENTRIES) {
     const match = SECTIONS.find(

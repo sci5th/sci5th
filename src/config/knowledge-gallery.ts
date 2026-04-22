@@ -19,10 +19,21 @@ export interface KnowledgeGalleryStep {
 
 /**
  * What kind of entry this is — used by the Gallery sub-navbar to split cards
- * into filterable groups. `other` covers anything that isn't cleanly a theory
- * or an algorithm (methods, frameworks, tools, people, etc.).
+ * into filterable groups. `other` covers anything that isn't cleanly one of
+ * the named kinds (methods, frameworks, tools, people, etc.).
+ *
+ *  • theory     — scientific theories and foundational frameworks.
+ *  • algorithm  — named algorithms / procedures.
+ *  • model      — named models of something (scientific, statistical, ML…).
+ *  • system     — named systems (natural, engineered, or conceptual).
+ *  • other      — doesn't cleanly fit above.
  */
-export type KnowledgeGalleryKind = "theory" | "algorithm" | "other";
+export type KnowledgeGalleryKind =
+  | "theory"
+  | "algorithm"
+  | "model"
+  | "system"
+  | "other";
 
 export interface KnowledgeGalleryEntry {
   slug: string;
@@ -436,6 +447,132 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     ],
   },
   {
+    slug: "operating-systems",
+    title: "Operating Systems",
+    summary:
+      "The software layer between a computer's hardware and everything that runs on it — managing processes, memory, files, and the illusion that each program has the machine to itself.",
+    systemPath:
+      "Human Knowledge/Formal Sciences/Computer Science/Systems/Operating Systems",
+    breadcrumb: "Formal Sciences · Computer Science",
+    category: "formal",
+    kind: "system",
+    thumbnail: null,
+    steps: [
+      {
+        title: "1 · What an OS actually does",
+        body: "An operating system has two jobs that are really the same job: it abstracts the hardware (so programs don't have to know whether a disk is SSD or spinning rust, whether a CPU has 4 cores or 64) and it multiplexes it (so many programs can share one machine safely). Every modern OS — Linux, Windows, macOS, iOS, Android, the real-time kernels running your car and your microwave — is a variation on those two themes.",
+      },
+      {
+        title: "2 · Processes and threads",
+        body: "A process is a running program with its own memory space, file handles, and protection boundary. Threads are lighter-weight units of execution that share a process's memory. The OS schedules threads onto CPU cores, switching between them fast enough that they appear to run in parallel. Scheduling is a genuinely hard problem — fairness, throughput, latency, and energy all pull in different directions, and every OS kernel has a long history of scheduler rewrites.",
+      },
+      {
+        title: "3 · Virtual memory",
+        body: "One of the great ideas of 20th-century computing: give every process its own enormous virtual address space, and let the OS + hardware (the MMU) translate virtual addresses to physical ones on demand, paging rarely-used memory out to disk. This makes programs simpler (no manual memory management across processes), safer (processes can't read each other's memory by accident), and lets the machine look like it has more RAM than it does. Paging, TLBs, and copy-on-write are all consequences.",
+      },
+      {
+        title: "4 · Filesystems",
+        body: "A filesystem turns a linear sequence of blocks on a disk into a tree of named files. That involves metadata (inodes, directory entries), crash safety (journaling, copy-on-write, or log-structured designs), and performance (caching, read-ahead, prefetching). Modern filesystems (ext4, NTFS, APFS, ZFS, Btrfs) add snapshots, checksums, and compression. Network and distributed filesystems (NFS, SMB, Ceph) extend the same abstraction across machines.",
+      },
+      {
+        title: "5 · The kernel / user boundary",
+        body: "The kernel is the OS code that runs with full hardware privileges; user programs run in a restricted mode and must ask the kernel (via system calls) to do anything privileged — open a file, allocate memory, send a packet, start a process. This boundary is what makes the whole thing safe: a crashing or malicious user program can't take down the machine or read another process's memory. System-call design is where security, performance, and API ergonomics collide.",
+      },
+      {
+        title: "6 · Major design families",
+        body: "Monolithic kernels (Linux, classic Unix) put drivers and most subsystems inside the kernel — fast but large. Microkernels (QNX, L4, seL4) shrink the kernel to a tiny core and run drivers as user-space processes — slower across the boundary but more robust and formally verifiable. Hybrid kernels (Windows NT, XNU in macOS) sit in between. Unikernels and exokernels push the idea further, collapsing the OS into the application when only one workload will ever run.",
+      },
+      {
+        title: "7 · Why operating systems still matter",
+        body: "Every abstraction you use — containers, VMs, serverless functions, phone apps — ultimately sits on an OS kernel. Container isolation is built on Linux namespaces and cgroups; virtual machines are built on hardware-assisted virtualization the kernel exposes; browsers are sandboxes enforced by OS syscall filters. The surface has moved up the stack, but the OS is still where the rules of the machine are defined and enforced.",
+      },
+    ],
+  },
+  {
+    slug: "distributed-systems",
+    title: "Distributed Systems",
+    summary:
+      "A collection of independent computers that appears to users as a single coherent system — and the decades of theory and trade-offs required to make that illusion hold.",
+    systemPath:
+      "Human Knowledge/Formal Sciences/Computer Science/Systems/Distributed Systems",
+    breadcrumb: "Formal Sciences · Computer Science",
+    category: "formal",
+    kind: "system",
+    thumbnail: null,
+    steps: [
+      {
+        title: "1 · Why we distribute at all",
+        body: "One machine has limits: it can only be so large, so fast, and so reliable. Distributed systems scale past those limits horizontally — by pooling many cheap machines — and gain fault tolerance almost for free, since the failure of any single node need not bring the whole service down. The price is complexity: the network is not reliable, clocks do not agree, and machines fail in partial, correlated, and surprising ways.",
+      },
+      {
+        title: "2 · The fallacies of distributed computing",
+        body: "Peter Deutsch's famous list, assembled at Sun in the 1990s, names the assumptions newcomers all make and all regret: the network is reliable, latency is zero, bandwidth is infinite, the network is secure, topology doesn't change, there's one administrator, transport cost is zero, the network is homogeneous. Every one of those is false in practice. The art of distributed systems is designing software that behaves correctly when they're violated.",
+      },
+      {
+        title: "3 · Time, order, and consistency",
+        body: "Leslie Lamport's 1978 paper 'Time, Clocks, and the Ordering of Events' showed you cannot rely on wall-clock time across machines — but you can define a causal ordering from messages. That insight underwrites logical clocks, vector clocks, and every modern consensus algorithm. Consistency models (linearizable, sequential, causal, eventual) are a menu of promises about what a client can see when multiple replicas exist; stronger promises cost more coordination.",
+      },
+      {
+        title: "4 · The CAP theorem",
+        body: "Eric Brewer's CAP theorem (2000, formally proven by Gilbert and Lynch in 2002) says: in the presence of a network partition, a distributed system must choose between consistency (all nodes see the same value) and availability (every request gets a response). You cannot have both. That forces a design decision on every real system — CP databases (Spanner, etcd, ZooKeeper) sacrifice availability during partitions; AP databases (Cassandra, Dynamo) stay up but may return stale data.",
+      },
+      {
+        title: "5 · Consensus: Paxos, Raft, and friends",
+        body: "When replicas must agree — on a leader, on a committed log entry, on the next configuration — you need a consensus protocol. Paxos (Lamport, 1998) was the landmark, correct but notoriously hard to understand. Raft (Ongaro and Ousterhout, 2014) is the modern teaching default, provably equivalent but easier to build and verify. These protocols are the heart of every reliable coordination service: Kubernetes, etcd, ZooKeeper, Consul, and the metadata planes of most cloud databases.",
+      },
+      {
+        title: "6 · Replication and partitioning",
+        body: "Replication (multiple copies of the same data) gives you fault tolerance and read scale; partitioning (splitting data across nodes) gives you write scale. Combined, they underpin every scalable database. The tricky bits are keeping replicas in sync (synchronous vs. asynchronous, leader vs. leaderless), rebalancing when nodes come and go, and handling failures without data loss. Consistent hashing, sharding, and quorum reads/writes are all answers to facets of this problem.",
+      },
+      {
+        title: "7 · Where the field lives today",
+        body: "Every modern web service is a distributed system, whether its authors call it that or not. Cloud storage (S3, GCS), globally replicated databases (Spanner, CockroachDB, DynamoDB), streaming platforms (Kafka), orchestrators (Kubernetes), and service meshes are applied distributed systems. Research continues on stronger consistency at lower cost (CRDTs, causal+ consistency), formal verification of protocols, and the hard problems of Byzantine fault tolerance — which, via blockchains, has finally escaped the lab.",
+      },
+    ],
+  },
+  {
+    slug: "generative-models",
+    title: "Generative Models",
+    summary:
+      "Machine-learning models that learn the distribution of a dataset well enough to produce new samples from it — the technology behind modern image, video, audio, and text synthesis.",
+    systemPath:
+      "Human Knowledge/Formal Sciences/Computer Science/Artificial Intelligence/Deep Learning/Generative Models (GANs, Diffusion)",
+    breadcrumb: "Formal Sciences · Artificial Intelligence",
+    category: "formal",
+    kind: "model",
+    thumbnail: null,
+    steps: [
+      {
+        title: "1 · Discriminative vs. generative",
+        body: "A discriminative model learns the boundary between classes — given an image, is it a cat or a dog? A generative model learns the full distribution — given the concept 'cat', it can produce new images of cats that never existed. The difference is the difference between recognizing and imagining. Classical generative models (Gaussian mixtures, HMMs, Naive Bayes) existed for decades; what changed in the 2010s was that deep networks became capable enough to model the distributions of real images, audio, and text.",
+      },
+      {
+        title: "2 · Variational Autoencoders (2013)",
+        body: "Kingma and Welling's Variational Autoencoder (VAE) was the first practical deep generative model. It compresses an input into a low-dimensional latent vector and reconstructs it, with a regularization term that forces the latent space to look like a smooth, sample-able distribution (usually Gaussian). You can then sample a new latent vector and decode it to get a new image. VAEs produce slightly blurry results but are well-understood, easy to train, and gave the field its first grip on learned latent spaces.",
+      },
+      {
+        title: "3 · Generative Adversarial Networks (2014)",
+        body: "Ian Goodfellow's GAN set up a two-player game: a generator tries to produce samples that fool a discriminator, which tries to tell real samples from fake. Train them against each other and — in principle — the generator converges to the true data distribution. GANs produced the era's sharpest images (StyleGAN's photorealistic faces, 2018–2020) but were notoriously unstable to train, prone to mode collapse, and hard to evaluate. For about six years, they were the frontier of image synthesis.",
+      },
+      {
+        title: "4 · Autoregressive models",
+        body: "A simpler recipe: model the probability of the next token given the previous ones, then sample one token at a time. PixelRNN (2016) did this for images pixel-by-pixel; WaveNet (2016) did it for audio sample-by-sample; and GPT did it for text token-by-token. Autoregressive models are conceptually clean and scale beautifully — they're why large language models work — but image and audio variants are slow because you generate one unit at a time.",
+      },
+      {
+        title: "5 · Diffusion models (2020 onward)",
+        body: "The current state of the art for images, audio, and video. The trick, due to Ho et al. and Song et al., is to train a network to denoise: take a clean image, progressively add Gaussian noise until it's pure static, and train the network to reverse the process. To generate, start from pure noise and iteratively denoise. Stable Diffusion, DALL·E 2 and 3, Imagen, Midjourney, and Sora are all variants. Diffusion trains stably (unlike GANs), produces sharp samples (unlike VAEs), and conditions cleanly on text via classifier-free guidance.",
+      },
+      {
+        title: "6 · Conditioning: text-to-anything",
+        body: "What made generative models feel like magic in the 2020s was conditioning. Pair a diffusion model with a CLIP-style text encoder and suddenly 'a cat riding a bicycle in Van Gogh's style' produces that image. The same recipe generalizes: text-to-image, text-to-video (Sora, Veo), text-to-3D, text-to-music (Suno, MusicLM), image-to-image (editing), and now multimodal foundation models that mix all these in one network. The bottleneck moved from modeling capacity to compute, data curation, and alignment.",
+      },
+      {
+        title: "7 · What's hard, what's next",
+        body: "Hard: evaluation (what does 'good' mean?), truthfulness (models hallucinate and confabulate), controllability (getting exactly the right output), copyright and training-data provenance, the energy cost of large-model inference, and detecting synthetic media in a society that relied on media as evidence. Next: faster sampling (consistency models, rectified flows), unified multimodal generation, world models for robotics and agents, and better post-training alignment. The research frontier moves roughly every six months.",
+      },
+    ],
+  },
+  {
     slug: "goal-oriented-action-planning",
     title: "Goal-Oriented Action Planning",
     summary:
@@ -526,6 +663,52 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     ],
   },
   {
+    slug: "foundation-models",
+    title: "Foundation Models & LLMs",
+    summary:
+      "Enormous neural networks trained on broad data at scale, adaptable to a wide range of downstream tasks with minimal further training — the architectural core of the 2020s AI wave.",
+    systemPath:
+      "Human Knowledge/Formal Sciences/Computer Science/Artificial Intelligence/Foundation Models & LLMs",
+    breadcrumb: "Formal Sciences · Artificial Intelligence",
+    category: "formal",
+    kind: "model",
+    thumbnail: null,
+    steps: [
+      {
+        title: "1 · What the phrase names",
+        body: "The term 'foundation model', coined by Stanford's CRFM in 2021, names a new species of machine-learning model: one trained once, on very broad data, and then adapted (via fine-tuning, prompting, or tool use) to many tasks downstream. GPT, Claude, Gemini, Llama, and their kin are the best-known examples; image, audio, video, and robotics foundation models also exist. The economics is the point — training is enormous and centralized, deployment is cheap and ubiquitous.",
+      },
+      {
+        title: "2 · The transformer (2017)",
+        body: "Foundation models run on transformers, the architecture introduced by Vaswani et al. in 'Attention Is All You Need'. The core idea is self-attention: each token in a sequence computes a weighted combination of every other token, where the weights come from learned query/key/value projections. That replaces the sequential bottleneck of RNNs with something massively parallel, scales smoothly to very long contexts, and transfers across modalities — the same block, with minor tweaks, models text, images (ViT), audio, and protein sequences (AlphaFold 2).",
+      },
+      {
+        title: "3 · Pre-training on everything",
+        body: "An LLM's pre-training objective is absurdly simple: given the first N tokens, predict the (N+1)-th. Run that over trillions of tokens — the web, books, code, scientific papers — and the model is forced to acquire grammar, facts, reasoning patterns, and writing styles just to reduce its loss. The same recipe on images (masked-patch prediction) or audio (masked-span prediction) yields vision and speech foundation models. Pre-training is where the capability comes from; everything afterward is adaptation.",
+      },
+      {
+        title: "4 · Scaling laws",
+        body: "Kaplan et al. (2020) and then Hoffmann et al. (Chinchilla, 2022) showed that loss decreases as a smooth power law in compute, parameters, and data, and that — for a fixed compute budget — there's an optimal trade-off between model size and training tokens. The implication: bigger isn't automatically better; data-scaled models win. This is why most frontier labs now train models with more tokens per parameter than the 2020-era giants, and why the 'scale is all you need' slogan has become more qualified.",
+      },
+      {
+        title: "5 · Post-training: SFT, RLHF, and tool use",
+        body: "A raw pre-trained model is capable but unsteered. Post-training turns it into an assistant: supervised fine-tuning (SFT) on curated instruction-response pairs, then reinforcement learning from human feedback (RLHF, Ouyang et al., 2022) to match preferences, then constitutional or rule-based methods (Bai et al.) to encode specific values. Add tool-use training and the model can call search, code, databases, and other models. The gap between GPT-3 (2020) and ChatGPT (2022) was essentially a gap in post-training, not base capability.",
+      },
+      {
+        title: "6 · Emergent behavior and its limits",
+        body: "Capabilities like arithmetic, multi-step reasoning, and in-context learning appear as models cross certain scale thresholds — the so-called emergence phenomena. Some of this is real; some is an artifact of choosing discontinuous metrics (Schaeffer et al., 2023). What's clear is that behavior changes qualitatively with scale in ways the loss curve alone doesn't predict, which is why evaluation is so hard: benchmarks saturate, and frontier models reliably find ways to ace them without the underlying skill the benchmark was meant to measure.",
+      },
+      {
+        title: "7 · What's genuinely hard",
+        body: "Truthfulness — models confidently generate plausible falsehoods (hallucinations) and no clean fix exists. Alignment — ensuring models do what users and society actually want, not what the training objective literally rewards. Safety — preventing misuse without crippling usefulness. Interpretability — mechanistic understanding of what the circuits inside a 100B-parameter network are doing. Compute and energy — frontier training runs cost tens of millions of dollars and use city-scale power. And agency — once models can take actions in the world (code, search, buy, send), the stakes of every failure mode rise.",
+      },
+      {
+        title: "8 · Where they're going",
+        body: "Multimodal by default (text + image + audio + video in one model), longer and cheaper context, retrieval and tool use baked in, reasoning models that think before answering (o1-style chain-of-thought training), agentic workflows (plan, act, observe, iterate), and on-device variants small enough to run privately. The shape of the field — one big model fine-tuned for many tasks — is unlikely to change; what that big model can do is still expanding faster than the research literature can track.",
+      },
+    ],
+  },
+  {
     slug: "general-systems-theory",
     title: "General Systems Theory",
     summary:
@@ -564,6 +747,47 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
       {
         title: "7 · Where GST lives today",
         body: "Systems biology (treating cells and organisms as networks, not just molecules), system dynamics (Forrester's stocks-and-flows modeling, still used in policy and sustainability), management cybernetics (Stafford Beer's Viable System Model), ecosystem ecology (energy and nutrient flows through trophic levels), organizational design (Senge's 'fifth discipline'), and the broader complexity sciences at institutions like Santa Fe. GST the grand unifying program faded, but its core moves — look at the whole, watch the feedback, cross the disciplinary boundary — are now default practice wherever systems get messy.",
+      },
+    ],
+  },
+  {
+    slug: "complex-systems",
+    title: "Complex Systems",
+    summary:
+      "Systems composed of many interacting components whose collective behavior cannot be inferred from the parts alone — a field that cuts across physics, biology, economics, and the social sciences.",
+    systemPath: "Human Knowledge/Formal Sciences/Systems Science/Complex Systems",
+    breadcrumb: "Formal Sciences · Systems Science",
+    category: "formal",
+    kind: "system",
+    thumbnail: null,
+    steps: [
+      {
+        title: "1 · What makes a system 'complex'",
+        body: "Three ingredients roughly do it: many components, strong nonlinear interactions between them, and feedback loops that make the whole depend on its own history. A gas has many components but weak interactions — statistical mechanics handles it. A pendulum has strong nonlinearities but only one component. A brain, an economy, a forest, an ant colony, the power grid, and the climate all have many components, nonlinear coupling, and memory — and that combination breaks the usual reductionist playbook.",
+      },
+      {
+        title: "2 · Emergence",
+        body: "The defining phenomenon: the system does something the parts don't do and couldn't do alone. No neuron is conscious; no water molecule is wet; no ant knows how to build a nest. Emergence is not mysticism — it's what happens when local rules, iterated at scale, produce global structure. Conway's Game of Life gives the minimal illustration: four trivial rules produce gliders, guns, and (provably) universal computation. If you want to understand the macro, you cannot only study the micro.",
+      },
+      {
+        title: "3 · Networks and topology",
+        body: "Most complex systems are networks: nodes (neurons, people, routers, species) connected by edges (synapses, friendships, cables, trophic links). The topology matters enormously. Barabási and Albert (1999) showed that many real networks are scale-free — a few hubs, many peripheral nodes — which makes them robust to random failure but fragile to targeted attack. Small-world networks (Watts and Strogatz, 1998) explain how six-degrees-of-separation coexists with strong local clustering. The same network statistics keep reappearing across domains.",
+      },
+      {
+        title: "4 · Nonlinearity and tipping points",
+        body: "In a linear system, doubling the input doubles the output. Complex systems are nonlinear: small changes can produce no effect for a long time and then a large one, because the system crosses a threshold. Ice sheets melt slowly and then collapse; populations stay stable and then crash; markets drift and then panic. Formalisms like bifurcation theory and catastrophe theory describe when and how these tipping points occur, and early-warning signals (critical slowing down, variance spikes) sometimes precede them.",
+      },
+      {
+        title: "5 · Self-organization",
+        body: "Complex systems spontaneously develop structure without an external designer: flocks, markets, traffic jams, cities, life itself. The mechanisms — positive and negative feedback, local interaction rules, energy flow through the system — have been studied across chemistry (Belousov–Zhabotinsky reactions), biology (morphogenesis, Turing patterns), physics (Bénard convection), and social science (Schelling segregation). Self-organization is nature's default when conditions are right; 'order from noise' stops being a paradox and becomes a mechanism.",
+      },
+      {
+        title: "6 · How the field studies them",
+        body: "Agent-based models simulate heterogeneous individuals following local rules and look for emergent regularities. Network analysis measures topology and dynamics on real data. Information theory (entropy, mutual information, transfer entropy) quantifies structure and coupling. Statistical physics adapts tools from equilibrium and non-equilibrium thermodynamics. The Santa Fe Institute (founded 1984) has been the field's intellectual home, but complexity science now lives inside every empirical field that produces enough data.",
+      },
+      {
+        title: "7 · Why it matters",
+        body: "Most of the systems whose failures would hurt us most — financial markets, infrastructure, ecosystems, pandemics, the climate, social networks — are complex systems, and the standard reductionist toolkit underpredicts their crises. Complex systems thinking doesn't replace reductionism but complements it: it insists that aggregates can have their own laws, that robustness and fragility are system-level properties, and that the right policy question is rarely 'which part is broken?' but 'which interactions are doing the work?'.",
       },
     ],
   },
@@ -689,6 +913,52 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
       {
         title: "8 · Where QM shows up",
         body: "Lasers, transistors (and therefore every computer), LEDs, MRI machines, atomic clocks (and therefore GPS), nuclear reactors, solar cells, electron microscopes, chemistry itself (bonding is a quantum phenomenon), superconductors, and quantum computing. Roughly 30% of GDP in developed economies depends on technology whose design requires quantum mechanics. The theory that started as a fix for blackbody radiation became the operating system of modern technology.",
+      },
+    ],
+  },
+  {
+    slug: "standard-model",
+    title: "Standard Model",
+    summary:
+      "The quantum field theory that classifies every known elementary particle and describes three of the four fundamental forces — arguably the most precisely tested theory in the history of science.",
+    systemPath:
+      "Human Knowledge/Natural Sciences/Physics/Quantum Mechanics/Quantum Field Theory/Standard Model",
+    breadcrumb: "Natural Sciences · Physics",
+    category: "natural",
+    kind: "model",
+    thumbnail: null,
+    steps: [
+      {
+        title: "1 · What the Standard Model is",
+        body: "The Standard Model is a quantum field theory that names every known elementary particle and specifies how they interact via three of the four fundamental forces: the electromagnetic, weak, and strong forces. It does not include gravity — that's the great unsolved seam. What it does include has been tested, in some cases to one part in a trillion, and it keeps winning. It is the backbone of particle physics from the 1970s to today.",
+      },
+      {
+        title: "2 · Fermions: the matter particles",
+        body: "Matter is built from twelve fermions (spin-½ particles), arranged in three generations that repeat in structure but not in mass. Each generation has two quarks (up/down, charm/strange, top/bottom) and two leptons (electron + electron neutrino, muon + muon neutrino, tau + tau neutrino). Ordinary matter uses only the first generation; the heavier generations exist but decay. Why exactly three generations? We don't know — it's one of the model's deep, unexplained facts.",
+      },
+      {
+        title: "3 · Bosons: the force carriers",
+        body: "Forces in the Standard Model are mediated by exchange of bosons (integer-spin particles). The photon carries electromagnetism; the W⁺, W⁻, and Z⁰ carry the weak force (responsible for beta decay and, via it, the Sun burning); eight gluons carry the strong force that binds quarks into protons, neutrons, and the nuclei they form. These interactions are dictated by gauge symmetries — U(1) × SU(2) × SU(3) — and that symmetry structure determines the particle content almost by itself.",
+      },
+      {
+        title: "4 · The Higgs mechanism",
+        body: "A pure gauge theory predicts that the W, Z, and all fermions should be massless — which is wildly wrong. Peter Higgs, Robert Brout, and François Englert proposed (1964) that the universe is filled with a scalar field whose vacuum state is not zero; particles acquire mass by interacting with this field. The scalar field's quantum is the Higgs boson. It was the last piece of the Standard Model to be discovered, at the LHC in 2012 — a fifty-year delay that nearly everyone thought would either succeed or upend physics.",
+      },
+      {
+        title: "5 · How it was built",
+        body: "The model assembled gradually from the 1960s on: QED (quantum electrodynamics) was unified with the weak force by Glashow, Weinberg, and Salam in the electroweak theory (Nobel 1979); quantum chromodynamics (QCD), the theory of the strong force, was built in the early 1970s on the discovery of asymptotic freedom (Gross, Politzer, Wilczek — Nobel 2004); the charm, bottom, and top quarks were predicted and then found; neutrinos turned out to have mass (not predicted in the original model) thanks to neutrino oscillation. Every time the model made a precise numerical prediction, experiment agreed.",
+      },
+      {
+        title: "6 · What it gets spectacularly right",
+        body: "The anomalous magnetic moment of the electron matches theory to about one part in 10¹². The masses and lifetimes of the W and Z bosons, the branching ratios of B-meson decays, the structure of jets at colliders — all agree with predictions at precision levels science rarely achieves anywhere. The LHC has now mapped the Higgs sector, tested symmetry violations, and looked for cracks. Decades of looking, and the model holds.",
+      },
+      {
+        title: "7 · What it doesn't explain",
+        body: "Gravity is not in the model. Dark matter and dark energy (about 95% of the universe's energy content) have no Standard Model candidates. The matter-antimatter asymmetry of the early universe isn't explained. The Higgs mass appears unnaturally fine-tuned. Neutrino masses exist but their origin (Majorana? Dirac?) is unknown. Why three generations? Why these particular gauge groups? Why these specific mixing angles and masses? The Standard Model is the most successful theory in physics and, at the same time, obviously incomplete.",
+      },
+      {
+        title: "8 · What comes next",
+        body: "Experimental effort is focused on precision measurements (muon g−2, neutrino oscillations, rare meson decays) looking for small deviations that would point beyond the model; and on direct searches at higher energies (LHC, future colliders) for new particles. Theoretical frameworks — supersymmetry, grand unified theories, string theory — each propose extensions, none yet confirmed. The best-kept secret of 21st-century physics is that our most successful model and our most interesting open problems both live at this exact seam.",
       },
     ],
   },
