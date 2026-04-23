@@ -152,6 +152,7 @@ const DATA: KnowledgeNode = {
                 { name: "Programming Languages" },
                 { name: "Compilers" },
                 { name: "Software Design Patterns" },
+                { name: "Modularity" },
                 { name: "DevOps & CI/CD" },
                 { name: "Testing & Verification" },
               ],
@@ -369,7 +370,10 @@ const DATA: KnowledgeNode = {
             { name: "Molecular Biology" },
             { name: "Cell Biology" },
             { name: "Genetics & Genomics" },
-            { name: "Evolutionary Biology" },
+            {
+              name: "Evolutionary Biology",
+              c: [{ name: "Modularity" }],
+            },
             { name: "Ecology" },
             { name: "Microbiology" },
             { name: "Neuroscience" },
@@ -997,7 +1001,10 @@ const DATA: KnowledgeNode = {
         {
           name: "Cognitive Science",
           c: [
-            { name: "Philosophy of Mind" },
+            {
+              name: "Philosophy of Mind",
+              c: [{ name: "Modularity of Mind" }],
+            },
             {
               name: "AI & Cognition",
               c: [

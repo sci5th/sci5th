@@ -20,7 +20,13 @@ import {
 // `kind` on a SECTIONS row is the filter applied to entries when that section
 // is active. `null` means "no filter" — show everything.
 
-type GallerySection = "all" | "theories" | "algorithms" | "models" | "systems";
+type GallerySection =
+  | "all"
+  | "theories"
+  | "algorithms"
+  | "models"
+  | "systems"
+  | "modularity";
 
 const SECTIONS: ReadonlyArray<{
   id: GallerySection;
@@ -35,16 +41,16 @@ const SECTIONS: ReadonlyArray<{
     empty: "No entries here yet.",
   },
   {
-    id: "theories",
-    label: "Theories",
-    kind: "theory",
-    empty: "No theories yet.",
-  },
-  {
     id: "algorithms",
     label: "Algorithms",
     kind: "algorithm",
     empty: "No algorithms yet.",
+  },
+  {
+    id: "modularity",
+    label: "Modularity",
+    kind: "modularity",
+    empty: "No modularity entries yet.",
   },
   {
     id: "models",
@@ -57,6 +63,12 @@ const SECTIONS: ReadonlyArray<{
     label: "Systems",
     kind: "system",
     empty: "No systems yet.",
+  },
+  {
+    id: "theories",
+    label: "Theories",
+    kind: "theory",
+    empty: "No theories yet.",
   },
 ];
 
@@ -169,6 +181,7 @@ export default function KnowledgeGallery({
     algorithms: 0,
     models: 0,
     systems: 0,
+    modularity: 0,
   };
   for (const entry of KNOWLEDGE_GALLERY_ENTRIES) {
     const match = SECTIONS.find(
@@ -213,7 +226,7 @@ export default function KnowledgeGallery({
                 className="group flex h-full flex-col overflow-hidden rounded-lg border border-line-700 bg-ink-900 p-4 transition-colors hover:border-brand-pink focus-visible:border-brand-pink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue"
               >
                 <Thumbnail entry={entry} />
-                <div className="mt-3 flex flex-col">
+                <div className="mt-3 flex flex-1 flex-col">
                   <p className="line-clamp-1 font-mono text-xs uppercase tracking-wide text-text-500">
                     {entry.breadcrumb}
                   </p>
@@ -223,6 +236,14 @@ export default function KnowledgeGallery({
                   <p className="mt-1 line-clamp-2 text-sm text-text-300">
                     {entry.summary}
                   </p>
+                  <div className="mt-3 flex justify-end">
+                    <span
+                      aria-hidden="true"
+                      className="font-mono text-xs uppercase tracking-wide text-text-500 transition-colors group-hover:text-brand-pink"
+                    >
+                      Open →
+                    </span>
+                  </div>
                 </div>
               </Link>
             </li>

@@ -26,6 +26,8 @@ export interface KnowledgeGalleryStep {
  *  • algorithm  — named algorithms / procedures.
  *  • model      — named models of something (scientific, statistical, ML…).
  *  • system     — named systems (natural, engineered, or conceptual).
+ *  • modularity — named applications of the modularity principle across
+ *                 disciplines (software, biology, cognition, …).
  *  • other      — doesn't cleanly fit above.
  */
 export type KnowledgeGalleryKind =
@@ -33,6 +35,7 @@ export type KnowledgeGalleryKind =
   | "algorithm"
   | "model"
   | "system"
+  | "modularity"
   | "other";
 
 export interface KnowledgeGalleryEntry {
@@ -82,7 +85,7 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     breadcrumb: "System of Human Knowledge",
     category: "formal",
     kind: "other",
-    thumbnail: null,
+    thumbnail: "/HumanKnowledge.webp",
     steps: [
       {
         title: "1 · Formal Sciences",
@@ -119,7 +122,7 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     breadcrumb: "Human Knowledge · Formal Sciences",
     category: "formal",
     kind: "other",
-    thumbnail: null,
+    thumbnail: "/FormalSciences.webp",
     steps: [
       {
         title: "1 · Mathematics",
@@ -148,7 +151,7 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     breadcrumb: "Human Knowledge · Natural Sciences",
     category: "natural",
     kind: "other",
-    thumbnail: null,
+    thumbnail: "/NaturalSciences.webp",
     steps: [
       {
         title: "1 · Physics",
@@ -185,7 +188,7 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     breadcrumb: "Human Knowledge · Applied Sciences & Technology",
     category: "applied",
     kind: "other",
-    thumbnail: null,
+    thumbnail: "/AppliedSciences.webp",
     steps: [
       {
         title: "1 · Engineering",
@@ -222,7 +225,7 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     breadcrumb: "Human Knowledge · Social Sciences",
     category: "social",
     kind: "other",
-    thumbnail: null,
+    thumbnail: "/SocialSciences.webp",
     steps: [
       {
         title: "1 · Economics & Psychology",
@@ -527,6 +530,48 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
       {
         title: "7 · Where the field lives today",
         body: "Every modern web service is a distributed system, whether its authors call it that or not. Cloud storage (S3, GCS), globally replicated databases (Spanner, CockroachDB, DynamoDB), streaming platforms (Kafka), orchestrators (Kubernetes), and service meshes are applied distributed systems. Research continues on stronger consistency at lower cost (CRDTs, causal+ consistency), formal verification of protocols, and the hard problems of Byzantine fault tolerance — which, via blockchains, has finally escaped the lab.",
+      },
+    ],
+  },
+  {
+    slug: "software-modularity",
+    title: "Software Modularity",
+    summary:
+      "The engineering principle of splitting a program into self-contained pieces that hide their internals and expose narrow interfaces — arguably the single most important idea in software design.",
+    systemPath:
+      "Human Knowledge/Formal Sciences/Computer Science/Software Engineering/Modularity",
+    breadcrumb: "Formal Sciences · Software Engineering",
+    category: "formal",
+    kind: "modularity",
+    thumbnail: null,
+    steps: [
+      {
+        title: "1 · The problem it solves",
+        body: "A large program is too big to hold in one head. Change ripples unpredictably, bugs hide in the interactions between distant parts, and onboarding a new engineer becomes an archaeological dig. Modularity is the response: split the system into pieces small enough to reason about locally, with well-defined boundaries so that understanding one piece doesn't require understanding all the others. The unit of reasoning shrinks from 'the whole program' to 'this module and its interfaces' — a difference of orders of magnitude in cognitive load.",
+      },
+      {
+        title: "2 · Parnas and information hiding (1972)",
+        body: "David Parnas's paper 'On the Criteria To Be Used in Decomposing Systems into Modules' is the founding document. His key insight: the right decomposition isn't by processing step, it's by secret. Each module hides a design decision that is likely to change — a data structure, an algorithm, a hardware dependency — behind a stable interface. Callers depend on the interface, not the secret; when the secret changes, nothing else has to. Information hiding turns change tolerance from an accident into a property you can design for.",
+      },
+      {
+        title: "3 · Cohesion and coupling",
+        body: "Two dials measure module quality. High cohesion means a module's internals all serve one purpose — everything inside belongs together. Low coupling means modules depend on each other only through narrow, explicit interfaces — no shared global state, no reaching into each other's guts. The goal is always 'high cohesion, low coupling'. These ideas were sharpened by Larry Constantine and Edward Yourdon in the 1970s and remain the vocabulary every code review uses today, whether the reviewer names them or not.",
+      },
+      {
+        title: "4 · Interfaces and abstract data types",
+        body: "A module's interface is a contract: a list of operations, their signatures, and the invariants they promise. Barbara Liskov's work on abstract data types (CLU, 1974) showed how to make the contract a first-class language construct — the type system enforces that clients only touch the module through its operations, never its representation. Every modern type system, every header file, every language's `public` / `private` keywords, every API spec, is a descendant of this move.",
+      },
+      {
+        title: "5 · Modularity at every scale",
+        body: "The same principle recurs at every altitude of software. At the smallest scale: functions. One level up: classes and modules within a file. Higher still: packages and libraries with their own versioned interfaces. Higher still: microservices, each a process with a network API. At the top: whole systems that talk only through well-defined protocols. The Unix philosophy ('do one thing well, communicate through pipes') is modularity at the process level; REST, gRPC, and message queues are modularity at the system level. The pattern is fractal.",
+      },
+      {
+        title: "6 · What modularity buys you",
+        body: "Parallel development: teams can work on different modules without blocking each other. Testability: a module with a narrow interface can be tested in isolation, with a fake or mock for its dependencies. Reusability: a well-bounded module can be dropped into a different system. Replaceability: swap an implementation without touching callers. Comprehensibility: new engineers can learn one module at a time. None of these are automatic — they're what careful module boundaries make possible.",
+      },
+      {
+        title: "7 · The costs and failure modes",
+        body: "Modularity isn't free. Too-small modules fragment the system into noise (classic 'Java-itis': forty files to do one thing). Wrong boundaries calcify — the interfaces freeze the system's structure, and every change has to route around them. 'Leaky abstractions' (Joel Spolsky) let internals show through and break the information-hiding promise. Distributed modules (microservices) trade in-process simplicity for network complexity — timeouts, partial failures, versioning. The craft is choosing *what* to modularize and *where* to draw the seams, not just splitting things up for its own sake.",
       },
     ],
   },
@@ -1138,6 +1183,44 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     ],
   },
   {
+    slug: "biological-modularity",
+    title: "Biological Modularity",
+    summary:
+      "The idea that organisms, genomes, and development are built from semi-independent units that can vary and evolve without breaking the whole — a central concept in evo-devo.",
+    systemPath:
+      "Human Knowledge/Natural Sciences/Biology/Evolutionary Biology/Modularity",
+    breadcrumb: "Natural Sciences · Biology",
+    category: "natural",
+    kind: "modularity",
+    thumbnail: null,
+    steps: [
+      {
+        title: "1 · Why organisms aren't monoliths",
+        body: "If every gene and every trait were tightly entangled with every other, evolution would be stuck — any mutation would push the whole phenotype around and almost certainly break something. In practice, organisms evolve. The reason is that biological systems are modular: they're built out of semi-autonomous units (body segments, organs, gene networks, protein domains) that can vary, duplicate, and be rewired without the rest collapsing. Modularity is what makes evolvability possible.",
+      },
+      {
+        title: "2 · What a biological module is",
+        body: "A module is a set of parts whose interactions are dense internally and sparse externally. A vertebrate limb is one: its skeleton, muscles, and innervation form a tightly coupled unit, connected to the rest of the body only through a few well-defined attachment and signaling points. The same pattern holds for protein domains, metabolic pathways, gene-regulatory networks, and developmental compartments. Identifying modules rigorously requires measuring which parts co-vary, which co-regulate, and which can be perturbed independently — an active area of quantitative biology.",
+      },
+      {
+        title: "3 · Genetic modularity: toolkits and duplication",
+        body: "Hox genes — the famous developmental master regulators — are the textbook example. A shared 'genetic toolkit' specifies body-plan coordinates across virtually all animals; different animals deploy the same modules in different combinations to build wildly different bodies. Gene duplication then lets a module diverge: one copy keeps the old job while the other is free to specialize. The jawed vertebrates owe much of their diversification to two rounds of whole-genome duplication deep in their lineage — a mass-produced supply of modules free to be repurposed.",
+      },
+      {
+        title: "4 · Developmental modularity and evo-devo",
+        body: "The evo-devo synthesis (1990s–2000s) made modularity central to evolutionary biology. Embryonic development proceeds through reusable 'modules' — the limb field, the somite, the neural tube — each under the control of a semi-independent gene-regulatory network. Evolution tinkers with the timing, location, or intensity of these modules (heterochrony, heterotopy) rather than inventing wholesale new machinery. Sean Carroll's 'Endless Forms Most Beautiful' (2005) popularized the argument: most evolutionary novelty is recombination and retuning of existing modules, not starting from scratch.",
+      },
+      {
+        title: "5 · The evolution of modularity itself",
+        body: "Where does modularity come from? Günter Wagner, Lee Altenberg, and others argued that natural selection favors modular architectures because they make organisms more evolvable — variation in one module doesn't wreck the others, so the population can explore more of phenotype space. Computational work (Kashtan & Alon, 2005) showed that modular networks emerge spontaneously when the selection target itself keeps changing — environments with 'modularly varying goals' push evolution toward modular solutions. Modularity is not a given; it's a product of evolutionary history.",
+      },
+      {
+        title: "6 · Signatures and consequences",
+        body: "Modular architectures leave fingerprints. Traits within a module co-vary (limb bones scale together); traits across modules vary more independently (limb vs. jaw). Genes inside a regulatory module are co-expressed; genes across modules often aren't. Mutations tend to produce focused rather than pleiotropic effects. The consequences are deep: cancer exploits modularity (a broken cell-cycle module metastasizes while the rest of the cell keeps running); regeneration relies on it (a lost limb can be regrown because the limb module is self-contained); and convergent evolution is rampant because the same modules get recruited independently in different lineages.",
+      },
+    ],
+  },
+  {
     slug: "plate-tectonics",
     title: "Plate Tectonics",
     summary:
@@ -1218,6 +1301,48 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
       {
         title: "7 · Applications that reshaped the world",
         body: "Cognitive theory underwrites cognitive behavioral therapy (the most empirically supported psychotherapy — change thoughts, change emotions), human-computer interaction (designing interfaces that respect attention and working-memory limits), evidence-based education (spaced repetition, retrieval practice, dual coding), usability testing, and large parts of modern AI (the representation/computation framing came straight out of this era). It's one of the most practically consequential theoretical shifts in 20th-century science.",
+      },
+    ],
+  },
+  {
+    slug: "modularity-of-mind",
+    title: "Modularity of Mind",
+    summary:
+      "Jerry Fodor's thesis that much of the mind is built from specialized, domain-specific processors — fast, automatic, encapsulated, and innate — rather than one general-purpose reasoning engine.",
+    systemPath:
+      "Human Knowledge/Professions & Interdisciplinary/Cognitive Science/Philosophy of Mind/Modularity of Mind",
+    breadcrumb: "Professions & Interdisciplinary · Cognitive Science",
+    category: "professions",
+    kind: "modularity",
+    thumbnail: null,
+    steps: [
+      {
+        title: "1 · The question Fodor was asking",
+        body: "By the late 1970s cognitive science had a language (computation over representations) but no clear picture of the mind's architecture. Was it a single general-purpose reasoner, a swarm of special-purpose devices, or something in between? Jerry Fodor's 1983 monograph 'The Modularity of Mind' offered a sharp, testable answer: a large portion of the mind is made of modules — specialized processing systems — while a smaller, slower 'central system' does general reasoning across their outputs. The proposal was influential precisely because Fodor committed to specific criteria that would decide whether a given mental system counted as modular.",
+      },
+      {
+        title: "2 · Fodor's nine criteria",
+        body: "A Fodorian module is: (1) domain-specific — it only operates on one kind of input (faces, syntax, edges); (2) mandatory — it fires automatically when its input arrives, you can't turn it off; (3) fast — on the order of milliseconds; (4) informationally encapsulated — it can't consult your beliefs or goals while running; (5) neurally localized — it lives in specific brain circuitry; (6) has characteristic breakdown patterns — brain damage produces selective deficits; (7) has a fixed neural architecture; (8) has limited central access — you don't introspect its internals; (9) develops on a characteristic ontogenetic schedule. The criteria cluster: real modules tend to score high on all of them.",
+      },
+      {
+        title: "3 · The canonical example: vision",
+        body: "The Müller-Lyer illusion is Fodor's favorite demonstration. Two lines with inward- or outward-pointing arrowheads look different lengths; they aren't. Critically, the illusion persists even after you've measured the lines and know they're equal. Your belief that they're the same can't reach down and fix the perceptual output — the visual system is informationally encapsulated. Low-level vision, face recognition, phoneme perception, and grammatical parsing all show the same pattern: fast, automatic, and stubborn in the face of top-down knowledge.",
+      },
+      {
+        title: "4 · Central cognition is NOT modular",
+        body: "Fodor's other, less-cited claim is nearly as important: not everything is a module. Central cognition — belief fixation, analogical reasoning, scientific theorizing, planning a vacation — is precisely the opposite of modular. It's slow, effortful, globally accessible (anything you know can, in principle, bear on anything else), and resists neat localization. Fodor argued this non-modularity is why general intelligence is hard: the central system has to search an unbounded space of relevant information. This pessimism about central cognition ('the first law of the non-existence of cognitive science') is the part most often left out of summaries.",
+      },
+      {
+        title: "5 · Evolutionary psychology's massive modularity",
+        body: "In the 1990s, Leda Cosmides, John Tooby, and Steven Pinker pushed Fodor's thesis much further: the whole mind, including 'central' reasoning, is a collection of evolved, domain-specific modules — cheater detection, kin recognition, mate choice, alliance tracking, mind-reading. Evidence came from the Wason selection task (people solve it when it's framed as cheater detection but fail on the abstract version), selective deficits in autism and Williams syndrome, and cross-cultural consistency in social-reasoning patterns. 'Massive modularity' is much stronger than Fodor's original claim — and much more contested.",
+      },
+      {
+        title: "6 · The case against",
+        body: "Critics — Jesse Prinz, Kim Sterelny, Fiona Cowie, neural-network theorists — push back on several fronts. Real cognitive systems leak: attention, expectation, and belief demonstrably modulate 'low-level' perception (top-down priors, Bayesian brain, predictive processing). Neuroimaging reveals overlapping, distributed networks rather than clean functional dissociations. And evolutionary arguments for specific modules often rest on 'just-so stories' — plausible but underdetermined by the evidence. The criteria themselves may pick out a gradient, not a natural kind.",
+      },
+      {
+        title: "7 · The concept's afterlife",
+        body: "Even where the strong thesis has been rejected, the vocabulary persists. Developmental psychology talks about 'core knowledge systems' (Spelke) — domain-specific early competences in object, number, agent, and space perception. Cognitive neuroscience catalogs 'functional specialization' without committing to full encapsulation. AI borrows the architecture: Transformers are monolithic; 'mixture of experts' models and modular meta-learning explicitly build specialized subnetworks that a gating mechanism routes between. Whether the mind is modular in Fodor's strict sense is still debated — but the question he crystallized is now how every serious theory of cognitive architecture has to define itself.",
       },
     ],
   },

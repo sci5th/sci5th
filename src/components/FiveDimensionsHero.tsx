@@ -11,7 +11,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 
 const STAGE_W = 1920;
 const STAGE_H = 1080;
-const DURATION = 18; // seconds — one loop
+const DURATION = 18; // seconds — one pass, Cloud appears near-instantly
 
 // ── Easing ──────────────────────────────────────────────────────────────────
 const easeInOutCubic = (t: number) =>
@@ -69,10 +69,10 @@ interface OrbPos {
   depth: number;
 }
 const ORB_POS: readonly OrbPos[] = [
-  { x: 640, y: 440, depth: 0.95 }, // lavender — upper left
-  { x: 1210, y: 380, depth: 1.05 }, // mint — upper right
-  { x: 720, y: 700, depth: 1.1 }, // peach — lower left
-  { x: 1280, y: 680, depth: 0.9 }, // rose — lower right
+  { x: 640, y: 332, depth: 0.95 }, // lavender — upper left (shifted up 10% of stage height)
+  { x: 1210, y: 272, depth: 1.05 }, // mint — upper right (shifted up 10% of stage height)
+  { x: 720, y: 808, depth: 1.1 }, // peach — lower left (shifted down 10% of stage height)
+  { x: 1280, y: 788, depth: 0.9 }, // rose — lower right (shifted down 10% of stage height)
 ];
 
 // ── Sub-components take `t` (seconds) directly to avoid Context churn ─────
@@ -179,11 +179,13 @@ function Particles({ t, count = 70 }: { t: number; count?: number }) {
 }
 
 function Cloud({ t }: { t: number }) {
-  const reveal = easeInOutCubic(clamp((t - 2.0) / 2.0, 0, 1));
+  // Cloud grows slowly from t=0 until the 1st-Dimension orb appears (t=4.0).
+  const reveal = easeInOutCubic(clamp(t / 4.0, 0, 1));
   const breathe = 1 + Math.sin(t * 0.35) * 0.015;
   const rot = Math.sin(t * 0.08) * 1.2;
   const exhale = interpolate([12, 13.5, 15], [0, 0.02, 0], easeInOutSine)(t);
-  const scale = (0.6 + reveal * 0.4) * breathe * (1 + exhale);
+  // End scale nudged up from 1.0 → 1.15 so the settled cloud reads a bit larger.
+  const scale = (0.65 + reveal * 0.5) * breathe * (1 + exhale);
   const opacity = reveal;
   return (
     <div
@@ -360,8 +362,8 @@ function OrbitalRing({
           transform: "translate(-50%, -50%)",
           borderRadius: "50%",
           background: color,
-          boxShadow: `0 0 16px ${color}, 0 0 30px ${color}77`,
-          opacity: 0.9,
+          boxShadow: `0 0 6px ${color}88, 0 0 12px ${color}33`,
+          opacity: 0.7,
         }}
       />
     </div>
@@ -457,7 +459,12 @@ function OrbNode({ index, t }: { index: number; t: number }) {
 
   const depthScale = pos.depth;
   const orbScale = reveal * pulse * syncPulse * depthScale;
+  // Orbital ring + label offsets stay on the original 120px reference so
+  // the ring radius and label anchor match the earlier geometry exactly.
   const orbSize = 120;
+  // The colored sphere (and its glow/specular halo) renders 10% smaller —
+  // a quieter, tighter core inside the same ring.
+  const sphereSize = orbSize * 0.9;
 
   const bloomPulse = 1 + Math.sin(t * pulseFreq + pulsePhase) * 0.08;
 
@@ -477,12 +484,12 @@ function OrbNode({ index, t }: { index: number; t: number }) {
           position: "absolute",
           left: "50%",
           top: "50%",
-          width: orbSize * 5,
-          height: orbSize * 5,
+          width: sphereSize * 3,
+          height: sphereSize * 3,
           transform: `translate(-50%, -50%) scale(${orbScale * bloomPulse})`,
-          background: `radial-gradient(circle at 50% 50%, ${orb.color}33 0%, ${orb.color}11 30%, transparent 65%)`,
-          filter: "blur(30px)",
-          opacity: reveal * 0.9,
+          background: `radial-gradient(circle at 50% 50%, ${orb.color}14 0%, ${orb.color}08 30%, transparent 65%)`,
+          filter: "blur(24px)",
+          opacity: reveal * 0.35,
           pointerEvents: "none",
         }}
       />
@@ -492,12 +499,12 @@ function OrbNode({ index, t }: { index: number; t: number }) {
           position: "absolute",
           left: "50%",
           top: "50%",
-          width: orbSize * 2.2,
-          height: orbSize * 2.2,
+          width: sphereSize * 1.5,
+          height: sphereSize * 1.5,
           transform: `translate(-50%, -50%) scale(${orbScale * bloomPulse})`,
-          background: `radial-gradient(circle at 50% 50%, ${orb.color}cc 0%, ${orb.color}55 25%, transparent 60%)`,
-          filter: "blur(14px)",
-          opacity: reveal,
+          background: `radial-gradient(circle at 50% 50%, ${orb.color}55 0%, ${orb.color}22 25%, transparent 60%)`,
+          filter: "blur(10px)",
+          opacity: reveal * 0.5,
         }}
       />
       <OrbitalRing
@@ -514,12 +521,12 @@ function OrbNode({ index, t }: { index: number; t: number }) {
           position: "absolute",
           left: "50%",
           top: "50%",
-          width: orbSize,
-          height: orbSize,
+          width: sphereSize,
+          height: sphereSize,
           transform: `translate(-50%, -50%) scale(${orbScale})`,
           borderRadius: "50%",
           background: `radial-gradient(circle at 38% 32%, #ffffff 0%, ${orb.color} 18%, ${orb.color}dd 50%, ${orb.color}66 90%)`,
-          boxShadow: `0 0 40px ${orb.color}99, inset -8px -12px 30px ${orb.color}44`,
+          boxShadow: `0 0 12px ${orb.color}33, inset -8px -12px 30px ${orb.color}44`,
           opacity: reveal,
         }}
       />
@@ -529,14 +536,14 @@ function OrbNode({ index, t }: { index: number; t: number }) {
           position: "absolute",
           left: "50%",
           top: "50%",
-          width: orbSize * 0.35,
-          height: orbSize * 0.35,
-          transform: `translate(calc(-50% - ${orbSize * 0.18}px), calc(-50% - ${orbSize * 0.2}px)) scale(${orbScale})`,
+          width: sphereSize * 0.35,
+          height: sphereSize * 0.35,
+          transform: `translate(calc(-50% - ${sphereSize * 0.18}px), calc(-50% - ${sphereSize * 0.2}px)) scale(${orbScale})`,
           borderRadius: "50%",
           background:
-            "radial-gradient(circle, rgba(255,255,255,0.55) 0%, transparent 70%)",
+            "radial-gradient(circle, rgba(255,255,255,0.28) 0%, transparent 70%)",
           filter: "blur(4px)",
-          opacity: reveal,
+          opacity: reveal * 0.6,
         }}
       />
       <OrbLabel
@@ -551,9 +558,13 @@ function OrbNode({ index, t }: { index: number; t: number }) {
 }
 
 function InformationLabel({ t }: { t: number }) {
-  const op = easeInOutCubic(clamp((t - 15.0) / 2.0, 0, 1));
-  if (op <= 0) return null;
-  const dy = (1 - op) * 10;
+  // "Information" wordmark appears 2.0s before the 1st-Dimension orb (t=4.0),
+  // so it starts fading in at t=2.0. The eyebrow ("The fifth dimension") and
+  // the "?" glyph — the 5th-dimension reveal — begin fading in at t=12.0.
+  const infoOp = easeInOutCubic(clamp((t - 2.0) / 1.8, 0, 1));
+  const chromeOp = easeInOutCubic(clamp((t - 12.0) / 2.0, 0, 1));
+  if (infoOp <= 0 && chromeOp <= 0) return null;
+  const dy = (1 - infoOp) * 10;
   return (
     <div
       style={{
@@ -561,20 +572,26 @@ function InformationLabel({ t }: { t: number }) {
         left: "50%",
         top: "50%",
         transform: `translate(-50%, calc(-50% + ${dy}px))`,
-        opacity: op,
         pointerEvents: "none",
         textAlign: "center",
         willChange: "opacity, transform",
       }}
     >
+      {/* Eyebrow — absolute so its own fade-in doesn't shift the wordmark.
+          Positioned just above the "Information" baseline. */}
       <div
         style={{
+          position: "absolute",
+          left: "50%",
+          bottom: "calc(100% + 14px)",
+          transform: "translateX(-50%)",
+          whiteSpace: "nowrap",
           fontSize: 20,
           fontWeight: 400,
           letterSpacing: "0.45em",
           color: TEXT_DIM,
           textTransform: "uppercase",
-          marginBottom: 14,
+          opacity: chromeOp,
         }}
       >
         The fifth dimension
@@ -587,19 +604,25 @@ function InformationLabel({ t }: { t: number }) {
           color: TEXT,
           textTransform: "uppercase",
           textShadow: "0 0 40px rgba(184, 212, 255, 0.3)",
+          opacity: infoOp,
         }}
       >
         Information
       </div>
+      {/* "?" — absolute so its own fade-in doesn't shift anything. */}
       <div
         aria-hidden
         style={{
-          marginTop: 18,
+          position: "absolute",
+          left: "50%",
+          top: "calc(100% + 18px)",
+          transform: "translateX(-50%)",
           fontSize: 40,
           fontWeight: 300,
           color: TEXT_DIM,
           lineHeight: 1,
           textShadow: "0 0 30px rgba(184, 212, 255, 0.25)",
+          opacity: chromeOp,
         }}
       >
         ?
@@ -609,7 +632,18 @@ function InformationLabel({ t }: { t: number }) {
 }
 
 // ── Stage ────────────────────────────────────────────────────────────────
-export default function FiveDimensionsHero() {
+interface FiveDimensionsHeroProps {
+  /**
+   * How to scale the 1920×1080 stage to its container.
+   * - "contain" (default): fits entirely inside, possibly leaving bars on one axis.
+   * - "cover": fills the container, cropping overflow on the longer axis.
+   */
+  fit?: "contain" | "cover";
+}
+
+export default function FiveDimensionsHero({
+  fit = "contain",
+}: FiveDimensionsHeroProps = {}) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const rafRef = useRef<number | null>(null);
   const startRef = useRef<number | null>(null);
@@ -636,20 +670,31 @@ export default function FiveDimensionsHero() {
     return () => mq.removeEventListener("change", sync);
   }, [mounted]);
 
-  // Auto-scale to fit container
+  // Auto-scale to fit container. In `cover` mode we only expand past a
+  // contain-fit when the container is at least as wide as the stage's 16:9;
+  // on narrower (taller) viewports we fall back to `contain` so orb/label
+  // positions — which sit in absolute pixel space on the 1920×1080 stage —
+  // never get cropped off-screen.
   useEffect(() => {
     if (!mounted) return;
     const el = containerRef.current;
     if (!el) return;
+    const STAGE_ASPECT = STAGE_W / STAGE_H;
     const measure = () => {
-      const s = Math.min(el.clientWidth / STAGE_W, el.clientHeight / STAGE_H);
+      const w = el.clientWidth;
+      const h = el.clientHeight;
+      const sx = w / STAGE_W;
+      const sy = h / STAGE_H;
+      const containerAspect = w / Math.max(h, 1);
+      const useCover = fit === "cover" && containerAspect >= STAGE_ASPECT;
+      const s = useCover ? Math.max(sx, sy) : Math.min(sx, sy);
       setScale(Math.max(0.05, s));
     };
     measure();
     const ro = new ResizeObserver(measure);
     ro.observe(el);
     return () => ro.disconnect();
-  }, [mounted]);
+  }, [mounted, fit]);
 
   // Animation loop — autoplay once, then hold the final frame. Reduced-motion
   // users skip the animation and see the final composition immediately.

@@ -7,7 +7,9 @@ export const metadata = {
 };
 
 // Next 15: `searchParams` is async. We only care about `?section=…`, which
-// drives the sub-navbar filter (All / Theories / Algorithms).
+// drives the sub-navbar filter (All / Algorithms / Modularity / Models /
+// Systems / Theories — kind-scoped tabs are sorted alphabetically; All
+// stays pinned as the default landing tab).
 type SearchParams = { section?: string | string[] };
 
 export default async function KnowledgeGalleryPage({
