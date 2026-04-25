@@ -1,5 +1,5 @@
 {
-  "name": "sci5th-website",
+  "name": "sci5th",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,6 +10,8 @@
     "format": "prettier --write \"src/**/*.{ts,tsx,css}\""
   },
   "dependencies": {
+    "@brain5th/engine": "workspace:*",
+    "@brain5th/knowledge-human": "workspace:*",
     "@heroicons/react": "^2.2.0",
     "next": "^15.5.7",
     "react": "^19.0.1",

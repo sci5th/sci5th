@@ -72,113 +72,21 @@ export interface KnowledgeGalleryEntry {
     /** Whether the build uses the `.unityweb` (gzipped) suffix. Defaults to true. */
     useUnityWebExtension?: boolean;
   };
-  steps: KnowledgeGalleryStep[];
+  steps: ReadonlyArray<KnowledgeGalleryStep>;
 }
 
-export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
-  {
-    slug: "human-knowledge",
-    title: "Human Knowledge",
-    summary:
-      "A map of what humans have figured out — organized into six great branches that together cover the formal, the natural, the made, the social, the interpretive, and the practical.",
-    systemPath: "Human Knowledge",
-    breadcrumb: "System of Human Knowledge",
-    category: "formal",
-    kind: "other",
-    thumbnail: "/HumanKnowledge.webp",
-    steps: [
-      {
-        title: "1 · Formal Sciences",
-        body: "The study of form, structure, and abstract systems — mathematics, logic, computer science, and systems science. Formal sciences don't appeal to experiment; their claims are established by proof from axioms. They supply the languages (set theory, category theory, logic) and the tools (algorithms, probability, statistics) the rest of knowledge leans on.",
-      },
-      {
-        title: "2 · Natural Sciences",
-        body: "The study of the physical world and the life within it — physics, chemistry, biology, earth sciences, astronomy. Natural science proceeds by observation, hypothesis, and experiment, and it's where most of our testable theories of how reality behaves come from. The scale ranges from subatomic particles to the observable universe.",
-      },
-      {
-        title: "3 · Applied Sciences & Technology",
-        body: "Where knowledge becomes stuff that works — engineering, medicine, biotechnology, agriculture, materials, information science. Applied sciences take laws and models from the formal and natural sciences and use them to solve problems: to build bridges, cure disease, feed populations, move information. This is the branch closest to the human-made world.",
-      },
-      {
-        title: "4 · Social Sciences",
-        body: "The study of humans as individuals and in groups — economics, psychology, sociology, political science, anthropology, linguistics, geography, law. Social sciences borrow from the scientific method but contend with a subject that can read the theories about it and change in response. Its models are usually probabilistic and contested, not law-like.",
-      },
-      {
-        title: "5 · Humanities",
-        body: "The interpretive disciplines — philosophy, history, literature, religious studies, art history, music, performing arts, digital humanities. The humanities ask not what the world is made of but what it means: how humans have lived, argued, believed, imagined, and expressed. Their test is argument and interpretation rather than experiment.",
-      },
-      {
-        title: "6 · Professions & Interdisciplinary",
-        body: "The branches organized around practice — business, design, culinary arts, journalism, military science, skilled trades, data science, bioinformatics. These fields cut across the others: they borrow theory freely and are judged primarily by whether the practice actually works. Much modern knowledge growth happens here, at the seams between older disciplines.",
-      },
-    ],
-  },
-  {
-    slug: "formal-sciences",
-    title: "Formal Sciences",
-    summary:
-      "The study of form, structure, and valid inference — the branch of knowledge whose results are established by proof rather than experiment.",
-    systemPath: "Human Knowledge/Formal Sciences",
-    breadcrumb: "Human Knowledge · Formal Sciences",
-    category: "formal",
-    kind: "other",
-    thumbnail: "/FormalSciences.webp",
-    steps: [
-      {
-        title: "1 · Mathematics",
-        body: "The oldest and most developed formal science — the study of quantity, structure, space, and change. Split into pure mathematics (algebra, analysis, geometry & topology, logic & foundations) and applied mathematics (statistics & probability, numerical methods, optimization, dynamical systems, game theory). Mathematics is the language most of the other formal sciences (and much of natural science) speak.",
-      },
-      {
-        title: "2 · Computer Science",
-        body: "The science of computation — what problems are solvable, by what procedures, and how efficiently. It ranges from theoretical CS (algorithms, complexity, automata, cryptography) through systems (OS, databases, networks) and software engineering to artificial intelligence, HCI, graphics, and cybersecurity. Computer science is the youngest of the big formal fields and arguably the one reshaping the others fastest.",
-      },
-      {
-        title: "3 · Logic",
-        body: "The study of valid inference. Formal logic (propositional, predicate) defines what makes an argument correct regardless of content. Mathematical logic formalizes proof itself and gave us the great 20th-century results (Gödel, Turing, Tarski). Philosophical logic extends the toolkit to modality, time, relevance, and vagueness. Logic is the substrate on which both mathematics and computer science rest.",
-      },
-      {
-        title: "4 · Systems Science",
-        body: "The study of systems as systems — whatever their material. General systems theory, cybernetics, complex and complex adaptive systems, chaos theory. Systems science looks for structural patterns (feedback, hierarchy, emergence, nonlinearity) that recur across biology, economics, engineering, and ecology, and provides formal models for them.",
-      },
-    ],
-  },
-  {
-    slug: "natural-sciences",
-    title: "Natural Sciences",
-    summary:
-      "The empirical study of the physical world and the life within it — from subatomic particles to galaxies, from molecules to ecosystems.",
-    systemPath: "Human Knowledge/Natural Sciences",
-    breadcrumb: "Human Knowledge · Natural Sciences",
-    category: "natural",
-    kind: "other",
-    thumbnail: "/NaturalSciences.webp",
-    steps: [
-      {
-        title: "1 · Physics",
-        body: "The most fundamental natural science — the study of matter, energy, space, and time, and the laws that govern them. Classical mechanics, quantum mechanics, relativity, thermodynamics, electromagnetism, astrophysics and cosmology. Physics sets the constraints every other natural science operates within, and its theories (quantum, relativity) are the most precisely tested in all of science.",
-      },
-      {
-        title: "2 · Chemistry",
-        body: "The science of matter at the scale of atoms and molecules — how they bond, react, and rearrange. Physical, organic, inorganic, analytical, and biochemistry. Chemistry is the natural bridge between physics (which explains why atoms behave as they do) and biology (whose machinery is, at bottom, chemistry running in water).",
-      },
-      {
-        title: "3 · Biology",
-        body: "The study of living systems — from the molecular biology of the cell through genetics, physiology, evolution, and ecology. Modern biology is unified by two ideas: evolution by natural selection (why life is the way it is) and the central dogma of molecular biology (how genetic information becomes biological structure). From these, the whole field unfolds.",
-      },
-      {
-        title: "4 · Earth Sciences",
-        body: "The sciences of our planet — geology, oceanography, meteorology, atmospheric and climate science. Earth science studies the solid earth, the oceans, the atmosphere, and how they interact on timescales from seconds (weather) to billions of years (plate tectonics). It's where many natural sciences converge to explain the one planet we know in detail.",
-      },
-      {
-        title: "5 · Astronomy & Space Sciences",
-        body: "The study of everything beyond Earth — stars, galaxies, planetary systems, cosmology. Astronomy is the oldest natural science (older records exist than for any other) and still pushes the frontier: exoplanets, gravitational waves, the cosmic microwave background, and the age, contents, and fate of the universe.",
-      },
-      {
-        title: "6 · Environmental & Interdisciplinary Natural Science",
-        body: "Where the classical natural sciences meet to study the biosphere as a whole — ecology, biogeochemistry, climate science, conservation biology. These fields are increasingly central as human activity has become a geological-scale force in its own right. They connect natural science to policy, economics, and ethics.",
-      },
-    ],
-  },
+import { humanEntries } from "@brain5th/knowledge-human";
+
+/**
+ * Legacy still-in-TS entries. As entries are migrated to per-file `.md`
+ * under `packages/knowledge-human/entries/`, they're removed from this
+ * array and the codegen output picks them up automatically.
+ *
+ * Pre-order traversal of the System of Human Knowledge tree determines
+ * insertion order. New legacy entries should be inserted at the position
+ * matching their `systemPath`.
+ */
+const LEGACY_ENTRIES: KnowledgeGalleryEntry[] = [
   {
     slug: "applied-sciences",
     title: "Applied Sciences & Technology",
@@ -1353,6 +1261,18 @@ export function findKnowledgeGalleryEntry(
 ): KnowledgeGalleryEntry | undefined {
   return KNOWLEDGE_GALLERY_ENTRIES.find((e) => e.slug === slug);
 }
+
+
+/**
+ * Combined gallery entries. The order is `[...packEntries, ...legacyEntries]`
+ * — once all entries migrate to `.md`, `LEGACY_ENTRIES` becomes `[]` and the
+ * sci5th-side type definitions can be dropped in favor of importing
+ * `HumanGalleryEntry` from `@brain5th/knowledge-human`.
+ */
+export const KNOWLEDGE_GALLERY_ENTRIES: ReadonlyArray<KnowledgeGalleryEntry> = [
+  ...humanEntries,
+  ...LEGACY_ENTRIES,
+];
 
 /**
  * Lookup by systemPath — used by the System tree to badge nodes that
