@@ -262,7 +262,7 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     breadcrumb: "Human Knowledge · Humanities",
     category: "humanities",
     kind: "other",
-    thumbnail: null,
+    thumbnail: "/Humanities.webp",
     steps: [
       {
         title: "1 · Philosophy",
@@ -299,7 +299,7 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     breadcrumb: "Human Knowledge · Professions & Interdisciplinary",
     category: "professions",
     kind: "other",
-    thumbnail: null,
+    thumbnail: "/Professions.webp",
     steps: [
       {
         title: "1 · Business & Management",
@@ -459,7 +459,7 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     breadcrumb: "Formal Sciences · Computer Science",
     category: "formal",
     kind: "system",
-    thumbnail: null,
+    thumbnail: "/OperatingSystems.webp",
     steps: [
       {
         title: "1 · What an OS actually does",
@@ -501,7 +501,7 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     breadcrumb: "Formal Sciences · Computer Science",
     category: "formal",
     kind: "system",
-    thumbnail: null,
+    thumbnail: "/DistributedSystems.webp",
     steps: [
       {
         title: "1 · Why we distribute at all",
@@ -543,7 +543,7 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     breadcrumb: "Formal Sciences · Software Engineering",
     category: "formal",
     kind: "modularity",
-    thumbnail: null,
+    thumbnail: "/SoftwareModularity.webp",
     steps: [
       {
         title: "1 · The problem it solves",
@@ -585,7 +585,7 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     breadcrumb: "Formal Sciences · Artificial Intelligence",
     category: "formal",
     kind: "model",
-    thumbnail: null,
+    thumbnail: "/GenerativeModels.webp",
     steps: [
       {
         title: "1 · Discriminative vs. generative",
@@ -717,7 +717,7 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     breadcrumb: "Formal Sciences · Artificial Intelligence",
     category: "formal",
     kind: "model",
-    thumbnail: null,
+    thumbnail: "/FoundationModels.webp",
     steps: [
       {
         title: "1 · What the phrase names",
@@ -804,7 +804,7 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     breadcrumb: "Formal Sciences · Systems Science",
     category: "formal",
     kind: "system",
-    thumbnail: null,
+    thumbnail: "/ComplexSystems.webp",
     steps: [
       {
         title: "1 · What makes a system 'complex'",
@@ -971,7 +971,7 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     breadcrumb: "Natural Sciences · Physics",
     category: "natural",
     kind: "model",
-    thumbnail: null,
+    thumbnail: "/StandardModel.webp",
     steps: [
       {
         title: "1 · What the Standard Model is",
@@ -1192,7 +1192,7 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     breadcrumb: "Natural Sciences · Biology",
     category: "natural",
     kind: "modularity",
-    thumbnail: null,
+    thumbnail: "/BiologicalModularity.webp",
     steps: [
       {
         title: "1 · Why organisms aren't monoliths",
@@ -1263,6 +1263,48 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     ],
   },
   {
+    slug: "obsidian-zettelkasten",
+    title: "Obsidian Vaults / Zettelkasten",
+    summary:
+      "A folder of plain Markdown files, linked by `[[wikilinks]]`, treated as a personal knowledge graph — the modern incarnation of Niklas Luhmann's index-card method.",
+    systemPath:
+      "Human Knowledge/Applied Sciences & Technology/Information Science & Library Science/Document & File Formats as Data Structures/Office & Document Databases/Obsidian Vaults / Zettelkasten — MD as knowledge graph",
+    breadcrumb: "Applied Sciences · Information Science",
+    category: "applied",
+    kind: "system",
+    thumbnail: "/ObsidianVaults.webp",
+    steps: [
+      {
+        title: "1 · The original Zettelkasten",
+        body: "Niklas Luhmann, a 20th-century German sociologist, wrote roughly 70 books and 400 papers in 30 years by maintaining a slip-box (Zettelkasten) of ~90,000 index cards. Each card carried one idea in his own words, a unique ID, and explicit links to related cards. The slip-box was not a filing system but a thinking partner: a network of atomic notes that surfaced unexpected connections when consulted. The method survives Luhmann because the constraints — atomic notes, durable IDs, dense linking — turn out to scale.",
+      },
+      {
+        title: "2 · The structural ingredients",
+        body: "Four invariants make a Zettelkasten work, on paper or on disk. (1) Atomicity — one note holds one idea, restated in your own words, short enough to grasp at a glance. (2) Unique identifiers — every note has a stable address so links don't break when titles change. (3) Links over hierarchy — connections are explicit between notes, not implied by folder structure. (4) Emergent structure — index/MOC ('map of content') notes are created as a domain matures, not imposed up front. Any tool that respects these four can host a Zettelkasten; any tool that breaks one will quietly degrade into a notes graveyard.",
+      },
+      {
+        title: "3 · Markdown as the substrate",
+        body: "Markdown (.md) is the format of choice because it is the lowest-common-denominator structured prose: plain text with light syntax for headings, lists, code, and links. It is human-readable without a renderer, machine-parseable without a parser, diff-friendly under git, and outlives any specific app. A Markdown file is a row in a database that is also a finished document — the rare format where the storage layer and the presentation layer are the same thing. This is what makes a folder of `.md` files a viable long-term knowledge store.",
+      },
+      {
+        title: "4 · Wikilinks turn folders into graphs",
+        body: "The crucial syntactic move is the wikilink: `[[Note Title]]` resolves to the file `Note Title.md` in the vault. A wikilink is bidirectional in practice — the linked note can show its backlinks (everywhere it is referenced) without any extra bookkeeping. A vault is therefore a directed graph: notes are nodes, wikilinks are edges, backlinks are reverse edges computed on demand. Folders still exist for coarse grouping, but the meaningful structure is the link graph, which can be queried, visualized, and traversed.",
+      },
+      {
+        title: "5 · Obsidian, Logseq, and the local-first wave",
+        body: "Obsidian (2020) popularized the model: a desktop app that reads and writes a folder of `.md` files on your local disk, renders wikilinks, computes backlinks, and visualizes the graph. Logseq, Foam, Dendron, and others follow the same recipe with different opinions. The shared design principle is local-first: the data lives on your filesystem in plain Markdown, the app is a view over it, and you can swap the app at any time. The vault outlives the tool — the inverse of the SaaS notes apps where leaving the product means losing the notes.",
+      },
+      {
+        title: "6 · Markdown as a knowledge graph data structure",
+        body: "From a computer-science angle, a vault is a property graph encoded as a directory of text files. Each file is a node carrying YAML frontmatter (typed attributes) and a Markdown body (unstructured content). Each `[[wikilink]]` is an edge; tags (`#topic`) are categorical attributes; embedded transclusions (`![[Other Note]]`) are inclusion edges. The whole graph is queryable with `grep` and editable with any text editor. This is what 'MD as knowledge graph' means in the System tree: a graph database whose storage format is the document.",
+      },
+      {
+        title: "7 · Why this is in Information Science, not just productivity",
+        body: "The Zettelkasten and its digital descendants sit at the intersection of library science (classification, indexing, finding aids) and personal knowledge management. They formalize how an individual researcher curates a long-running corpus — the same questions libraries answer for institutional collections, scaled down to a single mind. The lessons travel both directions: vault patterns inform PKM apps, and PKM-app constraints (links over folders, atomic notes, local-first storage) feed back into how researchers and engineers think about documenting any complex domain.",
+      },
+    ],
+  },
+  {
     slug: "cognitive-theory",
     title: "Cognitive Theory",
     summary:
@@ -1314,7 +1356,7 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     breadcrumb: "Professions & Interdisciplinary · Cognitive Science",
     category: "professions",
     kind: "modularity",
-    thumbnail: null,
+    thumbnail: "/ModularityOfMind.webp",
     steps: [
       {
         title: "1 · The question Fodor was asking",
