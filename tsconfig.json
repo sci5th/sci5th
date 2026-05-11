@@ -19,20 +19,7 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"],
-      "@brain5th/engine": ["../../packages/engine/src/index.ts"],
-      "@brain5th/engine/contracts": ["../../packages/engine/src/contracts.ts"],
-      "@brain5th/engine/tokens": ["../../packages/engine/src/tokens.ts"],
-      "@brain5th/engine/tree": ["../../packages/engine/src/tree.ts"],
-      "@brain5th/engine/components/KnowledgeMap": [
-        "../../packages/engine/src/components/KnowledgeMap.tsx"
-      ],
-      "@brain5th/engine/tailwind.preset": [
-        "../../packages/engine/tailwind.preset.ts"
-      ],
-      "@brain5th/knowledge-human": [
-        "../../packages/knowledge-human/src/index.ts"
-      ]
+      "@/*": ["./src/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

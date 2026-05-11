@@ -1,6 +1,6 @@
 # sci5th — Design System
 
-> Scope: design-system record for `sci5th` (Next.js 15 + Tailwind).
+> Scope: design-system record for `sci5th_website` (Next.js 15 + Tailwind).
 > This is the single source of truth — tokens, components, and usage rules.
 > Edit alongside any change to `tailwind.config.ts`, `globals.css`, or the
 > `(main)` shell / `HumanKnowledgeMap` component.
