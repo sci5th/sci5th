@@ -15,7 +15,7 @@ function Navigation() {
 
   return (
     <nav className="flex h-8 w-full items-center bg-ink-800 px-3 text-xs text-text-100 md:h-16 md:px-6 md:text-base">
-      <div className="flex w-full justify-between">
+      <div className="flex w-full justify-between md:ml-auto md:w-auto md:justify-end md:gap-6">
         {links.map((link) => {
           const isActive =
             link.href === "/"
