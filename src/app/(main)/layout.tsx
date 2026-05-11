@@ -15,7 +15,7 @@ function Navigation() {
 
   return (
     <nav className="flex h-8 w-full items-center bg-ink-800 px-3 text-xs text-text-100 md:h-16 md:px-6 md:text-base">
-      <div className="ml-auto flex gap-4 md:gap-6">
+      <div className="mx-auto flex gap-4 md:gap-6">
         {links.map((link) => {
           const isActive =
             link.href === "/"
