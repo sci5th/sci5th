@@ -15,6 +15,12 @@ function Navigation() {
 
   return (
     <nav className="flex h-8 w-full items-center bg-ink-800 px-3 text-xs text-text-100 md:h-16 md:px-6 md:text-base">
+      <p
+        className="mr-auto whitespace-nowrap text-sm text-text-300 md:text-base"
+        aria-label="knowledge to projects to new knowledge"
+      >
+        [ knowledge -{">"} projects -{">"} new knowledge ]
+      </p>
       <div className="ml-auto flex gap-4 md:gap-6">
         {links.map((link) => {
           const isActive =
@@ -92,20 +98,13 @@ export default function MainLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const pathname = usePathname();
-  // Pink accent on the two knowledge surfaces (System + Gallery); Blue on Home.
-  const onPinkRoute =
-    pathname.startsWith("/human-knowledge") ||
-    pathname.startsWith("/knowledge-gallery");
-  const accentSrc = onPinkRoute
-    ? "/sci5th_Logo_Pink.svg"
-    : "/sci5th_Logo_Blue.svg";
-  const accentAlt = onPinkRoute ? "sci5th Logo Pink" : "sci5th Logo Blue";
-
   return (
     <div className="flex min-h-screen flex-col bg-ink-700">
       <Navigation />
-      <Logo accentSrc={accentSrc} accentAlt={accentAlt} />
+      <Logo
+        accentSrc="/sci5th_Logo_Pink.svg"
+        accentAlt="sci5th Logo Pink"
+      />
       <main className="flex grow flex-col">{children}</main>
       <Footer />
     </div>

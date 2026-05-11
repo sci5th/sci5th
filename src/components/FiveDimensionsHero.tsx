@@ -69,10 +69,10 @@ interface OrbPos {
   depth: number;
 }
 const ORB_POS: readonly OrbPos[] = [
-  { x: 640, y: 332, depth: 0.95 }, // lavender — upper left (shifted up 10% of stage height)
-  { x: 1210, y: 272, depth: 1.05 }, // mint — upper right (shifted up 10% of stage height)
-  { x: 720, y: 808, depth: 1.1 }, // peach — lower left (shifted down 10% of stage height)
-  { x: 1280, y: 788, depth: 0.9 }, // rose — lower right (shifted down 10% of stage height)
+  { x: 640, y: 440, depth: 0.95 }, // lavender — upper left (returned to original Y)
+  { x: 1210, y: 380, depth: 1.05 }, // mint — upper right (returned to original Y)
+  { x: 720, y: 700, depth: 1.1 }, // peach — lower left (returned to original Y)
+  { x: 1280, y: 680, depth: 0.9 }, // rose — lower right (returned to original Y)
 ];
 
 // ── Sub-components take `t` (seconds) directly to avoid Context churn ─────
@@ -462,9 +462,10 @@ function OrbNode({ index, t }: { index: number; t: number }) {
   // Orbital ring + label offsets stay on the original 120px reference so
   // the ring radius and label anchor match the earlier geometry exactly.
   const orbSize = 120;
-  // The colored sphere (and its glow/specular halo) renders 10% smaller —
-  // a quieter, tighter core inside the same ring.
-  const sphereSize = orbSize * 0.9;
+  // The colored sphere (and its glow/specular halo) renders 28% smaller than
+  // the orbital-ring reference — a quiet, tight core inside the ring envelope.
+  // (Previously 0.9 → now 0.72: a further 20% reduction on top of the prior 10%.)
+  const sphereSize = orbSize * 0.72;
 
   const bloomPulse = 1 + Math.sin(t * pulseFreq + pulsePhase) * 0.08;
 
@@ -598,7 +599,7 @@ function InformationLabel({ t }: { t: number }) {
       </div>
       <div
         style={{
-          fontSize: 54,
+          fontSize: 49,
           fontWeight: 300,
           letterSpacing: "0.38em",
           color: TEXT,
@@ -634,16 +635,16 @@ function InformationLabel({ t }: { t: number }) {
 // ── Stage ────────────────────────────────────────────────────────────────
 interface FiveDimensionsHeroProps {
   /**
-   * How to scale the 1920×1080 stage to its container.
-   * - "contain" (default): fits entirely inside, possibly leaving bars on one axis.
-   * - "cover": fills the container, cropping overflow on the longer axis.
+   * Reserved for future use. The hero now always scales its content with
+   * `contain` semantics (so nothing is ever cropped or stretched, regardless
+   * of viewport shape) while the surrounding `PAGE_BG` fill covers the full
+   * container — giving a "responsive: background fills, content scales down"
+   * behavior without any cropping or distortion.
    */
   fit?: "contain" | "cover";
 }
 
-export default function FiveDimensionsHero({
-  fit = "contain",
-}: FiveDimensionsHeroProps = {}) {
+export default function FiveDimensionsHero(_: FiveDimensionsHeroProps = {}) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const rafRef = useRef<number | null>(null);
   const startRef = useRef<number | null>(null);
@@ -670,31 +671,28 @@ export default function FiveDimensionsHero({
     return () => mq.removeEventListener("change", sync);
   }, [mounted]);
 
-  // Auto-scale to fit container. In `cover` mode we only expand past a
-  // contain-fit when the container is at least as wide as the stage's 16:9;
-  // on narrower (taller) viewports we fall back to `contain` so orb/label
-  // positions — which sit in absolute pixel space on the 1920×1080 stage —
-  // never get cropped off-screen.
+  // Auto-scale to fit container — always `contain` semantics so nothing on
+  // the 1920×1080 stage (orbs, labels, threads) is ever cropped or
+  // stretched. The container's `PAGE_BG` background fills any leftover area
+  // on whichever axis the contain-fit doesn't exhaust, so the visual reads
+  // as "background fills full screen, content scales down to fit".
   useEffect(() => {
     if (!mounted) return;
     const el = containerRef.current;
     if (!el) return;
-    const STAGE_ASPECT = STAGE_W / STAGE_H;
     const measure = () => {
       const w = el.clientWidth;
       const h = el.clientHeight;
       const sx = w / STAGE_W;
       const sy = h / STAGE_H;
-      const containerAspect = w / Math.max(h, 1);
-      const useCover = fit === "cover" && containerAspect >= STAGE_ASPECT;
-      const s = useCover ? Math.max(sx, sy) : Math.min(sx, sy);
+      const s = Math.min(sx, sy);
       setScale(Math.max(0.05, s));
     };
     measure();
     const ro = new ResizeObserver(measure);
     ro.observe(el);
     return () => ro.disconnect();
-  }, [mounted, fit]);
+  }, [mounted]);
 
   // Animation loop — autoplay once, then hold the final frame. Reduced-motion
   // users skip the animation and see the final composition immediately.
