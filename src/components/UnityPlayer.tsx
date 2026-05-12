@@ -63,37 +63,53 @@ export default function UnityPlayer({
   });
 
   useEffect(() => {
-    const updateDimensions = () => {
-      if (isFullscreen) {
+    if (isFullscreen) {
+      const onResize = () =>
         setDimensions({
           width: window.innerWidth,
           height: window.innerHeight,
         });
-        return;
-      }
+      onResize();
+      window.addEventListener("resize", onResize);
+      return () => window.removeEventListener("resize", onResize);
+    }
 
-      const aspectRatio = 16 / 9;
-      const padding = 32;
+    // Inline (non-fullscreen) sizing — fit the canvas to the player's actual
+    // parent column, not the viewport. The entry page wraps this in a
+    // max-w-3xl column, so the column width is what matters; the viewport
+    // can be much wider and the player must not overflow the column, nor
+    // protrude beyond it on narrow screens. We observe the parent element
+    // with ResizeObserver so it stays in sync on every layout change.
+    const host = containerRef.current?.parentElement;
+    if (!host) return;
 
-      const viewportWidth = window.innerWidth;
-      const viewportHeight = window.innerHeight;
+    const aspectRatio = 16 / 9;
+    const viewportHeightCap = () => {
+      const headerFooterSpace = window.innerWidth < 768 ? 260 : 360;
+      return Math.max(minHeight, window.innerHeight - headerFooterSpace);
+    };
 
-      const availableWidth = viewportWidth - padding;
-      // The player lives inside the entry page, so we leave generous chrome
-      // space for header/nav/footer and the controls row below.
-      const headerFooterSpace = viewportWidth < 768 ? 260 : 360;
-      const availableHeight = viewportHeight - headerFooterSpace;
-
-      let width = Math.min(availableWidth, maxWidth);
+    const recompute = () => {
+      const available = host.clientWidth;
+      // Clamp width into [minWidth, maxWidth] but never exceed the parent.
+      // On viewports narrower than minWidth, we still let the canvas shrink
+      // below minWidth rather than overflowing the article column — better
+      // a small player than a horizontally-scrolling page.
+      let width = Math.min(available, maxWidth);
+      if (width > minWidth) width = Math.max(width, minWidth);
       let height = width / aspectRatio;
 
-      if (height > availableHeight) {
-        height = Math.max(minHeight, availableHeight);
+      const heightCap = Math.min(maxHeight, viewportHeightCap());
+      if (height > heightCap) {
+        height = heightCap;
         width = height * aspectRatio;
       }
 
-      width = Math.max(minWidth, Math.min(width, maxWidth));
-      height = Math.max(minHeight, Math.min(height, maxHeight));
+      // Final guard — never wider than the parent column.
+      if (width > available) {
+        width = available;
+        height = width / aspectRatio;
+      }
 
       setDimensions({
         width: Math.floor(width),
@@ -101,9 +117,14 @@ export default function UnityPlayer({
       });
     };
 
-    updateDimensions();
-    window.addEventListener("resize", updateDimensions);
-    return () => window.removeEventListener("resize", updateDimensions);
+    recompute();
+    const ro = new ResizeObserver(recompute);
+    ro.observe(host);
+    window.addEventListener("resize", recompute);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", recompute);
+    };
   }, [minWidth, minHeight, maxWidth, maxHeight, isFullscreen]);
 
   useEffect(() => {
