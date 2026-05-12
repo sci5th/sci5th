@@ -269,9 +269,10 @@ html {
   user-select: none;
   padding: 8px 12px;
   min-height: 36px;
-  /* 3-column grid: left spacer (mirrors chevron width so the centered
-     middle column truly centers "Help"), centered label, chevron on
-     the right. */
+  /* 3-column grid: left spacer (mirrors chevron width so the middle
+     column actually centers "Help"), centered label, chevron pinned
+     to the right. Children are placed explicitly so auto-placement
+     doesn't drop the label into the spacer column. */
   display: grid;
   grid-template-columns: 14px 1fr 14px;
   align-items: center;
@@ -282,6 +283,14 @@ html {
   transition:
     background 0.15s,
     color 0.15s;
+}
+
+.km-help-summary > span {
+  grid-column: 2;
+}
+
+.km-help-summary > .km-help-chevron {
+  grid-column: 3;
 }
 
 .km-help-summary::-webkit-details-marker {
