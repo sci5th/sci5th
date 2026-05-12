@@ -206,6 +206,10 @@ html {
   grid-template-areas: "left center right";
   align-items: start;
   gap: 8px;
+  /* Override `.km-toolbar { flex-wrap: wrap }` for this row — even when
+     it's flex-displayed on mobile, the three buttons must stay on a
+     single line. */
+  flex-wrap: nowrap;
 }
 
 .km-toolbar-slot {

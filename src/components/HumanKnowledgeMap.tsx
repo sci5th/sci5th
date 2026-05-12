@@ -1506,7 +1506,7 @@ export default function HumanKnowledgeMap() {
         </div>
       </div>
 
-      {/* Toolbar — row 2: Expand all (left) · How-to-use (center) · Collapse all (right) */}
+      {/* Toolbar — row 2: Expand (left) · Help (center) · Collapse (right) */}
       <div className="km-toolbar km-toolbar-secondary km-toolbar-tri">
         <div className="km-toolbar-slot km-toolbar-slot-left">
           <button
@@ -1516,7 +1516,7 @@ export default function HumanKnowledgeMap() {
             disabled={isFiltering}
             aria-disabled={isFiltering}
           >
-            Expand all
+            Expand
           </button>
         </div>
         <div className="km-toolbar-slot km-toolbar-slot-center">
@@ -1548,7 +1548,7 @@ export default function HumanKnowledgeMap() {
             disabled={isFiltering}
             aria-disabled={isFiltering}
           >
-            Collapse all
+            Collapse
           </button>
         </div>
       </div>
