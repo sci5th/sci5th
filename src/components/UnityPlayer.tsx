@@ -62,70 +62,43 @@ export default function UnityPlayer({
     height: maxHeight,
   });
 
+  // Track the rendered canvas size in CSS pixels so we can match Unity's
+  // drawing-buffer resolution to it. The visible layout is entirely CSS
+  // (aspect-video + w-full + max-w cap), so this effect only sets the
+  // canvas `width`/`height` *attributes* — the WebGL backbuffer size.
   useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
     if (isFullscreen) {
       const onResize = () =>
         setDimensions({
-          width: window.innerWidth,
-          height: window.innerHeight,
+          width: Math.floor(window.innerWidth),
+          height: Math.floor(window.innerHeight),
         });
       onResize();
       window.addEventListener("resize", onResize);
       return () => window.removeEventListener("resize", onResize);
     }
 
-    // Inline (non-fullscreen) sizing — fit the canvas to the player's actual
-    // parent column, not the viewport. The entry page wraps this in a
-    // max-w-3xl column, so the column width is what matters; the viewport
-    // can be much wider and the player must not overflow the column, nor
-    // protrude beyond it on narrow screens. We observe the parent element
-    // with ResizeObserver so it stays in sync on every layout change.
-    const host = containerRef.current?.parentElement;
-    if (!host) return;
-
-    const aspectRatio = 16 / 9;
-    const viewportHeightCap = () => {
-      const headerFooterSpace = window.innerWidth < 768 ? 260 : 360;
-      return Math.max(minHeight, window.innerHeight - headerFooterSpace);
-    };
-
     const recompute = () => {
-      const available = host.clientWidth;
-      // Clamp width into [minWidth, maxWidth] but never exceed the parent.
-      // On viewports narrower than minWidth, we still let the canvas shrink
-      // below minWidth rather than overflowing the article column — better
-      // a small player than a horizontally-scrolling page.
-      let width = Math.min(available, maxWidth);
-      if (width > minWidth) width = Math.max(width, minWidth);
-      let height = width / aspectRatio;
-
-      const heightCap = Math.min(maxHeight, viewportHeightCap());
-      if (height > heightCap) {
-        height = heightCap;
-        width = height * aspectRatio;
-      }
-
-      // Final guard — never wider than the parent column.
-      if (width > available) {
-        width = available;
-        height = width / aspectRatio;
-      }
-
+      const rect = canvas.getBoundingClientRect();
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
       setDimensions({
-        width: Math.floor(width),
-        height: Math.floor(height),
+        width: Math.max(1, Math.floor(rect.width * dpr)),
+        height: Math.max(1, Math.floor(rect.height * dpr)),
       });
     };
 
     recompute();
     const ro = new ResizeObserver(recompute);
-    ro.observe(host);
+    ro.observe(canvas);
     window.addEventListener("resize", recompute);
     return () => {
       ro.disconnect();
       window.removeEventListener("resize", recompute);
     };
-  }, [minWidth, minHeight, maxWidth, maxHeight, isFullscreen]);
+  }, [isFullscreen]);
 
   useEffect(() => {
     if (!canvasRef.current) return;
@@ -218,12 +191,19 @@ export default function UnityPlayer({
         className={
           isFullscreen
             ? "fixed inset-0 z-50 flex items-center justify-center overflow-hidden bg-black"
-            : "relative overflow-hidden rounded-lg border border-line-700 bg-black"
+            : "relative aspect-video w-full overflow-hidden rounded-lg border border-line-700 bg-black"
         }
         style={
           isFullscreen
             ? undefined
-            : { width: dimensions.width, height: dimensions.height }
+            : {
+                /* Cap by maxWidth so on very wide desktops the player
+                   doesn't grow beyond what Unity was authored for, but
+                   never wider than the parent column itself. The aspect
+                   ratio is enforced by `aspect-video` (16:9). */
+                maxWidth: maxWidth,
+                maxHeight: maxHeight,
+              }
         }
       >
         {!unityReady && !error && (
@@ -243,14 +223,16 @@ export default function UnityPlayer({
         <canvas
           ref={canvasRef}
           id="unity-canvas"
+          /* width/height attributes set Unity's drawing-buffer resolution
+             (in device pixels). The CSS sizing is decoupled — the canvas
+             scales to 100% of its container's width with a 16:9 aspect,
+             so the article column governs the visible size and there's
+             no chance of the canvas pushing the column wider than its
+             parent. */
           width={dimensions.width}
           height={dimensions.height}
-          className="block"
-          style={{
-            width: dimensions.width,
-            height: dimensions.height,
-            backgroundColor: "#000",
-          }}
+          className="block h-full w-full"
+          style={{ backgroundColor: "#000" }}
         />
       </div>
 
