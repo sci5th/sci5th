@@ -62,42 +62,16 @@ export default function UnityPlayer({
     height: maxHeight,
   });
 
-  // Track the rendered canvas size in CSS pixels so we can match Unity's
-  // drawing-buffer resolution to it. The visible layout is entirely CSS
-  // (aspect-video + w-full + max-w cap), so this effect only sets the
-  // canvas `width`/`height` *attributes* — the WebGL backbuffer size.
+  // The Unity build was authored against a fixed reference resolution
+  // (1280x720) — its in-game UI Canvas scaler is calibrated for that. If
+  // we let the WebGL drawing buffer grow beyond it (e.g. to 2560 on a
+  // wide monitor), Unity's own UI layout falls off the visible area —
+  // buttons like the trash basket get clipped, because Unity's UI Canvas
+  // anchors them to the corners of *its* 1280x720 logical space, not the
+  // CSS-stretched canvas. So we pin the drawing buffer at 1280x720 and
+  // let CSS scale the displayed canvas up to fit the viewport.
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    if (isFullscreen) {
-      const onResize = () =>
-        setDimensions({
-          width: Math.floor(window.innerWidth),
-          height: Math.floor(window.innerHeight),
-        });
-      onResize();
-      window.addEventListener("resize", onResize);
-      return () => window.removeEventListener("resize", onResize);
-    }
-
-    const recompute = () => {
-      const rect = canvas.getBoundingClientRect();
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      setDimensions({
-        width: Math.max(1, Math.floor(rect.width * dpr)),
-        height: Math.max(1, Math.floor(rect.height * dpr)),
-      });
-    };
-
-    recompute();
-    const ro = new ResizeObserver(recompute);
-    ro.observe(canvas);
-    window.addEventListener("resize", recompute);
-    return () => {
-      ro.disconnect();
-      window.removeEventListener("resize", recompute);
-    };
+    setDimensions({ width: 1280, height: 720 });
   }, [isFullscreen]);
 
   useEffect(() => {
