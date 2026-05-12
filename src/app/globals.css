@@ -491,7 +491,30 @@ html {
   border-radius: 0.5rem;
 }
 .kg-card[data-highlight="true"] {
-  animation: km-pulse 4.5s ease-out 1;
+  animation: kg-pulse 9s ease-out 1;
+}
+
+/* Same shape as km-pulse but twice as long — gives the gallery card's
+   pink pulse a more leisurely fade after the user returns from an entry
+   page. Kept as a separate keyframe so the System-tree pulse stays at
+   its existing 4.5s rhythm. */
+@keyframes kg-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(231, 185, 199, 0.75);
+    background: rgba(231, 185, 199, 0.22);
+  }
+  20% {
+    box-shadow: 0 0 0 6px rgba(231, 185, 199, 0);
+    background: rgba(231, 185, 199, 0.16);
+  }
+  70% {
+    box-shadow: 0 0 0 0 rgba(231, 185, 199, 0);
+    background: rgba(231, 185, 199, 0.11);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(231, 185, 199, 0);
+    background: transparent;
+  }
 }
 
 @keyframes km-pulse {

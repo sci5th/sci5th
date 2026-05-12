@@ -30,10 +30,10 @@ export default function KnowledgeGalleryFocusHandler() {
       el.setAttribute("data-highlight", "true");
     }, 0);
 
-    // Clear the highlight flag shortly after the CSS animation (4.5s) ends.
+    // Clear the highlight flag shortly after the CSS animation (9s) ends.
     const t2 = window.setTimeout(() => {
       el.removeAttribute("data-highlight");
-    }, 5000);
+    }, 10000);
 
     return () => {
       window.clearTimeout(t1);
