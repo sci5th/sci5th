@@ -271,7 +271,7 @@ html {
   min-height: 36px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   gap: 8px;
   color: var(--text-300);
   border-radius: var(--radius-sm);
