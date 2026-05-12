@@ -1522,7 +1522,7 @@ export default function HumanKnowledgeMap() {
         <div className="km-toolbar-slot km-toolbar-slot-center">
           <details className="km-help">
             <summary className="km-help-summary">
-              <span>How to use this tree</span>
+              <span>Help</span>
               <ChevronDownIcon className="km-help-chevron" />
             </summary>
             <div className="km-help-content">

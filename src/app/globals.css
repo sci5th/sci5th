@@ -244,24 +244,9 @@ html {
   width: 100%;
 }
 
-/* On narrow screens, always stack the tri-toolbar. */
-@media (max-width: 640px) {
-  .km-toolbar-tri {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "left"
-      "center"
-      "right";
-  }
-  .km-toolbar-slot-left,
-  .km-toolbar-slot-center,
-  .km-toolbar-slot-right {
-    justify-content: stretch;
-  }
-  .km-toolbar-tri .km-help {
-    width: 100%;
-  }
-}
+/* The tri-toolbar stays on a single row at every viewport width.
+   The previous mobile stack rule was dropped — the buttons now sit
+   side-by-side on phones too, which is fine since "Help" is short. */
 
 /* Help dropdown (native <details>) */
 .km-help {
@@ -494,6 +479,18 @@ html {
    mode, so there is zero risk of a lingering tint — even if JS misses
    clearing the `data-highlight` flag, the CSS ends clean. */
 .km-node[data-highlight="true"] {
+  animation: km-pulse 4.5s ease-out 1;
+}
+
+/* Knowledge Gallery card — same pink pulse as the System tree row,
+   triggered when the user returns from an entry page via the Back
+   button (which carries `?focus=<slug>`). The card is the <li>
+   wrapper (.kg-card); a small border-radius matches the card's
+   own rounded-lg so the pulse hugs the visible shape. */
+.kg-card {
+  border-radius: 0.5rem;
+}
+.kg-card[data-highlight="true"] {
   animation: km-pulse 4.5s ease-out 1;
 }
 

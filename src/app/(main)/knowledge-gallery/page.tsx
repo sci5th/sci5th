@@ -1,4 +1,6 @@
+import { Suspense } from "react";
 import KnowledgeGallery from "@/components/KnowledgeGallery";
+import KnowledgeGalleryFocusHandler from "@/components/KnowledgeGalleryFocusHandler";
 
 export const metadata = {
   title: "Knowledge Gallery | sci5th",
@@ -24,6 +26,12 @@ export default async function KnowledgeGalleryPage({
     <div className="flex flex-1 justify-center px-4 py-8 md:px-8 md:py-12">
       <div className="w-full max-w-5xl">
         <KnowledgeGallery section={sectionParam} />
+        {/* Client-only effect: scroll + highlight the card named by
+            `?focus=<slug>` (set by the entry page's Back button). The
+            Suspense boundary is required for `useSearchParams`. */}
+        <Suspense fallback={null}>
+          <KnowledgeGalleryFocusHandler />
+        </Suspense>
       </div>
     </div>
   );

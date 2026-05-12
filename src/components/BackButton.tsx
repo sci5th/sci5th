@@ -9,12 +9,18 @@ import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 // page where a one-step history pop is the desired behavior.
 export default function BackButton({
   fallbackHref = "/",
+  href,
   label = "Back",
 }: {
   // Where to send the user if there's no prior history (e.g. they landed
   // on this page via a direct link or a new tab). Sessions with no
   // `referrer` skip `router.back()` and push to `fallbackHref` instead.
   fallbackHref?: string;
+  // Explicit destination. When supplied, the button always navigates to
+  // `href` (push) instead of using `router.back()`. Useful when the
+  // back target needs query params the prior history entry can't carry
+  // — e.g. a `?focus=<slug>` highlight signal on the gallery list.
+  href?: string;
   label?: string;
 }) {
   const router = useRouter();
@@ -23,6 +29,12 @@ export default function BackButton({
     <button
       type="button"
       onClick={() => {
+        // Explicit `href` wins — caller knows the desired destination
+        // and may need query params not present in the prior history.
+        if (href) {
+          router.push(href);
+          return;
+        }
         // When the user landed here directly (new tab, shared link),
         // there is no previous history entry to pop — `router.back()`
         // would either do nothing or leave the tab. Fall through to a

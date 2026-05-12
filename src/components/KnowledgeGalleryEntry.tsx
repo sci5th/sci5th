@@ -6,13 +6,30 @@ import BackButton from "./BackButton";
 
 export default function KnowledgeGalleryEntryView({
   entry,
+  fromSection,
 }: {
   entry: KnowledgeGalleryEntry;
+  // When set, the Back button will return to the gallery with that section
+  // filter restored (e.g. ?section=theories). Independent of the highlight,
+  // which is driven by ?focus=<slug>.
+  fromSection?: string;
 }) {
+  // Build the back URL so it both restores the filter (if any) AND signals
+  // the gallery list to highlight the originating card. Mirrors the
+  // `?focus=<systemPath>` pattern used by "See in System" on the System side.
+  const backParams = new URLSearchParams();
+  backParams.set("focus", entry.slug);
+  if (fromSection) backParams.set("section", fromSection);
+  const backHref = `/knowledge-gallery?${backParams.toString()}`;
+
   return (
     <article className="w-full">
       <nav className="mb-6 flex items-center justify-between text-sm">
-        <BackButton fallbackHref="/knowledge-gallery" />
+        <BackButton
+          fallbackHref="/knowledge-gallery"
+          href={backHref}
+          label="Back to Knowledge Gallery"
+        />
         <Link
           href={{
             pathname: "/human-knowledge",

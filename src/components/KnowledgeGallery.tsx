@@ -220,9 +220,17 @@ export default function KnowledgeGallery({
       ) : (
         <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3">
           {visible.map((entry) => (
-            <li key={entry.slug} className="h-full">
+            <li
+              key={entry.slug}
+              className="kg-card h-full"
+              data-card-slug={entry.slug}
+            >
               <Link
-                href={`/knowledge-gallery/${entry.slug}`}
+                href={
+                  active === "all"
+                    ? `/knowledge-gallery/${entry.slug}`
+                    : `/knowledge-gallery/${entry.slug}?from=${active}`
+                }
                 className="group flex h-full flex-col overflow-hidden rounded-lg border border-line-700 bg-ink-900 p-4 transition-colors hover:border-brand-pink focus-visible:border-brand-pink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue"
               >
                 <Thumbnail entry={entry} />
