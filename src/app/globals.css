@@ -223,25 +223,59 @@ html {
   justify-content: center;
 }
 
+/* Closed state: the Help button sizes to its own content (label + chevron),
+   not the full center cell. The center slot's `justify-content: center`
+   keeps the (now-narrow) button horizontally centered in its cell. */
+.km-toolbar-slot-center .km-help {
+  width: max-content;
+}
+
 .km-toolbar-slot-right {
   grid-area: right;
   justify-content: flex-end;
 }
 
-/* Open state: Expand all stays on the left, Collapse all stays on the right,
-   and the help panel stretches across the middle to fill the space between
-   them. The help summary and its content both sit within the center cell,
-   so the panel visually aligns with the Search input on both sides. */
-.km-toolbar-tri:has(details[open]) {
-  grid-template-columns: auto 1fr auto;
+/* Open state on wider viewports: Expand all stays on the left, Collapse
+   all stays on the right, and the help panel stretches across the middle
+   to fill the space between them. */
+@media (min-width: 641px) {
+  .km-toolbar-tri:has(details[open]) {
+    grid-template-columns: auto 1fr auto;
+  }
+
+  .km-toolbar-tri:has(details[open]) .km-toolbar-slot-center {
+    justify-content: stretch;
+  }
+
+  .km-toolbar-tri:has(details[open]) .km-toolbar-slot-center .km-help {
+    width: 100%;
+  }
 }
 
-.km-toolbar-tri:has(details[open]) .km-toolbar-slot-center {
-  justify-content: stretch;
-}
+/* Open state on mobile (<641px): the toolbar is too narrow to keep all
+   three columns side-by-side with an expanded help panel. So we let the
+   help content break out below the buttons by spanning the full row.
+   The summary itself (button) stays in its center grid cell — only the
+   content panel takes the full row, sitting below all three buttons. */
+@media (max-width: 640px) {
+  /* Anchor the absolute help-content to the toolbar row. */
+  .km-toolbar-tri:has(details[open]) {
+    position: relative;
+  }
 
-.km-toolbar-tri:has(details[open]) .km-help {
-  width: 100%;
+  /* Help content drops below the buttons row and spans full width
+     instead of being squeezed inside the narrow center grid cell. */
+  .km-toolbar-tri:has(details[open]) .km-help-content {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin-top: 4px;
+    background: var(--ink-800);
+    border: 1px solid var(--line-700);
+    border-radius: var(--radius-sm);
+    z-index: 1;
+  }
 }
 
 /* The tri-toolbar stays on a single row at every viewport width.
