@@ -23,7 +23,7 @@ export default function HomePage() {
           className="whitespace-nowrap text-sm text-text-300 md:text-base"
           aria-label="knowledge to projects to new knowledge"
         >
-          [ knowledge -{">"} projects -{">"} new knowledge ]
+          knowledge -{">"} projects -{">"} new knowledge
         </p>
       </div>
     </div>
