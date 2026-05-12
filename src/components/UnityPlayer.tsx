@@ -212,7 +212,7 @@ export default function UnityPlayer({
   };
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex w-full flex-col items-center">
       <div
         ref={containerRef}
         className={
