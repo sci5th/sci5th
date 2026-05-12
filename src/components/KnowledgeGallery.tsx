@@ -201,16 +201,6 @@ export default function KnowledgeGallery({
         <h2 className="text-2xl font-medium tracking-tight text-text-100 md:text-3xl">
           Knowledge Gallery
         </h2>
-        <p className="mt-2 text-sm text-text-300 md:text-base">
-          Step-by-step explorations of topics from the{" "}
-          <Link
-            href="/human-knowledge"
-            className="text-brand-blue underline-offset-4 hover:underline focus-visible:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue"
-          >
-            System of Human Knowledge
-          </Link>
-          .
-        </p>
       </header>
 
       <SectionTabs active={active} counts={counts} />

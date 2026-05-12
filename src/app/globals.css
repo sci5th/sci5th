@@ -252,12 +252,23 @@ html {
   }
 }
 
-/* Open state on mobile (<641px): the toolbar is too narrow to keep all
-   three columns side-by-side with an expanded help panel. So we let the
-   help content break out below the buttons by spanning the full row.
-   The summary itself (button) stays in its center grid cell — only the
-   content panel takes the full row, sitting below all three buttons. */
+/* Mobile (<641px) layout for the three-button toolbar.
+   The grid `1fr auto 1fr` keeps the *cells* equal, but the eye reads
+   equal *gaps* — Expand all is shorter than Collapse all, so the
+   gap to Help looked off-balance on the left. Switching to flex
+   space-between makes the gap between Expand↔Help equal to the gap
+   between Help↔Collapse. */
 @media (max-width: 640px) {
+  .km-toolbar-tri {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+  }
+
+  .km-toolbar-slot {
+    flex: 0 0 auto;
+  }
+
   /* Anchor the absolute help-content to the toolbar row. */
   .km-toolbar-tri:has(details[open]) {
     position: relative;
