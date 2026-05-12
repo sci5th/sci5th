@@ -227,11 +227,16 @@ export default function UnityPlayer({
              (in device pixels). CSS sizing is decoupled:
              - Inline (non-fullscreen): canvas fills its 16:9 container
                (which is already `aspect-video w-full`).
-             - Fullscreen: canvas holds the 16:9 ratio and grows up to
-               1920×1080 — that's a reasonable cap for a non-AAA WebGL
-               build. The surrounding black `flex items-center` container
-               letterboxes whichever dimension isn't binding (top/bottom
-               on 16:10 screens, left/right on 21:9 ultrawides). */
+             - Fullscreen: canvas grows to whichever viewport dimension
+                is the binding constraint, preserving 16:9. No artificial
+                pixel cap — capping the canvas at e.g. 1920px on a wider
+                monitor would actually cause Unity to render less of the
+                game world (zoomed in) and crop off edge content like
+                buttons/icons. Letting the canvas fill the viewport keeps
+                the camera's field-of-view correct. The black `flex
+                items-center` container provides letterboxing on the
+                axis the 16:9 ratio doesn't fill (e.g. left/right on
+                21:9 ultrawides). */
           width={dimensions.width}
           height={dimensions.height}
           className={
@@ -239,14 +244,7 @@ export default function UnityPlayer({
               ? "block aspect-video max-h-full max-w-full"
               : "block h-full w-full"
           }
-          style={
-            isFullscreen
-              ? {
-                  width: "min(100vw, 100vh * 16 / 9, 1920px)",
-                  backgroundColor: "#000",
-                }
-              : { backgroundColor: "#000" }
-          }
+          style={{ backgroundColor: "#000" }}
         />
       </div>
 
