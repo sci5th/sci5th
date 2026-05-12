@@ -23,8 +23,10 @@ export default function KnowledgeGalleryFocusHandler() {
     if (!el) return;
 
     // Defer to next frame so layout is stable before scrolling.
+    // `behavior: "instant"` jumps directly to the card with no smooth
+    // animation — feels like the user lands right on it.
     const t = window.setTimeout(() => {
-      el.scrollIntoView({ behavior: "smooth", block: "center" });
+      el.scrollIntoView({ behavior: "instant", block: "center" });
     }, 0);
 
     return () => window.clearTimeout(t);
