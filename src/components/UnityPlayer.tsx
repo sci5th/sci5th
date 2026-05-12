@@ -224,14 +224,20 @@ export default function UnityPlayer({
           ref={canvasRef}
           id="unity-canvas"
           /* width/height attributes set Unity's drawing-buffer resolution
-             (in device pixels). The CSS sizing is decoupled — the canvas
-             scales to 100% of its container's width with a 16:9 aspect,
-             so the article column governs the visible size and there's
-             no chance of the canvas pushing the column wider than its
-             parent. */
+             (in device pixels). CSS sizing is decoupled:
+             - Inline (non-fullscreen): canvas fills its 16:9 container
+               (which is already `aspect-video w-full`).
+             - Fullscreen: canvas itself holds the 16:9 ratio and sizes
+               to whichever viewport dimension is the binding constraint,
+               with the surrounding black `flex items-center` container
+               providing letterboxing on the unconstrained axis. */
           width={dimensions.width}
           height={dimensions.height}
-          className="block h-full w-full"
+          className={
+            isFullscreen
+              ? "block aspect-video max-h-full max-w-full"
+              : "block h-full w-full"
+          }
           style={{ backgroundColor: "#000" }}
         />
       </div>
