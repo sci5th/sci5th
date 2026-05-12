@@ -269,10 +269,14 @@ html {
   user-select: none;
   padding: 8px 12px;
   min-height: 36px;
-  display: flex;
+  /* 3-column grid: left spacer (mirrors chevron width so the centered
+     middle column truly centers "Help"), centered label, chevron on
+     the right. */
+  display: grid;
+  grid-template-columns: 14px 1fr 14px;
   align-items: center;
-  justify-content: center;
   gap: 8px;
+  text-align: center;
   color: var(--text-300);
   border-radius: var(--radius-sm);
   transition:
@@ -480,41 +484,6 @@ html {
    clearing the `data-highlight` flag, the CSS ends clean. */
 .km-node[data-highlight="true"] {
   animation: km-pulse 4.5s ease-out 1;
-}
-
-/* Knowledge Gallery card — same pink pulse as the System tree row,
-   triggered when the user returns from an entry page via the Back
-   button (which carries `?focus=<slug>`). The card is the <li>
-   wrapper (.kg-card); a small border-radius matches the card's
-   own rounded-lg so the pulse hugs the visible shape. */
-.kg-card {
-  border-radius: 0.5rem;
-}
-.kg-card[data-highlight="true"] {
-  animation: kg-pulse 9s ease-out 1;
-}
-
-/* Same shape as km-pulse but twice as long — gives the gallery card's
-   pink pulse a more leisurely fade after the user returns from an entry
-   page. Kept as a separate keyframe so the System-tree pulse stays at
-   its existing 4.5s rhythm. */
-@keyframes kg-pulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(231, 185, 199, 0.75);
-    background: rgba(231, 185, 199, 0.22);
-  }
-  20% {
-    box-shadow: 0 0 0 6px rgba(231, 185, 199, 0);
-    background: rgba(231, 185, 199, 0.16);
-  }
-  70% {
-    box-shadow: 0 0 0 0 rgba(231, 185, 199, 0);
-    background: rgba(231, 185, 199, 0.11);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(231, 185, 199, 0);
-    background: transparent;
-  }
 }
 
 @keyframes km-pulse {
