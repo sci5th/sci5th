@@ -19,10 +19,9 @@ export default function AboutPage() {
           aria-label="About sci5th"
           className="mb-6 px-4 py-3 text-center text-xs leading-snug text-text-300 md:text-sm"
         >
-          sci5th is a prototype exploring the structure of human knowledge,
-          with a focus on science and technology. This page explains how the
-          content is produced and what this site is &mdash; and what it
-          isn&rsquo;t.
+          sci5th is a prototype exploring the structure of human knowledge, with
+          a focus on science and technology. This page explains how the content
+          is produced and what this site is &mdash; and what it isn&rsquo;t.
         </aside>
 
         <section className="mb-8 rounded-lg border border-line-700 bg-ink-900 p-5">
@@ -31,12 +30,11 @@ export default function AboutPage() {
           </h2>
           <p className="mt-2 text-sm leading-relaxed text-text-300 md:text-base">
             The taxonomy in Human Knowledge is hand-curated. The step-by-step
-            explainers in Knowledge Gallery are drafted with AI assistance,
-            then lightly edited &mdash; they aim to follow the consensus view
-            in each field, but they have not been reviewed by subject-matter
-            experts. Treat them as a starting point for your own reading, not
-            as a citation in their own right. If you spot an error, please
-            report it.
+            explainers in Knowledge Gallery are drafted with AI assistance, then
+            lightly edited &mdash; they aim to follow the consensus view in each
+            field, but they have not been reviewed by subject-matter experts.
+            Treat them as a starting point for your own reading, not as a
+            citation in their own right.
           </p>
         </section>
 
