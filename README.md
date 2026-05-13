@@ -29,26 +29,57 @@ src/
 │   └── (main)/
 │       ├── layout.tsx                  # Shared shell: nav, logo, footer
 │       ├── page.tsx                    # sci5th landing (tagline + animated hero)
-│       └── human-knowledge/
-│           └── page.tsx                # Human Knowledge — interactive tree
+│       ├── about/
+│       │   └── page.tsx                # About — how content is produced, scope
+│       ├── human-knowledge/
+│       │   └── page.tsx                # Human Knowledge — interactive tree
+│       └── knowledge-gallery/
+│           ├── page.tsx                # Knowledge Gallery — card index
+│           └── [slug]/
+│               └── page.tsx            # Knowledge Gallery entry
 ├── components/
+│   ├── BackButton.tsx                  # Shared back-link with history fallback
 │   ├── FiveDimensionsHero.tsx          # Animated landing-page hero (React, rAF)
-│   └── HumanKnowledgeMap.tsx           # Interactive knowledge tree component
+│   ├── HumanKnowledgeMap.tsx           # Interactive knowledge tree component
+│   ├── KnowledgeGallery.tsx            # Gallery index (cards + sub-navbar)
+│   ├── KnowledgeGalleryEntry.tsx      # Gallery entry view (hero + steps)
+│   ├── KnowledgeGalleryFocusHandler.tsx # Scroll/highlight via ?focus=<slug>
+│   ├── UnityHero.tsx                   # Click-to-play wrapper for Unity demos
+│   └── UnityPlayer.tsx                 # Unity WebGL loader (client-only)
+├── config/
+│   └── knowledge-gallery.ts            # Gallery entry list (typed)
 └── types/
     └── css.d.ts
 
 public/
 ├── sci5th_Logo_Black.svg
 ├── sci5th_Logo_Blue.svg
-└── sci5th_Logo_Pink.svg
+├── sci5th_Logo_Pink.svg
+├── *.webp                              # Gallery thumbnails (AI-generated)
+└── UnityGames/                         # First-party Unity WebGL builds
+    ├── BehaviourTree_Gallery/
+    └── GOAP_Hospital/
 ```
 
 ## Pages
 
-| Route              | Description                                         |
-| ------------------ | --------------------------------------------------- |
-| `/`                | sci5th landing — tagline + animated hero            |
-| `/human-knowledge` | Human Knowledge — interactive folder tree of fields |
+| Route                       | Description                                                       |
+| --------------------------- | ----------------------------------------------------------------- |
+| `/`                         | sci5th landing — tagline + animated hero                          |
+| `/human-knowledge`          | Human Knowledge — interactive folder tree of fields               |
+| `/knowledge-gallery`        | Knowledge Gallery — curated step-by-step explorations             |
+| `/knowledge-gallery/[slug]` | Knowledge Gallery entry — hero (image or Unity demo) + step cards |
+| `/about`                    | About — how content is produced, scope, what this site isn't      |
+
+## AI Disclosure
+
+Knowledge Gallery prose is AI-drafted and not independently fact-checked.
+Thumbnails are generated with OpenAI's image model (Images 2.0); the two
+interactive demos under `/public/UnityGames/` are first-party Unity WebGL
+builds. The site surfaces this through three disclosure points: a footer line
+on every page, a banner on the Gallery index, and a per-thumbnail / per-hero
+credit on each gallery card and entry. See [`/about`](./src/app/(main)/about/page.tsx)
+for the user-facing version.
 
 ## Getting Started
 
