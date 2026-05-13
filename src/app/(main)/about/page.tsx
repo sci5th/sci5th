@@ -8,16 +8,22 @@ export default function AboutPage() {
   return (
     <div className="flex flex-1 justify-center px-4 py-8 md:px-8 md:py-12">
       <article className="w-full max-w-3xl">
-        <header className="mb-8 text-center">
+        <header className="mb-6 text-center md:mb-8">
           <h1 className="text-3xl font-medium tracking-tight text-text-100 md:text-4xl">
             About
           </h1>
-          <p className="mt-3 text-base text-text-300 md:text-lg">
-            sci5th is a prototype exploring the structure of human knowledge,
-            with a focus on science and technology. This page explains how the
-            content is produced, what is AI-generated, and how to flag errors.
-          </p>
         </header>
+
+        <aside
+          role="note"
+          aria-label="About sci5th"
+          className="mb-6 rounded-md border border-line-700 bg-ink-800/60 px-4 py-3 text-center text-xs leading-snug text-text-300 md:text-sm"
+        >
+          sci5th is a prototype exploring the structure of human knowledge,
+          with a focus on science and technology. This page explains how the
+          content is produced and what this site is &mdash; and what it
+          isn&rsquo;t.
+        </aside>
 
         <section className="mb-8 rounded-lg border border-line-700 bg-ink-900 p-5">
           <h2 className="text-lg font-medium text-text-100">
