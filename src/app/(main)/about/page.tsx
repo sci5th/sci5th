@@ -17,7 +17,7 @@ export default function AboutPage() {
         <aside
           role="note"
           aria-label="About sci5th"
-          className="mb-6 rounded-md border border-line-700 bg-ink-800/60 px-4 py-3 text-center text-xs leading-snug text-text-300 md:text-sm"
+          className="mb-6 px-4 py-3 text-center text-xs leading-snug text-text-300 md:text-sm"
         >
           sci5th is a prototype exploring the structure of human knowledge,
           with a focus on science and technology. This page explains how the
