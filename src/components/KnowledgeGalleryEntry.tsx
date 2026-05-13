@@ -81,8 +81,8 @@ export default function KnowledgeGalleryEntryView({
 
       <p className="-mt-6 mb-8 text-right text-[0.65rem] uppercase tracking-wide text-text-500 md:text-xs">
         {entry.unity
-          ? "Interactive demo: original Unity WebGL build"
-          : "Image generated with OpenAI (Images 2.0)"}
+          ? "Hero: original Unity WebGL build"
+          : "Image: Images 2.0 by OpenAI"}
       </p>
 
       <ol className="flex flex-col gap-5">

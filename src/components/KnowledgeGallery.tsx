@@ -243,6 +243,13 @@ export default function KnowledgeGallery({
                 className="group flex h-full flex-col overflow-hidden rounded-lg border border-line-700 bg-ink-900 p-4 transition-colors hover:border-brand-pink focus-visible:border-brand-pink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue"
               >
                 <Thumbnail entry={entry} />
+                {entry.thumbnail ? (
+                  <p className="mt-1.5 text-right text-[0.625rem] uppercase tracking-wide text-text-500">
+                    {entry.unity
+                      ? "Hero: Unity WebGL build"
+                      : "Image: Images 2.0 by OpenAI"}
+                  </p>
+                ) : null}
                 <div className="mt-3 flex flex-1 flex-col">
                   <p className="line-clamp-1 font-mono text-xs uppercase tracking-wide text-text-500">
                     {entry.breadcrumb}
