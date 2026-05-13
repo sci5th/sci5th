@@ -11,6 +11,7 @@ function Navigation() {
     { href: "/", label: "Home" },
     { href: "/human-knowledge", label: "Human Knowledge" },
     { href: "/knowledge-gallery", label: "Knowledge Gallery" },
+    { href: "/about", label: "About" },
   ];
 
   return (
@@ -79,7 +80,19 @@ function Logo({
 function Footer() {
   const currentYear = new Date().getFullYear();
   return (
-    <footer className="mt-auto flex h-8 w-full items-center justify-center bg-ink-900 p-3 md:h-16">
+    <footer className="mt-auto flex w-full flex-col items-center justify-center gap-1 bg-ink-900 px-3 py-2 md:px-6 md:py-3">
+      <p className="text-center text-[0.65rem] leading-snug text-text-500 md:text-xs">
+        Content on this site is drafted with AI assistance and has not been
+        independently fact-checked. Images are generated with OpenAI&rsquo;s
+        image model except where noted.{" "}
+        <Link
+          href="/about"
+          className="underline decoration-text-700 underline-offset-2 transition-colors hover:text-text-300 focus-visible:text-text-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue"
+        >
+          Learn more
+        </Link>
+        .
+      </p>
       <p className="text-xs text-text-500 md:text-sm">
         &copy; {currentYear} sci5th
       </p>
