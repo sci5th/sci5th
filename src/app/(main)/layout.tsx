@@ -83,8 +83,7 @@ function Footer() {
     <footer className="mt-auto flex w-full flex-col items-center justify-center gap-1 bg-ink-900 px-3 py-2 md:px-6 md:py-3">
       <p className="text-center text-[0.65rem] leading-snug text-text-500 md:text-xs">
         Content on this site is drafted with AI assistance and has not been
-        independently fact-checked. Images are generated with OpenAI&rsquo;s
-        image model except where noted.{" "}
+        independently fact-checked.{" "}
         <Link
           href="/about"
           className="underline decoration-text-700 underline-offset-2 transition-colors hover:text-text-300 focus-visible:text-text-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue"

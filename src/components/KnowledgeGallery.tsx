@@ -211,8 +211,7 @@ export default function KnowledgeGallery({
         Knowledge Gallery entries are AI-drafted explainers. They aim to follow
         the consensus view in each field but have not been reviewed by
         subject-matter experts &mdash; treat them as a starting point, not a
-        citation. Thumbnails are generated with OpenAI&rsquo;s image model;
-        playable demos are first-party Unity builds.{" "}
+        citation.{" "}
         <Link
           href="/about"
           className="underline decoration-text-700 underline-offset-2 transition-colors hover:text-text-100 focus-visible:text-text-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue"

@@ -34,21 +34,7 @@ export default function AboutPage() {
           </p>
         </section>
 
-        <section className="mb-8 rounded-lg border border-line-700 bg-ink-900 p-5">
-          <h2 className="text-lg font-medium text-text-100">
-            Images and other assets
-          </h2>
-          <p className="mt-2 text-sm leading-relaxed text-text-300 md:text-base">
-            Thumbnails and hero images in the Knowledge Gallery are generated
-            with OpenAI&rsquo;s image model (Images 2.0). The two playable
-            interactive demos &mdash; Goal-Oriented Action Planning and
-            Behavior Trees &mdash; are original Unity WebGL builds and are
-            first-party work, not AI-generated. The sci5th logo and site
-            chrome are first-party as well.
-          </p>
-        </section>
-
-        <section className="mb-8 rounded-lg border border-line-700 bg-ink-900 p-5">
+        <section className="rounded-lg border border-line-700 bg-ink-900 p-5">
           <h2 className="text-lg font-medium text-text-100">
             What this site is not
           </h2>
@@ -57,14 +43,6 @@ export default function AboutPage() {
             source of medical, legal, or financial advice. It is a working
             prototype intended to scale into something larger; the disclosures
             here will be revised as the project grows.
-          </p>
-        </section>
-
-        <section className="rounded-lg border border-line-700 bg-ink-900 p-5">
-          <h2 className="text-lg font-medium text-text-100">Report an error</h2>
-          <p className="mt-2 text-sm leading-relaxed text-text-300 md:text-base">
-            Found a factual mistake, a broken link, or an image that should
-            not be on the site? Please reach out so we can correct it.
           </p>
         </section>
       </article>
