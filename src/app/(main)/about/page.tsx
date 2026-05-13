@@ -8,9 +8,9 @@ export default function AboutPage() {
   return (
     <div className="flex flex-1 justify-center px-4 py-8 md:px-8 md:py-12">
       <article className="w-full max-w-3xl">
-        <header className="mb-8">
+        <header className="mb-8 text-center">
           <h1 className="text-3xl font-medium tracking-tight text-text-100 md:text-4xl">
-            About sci5th
+            About
           </h1>
           <p className="mt-3 text-base text-text-300 md:text-lg">
             sci5th is a prototype exploring the structure of human knowledge,
