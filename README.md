@@ -19,46 +19,61 @@ This website is the home of sci5th and its projects.
 See [`DESIGN_SYSTEM.md`](./DESIGN_SYSTEM.md) for the token set, icon mapping, and
 component conventions. The site is dark-only with modest pastel accents.
 
+## Documentation
+
+- [`AGENTS.md`](./AGENTS.md) — Coding conventions, standing rules, and the most recent change log entries.
+- [`DESIGN_SYSTEM.md`](./DESIGN_SYSTEM.md) — Design tokens, component states, and styling rules.
+- [`docs/HISTORY.md`](./docs/HISTORY.md) — Archived change-log entries (everything older than the rolling window in `AGENTS.md`).
+- [`docs/REVIEW_2026-05-13.md`](./docs/REVIEW_2026-05-13.md) — Architecture / tech-debt / design review and the plan for cloning this prototype into `fin5th`.
+
 ## Project Structure
 
 ```
-src/
-├── app/
-│   ├── globals.css                     # Global styles
-│   ├── layout.tsx                      # Root layout (metadata, viewport)
-│   └── (main)/
-│       ├── layout.tsx                  # Shared shell: nav, logo, footer
-│       ├── page.tsx                    # sci5th landing (tagline + animated hero)
-│       ├── about/
-│       │   └── page.tsx                # About — how content is produced, scope
-│       ├── human-knowledge/
-│       │   └── page.tsx                # Human Knowledge — interactive tree
-│       └── knowledge-gallery/
-│           ├── page.tsx                # Knowledge Gallery — card index
-│           └── [slug]/
-│               └── page.tsx            # Knowledge Gallery entry
-├── components/
-│   ├── BackButton.tsx                  # Shared back-link with history fallback
-│   ├── FiveDimensionsHero.tsx          # Animated landing-page hero (React, rAF)
-│   ├── HumanKnowledgeMap.tsx           # Interactive knowledge tree component
-│   ├── KnowledgeGallery.tsx            # Gallery index (cards + sub-navbar)
-│   ├── KnowledgeGalleryEntry.tsx      # Gallery entry view (hero + steps)
-│   ├── KnowledgeGalleryFocusHandler.tsx # Scroll/highlight via ?focus=<slug>
-│   ├── UnityHero.tsx                   # Click-to-play wrapper for Unity demos
-│   └── UnityPlayer.tsx                 # Unity WebGL loader (client-only)
-├── config/
-│   └── knowledge-gallery.ts            # Gallery entry list (typed)
-└── types/
-    └── css.d.ts
-
-public/
-├── sci5th_Logo_Black.svg
-├── sci5th_Logo_Blue.svg
-├── sci5th_Logo_Pink.svg
-├── *.webp                              # Gallery thumbnails (AI-generated)
-└── UnityGames/                         # First-party Unity WebGL builds
-    ├── BehaviourTree_Gallery/
-    └── GOAP_Hospital/
+.
+├── README.md                           # This file
+├── AGENTS.md                           # Coding-agent rules + recent history
+├── DESIGN_SYSTEM.md                    # Tokens, components, states
+├── docs/
+│   ├── HISTORY.md                      # Archived change log (older than ~2 weeks)
+│   └── REVIEW_2026-05-13.md           # Triple-lens review + fin5th conversion plan
+│
+├── src/
+│   ├── app/
+│   │   ├── globals.css                 # Global styles
+│   │   ├── layout.tsx                  # Root layout (metadata, viewport)
+│   │   └── (main)/
+│   │       ├── layout.tsx              # Shared shell: nav, logo, footer
+│   │       ├── page.tsx                # sci5th landing (tagline + animated hero)
+│   │       ├── about/
+│   │       │   └── page.tsx            # About — how content is produced, scope
+│   │       ├── human-knowledge/
+│   │       │   └── page.tsx            # Human Knowledge — interactive tree
+│   │       └── knowledge-gallery/
+│   │           ├── page.tsx            # Knowledge Gallery — card index
+│   │           └── [slug]/
+│   │               └── page.tsx        # Knowledge Gallery entry
+│   ├── components/
+│   │   ├── BackButton.tsx              # Shared back-link with history fallback
+│   │   ├── FiveDimensionsHero.tsx      # Animated landing-page hero (React, rAF)
+│   │   ├── HumanKnowledgeMap.tsx       # Interactive knowledge tree component
+│   │   ├── KnowledgeGallery.tsx        # Gallery index (cards + sub-navbar)
+│   │   ├── KnowledgeGalleryEntry.tsx   # Gallery entry view (hero + steps)
+│   │   ├── KnowledgeGalleryFocusHandler.tsx  # Scroll/highlight via ?focus=<slug>
+│   │   ├── UnityHero.tsx               # Click-to-play wrapper for Unity demos
+│   │   └── UnityPlayer.tsx             # Unity WebGL loader (client-only)
+│   ├── config/
+│   │   └── knowledge-gallery.ts        # Gallery entry list (typed)
+│   └── types/
+│       └── css.d.ts
+│
+└── public/
+    ├── sci5th_Logo_Black.svg
+    ├── sci5th_Logo_Blue.svg
+    ├── sci5th_Logo_Pink.svg
+    ├── *.webp                          # Gallery thumbnails (AI-generated)
+    └── UnityGames/                     # First-party Unity WebGL builds
+        ├── BehaviourTree_Gallery/
+        └── GOAP_Hospital/
 ```
 
 ## Pages
@@ -74,11 +89,9 @@ public/
 ## AI Disclosure
 
 Knowledge Gallery prose is AI-drafted and not independently fact-checked.
-Thumbnails are generated with OpenAI's image model (Images 2.0); the two
-interactive demos under `/public/UnityGames/` are first-party Unity WebGL
-builds. The site surfaces this through three disclosure points: a footer line
+The site surfaces this through three disclosure points: a footer line
 on every page, a banner on the Gallery index, and a per-thumbnail / per-hero
-credit on each gallery card and entry. See [`/about`](./src/app/(main)/about/page.tsx)
+credit on each gallery card and entry. See [`/about`](<./src/app/(main)/about/page.tsx>)
 for the user-facing version.
 
 ## Getting Started
