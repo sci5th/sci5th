@@ -759,7 +759,7 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     imageSource: "unity-tutorial",
     attribution: {
       author: "Penny de Byl",
-      workTitle: "Artificial Intelligence for Beginners (GOAP)",
+      workTitle: "Goal-Oriented Action Planning",
       url: "https://www.udemy.com/course/ai_with_goap/",
     },
     unity: {
