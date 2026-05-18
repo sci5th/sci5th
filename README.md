@@ -69,7 +69,6 @@ component conventions. The site is dark-only with modest pastel accents.
 └── public/
     ├── sci5th_Logo_Black.svg
     ├── sci5th_Logo_Blue.svg
-    ├── sci5th_Logo_Pink.svg
     ├── *.webp                          # Gallery thumbnails (AI-generated)
     └── UnityGames/                     # First-party Unity WebGL builds
         ├── BehaviourTree_Gallery/

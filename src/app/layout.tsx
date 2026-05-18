@@ -30,8 +30,8 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "sci5th" }],
   icons: {
-    icon: "/sci5th_Logo_Pink.svg",
-    apple: "/sci5th_Logo_Pink.svg",
+    icon: "/sci5th_Logo_Blue.svg",
+    apple: "/sci5th_Logo_Blue.svg",
   },
 };
 

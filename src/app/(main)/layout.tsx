@@ -108,8 +108,8 @@ export default function MainLayout({
     <div className="flex min-h-screen flex-col bg-ink-700">
       <Navigation />
       <Logo
-        accentSrc="/sci5th_Logo_Pink.svg"
-        accentAlt="sci5th Logo Pink"
+        accentSrc="/sci5th_Logo_Blue.svg"
+        accentAlt="sci5th Logo Blue"
       />
       <main className="flex grow flex-col">{children}</main>
       <Footer />

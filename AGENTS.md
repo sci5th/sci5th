@@ -29,7 +29,7 @@ The site is a deep working prototype intended to scale into a larger application
 
 ## Key Patterns
 
-- The `(main)` route group provides a shared shell (logo, nav, footer). The logo strip's right-hand accent is `sci5th_Logo_Blue.svg` on `/` and `sci5th_Logo_Pink.svg` on the knowledge surfaces (`/human-knowledge` and `/knowledge-gallery`).
+- The `(main)` route group provides a shared shell (logo, nav, footer). The logo strip's right-hand accent is `sci5th_Logo_Blue.svg` across all surfaces (`/`, `/human-knowledge`, `/knowledge-gallery`).
 - The `HumanKnowledgeMap` component uses a scoped `km-*` CSS block (intentional Tailwind exception). The block lives at the bottom of `src/app/globals.css` and consumes the shared `:root` tokens — do not reintroduce local hex values. Category colors are applied via `cat-formal`, `cat-natural`, `cat-applied`, `cat-social`, `cat-humanities`, `cat-professions` classes at the top level, inherited by descendants.
 - The tree supports full ARIA `tree` / `treeitem` semantics with keyboard navigation (↑/↓ move, →/← expand/collapse, Enter/Space toggle, Home/End jump). Preserve these when editing.
 - sci5th is the site/brand; future sci5th projects live at sibling top-level routes (e.g., `/[future-project]`).
