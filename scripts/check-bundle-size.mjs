@@ -26,19 +26,17 @@ const NEXT_DIR = resolve(ROOT, ".next");
 const CAP_KB = 150;
 const EXEMPTIONS = {
   // route → { capKb, reason }
-  // Both exemptions drop once content moves out of the bundle. See
-  // docs/MDX_MIGRATION_PLAN.md — that work removes the inlined
-  // `KNOWLEDGE_GALLERY_ENTRIES` array (and similarly for the tree DATA),
-  // which is the main contributor here.
+  // Both exemptions cover content inlined into the JS bundle. They
+  // would drop if/when content moves out — see docs/MDX_OPTION.md for
+  // a parked-but-documented version of that move.
   "/human-knowledge": {
     capKb: 175,
-    reason:
-      "Knowledge tree DATA constant inlined (~33 KB) until MDX migration.",
+    reason: "Knowledge tree DATA constant inlined (~33 KB).",
   },
   "/knowledge-gallery": {
     capKb: 160,
     reason:
-      "KNOWLEDGE_GALLERY_ENTRIES (33 entries × ~1,400 lines of prose) is bundled into the client component until MDX migration.",
+      "KNOWLEDGE_GALLERY_ENTRIES (33 entries × ~1,400 lines of prose) bundled into the client component.",
   },
 };
 
