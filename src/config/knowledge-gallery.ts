@@ -592,7 +592,7 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     summary:
       "The engineering principle of splitting a program into self-contained pieces that hide their internals and expose narrow interfaces — arguably the single most important idea in software design.",
     systemPath:
-      "Human Knowledge/Formal Sciences/Computer Science/Software Engineering/Modularity",
+      "Human Knowledge/Formal Sciences/Computer Science/Software Engineering/Software Modularity",
     breadcrumb: "Formal Sciences · Software Engineering",
     category: "formal",
     kind: "modularity",
@@ -635,7 +635,7 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     summary:
       "Machine-learning models that learn the distribution of a dataset well enough to produce new samples from it — the technology behind modern image, video, audio, and text synthesis.",
     systemPath:
-      "Human Knowledge/Formal Sciences/Computer Science/Artificial Intelligence/Deep Learning/Generative Models (GANs, Diffusion)",
+      "Human Knowledge/Formal Sciences/Computer Science/Artificial Intelligence/Deep Learning/Generative Models",
     breadcrumb: "Formal Sciences · Artificial Intelligence",
     category: "formal",
     kind: "model",
@@ -1213,7 +1213,8 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     title: "Theory of Evolution",
     summary:
       "How heritable variation plus differential survival produces, over deep time, the complexity and diversity of all living things.",
-    systemPath: "Human Knowledge/Natural Sciences/Biology/Evolutionary Biology",
+    systemPath:
+      "Human Knowledge/Natural Sciences/Biology/Evolutionary Biology/Theory of Evolution",
     breadcrumb: "Natural Sciences · Biology",
     category: "natural",
     kind: "theory",
@@ -1256,7 +1257,7 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     summary:
       "The idea that organisms, genomes, and development are built from semi-independent units that can vary and evolve without breaking the whole — a central concept in evo-devo.",
     systemPath:
-      "Human Knowledge/Natural Sciences/Biology/Evolutionary Biology/Modularity",
+      "Human Knowledge/Natural Sciences/Biology/Evolutionary Biology/Biological Modularity",
     breadcrumb: "Natural Sciences · Biology",
     category: "natural",
     kind: "modularity",
@@ -1334,11 +1335,11 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
   },
   {
     slug: "obsidian-zettelkasten",
-    title: "Obsidian Vaults / Zettelkasten",
+    title: "Obsidian Vaults & Zettelkasten",
     summary:
       "A folder of plain Markdown files, linked by `[[wikilinks]]`, treated as a personal knowledge graph — the modern incarnation of Niklas Luhmann's index-card method.",
     systemPath:
-      "Human Knowledge/Applied Sciences & Technology/Information Science & Library Science/Document & File Formats as Data Structures/Office & Document Databases/Obsidian Vaults / Zettelkasten — MD as knowledge graph",
+      "Human Knowledge/Applied Sciences & Technology/Information Science & Library Science/Document & File Formats as Data Structures/Office & Document Databases/Obsidian Vaults & Zettelkasten",
     breadcrumb: "Applied Sciences · Information Science",
     category: "applied",
     kind: "system",
@@ -1381,7 +1382,7 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     summary:
       "The framework that treats the mind as an information-processing system — thoughts, memory, attention, and learning studied as computation rather than behavior.",
     systemPath:
-      "Human Knowledge/Social Sciences/Psychology/Cognitive Psychology",
+      "Human Knowledge/Social Sciences/Psychology/Cognitive Psychology/Cognitive Theory",
     breadcrumb: "Social Sciences · Psychology",
     category: "social",
     kind: "theory",

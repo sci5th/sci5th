@@ -222,7 +222,7 @@ export const DATA: KnowledgeNode = {
                 { name: "Programming Languages" },
                 { name: "Compilers" },
                 { name: "Software Design Patterns" },
-                { name: "Modularity" },
+                { name: "Software Modularity" },
                 { name: "DevOps & CI/CD" },
                 { name: "Testing & Verification" },
               ],
@@ -243,7 +243,7 @@ export const DATA: KnowledgeNode = {
                   c: [
                     { name: "Neural Network Architectures" },
                     { name: "Transformers & Attention" },
-                    { name: "Generative Models (GANs, Diffusion)" },
+                    { name: "Generative Models" },
                   ],
                 },
                 { name: "Natural Language Processing" },
@@ -442,7 +442,10 @@ export const DATA: KnowledgeNode = {
             { name: "Genetics & Genomics" },
             {
               name: "Evolutionary Biology",
-              c: [{ name: "Modularity" }],
+              c: [
+                { name: "Theory of Evolution" },
+                { name: "Biological Modularity" },
+              ],
             },
             { name: "Ecology" },
             { name: "Microbiology" },
@@ -769,9 +772,7 @@ export const DATA: KnowledgeNode = {
                     { name: "XLSX — spreadsheet as structured grid" },
                     { name: "DOCX/ODT — document as XML archive" },
                     { name: "PDF — portable document container" },
-                    {
-                      name: "Obsidian Vaults / Zettelkasten — MD as knowledge graph",
-                    },
+                    { name: "Obsidian Vaults & Zettelkasten" },
                   ],
                 },
                 { name: "Schema Design & Validation (JSON Schema, XSD)" },
@@ -801,7 +802,10 @@ export const DATA: KnowledgeNode = {
         {
           name: "Psychology",
           c: [
-            { name: "Cognitive Psychology" },
+            {
+              name: "Cognitive Psychology",
+              c: [{ name: "Cognitive Theory" }],
+            },
             { name: "Developmental Psychology" },
             { name: "Social Psychology" },
             { name: "Clinical Psychology" },
