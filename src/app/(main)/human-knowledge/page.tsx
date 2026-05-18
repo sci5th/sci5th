@@ -1,8 +1,9 @@
 import { Suspense } from "react";
 import HumanKnowledgeMap from "@/components/HumanKnowledgeMap";
 
+// Title template in src/app/layout.tsx appends " | sci5th".
 export const metadata = {
-  title: "Human Knowledge | sci5th",
+  title: "Human Knowledge",
   description:
     "Interactive system of human knowledge — a visual representation of the interconnectedness of various fields of study and disciplines. Explore the vast landscape of human knowledge and discover how different areas of expertise are related to one another.",
 };

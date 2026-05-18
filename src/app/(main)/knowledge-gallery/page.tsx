@@ -2,8 +2,9 @@ import { Suspense } from "react";
 import KnowledgeGallery from "@/components/KnowledgeGallery";
 import KnowledgeGalleryFocusHandler from "@/components/KnowledgeGalleryFocusHandler";
 
+// Title template in src/app/layout.tsx appends " | sci5th".
 export const metadata = {
-  title: "Knowledge Gallery | sci5th",
+  title: "Knowledge Gallery",
   description:
     "Knowledge Gallery — step-by-step explorations of topics from the System of Human Knowledge. Curated interactive entries on science, math, and ideas.",
 };

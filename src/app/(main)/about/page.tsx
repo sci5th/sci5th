@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "About | sci5th",
+  title: "About",
   description:
     "About sci5th — how content is produced, what is AI-generated, and how to get in touch.",
 };

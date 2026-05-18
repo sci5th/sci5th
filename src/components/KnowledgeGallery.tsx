@@ -86,16 +86,32 @@ function Thumbnail({ entry }: { entry: KnowledgeGalleryEntry }) {
     // Use a plain <img> rather than next/image because the project uses
     // `unoptimized` on local assets (see AGENTS.md). A background div keeps
     // the layout simple and avoids pulling in next/image's config surface.
+    // The credit caption is overlaid on the bottom-right corner of the
+    // thumbnail with a soft right-side gradient — Instagram/Vimeo style —
+    // so it sits next to the image without claiming a separate row.
+    const credit = entry.unity
+      ? "Hero: Unity WebGL build"
+      : "Image: Images 2.0 by OpenAI";
     return (
       <div
-        className="aspect-video w-full rounded-md bg-ink-800 bg-cover bg-center"
+        className="relative aspect-video w-full overflow-hidden rounded-md bg-ink-800 bg-cover bg-center"
         style={{ backgroundImage: `url(${entry.thumbnail})` }}
         role="img"
         aria-label={`${entry.title} thumbnail`}
-      />
+      >
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-y-0 right-0 flex w-2/3 items-end justify-end bg-gradient-to-l from-black/60 via-black/30 to-transparent px-2 pb-1"
+        >
+          <span className="font-mono text-[0.625rem] uppercase tracking-wide text-white/90">
+            {credit}
+          </span>
+        </div>
+      </div>
     );
   }
   // Placeholder — a quiet category-tinted tile with the entry initials.
+  // No credit overlay here: we didn't ship an image to credit.
   const initials = entry.title
     .split(/\s+/)
     .slice(0, 2)
@@ -248,13 +264,7 @@ export default function KnowledgeGallery() {
                 className="group flex h-full flex-col overflow-hidden rounded-lg border border-line-700 bg-ink-900 p-4 transition-colors hover:border-brand-pink focus-visible:border-brand-pink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue"
               >
                 <Thumbnail entry={entry} />
-                {entry.thumbnail ? (
-                  <p className="mt-1.5 text-right text-[0.625rem] uppercase tracking-wide text-text-300">
-                    {entry.unity
-                      ? "Hero: Unity WebGL build"
-                      : "Image: Images 2.0 by OpenAI"}
-                  </p>
-                ) : null}
+                {/* Credit moved onto the thumbnail itself (see Thumbnail). */}
                 <div className="mt-3 flex flex-1 flex-col">
                   <p className="line-clamp-1 font-mono text-xs uppercase tracking-wide text-text-500">
                     {entry.breadcrumb}

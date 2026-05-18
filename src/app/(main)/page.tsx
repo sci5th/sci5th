@@ -1,9 +1,13 @@
+import type { Metadata } from "next";
 import FiveDimensionsHero from "@/components/FiveDimensionsHero";
+import { BRAND } from "@/config/brand";
 
-export const metadata = {
-  title: "sci5th",
-  description:
-    "sci5th — exploring the structure of human knowledge, with a focus on science and technology",
+// The home page intentionally renders just the brand name as the tab
+// title (no " | sci5th" suffix). `title.absolute` opts out of the root
+// layout's title template.
+export const metadata: Metadata = {
+  title: { absolute: BRAND.name },
+  description: BRAND.description,
 };
 
 export default function HomePage() {

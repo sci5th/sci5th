@@ -16,9 +16,11 @@ export async function generateMetadata({
 }) {
   const { slug } = await params;
   const entry = findKnowledgeGalleryEntry(slug);
-  if (!entry) return { title: "Not found | Knowledge Gallery | sci5th" };
+  // Title template in src/app/layout.tsx appends " | sci5th"; we only
+  // supply the leading segment here.
+  if (!entry) return { title: "Not found | Knowledge Gallery" };
   return {
-    title: `${entry.title} | Knowledge Gallery | sci5th`,
+    title: `${entry.title} | Knowledge Gallery`,
     description: entry.summary,
   };
 }

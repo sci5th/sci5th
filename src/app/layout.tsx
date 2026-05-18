@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { DM_Sans, JetBrains_Mono } from "next/font/google";
+import { BRAND } from "@/config/brand";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -15,27 +16,28 @@ const jetBrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "sci5th",
-  description:
-    "sci5th — exploring the structure of human knowledge, with a focus on science and technology",
-  keywords: [
-    "sci5th",
-    "science",
-    "technology",
-    "human knowledge",
-    "artificial intelligence",
-    "computer science",
-    "data science",
-    "md files",
-  ],
-  authors: [{ name: "sci5th" }],
+  // Title template lets child pages set just their own segment
+  // (e.g. metadata.title = "Knowledge Gallery") and Next will resolve it
+  // to "Knowledge Gallery | sci5th". `default` is used by pages that
+  // don't override `metadata.title`.
+  title: {
+    default: BRAND.name,
+    template: `%s | ${BRAND.name}`,
+  },
+  description: BRAND.description,
+  keywords: [...BRAND.keywords],
+  authors: [{ name: BRAND.name }],
   icons: {
     icon: [
-      { url: "/favicon.ico", sizes: "any" },
-      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-      { url: "/sci5th_Logo_Blue.svg", type: "image/svg+xml" },
+      { url: BRAND.icons.favicon, sizes: "any" },
+      { url: BRAND.icons.faviconPng32, sizes: "32x32", type: "image/png" },
+      { url: BRAND.icons.faviconSvg, type: "image/svg+xml" },
     ],
-    apple: { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    apple: {
+      url: BRAND.icons.appleTouch,
+      sizes: "180x180",
+      type: "image/png",
+    },
   },
 };
 
