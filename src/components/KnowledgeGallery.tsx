@@ -2,8 +2,10 @@
 
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { assetUrl } from "@/config/asset-manifest";
 import {
   KNOWLEDGE_GALLERY_ENTRIES,
+  imageCreditFor,
   type KnowledgeGalleryEntry,
   type KnowledgeGalleryKind,
 } from "@/config/knowledge-gallery";
@@ -89,13 +91,11 @@ function Thumbnail({ entry }: { entry: KnowledgeGalleryEntry }) {
     // The credit caption is overlaid on the bottom-right corner of the
     // thumbnail with a soft right-side gradient — Instagram/Vimeo style —
     // so it sits next to the image without claiming a separate row.
-    const credit = entry.unity
-      ? "Hero: Unity WebGL build"
-      : "Image: Images 2.0 by OpenAI";
+    const credit = imageCreditFor(entry.imageSource);
     return (
       <div
         className="relative aspect-video w-full overflow-hidden rounded-md bg-ink-800 bg-cover bg-center"
-        style={{ backgroundImage: `url(${entry.thumbnail})` }}
+        style={{ backgroundImage: `url(${assetUrl(entry.thumbnail)})` }}
         role="img"
         aria-label={`${entry.title} thumbnail`}
       >
@@ -167,9 +167,13 @@ function SectionTabs({
                 <span
                   className={[
                     "rounded-full px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-wide",
+                    // Count badges read inline with the tab label for screen
+                    // readers ("All 33") and need to clear WCAG AA on their
+                    // own background even when the tab is inactive — bumped
+                    // from text-text-500 (~3.4:1) to text-text-300 (~7.8:1).
                     isActive
                       ? "bg-ink-900 text-text-300"
-                      : "bg-ink-800 text-text-500",
+                      : "bg-ink-800 text-text-300",
                   ].join(" ")}
                 >
                   {counts[section.id]}
@@ -207,7 +211,7 @@ export default function KnowledgeGallery() {
   };
   for (const entry of KNOWLEDGE_GALLERY_ENTRIES) {
     const match = SECTIONS.find(
-      (s) => s.kind !== null && s.kind === entry.kind,
+      (s) => s.kind !== null && s.kind === entry.kind
     );
     if (match) counts[match.id] += 1;
   }
@@ -236,7 +240,7 @@ export default function KnowledgeGallery() {
         citation.{" "}
         <Link
           href="/about"
-          className="underline decoration-text-700 underline-offset-2 transition-colors hover:text-text-100 focus-visible:text-text-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue"
+          className="decoration-text-700 underline underline-offset-2 transition-colors hover:text-text-100 focus-visible:text-text-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue"
         >
           About this site
         </Link>

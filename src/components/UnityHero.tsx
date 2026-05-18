@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { PlayIcon } from "@heroicons/react/24/solid";
+import { assetUrl } from "@/config/asset-manifest";
 import UnityPlayer from "./UnityPlayer";
 
 interface UnityHeroProps {
@@ -43,7 +44,7 @@ export default function UnityHero({
         onClick={() => setPlaying(true)}
         aria-label={`Play ${unity.name}`}
         className="group relative mb-8 block aspect-video w-full overflow-hidden rounded-lg border border-line-700 bg-ink-800 bg-cover bg-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue"
-        style={{ backgroundImage: `url(${thumbnail})` }}
+        style={{ backgroundImage: `url(${assetUrl(thumbnail)})` }}
       >
         <span
           className="pointer-events-none absolute inset-0 flex items-center justify-center"

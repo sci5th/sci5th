@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { DM_Sans, JetBrains_Mono } from "next/font/google";
+import { assetUrl } from "@/config/asset-manifest";
 import { BRAND } from "@/config/brand";
 import "./globals.css";
 
@@ -29,12 +30,16 @@ export const metadata: Metadata = {
   authors: [{ name: BRAND.name }],
   icons: {
     icon: [
-      { url: BRAND.icons.favicon, sizes: "any" },
-      { url: BRAND.icons.faviconPng32, sizes: "32x32", type: "image/png" },
-      { url: BRAND.icons.faviconSvg, type: "image/svg+xml" },
+      { url: assetUrl(BRAND.icons.favicon), sizes: "any" },
+      {
+        url: assetUrl(BRAND.icons.faviconPng32),
+        sizes: "32x32",
+        type: "image/png",
+      },
+      { url: assetUrl(BRAND.icons.faviconSvg), type: "image/svg+xml" },
     ],
     apple: {
-      url: BRAND.icons.appleTouch,
+      url: assetUrl(BRAND.icons.appleTouch),
       sizes: "180x180",
       type: "image/png",
     },

@@ -1,0 +1,40 @@
+# Lefthook configuration — runs lightweight checks on staged files.
+#
+# Install once:           brew install lefthook    (or: npm i -D lefthook)
+# Activate the hooks:     lefthook install
+# Skip a single commit:   git commit --no-verify
+#
+# Each `run` block receives the list of staged files matching `glob`. The
+# {staged_files} placeholder is expanded by lefthook with shell-quoted
+# paths, so spaces in filenames are safe.
+
+pre-commit:
+  parallel: true
+  commands:
+    # Convert any new PNG/JPG under /public/ to the project's 1280×720
+    # WebP convention. Re-stages the resulting .webp alongside the
+    # original so the commit includes both. (Delete the source PNG by
+    # hand once you've eyeballed the WebP.)
+    optimize-images:
+      glob: "public/*.{png,jpg,jpeg,PNG,JPG,JPEG}"
+      run: |
+        node scripts/optimize-image.mjs {staged_files}
+        # Stage the generated .webp companions.
+        for f in {staged_files}; do
+          webp="${f%.*}.webp"
+          if [ -f "$webp" ]; then git add "$webp"; fi
+        done
+
+    # Keep the asset hash manifest current when any /public/ asset changes.
+    # The script is fast (sha256 of ~46 small files) so we run it on every
+    # commit that touches /public/, then re-stage if it actually changed.
+    asset-manifest:
+      glob: "public/**/*"
+      run: |
+        node scripts/build-asset-manifest.mjs
+        git add src/config/asset-manifest.ts
+
+    # Format staged TS/TSX/CSS files. Mirrors `npm run format` but scoped.
+    prettier:
+      glob: "src/**/*.{ts,tsx,css}"
+      run: npx prettier --write {staged_files} && git add {staged_files}

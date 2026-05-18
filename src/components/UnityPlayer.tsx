@@ -6,6 +6,7 @@ import {
   ArrowsPointingOutIcon,
 } from "@heroicons/react/24/outline";
 import { StopIcon } from "@heroicons/react/24/solid";
+import { assetUrl } from "@/config/asset-manifest";
 
 // The Unity WebGL loader attaches `createUnityInstance` to the global scope
 // after `WebGL_build.loader.js` executes. We declare it here so TypeScript
@@ -23,7 +24,7 @@ declare global {
       productName?: string;
       productVersion?: string;
     },
-    onProgress?: (progress: number) => void,
+    onProgress?: (progress: number) => void
   ) => Promise<{ Quit?: () => Promise<void> }>;
 }
 
@@ -36,8 +37,15 @@ interface UnityPlayerProps {
   useUnityWebExtension?: boolean;
   /** If provided, a Stop button is shown next to the fullscreen toggle. */
   onStop?: () => void;
-  minWidth?: number;
-  minHeight?: number;
+  /**
+   * Inline (non-fullscreen) maximums applied to the container. The canvas
+   * itself fills its 16:9 container via `aspect-video w-full`, so on a
+   * narrow viewport the canvas displays correspondingly small — Unity's
+   * drawing buffer stays at 1280×720 (see comment in the `useEffect` that
+   * sets `dimensions`) and CSS scales it. There is intentionally NO
+   * `minWidth` — at 320px viewport widths the canvas degrades to ~320×180
+   * rather than forcing the page to scroll horizontally.
+   */
   maxWidth?: number;
   maxHeight?: number;
 }
@@ -47,8 +55,6 @@ export default function UnityPlayer({
   gameName,
   useUnityWebExtension = true,
   onStop,
-  minWidth = 480,
-  minHeight = 270,
   maxWidth = 1280,
   maxHeight = 720,
 }: UnityPlayerProps) {
@@ -81,7 +87,7 @@ export default function UnityPlayer({
     let instance: { Quit?: () => Promise<void> } | null = null;
 
     const script = document.createElement("script");
-    script.src = `${gamePath}/WebGL_build.loader.js`;
+    script.src = assetUrl(`${gamePath}/WebGL_build.loader.js`);
     script.async = true;
 
     const ext = useUnityWebExtension ? ".unityweb" : "";
@@ -108,9 +114,9 @@ export default function UnityPlayer({
       revealUnityUI();
       try {
         instance = await createUnityInstance(canvasRef.current, {
-          dataUrl: `${gamePath}/WebGL_build.data${ext}`,
-          frameworkUrl: `${gamePath}/WebGL_build.framework.js${ext}`,
-          codeUrl: `${gamePath}/WebGL_build.wasm${ext}`,
+          dataUrl: assetUrl(`${gamePath}/WebGL_build.data${ext}`),
+          frameworkUrl: assetUrl(`${gamePath}/WebGL_build.framework.js${ext}`),
+          codeUrl: assetUrl(`${gamePath}/WebGL_build.wasm${ext}`),
           streamingAssetsUrl: "StreamingAssets",
           companyName: "sci5th",
           productName: gameName,

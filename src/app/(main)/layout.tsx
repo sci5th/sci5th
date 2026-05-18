@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import Navigation from "@/components/Navigation";
+import { assetUrl } from "@/config/asset-manifest";
 import { BRAND } from "@/config/brand";
 
 // Server Component. `Navigation` is the only client island; Logo and
@@ -13,7 +14,7 @@ function Logo() {
       className="flex w-full items-center justify-center bg-ink-600 p-1.5 transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue md:p-3 lg:p-5"
     >
       <Image
-        src={BRAND.logos.primary}
+        src={assetUrl(BRAND.logos.primary)}
         alt={BRAND.logos.primaryAlt}
         className="mx-1.5 w-12 md:mx-3 md:w-20 lg:w-24"
         width={96}
@@ -24,7 +25,7 @@ function Logo() {
         {BRAND.name}
       </h1>
       <Image
-        src={BRAND.logos.accent}
+        src={assetUrl(BRAND.logos.accent)}
         alt={BRAND.logos.accentAlt}
         className="mx-1.5 w-12 md:mx-3 md:w-20 lg:w-24"
         width={96}
@@ -47,7 +48,7 @@ function Footer() {
         independently fact-checked.{" "}
         <Link
           href="/about"
-          className="underline decoration-text-700 underline-offset-2 transition-colors hover:text-text-100 focus-visible:text-text-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue"
+          className="decoration-text-700 underline underline-offset-2 transition-colors hover:text-text-100 focus-visible:text-text-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue"
         >
           Learn more
         </Link>

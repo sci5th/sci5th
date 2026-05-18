@@ -366,12 +366,15 @@ export default function HumanKnowledgeMap() {
                 <li>Click a row with a triangle to expand or collapse it.</li>
                 <li>Use the search field above to filter by name.</li>
                 <li>
-                  Keyboard: <kbd>↑</kbd>/<kbd>↓</kbd> to move,{" "}
-                  <kbd>→</kbd>/<kbd>←</kbd> to expand/collapse,{" "}
-                  <kbd>Enter</kbd> or <kbd>Space</kbd> to toggle,{" "}
-                  <kbd>Home</kbd>/<kbd>End</kbd> to jump to first/last.
+                  Keyboard: <kbd>↑</kbd>/<kbd>↓</kbd> to move, <kbd>→</kbd>/
+                  <kbd>←</kbd> to expand/collapse, <kbd>Enter</kbd> or{" "}
+                  <kbd>Space</kbd> to toggle, <kbd>Home</kbd>/<kbd>End</kbd> to
+                  jump to first/last.
                 </li>
-                <li>Use the buttons on the sides to expand or collapse the whole tree.</li>
+                <li>
+                  Use the buttons on the sides to expand or collapse the whole
+                  tree.
+                </li>
               </ul>
             </div>
           </details>
@@ -403,7 +406,15 @@ export default function HumanKnowledgeMap() {
             <div
               key={row.path}
               style={{
-                paddingLeft: row.depth > 0 ? `${row.depth * 18}px` : undefined,
+                // Indent per depth level. Capped so labels at maximum depth
+                // still get a usable width on narrow (320px) viewports —
+                // without the cap, depth 7+ would leave ~150px for the label
+                // and force aggressive word-breaks on long names like
+                // "Generative Models (GANs, Diffusion)".
+                paddingLeft:
+                  row.depth > 0
+                    ? `${Math.min(row.depth * 18, 108)}px`
+                    : undefined,
                 position: "relative",
               }}
             >

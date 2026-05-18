@@ -4,7 +4,11 @@ import {
   ArrowLeftIcon,
   ArrowTopRightOnSquareIcon,
 } from "@heroicons/react/24/outline";
-import type { KnowledgeGalleryEntry } from "@/config/knowledge-gallery";
+import { assetUrl } from "@/config/asset-manifest";
+import {
+  imageCreditFor,
+  type KnowledgeGalleryEntry,
+} from "@/config/knowledge-gallery";
 import UnityHero from "./UnityHero";
 import BackButton from "./BackButton";
 
@@ -86,7 +90,7 @@ export default function KnowledgeGalleryEntryView({
       ) : entry.thumbnail ? (
         <div
           className="relative mb-8 aspect-video w-full overflow-hidden rounded-lg border border-line-700 bg-ink-800 bg-cover bg-center"
-          style={{ backgroundImage: `url(${entry.thumbnail})` }}
+          style={{ backgroundImage: `url(${assetUrl(entry.thumbnail)})` }}
           role="img"
           aria-label={`${entry.title} hero`}
         />
@@ -102,9 +106,7 @@ export default function KnowledgeGalleryEntryView({
       )}
 
       <p className="-mt-6 mb-8 text-right text-[0.65rem] uppercase tracking-wide text-text-500 md:text-xs">
-        {entry.unity
-          ? "Hero: original Unity WebGL build"
-          : "Image: Images 2.0 by OpenAI"}
+        {imageCreditFor(entry.imageSource)}
       </p>
 
       <ol className="flex flex-col gap-5">
@@ -113,9 +115,7 @@ export default function KnowledgeGalleryEntryView({
             key={step.title}
             className="rounded-lg border border-line-700 bg-ink-900 p-5"
           >
-            <h2 className="text-lg font-medium text-text-100">
-              {step.title}
-            </h2>
+            <h2 className="text-lg font-medium text-text-100">{step.title}</h2>
             <p className="mt-2 text-sm leading-relaxed text-text-300 md:text-base">
               {step.body}
             </p>
