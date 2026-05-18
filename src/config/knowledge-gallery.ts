@@ -43,16 +43,41 @@ export type KnowledgeGalleryKind =
  * per-card and per-entry credit caption; replaces the old implicit
  * "does it have a `unity` field?" check.
  *
- *  • openai      — AI-generated thumbnail (OpenAI Images 2.0). The default.
- *  • unity       — original Unity WebGL build (first-party interactive).
- *  • first-party — original artwork or photo by the site author.
- *  • stock       — properly licensed third-party image; the entry's caption
- *                  should also disclose source + license inline.
+ *  • openai          — AI-generated thumbnail (OpenAI Images 2.0). Default.
+ *  • unity           — original Unity WebGL build, fully first-party.
+ *  • unity-tutorial  — Unity WebGL build implemented by following a
+ *                      third-party tutorial / course. Author of this site
+ *                      built the project from instructor materials. The
+ *                      entry's `attribution` field MUST be set for this
+ *                      source so the credit caption can name the
+ *                      instructor + course.
+ *  • first-party     — original artwork or photo by the site author.
+ *  • stock           — properly licensed third-party image; the entry's
+ *                      caption should also disclose source + license inline.
  *
  * Required on every entry. If you add a new provenance type, extend the
  * `switch` in `imageCreditFor()` so the credit caption gets the right copy.
  */
-export type ImageSource = "openai" | "unity" | "first-party" | "stock";
+export type ImageSource =
+  | "openai"
+  | "unity"
+  | "unity-tutorial"
+  | "first-party"
+  | "stock";
+
+/**
+ * Per-entry attribution metadata. Required when `imageSource` names a
+ * provenance that needs author + source naming (e.g. `unity-tutorial`).
+ * Optional for sources where the credit is generic (e.g. `openai`).
+ */
+export interface EntryAttribution {
+  /** Who created the source material the entry was built from. */
+  author: string;
+  /** What the source material is called (course title, book name, etc.). */
+  workTitle: string;
+  /** Stable landing URL for the source material. */
+  url: string;
+}
 
 export interface KnowledgeGalleryEntry {
   slug: string;
@@ -81,6 +106,13 @@ export interface KnowledgeGalleryEntry {
    */
   imageSource: ImageSource;
   /**
+   * Optional per-entry attribution. Required when `imageSource` is
+   * `"unity-tutorial"` (or any future source that names a specific author
+   * + work). When set, `imageCreditFor()` includes the author and links
+   * to `attribution.url`.
+   */
+  attribution?: EntryAttribution;
+  /**
    * Optional Unity WebGL build to launch when the user presses Play on the
    * entry's hero. The folder must contain `WebGL_build.loader.js`,
    * `WebGL_build.data[.unityweb]`, `WebGL_build.framework.js[.unityweb]` and
@@ -99,21 +131,62 @@ export interface KnowledgeGalleryEntry {
 }
 
 /**
- * Map an entry's `imageSource` to the credit caption shown under the
- * thumbnail (on Gallery cards) and the hero (on entry pages). Add a new
- * case here when extending the `ImageSource` union.
+ * Plain-text credit caption for a given `imageSource`. Returned as a
+ * string (no markup) so it can be used wherever a single string is
+ * needed — the per-card overlay on the Gallery index uses this form.
+ *
+ * For sources that need a clickable link in the credit (e.g.
+ * `unity-tutorial` linking to the course), prefer `imageCreditPartsFor()`
+ * below — it returns the credit as labeled segments so the renderer can
+ * wrap the relevant ones in an `<a>`.
  */
-export function imageCreditFor(source: ImageSource): string {
+export function imageCreditFor(
+  source: ImageSource,
+  attribution?: EntryAttribution
+): string {
   switch (source) {
     case "openai":
       return "Image: Images 2.0 by OpenAI";
     case "unity":
-      return "Hero: Unity WebGL build";
+      return "Hero: original Unity WebGL build";
+    case "unity-tutorial": {
+      if (!attribution) return "Hero: Unity WebGL build (tutorial-derived)";
+      return `Hero: Unity WebGL build, built following ${attribution.workTitle} by ${attribution.author}`;
+    }
     case "first-party":
       return "Image: original work";
     case "stock":
       return "Image: licensed stock";
   }
+}
+
+/**
+ * Structured credit for renderers that want to wrap the attribution
+ * portion in a link. The renderer joins the `prefix`, optional
+ * `authorLink` (rendered as `<a href={url}>{label}</a>`), and `suffix`
+ * to produce the final credit. Pure functions over `ImageSource` +
+ * optional `attribution` — never throws.
+ */
+export type CreditParts = {
+  prefix: string;
+  authorLink?: { label: string; url: string };
+  suffix?: string;
+};
+
+export function imageCreditPartsFor(
+  source: ImageSource,
+  attribution?: EntryAttribution
+): CreditParts {
+  if (source === "unity-tutorial" && attribution) {
+    return {
+      prefix: "Hero: Unity WebGL build, built following ",
+      authorLink: {
+        label: `${attribution.workTitle} by ${attribution.author}`,
+        url: attribution.url,
+      },
+    };
+  }
+  return { prefix: imageCreditFor(source, attribution) };
 }
 
 export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
@@ -683,7 +756,12 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     category: "formal",
     kind: "algorithm",
     thumbnail: "/GOAP.webp",
-    imageSource: "unity",
+    imageSource: "unity-tutorial",
+    attribution: {
+      author: "Penny de Byl",
+      workTitle: "Artificial Intelligence for Beginners (GOAP)",
+      url: "https://www.udemy.com/course/ai_with_goap/",
+    },
     unity: {
       path: "/UnityGames/GOAP_Hospital",
       name: "GOAP Hospital",
@@ -727,7 +805,12 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     category: "formal",
     kind: "algorithm",
     thumbnail: "/BehaviourTrees.webp",
-    imageSource: "unity",
+    imageSource: "unity-tutorial",
+    attribution: {
+      author: "Penny de Byl",
+      workTitle: "Behaviour Trees",
+      url: "https://www.udemy.com/course/behaviour-trees/",
+    },
     unity: {
       path: "/UnityGames/BehaviourTree_Gallery",
       name: "Behaviour Tree Gallery",

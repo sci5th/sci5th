@@ -91,7 +91,7 @@ function Thumbnail({ entry }: { entry: KnowledgeGalleryEntry }) {
     // The credit caption is overlaid on the bottom-right corner of the
     // thumbnail with a soft right-side gradient — Instagram/Vimeo style —
     // so it sits next to the image without claiming a separate row.
-    const credit = imageCreditFor(entry.imageSource);
+    const credit = imageCreditFor(entry.imageSource, entry.attribution);
     return (
       <div
         className="relative aspect-video w-full overflow-hidden rounded-md bg-ink-800 bg-cover bg-center"
