@@ -1,7 +1,7 @@
 export const metadata = {
   title: "About | sci5th",
   description:
-    "About sci5th — how content is produced, what is AI-generated, and how to report errors.",
+    "About sci5th — how content is produced, what is AI-generated, and how to get in touch.",
 };
 
 export default function AboutPage() {
@@ -49,6 +49,17 @@ export default function AboutPage() {
             here will be revised as the project grows.
           </p>
         </section>
+
+        <p className="mt-6 px-4 text-center text-xs leading-snug text-text-300 md:text-sm">
+          Questions, corrections, or copyright concerns:{" "}
+          <a
+            href="mailto:s_object@yahoo.com"
+            className="underline decoration-text-700 underline-offset-2 transition-colors hover:text-text-100 focus-visible:text-text-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue"
+          >
+            s_object@yahoo.com
+          </a>
+          .
+        </p>
       </article>
     </div>
   );

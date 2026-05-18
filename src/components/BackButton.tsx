@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 
 // A small client-side "Back" button that steps the browser history back
@@ -10,6 +10,7 @@ import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 export default function BackButton({
   fallbackHref = "/",
   href,
+  appendFromSection = false,
   label = "Back",
 }: {
   // Where to send the user if there's no prior history (e.g. they landed
@@ -21,9 +22,17 @@ export default function BackButton({
   // back target needs query params the prior history entry can't carry
   // — e.g. a `?focus=<slug>` highlight signal on the gallery list.
   href?: string;
+  // When true, read the current page's `?from=<section>` query carrier
+  // and append it as `&section=<section>` to `href` before navigating.
+  // Used by the Knowledge Gallery entry page so the Back button restores
+  // the active gallery filter on return. This client-side read avoids
+  // making the parent route dynamic, which is incompatible with
+  // `output: "export"`.
+  appendFromSection?: boolean;
   label?: string;
 }) {
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   return (
     <button
@@ -32,7 +41,15 @@ export default function BackButton({
         // Explicit `href` wins — caller knows the desired destination
         // and may need query params not present in the prior history.
         if (href) {
-          router.push(href);
+          let target = href;
+          if (appendFromSection) {
+            const fromRaw = searchParams?.get("from");
+            if (fromRaw) {
+              const separator = target.includes("?") ? "&" : "?";
+              target = `${target}${separator}section=${encodeURIComponent(fromRaw)}`;
+            }
+          }
+          router.push(target);
           return;
         }
         // When the user landed here directly (new tab, shared link),

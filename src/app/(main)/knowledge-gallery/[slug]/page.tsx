@@ -25,26 +25,22 @@ export async function generateMetadata({
 
 export default async function KnowledgeGalleryEntryPage({
   params,
-  searchParams,
 }: {
   params: Promise<{ slug: string }>;
-  // Optional `from=<section>` carrier: when the user clicks into the entry
-  // from a filtered gallery view (e.g. /knowledge-gallery?section=theories),
-  // the gallery card encodes the section so the entry's Back button can
-  // restore it on return.
-  searchParams: Promise<{ from?: string | string[] }>;
 }) {
   const { slug } = await params;
   const entry = findKnowledgeGalleryEntry(slug);
   if (!entry) notFound();
 
-  const { from } = await searchParams;
-  const fromSection = Array.isArray(from) ? from[0] : from;
-
+  // Note: the `?from=<section>` query carrier (emitted by gallery cards so
+  // the Back button can restore the active filter on return) is read on the
+  // client inside `BackButton` via `useSearchParams()` instead of here.
+  // Reading `searchParams` on the server makes the route dynamic, which is
+  // incompatible with `output: "export"` in `next.config.ts`.
   return (
     <div className="flex flex-1 justify-center px-4 py-8 md:px-8 md:py-12">
       <div className="w-full max-w-3xl">
-        <KnowledgeGalleryEntryView entry={entry} fromSection={fromSection} />
+        <KnowledgeGalleryEntryView entry={entry} />
       </div>
     </div>
   );

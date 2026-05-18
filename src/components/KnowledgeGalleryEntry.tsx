@@ -1,35 +1,57 @@
 import Link from "next/link";
-import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
+import { Suspense } from "react";
+import {
+  ArrowLeftIcon,
+  ArrowTopRightOnSquareIcon,
+} from "@heroicons/react/24/outline";
 import type { KnowledgeGalleryEntry } from "@/config/knowledge-gallery";
 import UnityHero from "./UnityHero";
 import BackButton from "./BackButton";
 
 export default function KnowledgeGalleryEntryView({
   entry,
-  fromSection,
 }: {
   entry: KnowledgeGalleryEntry;
-  // When set, the Back button will return to the gallery with that section
-  // filter restored (e.g. ?section=theories). Independent of the highlight,
-  // which is driven by ?focus=<slug>.
-  fromSection?: string;
 }) {
-  // Build the back URL so it both restores the filter (if any) AND signals
-  // the gallery list to highlight the originating card. Mirrors the
-  // `?focus=<systemPath>` pattern used by "See in System" on the System side.
-  const backParams = new URLSearchParams();
-  backParams.set("focus", entry.slug);
-  if (fromSection) backParams.set("section", fromSection);
-  const backHref = `/knowledge-gallery?${backParams.toString()}`;
+  // Build the static portion of the back URL: always highlight the
+  // originating card via `?focus=<slug>` (mirrors the `?focus=<systemPath>`
+  // pattern used by "See in System" on the System side). The optional
+  // `&section=<active>` filter-restore segment is appended on the client
+  // inside `BackButton` from the current page's `?from=` query carrier —
+  // reading searchParams here would force the route to be dynamic, which
+  // is incompatible with `output: "export"`.
+  const backHref = `/knowledge-gallery?focus=${encodeURIComponent(entry.slug)}`;
 
   return (
     <article className="w-full">
       <nav className="mb-6 flex items-center justify-between text-sm">
-        <BackButton
-          fallbackHref="/knowledge-gallery"
-          href={backHref}
-          label="Back to Knowledge Gallery"
-        />
+        {/* Suspense boundary required because BackButton calls
+            useSearchParams() to read the optional `?from=<section>`
+            carrier; without it, Next refuses to prerender the page under
+            `output: "export"`. The fallback must NOT itself call
+            useSearchParams() (or any client-only hook) — otherwise it
+            triggers the same CSR-bailout it's supposed to absorb. A plain
+            anchor with the static back URL is good enough during the
+            prerender + hydration window; the real button swaps in
+            immediately after. */}
+        <Suspense
+          fallback={
+            <a
+              href={backHref}
+              className="inline-flex items-center gap-1.5 text-sm text-text-300 transition-colors hover:text-text-100 focus-visible:text-text-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue"
+            >
+              <ArrowLeftIcon className="h-4 w-4" />
+              <span>Back to Knowledge Gallery</span>
+            </a>
+          }
+        >
+          <BackButton
+            fallbackHref="/knowledge-gallery"
+            href={backHref}
+            appendFromSection
+            label="Back to Knowledge Gallery"
+          />
+        </Suspense>
         <Link
           href={{
             pathname: "/human-knowledge",

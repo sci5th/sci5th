@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import {
   KNOWLEDGE_GALLERY_ENTRIES,
   type KnowledgeGalleryEntry,
@@ -166,11 +169,14 @@ function SectionTabs({
 
 // ── Page component ───────────────────────────────────────────────────────────
 
-export default function KnowledgeGallery({
-  section: rawSection,
-}: {
-  section?: string;
-}) {
+export default function KnowledgeGallery() {
+  // `?section=` is read on the client so the page can be statically
+  // exported (`output: "export"` in `next.config.ts`). On the very first
+  // client render before hydration `searchParams` is empty, which is
+  // exactly what we want — the static HTML reflects the "all" view, and
+  // the filter narrows it down once the URL is consulted.
+  const searchParams = useSearchParams();
+  const rawSection = searchParams?.get("section") ?? undefined;
   const active = resolveSection(rawSection);
   const activeMeta = SECTIONS.find((s) => s.id === active)!;
 
@@ -243,7 +249,7 @@ export default function KnowledgeGallery({
               >
                 <Thumbnail entry={entry} />
                 {entry.thumbnail ? (
-                  <p className="mt-1.5 text-right text-[0.625rem] uppercase tracking-wide text-text-500">
+                  <p className="mt-1.5 text-right text-[0.625rem] uppercase tracking-wide text-text-300">
                     {entry.unity
                       ? "Hero: Unity WebGL build"
                       : "Image: Images 2.0 by OpenAI"}

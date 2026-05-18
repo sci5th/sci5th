@@ -30,8 +30,12 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "sci5th" }],
   icons: {
-    icon: "/sci5th_Logo_Blue.svg",
-    apple: "/sci5th_Logo_Blue.svg",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/sci5th_Logo_Blue.svg", type: "image/svg+xml" },
+    ],
+    apple: { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
   },
 };
 
