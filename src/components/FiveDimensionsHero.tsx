@@ -29,7 +29,7 @@ const clamp = (v: number, min: number, max: number) =>
 function interpolate(
   input: number[],
   output: number[],
-  ease: (t: number) => number = (t) => t,
+  ease: (t: number) => number = (t) => t
 ) {
   return (t: number) => {
     if (t <= input[0]) return output[0];
@@ -57,10 +57,10 @@ interface Orb {
   color: string;
 }
 const ORBS: readonly Orb[] = [
-  { key: "1st", label: "1st Dimension", color: "#C9B8FF" },
-  { key: "2nd", label: "2nd Dimension", color: "#B8E6D2" },
-  { key: "3rd", label: "3rd Dimension", color: "#FFD4B8" },
-  { key: "4th", label: "4th Dimension", color: "#F5C2D4" },
+  { key: "1st", label: "1st DIMENSION", color: "#C9B8FF" },
+  { key: "2nd", label: "2nd DIMENSION", color: "#B8E6D2" },
+  { key: "3rd", label: "3rd DIMENSION", color: "#FFD4B8" },
+  { key: "4th", label: "4th DIMENSION", color: "#F5C2D4" },
 ];
 
 interface OrbPos {
@@ -275,8 +275,7 @@ function Threads({ t }: { t: number }) {
         const b = ORB_POS[th.to];
         const sway = Math.sin(t * 0.3 + i) * 8;
         const midX = (a.x + b.x) / 2 + sway;
-        const midY =
-          (a.y + b.y) / 2 - Math.abs(a.x - b.x) * 0.08 + sway * 0.5;
+        const midY = (a.y + b.y) / 2 - Math.abs(a.x - b.x) * 0.08 + sway * 0.5;
         const gradId = `thread-grad-${i}`;
         const cA = ORBS[th.from].color;
         const cB = ORBS[th.to].color;
@@ -426,7 +425,6 @@ function OrbLabel({
           fontWeight: 400,
           letterSpacing: "0.28em",
           color: TEXT,
-          textTransform: "uppercase",
           lineHeight: 1.3,
         }}
       >
@@ -450,7 +448,7 @@ function OrbNode({ index, t }: { index: number; t: number }) {
   const syncBoost = interpolate(
     [12, 13, 14.5, 15.5],
     [0, 0.06, 0.06, 0],
-    easeInOutSine,
+    easeInOutSine
   )(t);
   const syncPulse = 1 + Math.sin(t * 1.3) * syncBoost;
 
@@ -591,11 +589,10 @@ function InformationLabel({ t }: { t: number }) {
           fontWeight: 400,
           letterSpacing: "0.45em",
           color: TEXT_DIM,
-          textTransform: "uppercase",
           opacity: chromeOp,
         }}
       >
-        The fifth dimension
+        THE 5th DIMENSION
       </div>
       <div
         style={{
