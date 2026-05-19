@@ -613,10 +613,13 @@ function InformationLabel({ t }: { t: number }) {
         style={{
           position: "absolute",
           left: "50%",
-          top: "calc(100% + 18px)",
+          top: "calc(100% + 14px)",
           transform: "translateX(-50%)",
-          fontSize: 40,
-          fontWeight: 300,
+          fontFamily:
+            '"Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, "Times New Roman", serif',
+          fontStyle: "italic",
+          fontSize: 56,
+          fontWeight: 400,
           color: TEXT_DIM,
           lineHeight: 1,
           textShadow: "0 0 30px rgba(184, 212, 255, 0.25)",
