@@ -227,23 +227,22 @@ export default function KnowledgeGallery() {
         <h2 className="text-2xl font-medium tracking-tight text-text-100 md:text-3xl">
           Knowledge Gallery
         </h2>
-      </header>
-
-      <aside
-        role="note"
-        aria-label="AI content notice"
-        className="mb-6 px-4 py-2 text-center text-xs leading-snug text-text-300 md:text-sm"
-      >
-        AI-drafted, not expert-reviewed &mdash; a starting point, not a
-        citation.{" "}
-        <Link
-          href="/about"
-          className="decoration-text-700 underline underline-offset-2 transition-colors hover:text-text-100 focus-visible:text-text-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue"
+        <aside
+          role="note"
+          aria-label="AI content notice"
+          className="mt-3 px-4 text-center text-xs leading-snug text-text-300 md:text-sm"
         >
-          About
-        </Link>
-        .
-      </aside>
+          AI-drafted, not expert-reviewed &mdash; a starting point, not a
+          citation.{" "}
+          <Link
+            href="/about"
+            className="decoration-text-700 underline underline-offset-2 transition-colors hover:text-text-100 focus-visible:text-text-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue"
+          >
+            About
+          </Link>
+          .
+        </aside>
+      </header>
 
       <SectionTabs active={active} counts={counts} />
 
