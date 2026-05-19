@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { DM_Sans, JetBrains_Mono } from "next/font/google";
+import { DM_Sans, JetBrains_Mono, Rubik_Distressed } from "next/font/google";
 import { assetUrl } from "@/config/asset-manifest";
 import { BRAND } from "@/config/brand";
 import "./globals.css";
@@ -14,6 +14,13 @@ const jetBrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-mono",
+});
+
+const rubikDistressed = Rubik_Distressed({
+  subsets: ["latin"],
+  weight: "400",
+  display: "swap",
+  variable: "--font-distressed",
 });
 
 export const metadata: Metadata = {
@@ -57,7 +64,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${dmSans.variable} ${jetBrainsMono.variable}`}>
+    <html
+      lang="en"
+      className={`${dmSans.variable} ${jetBrainsMono.variable} ${rubikDistressed.variable}`}
+    >
       <body className="bg-ink-700 font-sans text-text-100 antialiased">
         {children}
       </body>

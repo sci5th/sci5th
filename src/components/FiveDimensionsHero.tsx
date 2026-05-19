@@ -616,8 +616,8 @@ function InformationLabel({ t }: { t: number }) {
           top: "calc(100% + 14px)",
           transform: "translateX(-50%)",
           fontFamily:
-            'Didot, "GFS Didot", "Bodoni 72", "Bodoni MT", "Playfair Display", "Times New Roman", Times, serif',
-          fontSize: 60,
+            'var(--font-distressed), "Rubik Distressed", Impact, "Arial Black", sans-serif',
+          fontSize: 64,
           fontWeight: 400,
           color: TEXT_DIM,
           lineHeight: 1,
