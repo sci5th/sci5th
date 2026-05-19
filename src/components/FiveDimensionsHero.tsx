@@ -614,15 +614,14 @@ function InformationLabel({ t }: { t: number }) {
           position: "absolute",
           left: "50%",
           top: "calc(100% + 14px)",
-          transform: "translateX(-50%) scaleX(0.78)",
-          transformOrigin: "center",
+          transform: "translateX(-50%)",
           fontFamily:
-            'var(--font-distressed), "Rubik Distressed", Impact, "Arial Black", sans-serif',
-          fontSize: 56,
-          fontWeight: 400,
-          color: "rgba(232, 236, 245, 0.45)",
+            'var(--font-accent), Roboto, "Helvetica Neue", sans-serif',
+          fontSize: 52,
+          fontWeight: 300,
+          color: TEXT_DIM,
           lineHeight: 1,
-          textShadow: "0 0 30px rgba(184, 212, 255, 0.2)",
+          textShadow: "0 0 30px rgba(184, 212, 255, 0.25)",
           opacity: chromeOp,
         }}
       >

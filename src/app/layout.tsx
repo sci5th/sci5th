@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { DM_Sans, JetBrains_Mono, Rubik_Distressed } from "next/font/google";
+import { DM_Sans, JetBrains_Mono, Roboto } from "next/font/google";
 import { assetUrl } from "@/config/asset-manifest";
 import { BRAND } from "@/config/brand";
 import "./globals.css";
@@ -16,11 +16,11 @@ const jetBrainsMono = JetBrains_Mono({
   variable: "--font-mono",
 });
 
-const rubikDistressed = Rubik_Distressed({
+const roboto = Roboto({
   subsets: ["latin"],
-  weight: "400",
+  weight: ["100", "300", "400"],
   display: "swap",
-  variable: "--font-distressed",
+  variable: "--font-accent",
 });
 
 export const metadata: Metadata = {
@@ -66,7 +66,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${dmSans.variable} ${jetBrainsMono.variable} ${rubikDistressed.variable}`}
+      className={`${dmSans.variable} ${jetBrainsMono.variable} ${roboto.variable}`}
     >
       <body className="bg-ink-700 font-sans text-text-100 antialiased">
         {children}
