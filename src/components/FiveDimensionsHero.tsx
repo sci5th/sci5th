@@ -616,10 +616,9 @@ function InformationLabel({ t }: { t: number }) {
           top: "calc(100% + 14px)",
           transform: "translateX(-50%)",
           fontFamily:
-            'Futura, "Futura PT", "Century Gothic", "Avenir Next", Avenir, "ITC Avant Garde Gothic", "Nunito Sans", "Trebuchet MS", sans-serif',
-          fontSize: 52,
-          fontWeight: 300,
-          letterSpacing: "0.02em",
+            'Didot, "GFS Didot", "Bodoni 72", "Bodoni MT", "Playfair Display", "Times New Roman", Times, serif',
+          fontSize: 60,
+          fontWeight: 400,
           color: TEXT_DIM,
           lineHeight: 1,
           textShadow: "0 0 30px rgba(184, 212, 255, 0.25)",
