@@ -12,7 +12,7 @@ export default function AboutPage() {
           <h1 className="text-3xl font-medium tracking-tight text-text-100 md:text-4xl">
             About
           </h1>
-          <p className="mt-3 text-base text-text-300 md:text-lg">
+          <p className="mt-3 text-xs leading-snug text-text-300 md:text-sm">
             sci5th is a prototype exploring the structure of human knowledge,
             with a focus on science and technology.
           </p>
