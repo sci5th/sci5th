@@ -989,7 +989,7 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
       "Human Knowledge/Formal Sciences/Systems Science/Complex Adaptive Systems",
     breadcrumb: "Formal Sciences · Systems Science",
     category: "formal",
-    kind: "theory",
+    kind: "system",
     thumbnail: "/ComplexAdaptiveSystems.webp",
     imageSource: "openai",
     steps: [
