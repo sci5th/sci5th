@@ -248,48 +248,129 @@ export default function KnowledgeGallery() {
 
       {visible.length === 0 ? (
         <p className="text-center text-sm text-text-500">{activeMeta.empty}</p>
+      ) : active === "theories" ? (
+        <TheoriesView entries={visible} active={active} />
       ) : (
-        <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3">
-          {visible.map((entry) => (
-            <li
-              key={entry.slug}
-              className="kg-card h-full"
-              data-card-slug={entry.slug}
-            >
-              <Link
-                href={
-                  active === "all"
-                    ? `/knowledge-gallery/${entry.slug}`
-                    : `/knowledge-gallery/${entry.slug}?from=${active}`
-                }
-                className="group flex h-full flex-col overflow-hidden rounded-lg border border-line-700 bg-ink-900 p-4 transition-colors hover:border-brand-pink focus-visible:border-brand-pink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue"
-              >
-                <Thumbnail entry={entry} />
-                {/* Credit moved onto the thumbnail itself (see Thumbnail). */}
-                <div className="mt-3 flex flex-1 flex-col">
-                  <p className="line-clamp-1 font-mono text-xs uppercase tracking-wide text-text-500">
-                    {entry.breadcrumb}
-                  </p>
-                  <h3 className="mt-1 line-clamp-1 text-lg font-medium text-text-100 group-hover:text-brand-pink">
-                    {entry.title}
-                  </h3>
-                  <p className="mt-1 line-clamp-2 text-sm text-text-300">
-                    {entry.summary}
-                  </p>
-                  <div className="mt-3 flex justify-end">
-                    <span
-                      aria-hidden="true"
-                      className="font-mono text-xs uppercase tracking-wide text-text-500 transition-colors group-hover:text-brand-pink"
-                    >
-                      Open →
-                    </span>
-                  </div>
-                </div>
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <EntryGrid entries={visible} active={active} />
       )}
     </section>
+  );
+}
+
+// ── Entry grid (shared between the flat tabs and the split Theories view) ───
+
+function EntryGrid({
+  entries,
+  active,
+}: {
+  entries: ReadonlyArray<KnowledgeGalleryEntry>;
+  active: GallerySection;
+}) {
+  return (
+    <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3">
+      {entries.map((entry) => (
+        <li
+          key={entry.slug}
+          className="kg-card h-full"
+          data-card-slug={entry.slug}
+        >
+          <Link
+            href={
+              active === "all"
+                ? `/knowledge-gallery/${entry.slug}`
+                : `/knowledge-gallery/${entry.slug}?from=${active}`
+            }
+            className="group flex h-full flex-col overflow-hidden rounded-lg border border-line-700 bg-ink-900 p-4 transition-colors hover:border-brand-pink focus-visible:border-brand-pink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue"
+          >
+            <Thumbnail entry={entry} />
+            {/* Credit moved onto the thumbnail itself (see Thumbnail). */}
+            <div className="mt-3 flex flex-1 flex-col">
+              <p className="line-clamp-1 font-mono text-xs uppercase tracking-wide text-text-500">
+                {entry.breadcrumb}
+              </p>
+              <h3 className="mt-1 line-clamp-1 text-lg font-medium text-text-100 group-hover:text-brand-pink">
+                {entry.title}
+              </h3>
+              <p className="mt-1 line-clamp-2 text-sm text-text-300">
+                {entry.summary}
+              </p>
+              <div className="mt-3 flex justify-end">
+                <span
+                  aria-hidden="true"
+                  className="font-mono text-xs uppercase tracking-wide text-text-500 transition-colors group-hover:text-brand-pink"
+                >
+                  Open →
+                </span>
+              </div>
+            </div>
+          </Link>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+// ── Theories sub-grouping ───────────────────────────────────────────────────
+//
+// Within the Theories tab, two kinds of entries get bundled together under the
+// same `kind: "theory"`:
+//
+//  • Foundational frameworks — formal/conceptual scaffolds (set theory, game
+//    theory, chaos theory). These all have `category: "formal"`.
+//  • Scientific theories — empirical theories about the natural or social
+//    world (evolution, GR, atomic theory, cognitive theory). These have
+//    `category: "natural"` or `"social"`.
+//
+// The distinction is meaningful enough to surface in the UI, but it tracks
+// `category` perfectly today — so we don't add another `kind`. We just split
+// the visible entries into two sub-grids with labelled headers.
+
+function TheoriesView({
+  entries,
+  active,
+}: {
+  entries: ReadonlyArray<KnowledgeGalleryEntry>;
+  active: GallerySection;
+}) {
+  const foundational = entries.filter((e) => e.category === "formal");
+  const empirical = entries.filter((e) => e.category !== "formal");
+
+  return (
+    <div className="space-y-8 md:space-y-10">
+      {foundational.length > 0 && (
+        <section aria-labelledby="theories-foundational-heading">
+          <header className="mb-4">
+            <h3
+              id="theories-foundational-heading"
+              className="text-xl font-medium tracking-tight text-text-100"
+            >
+              Foundational Frameworks
+            </h3>
+            <p className="mt-1 text-sm text-text-300">
+              Formal and conceptual scaffolds — built by construction, not by
+              experiment.
+            </p>
+          </header>
+          <EntryGrid entries={foundational} active={active} />
+        </section>
+      )}
+      {empirical.length > 0 && (
+        <section aria-labelledby="theories-empirical-heading">
+          <header className="mb-4">
+            <h3
+              id="theories-empirical-heading"
+              className="text-xl font-medium tracking-tight text-text-100"
+            >
+              Scientific Theories
+            </h3>
+            <p className="mt-1 text-sm text-text-300">
+              Empirical theories about the natural or social world — accountable
+              to observation.
+            </p>
+          </header>
+          <EntryGrid entries={empirical} active={active} />
+        </section>
+      )}
+    </div>
   );
 }
