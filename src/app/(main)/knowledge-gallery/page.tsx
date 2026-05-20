@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import BackToTopButton from "@/components/BackToTopButton";
 import KnowledgeGallery from "@/components/KnowledgeGallery";
 import KnowledgeGalleryFocusHandler from "@/components/KnowledgeGalleryFocusHandler";
 
@@ -26,6 +27,10 @@ export default function KnowledgeGalleryPage() {
           <KnowledgeGalleryFocusHandler />
         </Suspense>
       </div>
+      {/* Floating "back to top" — fades in after the user scrolls past
+          one viewport-ish; smooth-scrolls (or jumps, under
+          prefers-reduced-motion) back to the top. */}
+      <BackToTopButton />
     </div>
   );
 }
