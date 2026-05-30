@@ -33,7 +33,8 @@ type GallerySection =
   | "algorithms"
   | "models"
   | "systems"
-  | "modularity";
+  | "modularity"
+  | "others";
 
 const SECTIONS: ReadonlyArray<{
   id: GallerySection;
@@ -82,6 +83,12 @@ const SECTIONS: ReadonlyArray<{
     label: "6. Modularity",
     kind: "modularity",
     empty: "No modularity entries yet.",
+  },
+  {
+    id: "others",
+    label: "7. Others",
+    kind: "other",
+    empty: "No other entries yet.",
   },
 ];
 
@@ -217,6 +224,7 @@ export default function KnowledgeGallery() {
     models: 0,
     systems: 0,
     modularity: 0,
+    others: 0,
   };
   for (const entry of KNOWLEDGE_GALLERY_ENTRIES) {
     const match = SECTIONS.find(
@@ -225,31 +233,17 @@ export default function KnowledgeGallery() {
     if (match) counts[match.id] += 1;
   }
 
-  // Display ordering. The data file keeps its authored tree-order; the
-  // Gallery sorts at render time so the convention stays intact.
-  //  • A kind-scoped tab: its entries A–Z by title.
-  //  • "All": the overview ("other") cards first in authored order, then
-  //    every tagged entry grouped by tab order (1.Laws → 6.Modularity),
-  //    A–Z within each group.
+  // Display ordering, applied at render time so the data file keeps its
+  // authored tree-order. Every view is sorted A–Z by title: "All" across
+  // all entries, and each tab (including "Others") within its own kind.
   const byTitle = (a: KnowledgeGalleryEntry, b: KnowledgeGalleryEntry) =>
     a.title.localeCompare(b.title);
-  const KIND_ORDER = SECTIONS.filter((s) => s.kind !== null).map(
-    (s) => s.kind
-  ) as KnowledgeGalleryKind[];
 
-  const visible: KnowledgeGalleryEntry[] =
+  const visible: KnowledgeGalleryEntry[] = (
     activeMeta.kind !== null
-      ? KNOWLEDGE_GALLERY_ENTRIES.filter(
-          (e) => e.kind === activeMeta.kind
-        ).sort(byTitle)
-      : [
-          ...KNOWLEDGE_GALLERY_ENTRIES.filter((e) => e.kind === "other"),
-          ...KIND_ORDER.flatMap((kind) =>
-            KNOWLEDGE_GALLERY_ENTRIES.filter((e) => e.kind === kind).sort(
-              byTitle
-            )
-          ),
-        ];
+      ? KNOWLEDGE_GALLERY_ENTRIES.filter((e) => e.kind === activeMeta.kind)
+      : [...KNOWLEDGE_GALLERY_ENTRIES]
+  ).sort(byTitle);
 
   return (
     <section className="w-full">
