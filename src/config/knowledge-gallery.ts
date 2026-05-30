@@ -1077,8 +1077,8 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     breadcrumb: "Natural Sciences · Physics",
     category: "natural",
     kind: "law",
-    thumbnail: null,
-    imageSource: "openai",
+    thumbnail: "/NewtonsLaws.webp",
+    imageSource: "first-party",
     steps: [
       {
         title: "1 · What the laws are for",
@@ -1212,8 +1212,8 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     breadcrumb: "Natural Sciences · Physics",
     category: "natural",
     kind: "law",
-    thumbnail: null,
-    imageSource: "openai",
+    thumbnail: "/LawsOfThermodynamics.webp",
+    imageSource: "first-party",
     steps: [
       {
         title: "1 · Why thermodynamics exists",
@@ -1390,8 +1390,8 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     breadcrumb: "Natural Sciences · Chemistry",
     category: "natural",
     kind: "law",
-    thumbnail: null,
-    imageSource: "openai",
+    thumbnail: "/PeriodicLaw.webp",
+    imageSource: "first-party",
     steps: [
       {
         title: "1 · The pattern Mendeleev saw",
