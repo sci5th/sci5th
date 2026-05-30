@@ -10,6 +10,7 @@ import {
   type KnowledgeGalleryEntry,
 } from "@/config/knowledge-gallery";
 import UnityHero from "./UnityHero";
+import InteractivePeriodicTable from "./InteractivePeriodicTable";
 import BackButton from "./BackButton";
 
 export default function KnowledgeGalleryEntryView({
@@ -80,7 +81,9 @@ export default function KnowledgeGalleryEntryView({
         </p>
       </header>
 
-      {entry.unity ? (
+      {entry.interactive === "periodic-table" ? (
+        <InteractivePeriodicTable />
+      ) : entry.unity ? (
         <UnityHero
           title={entry.title}
           thumbnail={entry.thumbnail}
@@ -105,27 +108,31 @@ export default function KnowledgeGalleryEntryView({
         </div>
       )}
 
-      {(() => {
-        // Render the credit with a real link when the entry has
-        // attribution. Non-attributed sources render the plain prefix.
-        const parts = imageCreditPartsFor(entry.imageSource, entry.attribution);
-        return (
-          <p className="-mt-6 mb-8 text-right text-[0.65rem] uppercase tracking-wide text-text-500 md:text-xs">
-            {parts.prefix}
-            {parts.authorLink ? (
-              <a
-                href={parts.authorLink.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="decoration-text-700 underline underline-offset-2 transition-colors hover:text-text-300 focus-visible:text-text-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue"
-              >
-                {parts.authorLink.label}
-              </a>
-            ) : null}
-            {parts.suffix ?? ""}
-          </p>
-        );
-      })()}
+      {!entry.interactive &&
+        (() => {
+          // Render the credit with a real link when the entry has
+          // attribution. Non-attributed sources render the plain prefix.
+          const parts = imageCreditPartsFor(
+            entry.imageSource,
+            entry.attribution
+          );
+          return (
+            <p className="-mt-6 mb-8 text-right text-[0.65rem] uppercase tracking-wide text-text-500 md:text-xs">
+              {parts.prefix}
+              {parts.authorLink ? (
+                <a
+                  href={parts.authorLink.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="decoration-text-700 underline underline-offset-2 transition-colors hover:text-text-300 focus-visible:text-text-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue"
+                >
+                  {parts.authorLink.label}
+                </a>
+              ) : null}
+              {parts.suffix ?? ""}
+            </p>
+          );
+        })()}
 
       <ol className="flex flex-col gap-5">
         {entry.steps.map((step) => (

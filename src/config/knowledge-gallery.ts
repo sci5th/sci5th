@@ -132,6 +132,13 @@ export interface KnowledgeGalleryEntry {
     /** Whether the build uses the `.unityweb` (gzipped) suffix. Defaults to true. */
     useUnityWebExtension?: boolean;
   };
+  /**
+   * Optional first-party interactive hero. When set, the entry's detail page
+   * renders a self-contained interactive widget instead of the static image
+   * (the grid-card thumbnail still uses `thumbnail`). Currently supported:
+   *  • "periodic-table" — an interactive periodic table (Periodic Law).
+   */
+  interactive?: "periodic-table";
   steps: KnowledgeGalleryStep[];
 }
 
@@ -1392,6 +1399,7 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     kind: "law",
     thumbnail: "/PeriodicLaw.webp",
     imageSource: "first-party",
+    interactive: "periodic-table",
     steps: [
       {
         title: "1 · The pattern Mendeleev saw",
