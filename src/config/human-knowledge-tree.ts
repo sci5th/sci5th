@@ -301,6 +301,9 @@ export const DATA: KnowledgeNode = {
                     { name: "Forces, Work & Energy" },
                     { name: "Momentum & Collisions" },
                     { name: "Circular Motion & Gravitation" },
+                    {
+                      name: "Conservation Laws (Energy, Momentum, Angular Momentum)",
+                    },
                   ],
                 },
                 {
@@ -406,8 +409,24 @@ export const DATA: KnowledgeNode = {
                 { name: "Interpretations of Quantum Mechanics" },
               ],
             },
-            { name: "Thermodynamics" },
-            { name: "Electromagnetism" },
+            {
+              name: "Thermodynamics",
+              c: [
+                { name: "Zeroth Law (Thermal Equilibrium)" },
+                { name: "First Law (Conservation of Energy)" },
+                { name: "Second Law (Entropy)" },
+                { name: "Third Law (Absolute Zero)" },
+              ],
+            },
+            {
+              name: "Electromagnetism",
+              c: [
+                { name: "Maxwell's Equations" },
+                { name: "Coulomb's Law" },
+                { name: "Faraday's Law of Induction" },
+                { name: "Lorentz Force" },
+              ],
+            },
             {
               name: "Relativity",
               c: [
@@ -427,6 +446,8 @@ export const DATA: KnowledgeNode = {
           name: "Chemistry",
           c: [
             { name: "Atomic Theory" },
+            { name: "Law of Conservation of Mass" },
+            { name: "Periodic Law" },
             { name: "Organic Chemistry" },
             { name: "Inorganic Chemistry" },
             { name: "Physical Chemistry" },
@@ -439,11 +460,15 @@ export const DATA: KnowledgeNode = {
           c: [
             { name: "Molecular Biology" },
             { name: "Cell Biology" },
-            { name: "Genetics & Genomics" },
+            {
+              name: "Genetics & Genomics",
+              c: [{ name: "Laws of Inheritance (Mendelian Genetics)" }],
+            },
             {
               name: "Evolutionary Biology",
               c: [
                 { name: "Theory of Evolution" },
+                { name: "Natural Selection" },
                 { name: "Biological Modularity" },
               ],
             },
