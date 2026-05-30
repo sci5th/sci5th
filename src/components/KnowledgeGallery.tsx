@@ -18,6 +18,7 @@ import {
 //
 //  • all        — default landing tab. Shows every entry regardless of kind.
 //  • theories   — scientific theories and foundational frameworks.
+//  • laws       — named scientific laws (what happens, vs. theories' why).
 //  • algorithms — named algorithms / procedures.
 //  • models     — named models of something (scientific, statistical, ML…).
 //  • systems    — named systems (natural, engineered, or conceptual).
@@ -28,6 +29,7 @@ import {
 type GallerySection =
   | "all"
   | "theories"
+  | "laws"
   | "algorithms"
   | "models"
   | "systems"
@@ -44,6 +46,12 @@ const SECTIONS: ReadonlyArray<{
     label: "All",
     kind: null,
     empty: "No entries here yet.",
+  },
+  {
+    id: "laws",
+    label: "Laws",
+    kind: "law",
+    empty: "No laws yet.",
   },
   {
     id: "algorithms",
@@ -204,6 +212,7 @@ export default function KnowledgeGallery() {
   const counts: Record<GallerySection, number> = {
     all: KNOWLEDGE_GALLERY_ENTRIES.length,
     theories: 0,
+    laws: 0,
     algorithms: 0,
     models: 0,
     systems: 0,

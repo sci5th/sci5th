@@ -23,6 +23,10 @@ export interface KnowledgeGalleryStep {
  * the named kinds (methods, frameworks, tools, people, etc.).
  *
  *  • theory     — scientific theories and foundational frameworks.
+ *  • law        — named scientific laws: concise (often mathematical)
+ *                 statements of what regularly happens, as distinct from
+ *                 the theories that explain why (Newton's laws, the laws of
+ *                 thermodynamics, the periodic law).
  *  • algorithm  — named algorithms / procedures.
  *  • model      — named models of something (scientific, statistical, ML…).
  *  • system     — named systems (natural, engineered, or conceptual).
@@ -32,6 +36,7 @@ export interface KnowledgeGalleryStep {
  */
 export type KnowledgeGalleryKind =
   | "theory"
+  | "law"
   | "algorithm"
   | "model"
   | "system"
@@ -1063,6 +1068,49 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     ],
   },
   {
+    slug: "newtons-laws-of-motion",
+    title: "Newton's Laws of Motion",
+    summary:
+      "Three short rules, published in 1687, that turned motion from philosophy into prediction — the foundation of classical mechanics and engineering for three centuries.",
+    systemPath:
+      "Human Knowledge/Natural Sciences/Physics/Classical Mechanics/Newtonian Mechanics/Newton's Laws of Motion",
+    breadcrumb: "Natural Sciences · Physics",
+    category: "natural",
+    kind: "law",
+    thumbnail: null,
+    imageSource: "openai",
+    steps: [
+      {
+        title: "1 · What the laws are for",
+        body: "Before Newton, motion was described qualitatively — Aristotle thought objects needed a continuous push to keep moving. In the Principia (1687), Newton replaced description with prediction: given the forces on a body, his three laws tell you exactly how it will move. They are 'laws' in the strict sense — concise statements of what reliably happens, not explanations of why mass or force exist. They hold for everyday speeds and sizes, and break down only near light speed (relativity) or at atomic scales (quantum mechanics).",
+      },
+      {
+        title: "2 · First law — inertia",
+        body: "A body at rest stays at rest, and a body in motion continues in a straight line at constant speed, unless acted on by a net external force. This overturns the intuition that motion needs a cause: it's *changes* in motion that need a cause. A hockey puck glides forever on frictionless ice; the reason real pucks stop is friction, an external force. The first law also defines what counts as an 'inertial' frame — one in which it holds — and quietly asserts that force, not motion, is the thing that requires explanation.",
+      },
+      {
+        title: "3 · Second law — F = ma",
+        body: "The net force on an object equals its mass times its acceleration: F = ma (more precisely, force equals the rate of change of momentum, F = dp/dt). This is the quantitative heart of the three laws. It says acceleration is proportional to force and inversely proportional to mass: push twice as hard, accelerate twice as fast; double the mass, halve the acceleration. Because it's a differential equation, knowing the forces lets you compute the entire future trajectory — the birth of deterministic, predictive physics.",
+      },
+      {
+        title: "4 · Third law — action and reaction",
+        body: "For every action there is an equal and opposite reaction: if body A pushes on body B, then B pushes back on A with equal magnitude and opposite direction. A rocket moves by throwing exhaust backward; the exhaust pushes the rocket forward. You walk by pushing the ground backward; the ground pushes you forward. The forces act on *different* bodies, which is why they don't simply cancel. This law is what guarantees the conservation of momentum in any closed system.",
+      },
+      {
+        title: "5 · Momentum and conservation",
+        body: "Combine the second and third laws and a powerful result falls out: in a system with no external forces, total momentum is conserved. Collisions, explosions, recoil, orbital mechanics — all are easier to analyze through momentum conservation than by tracking forces moment to moment. This bridge from Newton's laws to a conservation principle is one of the first places students see that the deep content of physics often lives in what *stays the same*.",
+      },
+      {
+        title: "6 · What they made possible",
+        body: "Newton's laws, together with his law of universal gravitation, explained Kepler's planetary orbits, the tides, the precession of the equinoxes, and the path of comets — unifying terrestrial and celestial motion under one set of rules. For three centuries they were the working tools of engineering: bridges, engines, ballistics, spacecraft trajectories (Apollo flew on Newtonian mechanics). They remain exactly correct within their domain; relativity and quantum mechanics don't refute them, they bound them.",
+      },
+      {
+        title: "7 · Where they stop",
+        body: "The laws assume absolute time and instantaneous forces — both fail at extremes. Near the speed of light, mass-energy and simultaneity behave relativistically and you need special relativity. At atomic scales, position and momentum can't be simultaneously sharp and you need quantum mechanics. For gravity in strong fields, general relativity replaces Newton's force with curved spacetime. Knowing the boundary is part of knowing the law: Newtonian mechanics is the correct low-speed, large-scale limit of deeper theories.",
+      },
+    ],
+  },
+  {
     slug: "quantum-mechanics",
     title: "Quantum Mechanics",
     summary:
@@ -1152,6 +1200,48 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
       {
         title: "8 · What comes next",
         body: "Experimental effort is focused on precision measurements (muon g−2, neutrino oscillations, rare meson decays) looking for small deviations that would point beyond the model; and on direct searches at higher energies (LHC, future colliders) for new particles. Theoretical frameworks — supersymmetry, grand unified theories, string theory — each propose extensions, none yet confirmed. The best-kept secret of 21st-century physics is that our most successful model and our most interesting open problems both live at this exact seam.",
+      },
+    ],
+  },
+  {
+    slug: "laws-of-thermodynamics",
+    title: "Laws of Thermodynamics",
+    summary:
+      "Four laws governing energy, heat, and entropy — they set the hard limits on every engine, refrigerator, and living cell, and point time in one direction.",
+    systemPath: "Human Knowledge/Natural Sciences/Physics/Thermodynamics",
+    breadcrumb: "Natural Sciences · Physics",
+    category: "natural",
+    kind: "law",
+    thumbnail: null,
+    imageSource: "openai",
+    steps: [
+      {
+        title: "1 · Why thermodynamics exists",
+        body: "Thermodynamics grew out of a practical 19th-century problem: how to get the most work out of a steam engine. Engineers like Sadi Carnot (1824) found that there are absolute limits to efficiency no amount of clever design can beat. Generalizing those limits produced a set of laws about energy and heat so robust that Einstein called thermodynamics 'the only physical theory of universal content I am convinced will never be overthrown.' Crucially, the laws are about bulk quantities — temperature, pressure, energy, entropy — without needing to track individual atoms.",
+      },
+      {
+        title: "2 · Zeroth law — temperature is real",
+        body: "If two systems are each in thermal equilibrium with a third, they're in equilibrium with each other. This sounds trivial, but it's what makes temperature a meaningful, measurable property: it guarantees a consistent ordering of 'hotter' and 'colder' and justifies the thermometer. It was numbered 'zeroth' because it was recognized as logically prior to the first and second laws after those had already been named.",
+      },
+      {
+        title: "3 · First law — energy is conserved",
+        body: "Energy cannot be created or destroyed, only converted between forms. For a thermodynamic system: the change in internal energy equals the heat added minus the work done by the system (ΔU = Q − W). Heat and work are both ways of transferring energy; the first law says they're interchangeable currencies with a fixed exchange rate. The practical consequence: there is no machine that produces energy from nothing — a 'perpetual motion machine of the first kind' is impossible.",
+      },
+      {
+        title: "4 · Second law — entropy increases",
+        body: "The total entropy of an isolated system never decreases; it increases in any spontaneous process and is constant only in idealized reversible ones. Entropy measures the number of microscopic arrangements consistent with a system's macroscopic state — loosely, its disorder or the energy unavailable for work. Heat flows from hot to cold, never the reverse on its own; a dropped glass shatters but never reassembles. This is the law that gives time a direction — the 'arrow of time' — and forbids the perpetual motion machine of the second kind (one that turns ambient heat fully into work).",
+      },
+      {
+        title: "5 · Third law — the unreachable floor",
+        body: "As a system's temperature approaches absolute zero (0 kelvin, −273.15 °C), its entropy approaches a minimum constant value — zero for a perfect crystal. A consequence is that absolute zero cannot be reached in a finite number of steps: each stage of cooling extracts less and less, and the last bit of motion can never be fully removed. The third law anchors the entropy scale and underpins low-temperature physics, where exotic states like superconductivity and Bose–Einstein condensates emerge.",
+      },
+      {
+        title: "6 · The microscopic picture",
+        body: "Ludwig Boltzmann (1870s) connected the macroscopic laws to atoms: entropy S = k·ln W, where W is the number of microscopic states matching the macroscopic one. The second law then becomes statistical — systems drift toward more probable (higher-W) configurations simply because there are overwhelmingly more of them. Entropy 'increases' not by decree but because disordered arrangements vastly outnumber ordered ones. This bridge from statistical mechanics to thermodynamics is one of physics' great unifications.",
+      },
+      {
+        title: "7 · Reach beyond engines",
+        body: "The laws constrain everything that moves energy around: chemical reactions (free energy decides what's spontaneous), refrigerators and heat pumps (you can move heat against its gradient, but only by spending work), biology (life maintains local order by exporting entropy to its surroundings — it does not violate the second law), information theory (Landauer's principle ties erasing a bit to a minimum heat cost), and cosmology (the 'heat death' of the universe is the second law extrapolated to the end of time). Few laws in science have a wider blast radius.",
       },
     ],
   },
@@ -1288,6 +1378,44 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
       {
         title: "8 · Why the theory mattered",
         body: "Atomic theory underwrites the entire periodic table, all of chemistry, most of materials science, nuclear energy (and weapons), medical imaging, radiocarbon dating, and our ability to design drugs, alloys, semiconductors, and fertilizers from first principles. It is also arguably the clearest example in science of a speculative idea surviving, growing in precision, and eventually becoming the bedrock framework of multiple disciplines.",
+      },
+    ],
+  },
+  {
+    slug: "periodic-law",
+    title: "Periodic Law",
+    summary:
+      "Arrange the elements by atomic number and their properties repeat in regular cycles — the principle behind the periodic table and the predictive power of modern chemistry.",
+    systemPath: "Human Knowledge/Natural Sciences/Chemistry/Periodic Law",
+    breadcrumb: "Natural Sciences · Chemistry",
+    category: "natural",
+    kind: "law",
+    thumbnail: null,
+    imageSource: "openai",
+    steps: [
+      {
+        title: "1 · The pattern Mendeleev saw",
+        body: "By the 1860s chemists knew dozens of elements and their atomic weights, but no organizing scheme. In 1869 Dmitri Mendeleev laid the elements out by increasing atomic weight and noticed that chemical properties — reactivity, valence, the kinds of compounds an element forms — recurred at regular intervals. He arranged them into a table where elements with similar behavior fell into the same column. The periodic law is that statement: element properties are a periodic function of their fundamental ordering.",
+      },
+      {
+        title: "2 · The boldest move — leaving gaps",
+        body: "Mendeleev trusted the pattern more than the existing data. Where no known element fit a slot, he left a gap and predicted the missing element's properties from its neighbors — its weight, density, and the formulas of its oxides. Gallium (1875), scandium (1879), and germanium (1886) were later discovered with properties strikingly close to his predictions. A classification that predicts undiscovered facts is doing the work of a scientific law, not just a filing system.",
+      },
+      {
+        title: "3 · Atomic number, not weight",
+        body: "Mendeleev had ordered by atomic weight, which produced a few awkward reversals (tellurium and iodine sit 'wrong' by weight). Henry Moseley (1913), measuring X-ray spectra, showed the true ordering principle is atomic number — the number of protons in the nucleus. Reordering by atomic number removed the anomalies and revealed there were no missing elements hiding between the known ones. The periodic law was restated: properties are a periodic function of atomic number.",
+      },
+      {
+        title: "4 · Why it's periodic — electron shells",
+        body: "Quantum mechanics explained the 'why' that Mendeleev never had. An element's chemistry is governed by its outermost (valence) electrons. Electrons fill shells and subshells in a fixed order, and the pattern of valence electrons repeats as each new shell fills — which is exactly why properties recur. Elements in the same column (group) share a valence-electron configuration, so they react alike. The periods (rows) correspond to filling successive shells. The table's shape is a map of quantum structure.",
+      },
+      {
+        title: "5 · Reading the table",
+        body: "The structure encodes regular trends. Down a group, atoms get larger and (for metals) more reactive; across a period, atomic radius shrinks and electronegativity rises. Groups have characters: the alkali metals (group 1) are violently reactive, the noble gases (group 18) are inert because their shells are full, the halogens (group 17) are aggressive electron-grabbers. Knowing an element's position lets a chemist anticipate its behavior before ever touching it — the practical payoff of the law.",
+      },
+      {
+        title: "6 · Reach and limits",
+        body: "The periodic law organizes all of chemistry and guided the discovery and synthesis of elements out to the superheavy region (the table now runs to oganesson, element 118). Its limits are instructive: relativistic effects make the heaviest elements behave unexpectedly (gold's color, mercury's liquidity), and the very heaviest synthetic atoms exist for only fractions of a second. But as an organizing principle that turned a list of substances into a predictive system, the periodic law is one of the most successful generalizations in all of science.",
       },
     ],
   },
