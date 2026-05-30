@@ -225,10 +225,31 @@ export default function KnowledgeGallery() {
     if (match) counts[match.id] += 1;
   }
 
-  const visible =
-    activeMeta.kind === null
-      ? KNOWLEDGE_GALLERY_ENTRIES
-      : KNOWLEDGE_GALLERY_ENTRIES.filter((e) => e.kind === activeMeta.kind);
+  // Display ordering. The data file keeps its authored tree-order; the
+  // Gallery sorts at render time so the convention stays intact.
+  //  • A kind-scoped tab: its entries A–Z by title.
+  //  • "All": the overview ("other") cards first in authored order, then
+  //    every tagged entry grouped by tab order (1.Laws → 6.Modularity),
+  //    A–Z within each group.
+  const byTitle = (a: KnowledgeGalleryEntry, b: KnowledgeGalleryEntry) =>
+    a.title.localeCompare(b.title);
+  const KIND_ORDER = SECTIONS.filter((s) => s.kind !== null).map(
+    (s) => s.kind
+  ) as KnowledgeGalleryKind[];
+
+  const visible: KnowledgeGalleryEntry[] =
+    activeMeta.kind !== null
+      ? KNOWLEDGE_GALLERY_ENTRIES.filter(
+          (e) => e.kind === activeMeta.kind
+        ).sort(byTitle)
+      : [
+          ...KNOWLEDGE_GALLERY_ENTRIES.filter((e) => e.kind === "other"),
+          ...KIND_ORDER.flatMap((kind) =>
+            KNOWLEDGE_GALLERY_ENTRIES.filter((e) => e.kind === kind).sort(
+              byTitle
+            )
+          ),
+        ];
 
   return (
     <section className="w-full">
