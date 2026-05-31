@@ -460,7 +460,10 @@ export const DATA: KnowledgeNode = {
           name: "Biology",
           c: [
             { name: "Molecular Biology" },
-            { name: "Cell Biology" },
+            {
+              name: "Cell Biology",
+              c: [{ name: "Cell Theory" }],
+            },
             {
               name: "Genetics & Genomics",
               c: [{ name: "Laws of Inheritance (Mendelian Genetics)" }],
@@ -474,7 +477,10 @@ export const DATA: KnowledgeNode = {
               ],
             },
             { name: "Ecology" },
-            { name: "Microbiology" },
+            {
+              name: "Microbiology",
+              c: [{ name: "Germ Theory of Disease" }],
+            },
             { name: "Neuroscience" },
             { name: "Botany" },
             { name: "Zoology" },

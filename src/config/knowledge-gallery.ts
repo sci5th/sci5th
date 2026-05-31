@@ -586,6 +586,45 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     ],
   },
   {
+    slug: "information-theory",
+    title: "Information Theory",
+    summary:
+      "Claude Shannon's 1948 theory that made information a measurable quantity — bits, entropy, and the hard limits on compression and communication.",
+    systemPath:
+      "Human Knowledge/Formal Sciences/Computer Science/Theoretical CS/Information Theory",
+    breadcrumb: "Formal Sciences · Computer Science",
+    category: "formal",
+    kind: "theory",
+    thumbnail: "/InformationTheory.webp",
+    imageSource: "first-party",
+    steps: [
+      {
+        title: "1 · Inventing a quantity",
+        body: "Before 1948, 'information' was a vague, everyday word. In a single paper — 'A Mathematical Theory of Communication' — Claude Shannon turned it into a precise physical quantity that could be measured, transmitted, and bounded. He asked a deceptively simple question: how much can you reliably communicate over a noisy channel? The answer founded an entire field and underpins all of digital technology.",
+      },
+      {
+        title: "2 · The bit",
+        body: "Shannon defined the fundamental unit of information: the bit, the amount of information in a single yes/no choice between equally likely options. Any message — text, image, sound — can be encoded as a string of bits. This was a radical abstraction: it separated information from its medium entirely, so the same theory governs smoke signals, telegraph wires, DNA, and fiber optics alike.",
+      },
+      {
+        title: "3 · Entropy — measuring surprise",
+        body: "The information content of a source is its entropy: the average surprise of its messages. A coin that always lands heads carries zero information (no surprise); a fair coin carries one bit per flip. Predictable sources have low entropy, unpredictable ones high. Shannon's entropy formula is mathematically identical to thermodynamic entropy — a deep and not-fully-explained connection between information and physics.",
+      },
+      {
+        title: "4 · The limits of compression",
+        body: "Entropy sets a hard floor on compression: you cannot losslessly represent a source in fewer bits per symbol than its entropy, and you can get arbitrarily close. This is the source coding theorem. It's why ZIP, PNG, and FLAC exist and why they can only squeeze so far — the redundancy they remove is exactly the gap between a file's size and its entropy.",
+      },
+      {
+        title: "5 · The channel capacity theorem",
+        body: "Shannon's most surprising result: every communication channel has a maximum rate — its capacity — below which you can transmit with arbitrarily small error despite noise, using clever coding, and above which reliable communication is impossible. Before Shannon, engineers assumed noise inevitably corrupted messages in proportion to speed. He proved error-free communication over noisy channels is possible up to a sharp limit. Modern error-correcting codes chase that limit.",
+      },
+      {
+        title: "6 · The reach of the theory",
+        body: "Information theory is the mathematical bedrock of data compression, cryptography, error correction (from deep-space probes to QR codes and 5G), and machine learning (cross-entropy loss, mutual information). It informs neuroscience, linguistics, and statistical inference. Shannon's bit is now the universal currency of the digital age — arguably no twentieth-century theory has more thoroughly shaped the infrastructure of modern life.",
+      },
+    ],
+  },
+  {
     slug: "operating-systems",
     title: "Operating Systems",
     summary:
@@ -1370,6 +1409,45 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     ],
   },
   {
+    slug: "special-relativity",
+    title: "Special Relativity",
+    summary:
+      "Einstein's 1905 theory: the speed of light is the same for everyone, so space and time themselves stretch and bend to keep it that way.",
+    systemPath:
+      "Human Knowledge/Natural Sciences/Physics/Relativity/Special Relativity",
+    breadcrumb: "Natural Sciences · Physics",
+    category: "natural",
+    kind: "theory",
+    thumbnail: "/SpecialRelativity.webp",
+    imageSource: "first-party",
+    steps: [
+      {
+        title: "1 · The clash that forced it",
+        body: "By 1900 there was a contradiction at the heart of physics. Newtonian mechanics said velocities simply add: run toward a thrown ball and it approaches you faster. But Maxwell's equations said light always travels at one fixed speed, c. What happens if you chase a light beam? Experiments (Michelson–Morley) found light's speed never changed, no matter how the observer moved. Something had to give — and Einstein realized it was space and time, not the speed of light.",
+      },
+      {
+        title: "2 · Two postulates",
+        body: "Einstein (1905) built the whole theory on two simple assumptions: (1) the laws of physics are the same for all observers moving at constant velocity, and (2) the speed of light in vacuum is the same for all of them, regardless of their motion or the source's. The second postulate is the radical one. Hold it firm, and our common-sense notions of absolute time and simultaneous events have to be abandoned.",
+      },
+      {
+        title: "3 · Time dilation and length contraction",
+        body: "If light's speed is fixed for everyone, then moving clocks must run slow (time dilation) and moving objects must shrink along their direction of motion (length contraction). These aren't illusions — they're real and measured. Fast-moving particles called muons reach the ground that shouldn't survive the trip, precisely because their internal clocks run slow from our viewpoint. The faster you go, the more pronounced the effects, becoming dramatic as you approach c.",
+      },
+      {
+        title: "4 · The relativity of simultaneity",
+        body: "Perhaps the deepest consequence: whether two events happen 'at the same time' depends on who's asking. Two observers in relative motion can genuinely disagree about which of two distant events came first. There is no universal 'now' ticking across the cosmos. Space and time merge into a single four-dimensional fabric — spacetime — and different observers simply slice it into 'space' and 'time' at different angles.",
+      },
+      {
+        title: "5 · E = mc²",
+        body: "Out of the theory falls the most famous equation in science: energy and mass are equivalent, related by the enormous factor c². A tiny amount of mass embodies a vast amount of energy. This is why the Sun shines and why nuclear reactions release so much power. Mass is, in effect, extraordinarily concentrated energy — a unification no one anticipated from a theory about light and motion.",
+      },
+      {
+        title: "6 · Confirmation and what came next",
+        body: "Special relativity is among the most thoroughly tested theories in physics: particle accelerators, GPS timing, and the very existence of nuclear energy all depend on it. Its one limitation — it only handles constant-velocity motion and ignores gravity — drove Einstein to spend the next decade generalizing it. The result was general relativity (1915), which extends the same insights to acceleration and gravitation by curving spacetime itself.",
+      },
+    ],
+  },
+  {
     slug: "general-relativity",
     title: "General Relativity",
     summary:
@@ -1584,6 +1662,45 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     ],
   },
   {
+    slug: "cell-theory",
+    title: "Cell Theory",
+    summary:
+      "All living things are made of cells, cells are the basic unit of life, and every cell comes from a pre-existing cell — the organizing principle of biology.",
+    systemPath:
+      "Human Knowledge/Natural Sciences/Biology/Cell Biology/Cell Theory",
+    breadcrumb: "Natural Sciences · Biology",
+    category: "natural",
+    kind: "theory",
+    thumbnail: "/CellTheory.webp",
+    imageSource: "first-party",
+    steps: [
+      {
+        title: "1 · Seeing the unseen",
+        body: "Cell theory began with a tool. In 1665 Robert Hooke, peering through an early microscope at a sliver of cork, saw tiny boxlike compartments and named them 'cells.' Soon after, Antonie van Leeuwenhoek observed living single-celled organisms — 'animalcules' — swarming in pond water and dental scrapings. For the first time, a hidden layer of biological reality was visible, though it took another 170 years to grasp what it meant.",
+      },
+      {
+        title: "2 · The classical theory",
+        body: "In 1838–39 botanist Matthias Schleiden and zoologist Theodor Schwann unified scattered observations into two bold claims: all plants and all animals are composed of cells, and the cell is the fundamental unit of structure and function in life. This was a sweeping generalization — that the staggering diversity of life, from oak trees to elephants, is built from the same basic building block.",
+      },
+      {
+        title: "3 · Where do cells come from?",
+        body: "Schleiden and Schwann wrongly thought cells crystallized spontaneously from a formless fluid. Rudolf Virchow corrected this in 1855 with a famous dictum: 'Omnis cellula e cellula' — every cell comes from a pre-existing cell. This third tenet demolished the lingering idea of spontaneous generation and tied every living cell, by an unbroken chain of division, back to earlier cells. Life propagates only from life.",
+      },
+      {
+        title: "4 · The three tenets",
+        body: "Modern cell theory rests on three statements: (1) all living organisms are composed of one or more cells; (2) the cell is the basic unit of structure, function, and organization in life; (3) all cells arise from pre-existing cells by division. Later additions note that cells carry hereditary information (DNA) passed on during division, and that energy flow and metabolism occur within cells.",
+      },
+      {
+        title: "5 · Two kinds of cell",
+        body: "All cellular life divides into two great categories. Prokaryotes (bacteria and archaea) are small, simple cells with no nucleus, their DNA free in the cytoplasm. Eukaryotes (plants, animals, fungi, protists) are larger and compartmentalized, with a membrane-bound nucleus and organelles like mitochondria. The discovery that mitochondria and chloroplasts were once free-living bacteria (endosymbiotic theory) showed even complex cells are cooperatives of simpler ones.",
+      },
+      {
+        title: "6 · Why it's foundational",
+        body: "Cell theory is the lens through which all of biology is viewed. It frames how organisms grow (cell division), how they're built (tissues and organs as cell collectives), how disease works (cancer is uncontrolled cell division; infection is cellular invasion), and how life reproduces and evolves. Genetics, developmental biology, and medicine all operate at the cellular level. It is to biology what atomic theory is to chemistry.",
+      },
+    ],
+  },
+  {
     slug: "laws-of-inheritance",
     title: "Laws of Inheritance",
     summary:
@@ -1701,6 +1818,45 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
       {
         title: "6 · Signatures and consequences",
         body: "Modular architectures leave fingerprints. Traits within a module co-vary (limb bones scale together); traits across modules vary more independently (limb vs. jaw). Genes inside a regulatory module are co-expressed; genes across modules often aren't. Mutations tend to produce focused rather than pleiotropic effects. The consequences are deep: cancer exploits modularity (a broken cell-cycle module metastasizes while the rest of the cell keeps running); regeneration relies on it (a lost limb can be regrown because the limb module is self-contained); and convergent evolution is rampant because the same modules get recruited independently in different lineages.",
+      },
+    ],
+  },
+  {
+    slug: "germ-theory-of-disease",
+    title: "Germ Theory of Disease",
+    summary:
+      "Many diseases are caused by microscopic organisms — the theory that overturned centuries of 'bad air' and created modern medicine.",
+    systemPath:
+      "Human Knowledge/Natural Sciences/Biology/Microbiology/Germ Theory of Disease",
+    breadcrumb: "Natural Sciences · Biology",
+    category: "natural",
+    kind: "theory",
+    thumbnail: "/GermTheory.webp",
+    imageSource: "first-party",
+    steps: [
+      {
+        title: "1 · The miasma it replaced",
+        body: "For most of history, disease was blamed on 'miasma' — foul air rising from rot and filth — or on imbalances of bodily humors. These ideas weren't stupid: disease did cluster around swamps and squalor. But they were wrong about the cause, and that wrongness was lethal. Without knowing what actually spread illness, physicians couldn't prevent it, and a surgeon might go from autopsy to delivery room without washing his hands.",
+      },
+      {
+        title: "2 · The first clues",
+        body: "Evidence accumulated before the theory was accepted. In the 1840s Ignaz Semmelweis showed that doctors washing their hands with chlorinated lime slashed deadly childbed fever — though he couldn't say why, and was ridiculed. In 1854 John Snow traced a London cholera outbreak to a single contaminated water pump, founding epidemiology. Both pointed to something transmissible and physical, not airborne vapors.",
+      },
+      {
+        title: "3 · Pasteur's proof",
+        body: "Louis Pasteur delivered the decisive blow in the 1860s. His experiments with swan-neck flasks showed that sterilized broth stayed sterile unless exposed to airborne microbes — disproving spontaneous generation and proving that microorganisms come from other microorganisms. He showed microbes caused fermentation and spoilage, and that gentle heating ('pasteurization') killed them. Living germs, not air, were the agents of change.",
+      },
+      {
+        title: "4 · Koch's postulates",
+        body: "Robert Koch turned the theory into rigorous science. He identified the specific bacteria causing anthrax, tuberculosis, and cholera, and laid out criteria — Koch's postulates — for proving a given microbe causes a given disease: it must be present in the sick, isolated and grown in pure culture, cause the disease when introduced into a healthy host, and be recoverable from that host. This gave medicine a method for hunting pathogens one by one.",
+      },
+      {
+        title: "5 · Medicine transformed",
+        body: "The consequences were staggering. Joseph Lister introduced antiseptic surgery, and surgical death rates collapsed. Sanitation, clean water, and sterilization became public-health priorities. Vaccines (building on Jenner and extended by Pasteur) and later antibiotics targeted specific organisms. Life expectancy in industrialized nations roughly doubled over the following century — much of it attributable to simply understanding that germs cause disease.",
+      },
+      {
+        title: "6 · The theory today",
+        body: "Germ theory remains the foundation of infectious-disease medicine, microbiology, and epidemiology — from tracing COVID-19 to managing antibiotic resistance. It has been refined: not all microbes are harmful (the microbiome is essential to health), and not all disease is infectious (genetic, autoimmune, and lifestyle diseases have other causes). But the core insight — that specific microorganisms cause specific transmissible diseases — is one of the most consequential theories ever formulated.",
       },
     ],
   },
