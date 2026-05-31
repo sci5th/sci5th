@@ -1331,4 +1331,82 @@ export const ENTRY_STEPS: Record<string, KnowledgeGalleryStep[]> = {
       body: "Even where the strong thesis has been rejected, the vocabulary persists. Developmental psychology talks about 'core knowledge systems' (Spelke) — domain-specific early competences in object, number, agent, and space perception. Cognitive neuroscience catalogs 'functional specialization' without committing to full encapsulation. AI borrows the architecture: Transformers are monolithic; 'mixture of experts' models and modular meta-learning explicitly build specialized subnetworks that a gating mechanism routes between. Whether the mind is modular in Fodor's strict sense is still debated — but the question he crystallized is now how every serious theory of cognitive architecture has to define itself.",
     },
   ],
+  ecosystems: [
+    {
+      title: "1 · The unit of ecology",
+      body: "An ecosystem is all the organisms in an area together with the non-living environment they interact with — air, water, soil, sunlight — treated as a single functional system. The term, coined by Arthur Tansley in 1935, was a deliberate move away from studying organisms in isolation: a pond, a forest, or the whole biosphere can each be analyzed as a web of interactions through which energy and matter move.",
+    },
+    {
+      title: "2 · Energy flows one way",
+      body: "Energy enters almost every ecosystem as sunlight, is captured by producers (plants, algae) via photosynthesis, and passes up through consumers when they eat. At each transfer, most energy is lost as heat — only about 10% moves to the next level. This one-way flow, ultimately constrained by the laws of thermodynamics, is why food chains are short and why top predators are rare: there simply isn't enough energy left to support many levels.",
+    },
+    {
+      title: "3 · Matter cycles around",
+      body: "Unlike energy, matter is recycled. Carbon, nitrogen, phosphorus, and water move in loops — the carbon cycle, nitrogen cycle, water cycle — passing from the environment through organisms and back again. Decomposers (bacteria, fungi) are essential: they break down dead matter and return nutrients to the soil and air, closing the loop. An ecosystem runs on a one-way energy throughput powering an endlessly recycled stock of materials.",
+    },
+    {
+      title: "4 · Trophic structure and food webs",
+      body: "Organisms occupy trophic levels: producers, primary consumers (herbivores), secondary and tertiary consumers (carnivores), and decomposers. Real ecosystems aren't simple chains but tangled food webs, where most species eat and are eaten by several others. This interconnection is what gives ecosystems both their resilience and their fragility — remove one species and the effects ripple in hard-to-predict ways.",
+    },
+    {
+      title: "5 · Keystones, cascades, and balance",
+      body: "Some species matter far more than their numbers suggest. Remove a keystone species — sea otters, wolves — and the whole system can reorganize in a trophic cascade (without otters, urchins explode and kelp forests collapse; restore wolves to Yellowstone and even river courses change). Ecosystems tend toward dynamic balance but can flip to a different stable state if pushed past a threshold. Stability is not guaranteed; it's an emergent, sometimes brittle, property.",
+    },
+    {
+      title: "6 · Services and stakes",
+      body: "Ecosystems provide the services civilization depends on: pollination, water purification, climate regulation, fertile soil, fisheries. Ecology studies how these systems assemble, function, and respond to disturbance — and increasingly how they buckle under habitat loss, invasive species, and climate change. The ecosystem concept reframed conservation: you cannot protect a species without protecting the system of relationships it lives inside.",
+    },
+  ],
+  "nervous-system": [
+    {
+      title: "1 · A body-wide network",
+      body: "The nervous system is the body's high-speed information network: it gathers signals from inside and outside the body, processes them, and coordinates a response. It's organized into the central nervous system (brain and spinal cord), which integrates and decides, and the peripheral nervous system (the nerves threading out to everything else), which carries information in and commands out.",
+    },
+    {
+      title: "2 · The neuron",
+      body: "The basic unit is the neuron — a cell specialized for signaling. Dendrites receive inputs, the cell body integrates them, and a long axon carries the output. A human brain has roughly 86 billion neurons, each connected to thousands of others, forming a network of staggering complexity. Glial cells, just as numerous, support and insulate them.",
+    },
+    {
+      title: "3 · The electrical signal",
+      body: "Neurons signal with electricity. A resting neuron holds a voltage across its membrane; when inputs push it past a threshold, an action potential fires — a self-propagating spike that races down the axon. It's all-or-nothing: the neuron either fires a full spike or it doesn't, encoding information in the timing and rate of spikes rather than their size. Myelin insulation lets signals jump down the axon at up to ~120 m/s.",
+    },
+    {
+      title: "4 · The chemical synapse",
+      body: "Where one neuron meets the next is a synapse — usually a tiny gap, not a direct connection. The arriving spike triggers release of neurotransmitters (dopamine, serotonin, glutamate, GABA, and others) that drift across and bind receptors on the next cell, nudging it toward or away from firing. This chemical step is where signals are weighted, combined, and modulated — and where most psychoactive drugs and many diseases act.",
+    },
+    {
+      title: "5 · Plasticity and learning",
+      body: "The network is not fixed. Synapses strengthen or weaken with use — 'neurons that fire together wire together' (Hebbian plasticity) — and this rewiring is the physical basis of learning and memory. Experience literally reshapes the connectome. This plasticity is greatest in development but continues throughout life, underpinning recovery after injury and the brain's lifelong adaptability.",
+    },
+    {
+      title: "6 · From reflexes to mind",
+      body: "From this one mechanism — networks of spiking, synapsing neurons — emerges the entire repertoire of behavior: reflexes, perception, movement, emotion, language, and consciousness itself. Neuroscience studies the system at every scale, from single ion channels to whole-brain networks, and inspired artificial neural networks in turn. How subjective experience arises from electrochemical signaling remains one of science's deepest open questions.",
+    },
+  ],
+  "solar-system": [
+    {
+      title: "1 · One star and its retinue",
+      body: "The Solar System is the Sun together with everything held in orbit by its gravity: eight planets, their moons, dwarf planets like Pluto, and countless asteroids and comets. The Sun is overwhelmingly dominant — it holds about 99.86% of the system's entire mass. Everything else, Earth included, is a rounding error orbiting a single ordinary star.",
+    },
+    {
+      title: "2 · Born from one cloud",
+      body: "About 4.6 billion years ago a cloud of gas and dust collapsed under gravity. Most material fell to the center and ignited as the Sun; the rest flattened into a spinning disk where dust grains stuck together, growing into planetesimals and then planets. This is why the planets all orbit in nearly the same plane and the same direction — they condensed from one rotating disk. The same model explains planetary systems we now see forming around other stars.",
+    },
+    {
+      title: "3 · Rocky in, gassy out",
+      body: "Closer to the Sun, where it was too hot for ices to survive, only rock and metal could condense — giving the small, dense terrestrial planets (Mercury, Venus, Earth, Mars). Beyond the 'frost line,' ices survived and bodies grew huge, capturing thick atmospheres: the gas giants (Jupiter, Saturn) and ice giants (Uranus, Neptune). The system's architecture is a direct fossil of the temperature gradient in the original disk.",
+    },
+    {
+      title: "4 · Kepler and Newton's laws in action",
+      body: "Every orbit obeys the same physics: planets trace ellipses with the Sun at one focus, sweep equal areas in equal times, and the square of their orbital period scales with the cube of their distance (Kepler's laws) — all consequences of Newton's law of universal gravitation. The Solar System is the textbook demonstration that the same gravity pulling an apple down governs worlds.",
+    },
+    {
+      title: "5 · The debris and the edges",
+      body: "Between Mars and Jupiter lies the asteroid belt — rubble that never formed a planet, kept stirred up by Jupiter's gravity. Beyond Neptune is the Kuiper Belt (home of Pluto and other icy dwarfs), and far past that the hypothesized Oort Cloud, the source of long-period comets. The 2006 redefinition that reclassified Pluto as a 'dwarf planet' came precisely because we found it was one of many similar Kuiper Belt bodies.",
+    },
+    {
+      title: "6 · Why it's the model system",
+      body: "The Solar System is humanity's most studied planetary system and the reference against which all exoplanet systems are compared. It's the arena of space exploration — every probe, rover, and crewed mission operates within it — and the source of our understanding of how planets, including habitable ones, form and evolve. It is the archetypal natural system: many bodies, one organizing force, an emergent stable structure.",
+    },
+  ],
 };

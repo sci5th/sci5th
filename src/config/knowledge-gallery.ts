@@ -757,6 +757,18 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     imageSource: "openai",
   },
   {
+    slug: "ecosystems",
+    title: "Ecosystems",
+    summary:
+      "A community of living things plus their physical environment, linked by flows of energy and cycles of matter — the fundamental unit of ecology.",
+    systemPath: "Human Knowledge/Natural Sciences/Biology/Ecology/Ecosystems",
+    breadcrumb: "Natural Sciences · Biology",
+    category: "natural",
+    kind: "system",
+    thumbnail: "/Ecosystems.webp",
+    imageSource: "first-party",
+  },
+  {
     slug: "germ-theory-of-disease",
     title: "Germ Theory of Disease",
     summary:
@@ -767,6 +779,19 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     category: "natural",
     kind: "theory",
     thumbnail: "/GermTheory.webp",
+    imageSource: "first-party",
+  },
+  {
+    slug: "nervous-system",
+    title: "Nervous System",
+    summary:
+      "The body's communication network — billions of neurons signaling electrically and chemically to sense, decide, and act in milliseconds.",
+    systemPath:
+      "Human Knowledge/Natural Sciences/Biology/Neuroscience/Nervous System",
+    breadcrumb: "Natural Sciences · Biology",
+    category: "natural",
+    kind: "system",
+    thumbnail: "/NervousSystem.webp",
     imageSource: "first-party",
   },
   {
@@ -781,6 +806,19 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     kind: "theory",
     thumbnail: "/PlateTectonics.webp",
     imageSource: "openai",
+  },
+  {
+    slug: "solar-system",
+    title: "Solar System",
+    summary:
+      "The Sun and everything gravitationally bound to it — eight planets, moons, asteroids, and comets — formed from one collapsing cloud 4.6 billion years ago.",
+    systemPath:
+      "Human Knowledge/Natural Sciences/Astronomy/Planetary Science/Solar System",
+    breadcrumb: "Natural Sciences · Astronomy",
+    category: "natural",
+    kind: "system",
+    thumbnail: "/SolarSystem.webp",
+    imageSource: "first-party",
   },
   {
     slug: "obsidian-zettelkasten",

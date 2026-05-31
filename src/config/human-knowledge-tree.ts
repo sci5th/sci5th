@@ -485,12 +485,18 @@ export const DATA: KnowledgeNode = {
                 { name: "Biological Modularity" },
               ],
             },
-            { name: "Ecology" },
+            {
+              name: "Ecology",
+              c: [{ name: "Ecosystems" }],
+            },
             {
               name: "Microbiology",
               c: [{ name: "Germ Theory of Disease" }],
             },
-            { name: "Neuroscience" },
+            {
+              name: "Neuroscience",
+              c: [{ name: "Nervous System" }],
+            },
             { name: "Botany" },
             { name: "Zoology" },
           ],
@@ -511,7 +517,10 @@ export const DATA: KnowledgeNode = {
           name: "Astronomy",
           c: [
             { name: "Observational Astronomy" },
-            { name: "Planetary Science" },
+            {
+              name: "Planetary Science",
+              c: [{ name: "Solar System" }],
+            },
             { name: "Stellar Astrophysics" },
           ],
         },
