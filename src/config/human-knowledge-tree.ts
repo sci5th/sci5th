@@ -287,6 +287,10 @@ export const DATA: KnowledgeNode = {
             { name: "Complex Systems" },
             { name: "Complex Adaptive Systems" },
             { name: "Chaos Theory" },
+            {
+              name: "Network Science",
+              c: [{ name: "Network Modularity" }],
+            },
           ],
         },
       ],
@@ -544,7 +548,10 @@ export const DATA: KnowledgeNode = {
                 { name: "Thermodynamics & Heat Transfer" },
                 { name: "Fluid Mechanics" },
                 { name: "Solid Mechanics & Materials" },
-                { name: "Machine Design & Manufacturing" },
+                {
+                  name: "Machine Design & Manufacturing",
+                  c: [{ name: "Modular Design" }],
+                },
                 {
                   name: "Robotics & Control Systems",
                   c: [
@@ -925,7 +932,10 @@ export const DATA: KnowledgeNode = {
             { name: "Finance" },
             { name: "Marketing" },
             { name: "Operations" },
-            { name: "Strategy" },
+            {
+              name: "Strategy",
+              c: [{ name: "Modular Organizations" }],
+            },
           ],
         },
         {

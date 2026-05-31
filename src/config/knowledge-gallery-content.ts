@@ -5,6 +5,84 @@ import type { KnowledgeGalleryStep } from "./knowledge-gallery";
 // server-rendered detail view (KnowledgeGalleryEntry) and never ships in the
 // client bundle for the gallery index. See docs/MDX_OPTION.md.
 export const ENTRY_STEPS: Record<string, KnowledgeGalleryStep[]> = {
+  "network-modularity": [
+    {
+      title: "1 · The same principle, in networks",
+      body: "Modularity — decomposing a system into densely-connected parts with sparse connections between them — shows up wherever there are networks. In network science it has a precise meaning: a network has community structure when its nodes fall into groups (modules) such that there are many more links inside groups than between them. Social networks, the brain's connectome, food webs, the power grid, and the web all show it.",
+    },
+    {
+      title: "2 · Communities",
+      body: "A community (or module) is a set of nodes more tightly knit among themselves than with the rest of the network — a friend group inside a social network, a functional brain region, an industry within a trade network. Finding these communities reveals a network's hidden organization: the mesoscale structure between the single node and the whole graph, which is often where the interesting behavior lives.",
+    },
+    {
+      title: "3 · Modularity as a number (Q)",
+      body: "Mark Newman and Michelle Girvan (2004) made the idea quantitative with the modularity score Q: the fraction of edges that fall within communities, minus the fraction you'd expect if the same edges were placed at random. High Q means the partition captures real structure; Q near zero means the grouping is no better than chance. For the first time, 'how modular is this network?' had a single, comparable answer.",
+    },
+    {
+      title: "4 · Finding the modules",
+      body: "Because checking every possible partition is computationally impossible for large networks, algorithms optimize Q heuristically. The Louvain method (2008) greedily merges nodes into communities and is fast enough for networks with millions of nodes; the Leiden algorithm later fixed some of its flaws. These are now standard tools in any network-analysis toolkit, from mapping social media to clustering genes.",
+    },
+    {
+      title: "5 · Limits — the resolution problem",
+      body: "Maximizing Q has a known flaw: the resolution limit. Below a certain size, real communities get merged together and become invisible to Q-optimization, no matter how distinct they are. This spurred multi-resolution methods and alternatives (stochastic block models, map-equation/Infomap). As with software and biology, defining module boundaries cleanly turns out to be genuinely hard.",
+    },
+    {
+      title: "6 · Why it matters",
+      body: "Community detection drives recommendation systems, fraud-ring detection, identification of functional brain networks, protein-complex discovery, and the study of how information and disease spread. Modular structure also makes networks more robust and more evolvable — the same payoff modularity gives software and organisms. It's a vivid case of one structural idea recurring, with its own mathematics, across every domain that has a network.",
+    },
+  ],
+  "modular-design": [
+    {
+      title: "1 · The principle in the physical world",
+      body: "Modular design applies the decompose-into-interchangeable-parts idea to engineered products: build a complex system from self-contained components (modules), each performing a function and connecting through a standardized interface. A module can be designed, built, tested, replaced, or upgraded on its own, without redesigning the whole. It's the opposite of an integral design, where everything is custom-fit and changing one part ripples through all the others.",
+    },
+    {
+      title: "2 · Interfaces are everything",
+      body: "Modularity lives or dies by its interfaces. A well-specified interface (mechanical fit, electrical pinout, protocol) lets module designers work independently as long as each side honors the contract. This is exactly the 'information hiding' idea from software, made physical: USB, shipping containers, LEGO bricks, PC expansion slots, and car platforms all work because the interface is fixed and public while the internals are free to vary.",
+    },
+    {
+      title: "3 · Design Rules",
+      body: "Carliss Baldwin and Kim Clark formalized this in 'Design Rules' (2000), splitting design parameters into global 'design rules' (architecture, interfaces, integration tests) that everyone must obey, and 'hidden' parameters each module is free to choose. Their key insight: modularity creates options — the ability to improve or swap one module independently has real economic value, which they quantified. The IBM System/360 (1964) was a landmark: one architecture, many interchangeable models.",
+    },
+    {
+      title: "4 · What modularity buys",
+      body: "Parallel development (teams work on modules simultaneously), reuse (the same module across many products), easier maintenance and upgrades (swap one part), variety from few parts (mix and match to create many product variants), and fault isolation. Mass customization — offering huge product variety cheaply — is largely a triumph of modular architecture plus standardized interfaces.",
+    },
+    {
+      title: "5 · The trade-offs",
+      body: "Modularity isn't free. Standardized interfaces add overhead and can leave performance on the table compared to a tightly integrated design — which is why high-performance products (a Formula 1 car, a flagship phone's internals) are often deliberately integral. There's also the risk of interface lock-in and of 'modularity in name only' when the supposed modules are still deeply entangled.",
+    },
+    {
+      title: "6 · The same fractal pattern",
+      body: "From standardized screw threads to microservices to modular nuclear reactors and satellite buses, the principle recurs at every scale of engineering. It also reshapes industries: once interfaces are standard, independent firms can specialize in single modules, and a vertically integrated industry can disaggregate into a modular ecosystem — the bridge from modular products to modular organizations.",
+    },
+  ],
+  "modular-organizations": [
+    {
+      title: "1 · Modularity reaches the firm",
+      body: "The modularity principle doesn't stop at products — it reshapes the organizations that build them. A modular organization decomposes into semi-autonomous units (teams, divisions, even separate companies) that coordinate through well-defined interfaces — contracts, APIs, standards, service-level agreements — rather than constant top-down direction. The structure of the organization often comes to mirror the structure of what it builds.",
+    },
+    {
+      title: "2 · Conway's Law",
+      body: "In 1967 Melvin Conway observed that organizations design systems that copy their own communication structure. A company split into four teams will tend to ship a four-part product. The modern corollary — the 'inverse Conway maneuver' — deliberately structures teams to match the desired modular architecture. Module boundaries and team boundaries are two views of the same decomposition.",
+    },
+    {
+      title: "3 · Mirroring and design rules",
+      body: "Building on Baldwin and Clark's Design Rules, scholars showed a 'mirroring hypothesis': modular product architectures tend to be developed by modular, loosely-coupled organizations, while integral products favor tightly integrated ones. Once a product's interfaces are standardized, the work to build each module can be cleanly separated — and handed to different teams, suppliers, or firms.",
+    },
+    {
+      title: "4 · From firms to ecosystems",
+      body: "Standardized interfaces let whole industries disaggregate. When the PC's interfaces became open standards, a single vertically-integrated industry fractured into specialists — chips, drives, operating systems, assembly — each a 'module.' Platform businesses take this further: a stable core platform exposes interfaces (APIs, app stores, marketplaces) and thousands of independent modules (apps, sellers, complementors) plug in without central coordination.",
+    },
+    {
+      title: "5 · The payoffs and the costs",
+      body: "Modular organizations gain flexibility, parallel work, easier outsourcing, and the ability to swap suppliers or scale parts independently. The costs mirror modular design's: coordinating across interfaces has overhead, deep innovation that spans module boundaries becomes harder, and firms can lose critical knowledge by outsourcing modules — sometimes enabling a supplier to later become a competitor.",
+    },
+    {
+      title: "6 · One principle, many disciplines",
+      body: "Modular organizations close the loop on modularity as a universal principle: the same logic of loosely-coupled parts with clean interfaces governs software, organisms, minds, networks, products, and firms. Studying it in organizations connects engineering and economics — and shows why the way you split up the work is itself a design decision with lasting consequences.",
+    },
+  ],
   quicksort: [
     {
       title: "1 · Divide and conquer",

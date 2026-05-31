@@ -539,6 +539,19 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     imageSource: "openai",
   },
   {
+    slug: "network-modularity",
+    title: "Network Modularity",
+    summary:
+      "The modularity principle in network science: real networks split into communities — densely connected clusters with sparse links between them — and a single number measures how cleanly.",
+    systemPath:
+      "Human Knowledge/Formal Sciences/Systems Science/Network Science/Network Modularity",
+    breadcrumb: "Formal Sciences · Systems Science",
+    category: "formal",
+    kind: "modularity",
+    thumbnail: "/NetworkModularity.webp",
+    imageSource: "first-party",
+  },
+  {
     slug: "newtons-laws-of-motion",
     title: "Newton's Laws of Motion",
     summary:
@@ -860,6 +873,19 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     imageSource: "first-party",
   },
   {
+    slug: "modular-design",
+    title: "Modular Design",
+    summary:
+      "The modularity principle in engineering: build complex products from interchangeable, independently-designed components that connect through standardized interfaces.",
+    systemPath:
+      "Human Knowledge/Applied Sciences & Technology/Engineering/Mechanical Engineering/Machine Design & Manufacturing/Modular Design",
+    breadcrumb: "Applied Sciences · Engineering",
+    category: "applied",
+    kind: "modularity",
+    thumbnail: "/ModularDesign.webp",
+    imageSource: "first-party",
+  },
+  {
     slug: "obsidian-zettelkasten",
     title: "Obsidian Vaults & Zettelkasten",
     summary:
@@ -871,6 +897,19 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     kind: "system",
     thumbnail: "/ObsidianVaults.webp",
     imageSource: "openai",
+  },
+  {
+    slug: "modular-organizations",
+    title: "Modular Organizations",
+    summary:
+      "The modularity principle in economics and management: firms and whole industries decompose into loosely-coupled units coordinated through standardized interfaces rather than central control.",
+    systemPath:
+      "Human Knowledge/Professions & Interdisciplinary/Business & Management/Strategy/Modular Organizations",
+    breadcrumb: "Professions · Business & Management",
+    category: "professions",
+    kind: "modularity",
+    thumbnail: "/ModularOrganizations.webp",
+    imageSource: "first-party",
   },
   {
     slug: "cognitive-theory",
