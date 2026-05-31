@@ -11,6 +11,7 @@ export const ASSET_HASHES: Readonly<Record<string, string>> = {
   "/BehaviourTrees.webp": "6d0a59aadd",
   "/BigBangTheory.webp": "d688c99ed5",
   "/BiologicalModularity.webp": "5f0708769e",
+  "/BohrModel.webp": "8abc806962",
   "/CellTheory.webp": "3b635031d7",
   "/ChaosTheory.webp": "b9e0b03187",
   "/CognitiveTheory.webp": "54d9e6566d",
@@ -18,6 +19,7 @@ export const ASSET_HASHES: Readonly<Record<string, string>> = {
   "/ComplexSystems.webp": "1232f2571a",
   "/ConservationLaws.webp": "beaff0c127",
   "/ConservationOfMass.webp": "0e6e1ab980",
+  "/DNADoubleHelix.webp": "15032d10aa",
   "/DistributedSystems.webp": "12d003fdf8",
   "/FormalSciences.webp": "982a78e080",
   "/FoundationModels.webp": "4f4ee2a5e5",
@@ -48,6 +50,7 @@ export const ASSET_HASHES: Readonly<Record<string, string>> = {
   "/SoftwareModularity.webp": "0af3344ad6",
   "/SpecialRelativity.webp": "3ae4c3ae69",
   "/StandardModel.webp": "540ebb1711",
+  "/StandardModelCosmology.webp": "72bec40d80",
   "/TheoryOfEvolution.webp": "6886d4301b",
   "/UnityGames/BehaviourTree_Gallery/WebGL_build.data.unityweb": "2104bc7de7",
   "/UnityGames/BehaviourTree_Gallery/WebGL_build.framework.js.unityweb":

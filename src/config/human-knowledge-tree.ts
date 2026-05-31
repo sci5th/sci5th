@@ -439,14 +439,20 @@ export const DATA: KnowledgeNode = {
             { name: "Condensed Matter" },
             {
               name: "Astrophysics & Cosmology",
-              c: [{ name: "Big Bang Theory" }],
+              c: [
+                { name: "Big Bang Theory" },
+                { name: "Standard Model of Cosmology (ΛCDM)" },
+              ],
             },
           ],
         },
         {
           name: "Chemistry",
           c: [
-            { name: "Atomic Theory" },
+            {
+              name: "Atomic Theory",
+              c: [{ name: "Bohr Model of the Atom" }],
+            },
             { name: "Law of Conservation of Mass" },
             { name: "Periodic Law" },
             { name: "Organic Chemistry" },
@@ -459,7 +465,10 @@ export const DATA: KnowledgeNode = {
         {
           name: "Biology",
           c: [
-            { name: "Molecular Biology" },
+            {
+              name: "Molecular Biology",
+              c: [{ name: "DNA Double Helix" }],
+            },
             {
               name: "Cell Biology",
               c: [{ name: "Cell Theory" }],

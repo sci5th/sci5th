@@ -1538,6 +1538,45 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     ],
   },
   {
+    slug: "standard-model-of-cosmology",
+    title: "Standard Model of Cosmology (ΛCDM)",
+    summary:
+      "The reigning model of the universe: a Big Bang followed by expansion driven by dark energy (Λ) and structured by cold dark matter — fit to the data with just six numbers.",
+    systemPath:
+      "Human Knowledge/Natural Sciences/Physics/Astrophysics & Cosmology/Standard Model of Cosmology (ΛCDM)",
+    breadcrumb: "Natural Sciences · Astrophysics & Cosmology",
+    category: "natural",
+    kind: "model",
+    thumbnail: "/StandardModelCosmology.webp",
+    imageSource: "first-party",
+    steps: [
+      {
+        title: "1 · From story to model",
+        body: "The Big Bang theory says the universe began hot and dense and has expanded ever since. ΛCDM (Lambda Cold Dark Matter) is the quantitative model built on that theory — a specific recipe for what the universe is made of and how it evolves, expressed through Einstein's equations and tuned to match observations. It is often called simply 'the standard model of cosmology' because virtually all modern cosmology is done within it.",
+      },
+      {
+        title: "2 · The energy budget",
+        body: "ΛCDM's most striking claim is the composition of the universe: roughly 68% dark energy, 27% dark matter, and only about 5% ordinary matter (everything we can see — stars, gas, planets, people). The familiar matter of the periodic table is a rounding error in the cosmic budget. The other 95% is stuff we infer but cannot directly see, which is both the model's triumph and its deepest embarrassment.",
+      },
+      {
+        title: "3 · Λ — dark energy",
+        body: "The Λ is Einstein's cosmological constant, repurposed as 'dark energy' — a uniform energy of empty space that pushes the universe apart. It was forced on cosmologists in 1998 when two teams found, by measuring distant supernovae, that the expansion of the universe is accelerating, not slowing as gravity alone would demand. Something is driving galaxies apart faster and faster; Λ is the simplest description, though what it physically is remains unknown.",
+      },
+      {
+        title: "4 · CDM — cold dark matter",
+        body: "Galaxies rotate too fast and clusters hold together too tightly to be explained by visible matter alone — there must be extra, unseen mass. 'Cold' (slow-moving) dark matter, interacting only through gravity, also explains how the gravitational scaffolding for galaxies formed in the early universe. No dark matter particle has been detected directly, but its gravitational fingerprints are everywhere, from galaxy rotation to gravitational lensing.",
+      },
+      {
+        title: "5 · Six numbers fit everything",
+        body: "The remarkable thing about ΛCDM is its economy: with only about six free parameters — the densities of dark energy and matter, the expansion rate, and a few others — it reproduces an enormous range of independent observations: the cosmic microwave background's temperature ripples (mapped by WMAP and Planck), the large-scale distribution of galaxies, the abundances of light elements from the first minutes, and the supernova distance ladder. That so much fits so few numbers is why the model is dominant.",
+      },
+      {
+        title: "6 · Cracks and open questions",
+        body: "ΛCDM works astonishingly well but isn't the final word. We don't know what dark energy or dark matter actually are. The 'Hubble tension' — different methods measuring the expansion rate disagree at a level too large to ignore — may signal new physics. And the cosmological constant's tiny measured value is wildly smaller than quantum theory naively predicts. ΛCDM is the best map we have of the cosmos, and a signpost pointing at everything we still don't understand.",
+      },
+    ],
+  },
+  {
     slug: "atomic-theory",
     title: "Atomic Theory",
     summary:
@@ -1580,6 +1619,45 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
       {
         title: "8 · Why the theory mattered",
         body: "Atomic theory underwrites the entire periodic table, all of chemistry, most of materials science, nuclear energy (and weapons), medical imaging, radiocarbon dating, and our ability to design drugs, alloys, semiconductors, and fertilizers from first principles. It is also arguably the clearest example in science of a speculative idea surviving, growing in precision, and eventually becoming the bedrock framework of multiple disciplines.",
+      },
+    ],
+  },
+  {
+    slug: "bohr-model",
+    title: "Bohr Model of the Atom",
+    summary:
+      "Electrons orbit the nucleus only in fixed energy levels, jumping between them by emitting or absorbing light — the model that explained atomic spectra and seeded quantum theory.",
+    systemPath:
+      "Human Knowledge/Natural Sciences/Chemistry/Atomic Theory/Bohr Model of the Atom",
+    breadcrumb: "Natural Sciences · Chemistry",
+    category: "natural",
+    kind: "model",
+    thumbnail: "/BohrModel.webp",
+    imageSource: "first-party",
+    steps: [
+      {
+        title: "1 · The atom that shouldn't exist",
+        body: "By 1911 Rutherford had shown the atom is mostly empty space with a tiny dense nucleus, electrons somewhere around it. But classical physics made this impossible: an orbiting electron should continuously radiate energy, spiral inward, and crash into the nucleus in a fraction of a second. Matter is stable, so something was badly wrong with applying classical rules to atoms.",
+      },
+      {
+        title: "2 · Bohr's quantum leap",
+        body: "In 1913 Niels Bohr made a radical postulate: electrons can only occupy certain allowed orbits with specific, quantized energies, and while in them they do not radiate at all. An electron can't sit just anywhere — only on a discrete ladder of energy levels. This simply declared the classical catastrophe forbidden, by fiat, and built a model around the new rule.",
+      },
+      {
+        title: "3 · Jumps and photons",
+        body: "An electron moves between allowed levels only by absorbing or emitting a photon whose energy exactly equals the gap between them (E = hf). Fall to a lower level: emit light. Absorb light of the right energy: jump up. Because the levels are discrete, only specific photon energies — specific colors — are possible. Energy is exchanged in packets, not continuously.",
+      },
+      {
+        title: "4 · Why it was a triumph",
+        body: "The model's predictions matched reality with uncanny precision for hydrogen. The mysterious sharp lines in hydrogen's spectrum — the Balmer series and others — fell out exactly from the energy-level math, including the previously empirical Rydberg formula. For the first time, the specific colors an element emits were derived from first principles. Atomic spectra became a fingerprint you could calculate.",
+      },
+      {
+        title: "5 · The cracks",
+        body: "Bohr's model worked beautifully for hydrogen (one electron) but failed for atoms with more electrons, couldn't explain the relative brightness of spectral lines or finer splittings, and rested on an awkward graft of classical orbits onto quantum rules. It was a brilliant halfway house: quantized energy was right, but 'electrons on little planetary orbits' was not.",
+      },
+      {
+        title: "6 · What replaced it — and what survived",
+        body: "Full quantum mechanics (1925–26) replaced Bohr's orbits with orbitals — probability clouds described by the Schrödinger equation — abandoning definite electron paths entirely. Yet Bohr's core insight survived intact: energy levels are quantized and atoms change state by discrete jumps. The Bohr model remains the picture every student meets first, because it captures the one idea that matters most while being simple enough to draw.",
       },
     ],
   },
@@ -1658,6 +1736,45 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
       {
         title: "6 · Reach and limits",
         body: "The periodic law organizes all of chemistry and guided the discovery and synthesis of elements out to the superheavy region (the table now runs to oganesson, element 118). Its limits are instructive: relativistic effects make the heaviest elements behave unexpectedly (gold's color, mercury's liquidity), and the very heaviest synthetic atoms exist for only fractions of a second. But as an organizing principle that turned a list of substances into a predictive system, the periodic law is one of the most successful generalizations in all of science.",
+      },
+    ],
+  },
+  {
+    slug: "dna-double-helix",
+    title: "DNA Double Helix",
+    summary:
+      "Two strands twisted around each other, paired by complementary bases — the 1953 structural model that revealed how life stores and copies its information.",
+    systemPath:
+      "Human Knowledge/Natural Sciences/Biology/Molecular Biology/DNA Double Helix",
+    breadcrumb: "Natural Sciences · Biology",
+    category: "natural",
+    kind: "model",
+    thumbnail: "/DNADoubleHelix.webp",
+    imageSource: "first-party",
+    steps: [
+      {
+        title: "1 · The molecule of heredity",
+        body: "By the early 1950s biologists knew that DNA carried genetic information, but not how. The central question was structural: what shape lets a molecule both store a vast amount of information and copy it faithfully every time a cell divides? The answer turned out to lie in the geometry of the molecule itself — form revealing function in the most literal way.",
+      },
+      {
+        title: "2 · The 1953 model",
+        body: "James Watson and Francis Crick, building crucially on Rosalind Franklin's X-ray diffraction images (notably 'Photo 51') and Maurice Wilkins's work, proposed that DNA is a double helix: two long strands wound around a common axis like a twisted ladder. Franklin's data showed the helical geometry and dimensions that made the model possible — a contribution long under-credited.",
+      },
+      {
+        title: "3 · The backbone and the bases",
+        body: "Each strand is a backbone of alternating sugar and phosphate groups, with a nitrogenous base attached at each rung: adenine (A), thymine (T), guanine (G), or cytosine (C). The sequence of these four bases along the strand is the genetic code — the information. The two backbones run in opposite directions (antiparallel), spiraling around the outside with the bases facing inward.",
+      },
+      {
+        title: "4 · Complementary base pairing",
+        body: "The rungs of the ladder are pairs of bases held by hydrogen bonds, and they pair by a strict rule: A always with T, G always with C. This complementarity is the model's master stroke. It means the two strands carry the same information in mirror form — if you know one strand's sequence, the other is completely determined. The structure itself encodes a backup copy.",
+      },
+      {
+        title: "5 · 'It has not escaped our notice…'",
+        body: "Watson and Crick's paper ended with one of science's most famous understatements: the specific pairing 'immediately suggests a possible copying mechanism.' Unzip the helix down the middle and each strand serves as a template to rebuild its partner, producing two identical double helices. The molecule's shape directly explains how genes are replicated and passed on — structure and mechanism in a single insight.",
+      },
+      {
+        title: "6 · What it unlocked",
+        body: "The double helix launched molecular biology. It made sense of how mutations arise (base changes), how genes are transcribed and translated into proteins, and ultimately enabled DNA sequencing, genetic engineering, PCR, and the Human Genome Project. The structure deduced from a few X-ray photographs in 1953 became the foundation of modern genetics, medicine, and biotechnology.",
       },
     ],
   },
