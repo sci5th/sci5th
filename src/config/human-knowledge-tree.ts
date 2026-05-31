@@ -180,8 +180,14 @@ export const DATA: KnowledgeNode = {
                 {
                   name: "Algorithms & Data Structures",
                   c: [
-                    { name: "Sorting & Searching" },
-                    { name: "Graph Algorithms" },
+                    {
+                      name: "Sorting & Searching",
+                      c: [{ name: "Quicksort" }, { name: "Binary Search" }],
+                    },
+                    {
+                      name: "Graph Algorithms",
+                      c: [{ name: "Dijkstra's Algorithm" }],
+                    },
                     { name: "Dynamic Programming" },
                     { name: "Trees & Heaps" },
                     { name: "Hash Tables" },

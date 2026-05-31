@@ -325,6 +325,45 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     imageSource: "openai",
   },
   {
+    slug: "quicksort",
+    title: "Quicksort",
+    summary:
+      "Sort by repeatedly partitioning around a pivot — the divide-and-conquer algorithm that is, in practice, the fastest general-purpose sort.",
+    systemPath:
+      "Human Knowledge/Formal Sciences/Computer Science/Theoretical CS/Algorithms & Data Structures/Sorting & Searching/Quicksort",
+    breadcrumb: "Formal Sciences · Computer Science",
+    category: "formal",
+    kind: "algorithm",
+    thumbnail: "/Quicksort.webp",
+    imageSource: "first-party",
+  },
+  {
+    slug: "binary-search",
+    title: "Binary Search",
+    summary:
+      "Find an item in a sorted list by repeatedly halving the search range — turning a million-item lookup into about twenty comparisons.",
+    systemPath:
+      "Human Knowledge/Formal Sciences/Computer Science/Theoretical CS/Algorithms & Data Structures/Sorting & Searching/Binary Search",
+    breadcrumb: "Formal Sciences · Computer Science",
+    category: "formal",
+    kind: "algorithm",
+    thumbnail: "/BinarySearch.webp",
+    imageSource: "first-party",
+  },
+  {
+    slug: "dijkstras-algorithm",
+    title: "Dijkstra's Algorithm",
+    summary:
+      "Find the shortest path from a source to every other node in a weighted graph, greedily settling the closest unvisited node each step.",
+    systemPath:
+      "Human Knowledge/Formal Sciences/Computer Science/Theoretical CS/Algorithms & Data Structures/Graph Algorithms/Dijkstra's Algorithm",
+    breadcrumb: "Formal Sciences · Computer Science",
+    category: "formal",
+    kind: "algorithm",
+    thumbnail: "/DijkstrasAlgorithm.webp",
+    imageSource: "first-party",
+  },
+  {
     slug: "information-theory",
     title: "Information Theory",
     summary:

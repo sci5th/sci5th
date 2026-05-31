@@ -5,6 +5,84 @@ import type { KnowledgeGalleryStep } from "./knowledge-gallery";
 // server-rendered detail view (KnowledgeGalleryEntry) and never ships in the
 // client bundle for the gallery index. See docs/MDX_OPTION.md.
 export const ENTRY_STEPS: Record<string, KnowledgeGalleryStep[]> = {
+  quicksort: [
+    {
+      title: "1 · Divide and conquer",
+      body: "Quicksort, invented by Tony Hoare in 1959, sorts a list by splitting it into smaller sub-lists that are easier to sort, then combining the results. It belongs to the divide-and-conquer family alongside merge sort, but its split is driven by value rather than position: pick a 'pivot' value and rearrange so everything smaller sits to its left and everything larger to its right.",
+    },
+    {
+      title: "2 · The partition step",
+      body: "Partitioning is the heart of the algorithm. Choose a pivot, then sweep through the sub-list moving elements so the array ends up as [items < pivot][pivot][items > pivot]. After one partition the pivot is in its final sorted position, and the two sides are independent problems. Partitioning is done in place with simple swaps, which is a big part of why quicksort is fast and memory-light.",
+    },
+    {
+      title: "3 · Recursion",
+      body: "Apply the same procedure to the left side and the right side, and to their sides, and so on. Each level of recursion fixes more pivots into place. The base case is a sub-list of length 0 or 1, which is already sorted. Because the work at each level touches every element once, a balanced split gives O(n log n) total work.",
+    },
+    {
+      title: "4 · Why pivot choice matters",
+      body: "The catch: if the pivot is always the smallest or largest element (e.g. an already-sorted list with a naive 'first element' pivot), the split is maximally unbalanced and the algorithm degrades to O(n²). Good implementations defend against this — pick a random pivot, or the median of three sampled elements — which makes the worst case astronomically unlikely on real data.",
+    },
+    {
+      title: "5 · Performance in practice",
+      body: "Average case O(n log n), worst case O(n²), and only O(log n) extra memory (for the recursion stack). Although merge sort guarantees O(n log n), quicksort is usually faster in practice because its inner loop is tight and cache-friendly and it sorts in place. It is the default general-purpose sort in many standard libraries (often as a hybrid like introsort, which falls back to heapsort to dodge the worst case).",
+    },
+    {
+      title: "6 · Why it's a teaching staple",
+      body: "Quicksort is the canonical example of divide-and-conquer, of how average and worst case can differ, of why randomization helps, and of in-place partitioning. Almost every algorithms course uses it to introduce recurrence analysis (T(n) = 2T(n/2) + O(n)). It's a small amount of code with a surprising amount of depth — which is exactly why it endures as a fundamental algorithm.",
+    },
+  ],
+  "binary-search": [
+    {
+      title: "1 · Halving the haystack",
+      body: "Binary search finds a target value in a sorted list by exploiting the order. Look at the middle element: if it's the target, done; if the target is smaller, the answer must be in the left half; if larger, the right half. Each comparison throws away half of what's left, so the search range collapses geometrically rather than one item at a time.",
+    },
+    {
+      title: "2 · The one prerequisite",
+      body: "Binary search only works if the data is sorted (or otherwise monotonic). That's the whole bargain: you pay once to sort, then every lookup is fast. On unsorted data you have no choice but linear scan. This is why sorted structures and indexes are everywhere in databases and libraries — they make binary search (and its cousins) possible.",
+    },
+    {
+      title: "3 · Logarithmic speed",
+      body: "Because each step halves the range, finding an item among n takes about log₂(n) comparisons. A thousand items need ~10 checks; a million need ~20; a billion need ~30. Compared to linear search's n checks, the speedup is enormous and grows with scale. O(log n) is one of the best complexities an algorithm can have.",
+    },
+    {
+      title: "4 · Easy to get subtly wrong",
+      body: "Binary search is famous for being deceptively hard to implement correctly. Off-by-one errors in the low/high bounds, integer overflow when computing the midpoint as (low + high) / 2 (use low + (high − low) / 2), and infinite loops from mishandling the midpoint are classic bugs. Jon Bentley noted that most programmers can't write a bug-free version on the first try; a binary-search bug lurked in the Java standard library for years.",
+    },
+    {
+      title: "5 · Beyond exact lookup",
+      body: "The idea generalizes far past 'is x in this array.' Lower/upper-bound variants find insertion points; 'binary search on the answer' solves optimization problems by searching over a monotonic predicate (e.g. the smallest capacity that works); and the same halving logic underlies search in balanced trees and the bisection method for root-finding in numerical analysis.",
+    },
+    {
+      title: "6 · A fundamental building block",
+      body: "Binary search is the simplest powerful illustration of how structure (sortedness) buys speed, and of logarithmic thinking. It's a primitive inside countless larger systems — database indexes, version-control 'git bisect', autocomplete, and more — and a rite of passage in every introduction to algorithms.",
+    },
+  ],
+  "dijkstras-algorithm": [
+    {
+      title: "1 · The shortest-path problem",
+      body: "Given a graph of nodes connected by edges with non-negative weights (distances, times, costs), Dijkstra's algorithm finds the shortest path from a chosen source node to every other node. Edsger Dijkstra devised it in 1956 (reportedly in about twenty minutes, in his head at a café) to demonstrate the new ARMAC computer. It is the foundation of route-finding.",
+    },
+    {
+      title: "2 · The greedy idea",
+      body: "Keep a tentative shortest distance to every node, starting at 0 for the source and infinity for the rest. Repeatedly pick the unvisited node with the smallest tentative distance, mark it 'settled' (its shortest distance is now final), and update its neighbors. The key insight: because edge weights are non-negative, once you settle the closest unvisited node, no later path can beat it — so greedily settling the nearest node is provably correct.",
+    },
+    {
+      title: "3 · Relaxation",
+      body: "Updating neighbors is called relaxation: for each edge from the just-settled node u to a neighbor v, check whether going through u gives a shorter route to v than the best known so far (dist[u] + weight(u,v) < dist[v]). If so, update dist[v] and remember u as v's predecessor. Tracking predecessors lets you reconstruct the actual path, not just its length, at the end.",
+    },
+    {
+      title: "4 · The priority queue",
+      body: "The 'pick the closest unvisited node' step is the bottleneck, and the data structure used for it determines the speed. With a binary heap (priority queue), Dijkstra runs in O((V + E) log V); with a more advanced Fibonacci heap, O(E + V log V). This is a classic example of how choosing the right data structure transforms an algorithm's performance.",
+    },
+    {
+      title: "5 · Limits and relatives",
+      body: "Dijkstra requires non-negative weights — a negative edge can break the greedy guarantee, and you'd need the Bellman–Ford algorithm instead. When you only care about one destination and have a good heuristic (like straight-line distance), A* search extends Dijkstra by steering the search toward the goal, exploring far fewer nodes. Dijkstra is the unguided special case of A*.",
+    },
+    {
+      title: "6 · Where it runs",
+      body: "Every GPS and mapping app, every network router computing packet routes (OSPF, IS-IS), game pathfinding, and countless logistics and operations-research problems use Dijkstra or its descendants. It's the canonical greedy graph algorithm and a cornerstone of any algorithms curriculum — proof that a simple, provably-correct idea can power infrastructure used billions of times a day.",
+    },
+  ],
   "human-knowledge": [
     {
       title: "1 · Formal Sciences",
