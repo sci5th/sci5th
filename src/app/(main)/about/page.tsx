@@ -42,8 +42,7 @@ export default function AboutPage() {
             names the source, such as which AI model generated the image or the
             course a tutorial-derived demo was built from. Images shown{" "}
             <em>without</em> a credit are original artwork made for this site
-            (diagrams, the sci5th logo, site chrome, and interactive demos); the
-            absence of a caption is intentional, not an oversight.
+            (diagrams, the sci5th logo, site chrome, and interactive demos).
           </p>
         </section>
 
