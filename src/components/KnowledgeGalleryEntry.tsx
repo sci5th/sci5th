@@ -9,6 +9,7 @@ import {
   imageCreditPartsFor,
   type KnowledgeGalleryEntry,
 } from "@/config/knowledge-gallery";
+import { ENTRY_STEPS } from "@/config/knowledge-gallery-content";
 import UnityHero from "./UnityHero";
 import InteractivePeriodicTable from "./InteractivePeriodicTable";
 import BackButton from "./BackButton";
@@ -135,7 +136,7 @@ export default function KnowledgeGalleryEntryView({
         })()}
 
       <ol className="flex flex-col gap-5">
-        {entry.steps.map((step) => (
+        {(ENTRY_STEPS[entry.slug] ?? []).map((step) => (
           <li
             key={step.title}
             className="rounded-lg border border-line-700 bg-ink-900 p-5"

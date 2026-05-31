@@ -30,13 +30,14 @@ const EXEMPTIONS = {
   // would drop if/when content moves out — see docs/MDX_OPTION.md for
   // a parked-but-documented version of that move.
   "/human-knowledge": {
-    capKb: 175,
-    reason: "Knowledge tree DATA constant inlined (~33 KB).",
+    capKb: 185,
+    reason:
+      "Knowledge tree DATA constant inlined; grew with added fundamental-law/theory/model nodes.",
   },
   "/knowledge-gallery": {
     capKb: 160,
     reason:
-      "KNOWLEDGE_GALLERY_ENTRIES (33 entries × ~1,400 lines of prose) bundled into the client component.",
+      "Card metadata for 47 entries inlined in the client component. Step prose now lives in knowledge-gallery-content.ts (server-only), so it no longer ships here.",
   },
 };
 

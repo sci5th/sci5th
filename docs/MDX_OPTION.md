@@ -5,6 +5,14 @@
 > is the obvious next step *if* the file ever outgrows that format —
 > but it hasn't yet. This doc exists so the decision is research-ready
 > rather than research-required when (or if) a trigger fires.
+>
+> Update (2026-05-31): the **bundle-size** half of the motivation is
+> already handled without MDX — per-entry step prose now lives in
+> `src/config/knowledge-gallery-content.ts` (`ENTRY_STEPS`), imported
+> only by the server-rendered detail view, so it no longer ships in the
+> client bundle. The remaining MDX triggers below (authoring ergonomics
+> for non-engineers, richer-than-plain-text step bodies, raw entry
+> count / line count) are unaffected and still stand.
 
 ---
 

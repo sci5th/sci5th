@@ -59,10 +59,13 @@ component conventions. The site is dark-only with modest pastel accents.
 │   │   ├── KnowledgeGallery.tsx        # Gallery index (cards + sub-navbar)
 │   │   ├── KnowledgeGalleryEntry.tsx   # Gallery entry view (hero + steps)
 │   │   ├── KnowledgeGalleryFocusHandler.tsx  # Scroll/highlight via ?focus=<slug>
+│   │   ├── InteractivePeriodicTable.tsx  # Interactive Periodic Law hero (client)
 │   │   ├── UnityHero.tsx               # Click-to-play wrapper for Unity demos
 │   │   └── UnityPlayer.tsx             # Unity WebGL loader (client-only)
 │   ├── config/
-│   │   └── knowledge-gallery.ts        # Gallery entry list (typed)
+│   │   ├── knowledge-gallery.ts        # Gallery entry card metadata (typed)
+│   │   ├── knowledge-gallery-content.ts  # Per-entry step prose (server-only)
+│   │   └── periodic-elements.ts        # 118-element dataset for the periodic hero
 │   └── types/
 │       └── css.d.ts
 │
