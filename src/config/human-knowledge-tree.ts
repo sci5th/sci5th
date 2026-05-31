@@ -301,6 +301,7 @@ export const DATA: KnowledgeNode = {
                     { name: "Forces, Work & Energy" },
                     { name: "Momentum & Collisions" },
                     { name: "Circular Motion & Gravitation" },
+                    { name: "Law of Universal Gravitation" },
                     {
                       name: "Conservation Laws (Energy, Momentum, Angular Momentum)",
                     },

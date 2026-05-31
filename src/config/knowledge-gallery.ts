@@ -1118,6 +1118,84 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     ],
   },
   {
+    slug: "law-of-universal-gravitation",
+    title: "Law of Universal Gravitation",
+    summary:
+      "Every mass attracts every other with a force that falls off as the square of the distance — the law that unified falling apples and orbiting planets.",
+    systemPath:
+      "Human Knowledge/Natural Sciences/Physics/Classical Mechanics/Newtonian Mechanics/Law of Universal Gravitation",
+    breadcrumb: "Natural Sciences · Physics",
+    category: "natural",
+    kind: "law",
+    thumbnail: "/UniversalGravitation.webp",
+    imageSource: "first-party",
+    steps: [
+      {
+        title: "1 · One law for heaven and earth",
+        body: "Before Newton, the motion of the planets and the fall of an apple were thought to obey different rules — the heavens were a separate domain. In the Principia (1687) Newton proposed a single law governing both: the same force that pulls an apple to the ground holds the Moon in its orbit. Unifying terrestrial and celestial mechanics under one principle was one of the great conceptual leaps in the history of science.",
+      },
+      {
+        title: "2 · The inverse-square law",
+        body: "The force between two masses is F = G·m₁·m₂/r². It grows with each mass and falls off as the square of the distance between them: double the separation and the force drops to a quarter. G, the gravitational constant, is tiny (6.674×10⁻¹¹ N·m²/kg²), which is why gravity is negligible between everyday objects and only becomes commanding at planetary and stellar scales.",
+      },
+      {
+        title: "3 · Why orbits are ellipses",
+        body: "Combine the inverse-square law with Newton's laws of motion and Kepler's three empirical laws of planetary motion fall out as consequences: orbits are ellipses with the Sun at one focus, a planet sweeps equal areas in equal times, and the square of the orbital period scales with the cube of the orbital radius. A law inferred from falling bodies on Earth thus predicted the precise shape of the solar system.",
+      },
+      {
+        title: "4 · Predictive triumphs",
+        body: "The law let astronomers compute tides, the precession of the equinoxes, and the return of Halley's comet. Its most dramatic success came in 1846: irregularities in Uranus's orbit led Le Verrier and Adams to predict an unseen planet's mass and position from gravitation alone — Neptune was found within a degree of the prediction. A law that forecasts undiscovered worlds is doing the deepest kind of scientific work.",
+      },
+      {
+        title: "5 · The limits — and what replaced them",
+        body: "Newtonian gravity is astonishingly accurate but not exact. It couldn't fully explain the precession of Mercury's perihelion, and it treats gravity as an instantaneous force across empty space — uncomfortable even to Newton. Einstein's general relativity (1915) reframed gravity not as a force but as the curvature of spacetime, reproducing Newton's law in the weak-field limit while correcting it where fields are strong. Newton's law remains the working tool for everything from bridge-building to spacecraft navigation.",
+      },
+      {
+        title: "6 · Where it still rules",
+        body: "Every satellite, every interplanetary mission, every calculation of orbital mechanics uses Newtonian gravitation; the Apollo missions flew on it. It explains the structure of galaxies, the timing of eclipses, and the ocean tides. For the overwhelming majority of physics and engineering, the inverse-square law is not an approximation you tolerate — it is exactly the right tool, and only the most extreme regimes require its relativistic successor.",
+      },
+    ],
+  },
+  {
+    slug: "conservation-laws",
+    title: "Conservation Laws",
+    summary:
+      "Certain quantities — energy, momentum, angular momentum, charge — never change in a closed system. Among the deepest and most useful principles in all of physics.",
+    systemPath:
+      "Human Knowledge/Natural Sciences/Physics/Classical Mechanics/Newtonian Mechanics/Conservation Laws (Energy, Momentum, Angular Momentum)",
+    breadcrumb: "Natural Sciences · Physics",
+    category: "natural",
+    kind: "law",
+    thumbnail: "/ConservationLaws.webp",
+    imageSource: "first-party",
+    steps: [
+      {
+        title: "1 · What 'conserved' means",
+        body: "A conserved quantity is one whose total value in an isolated system stays constant over time, no matter how complicated the internal interactions. Energy may change form, momentum may shift between objects, but the totals don't budge. This makes conservation laws extraordinarily powerful: you can predict the outcome of a process without tracking every intermediate step — only the before and after totals must match.",
+      },
+      {
+        title: "2 · Conservation of energy",
+        body: "Energy can be converted between kinetic, potential, thermal, chemical, electromagnetic, and other forms, but the total never changes. A roller coaster trades height for speed; a battery turns chemical energy into electrical; friction turns motion into heat. The first law of thermodynamics is this principle applied to heat and work. There is no process anywhere in nature that creates or destroys energy.",
+      },
+      {
+        title: "3 · Conservation of momentum",
+        body: "The total momentum (mass × velocity) of a closed system is constant. It's why a rocket accelerates by expelling exhaust, why a gun recoils, and why two colliding billiard balls share their motion in a predictable way. Momentum conservation follows directly from Newton's third law, and it holds even in collisions where kinetic energy is lost to heat or deformation.",
+      },
+      {
+        title: "4 · Angular momentum and charge",
+        body: "Angular momentum — the rotational analogue of momentum — is also conserved: a figure skater spins faster by pulling in their arms, and planets sweep equal areas in equal times for the same reason. Electric charge is conserved too: it can move and separate but the net charge of an isolated system is fixed. Each conserved quantity constrains what nature is allowed to do.",
+      },
+      {
+        title: "5 · Noether's theorem — the deep reason",
+        body: "In 1918 Emmy Noether proved one of the most beautiful results in physics: every conservation law corresponds to a symmetry of nature. Energy is conserved because the laws of physics don't change over time; momentum because they're the same everywhere in space; angular momentum because they're the same in every direction. Conservation laws aren't arbitrary bookkeeping rules — they are the shadow cast by the symmetries of the universe.",
+      },
+      {
+        title: "6 · Why physicists reach for them first",
+        body: "Conservation laws survive the transition to relativity and quantum mechanics largely intact (suitably generalized — mass and energy merge into mass-energy, for instance). They let you solve problems that would be intractable by tracking forces, and they constrain proposed new theories: any candidate law of physics that violated energy or charge conservation would be regarded with deep suspicion. They are among the most reliable statements science can make.",
+      },
+    ],
+  },
+  {
     slug: "quantum-mechanics",
     title: "Quantum Mechanics",
     summary:
@@ -1249,6 +1327,45 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
       {
         title: "7 · Reach beyond engines",
         body: "The laws constrain everything that moves energy around: chemical reactions (free energy decides what's spontaneous), refrigerators and heat pumps (you can move heat against its gradient, but only by spending work), biology (life maintains local order by exporting entropy to its surroundings — it does not violate the second law), information theory (Landauer's principle ties erasing a bit to a minimum heat cost), and cosmology (the 'heat death' of the universe is the second law extrapolated to the end of time). Few laws in science have a wider blast radius.",
+      },
+    ],
+  },
+  {
+    slug: "maxwells-equations",
+    title: "Maxwell's Equations",
+    summary:
+      "Four equations that unified electricity, magnetism, and light into a single theory — and predicted electromagnetic waves before anyone had made one.",
+    systemPath:
+      "Human Knowledge/Natural Sciences/Physics/Electromagnetism/Maxwell's Equations",
+    breadcrumb: "Natural Sciences · Physics",
+    category: "natural",
+    kind: "law",
+    thumbnail: "/MaxwellsEquations.webp",
+    imageSource: "first-party",
+    steps: [
+      {
+        title: "1 · Two forces become one",
+        body: "By the mid-1800s, electricity and magnetism were known to be related — currents deflect compass needles, changing magnets induce currents — but they were described by a patchwork of separate empirical rules. James Clerk Maxwell (1860s) gathered the work of Gauss, Ampère, and Faraday, added a crucial missing term of his own, and produced a unified field theory: electricity and magnetism are two aspects of a single electromagnetic field.",
+      },
+      {
+        title: "2 · The four laws",
+        body: "Gauss's law: electric charges produce electric fields radiating from them. Gauss's law for magnetism: there are no magnetic monopoles — magnetic field lines always close on themselves. Faraday's law: a changing magnetic field creates an electric field (the basis of every generator). Ampère–Maxwell law: electric currents and changing electric fields create magnetic fields. Four statements capture the entire classical behavior of electromagnetism.",
+      },
+      {
+        title: "3 · Maxwell's missing term",
+        body: "Maxwell's decisive contribution was the 'displacement current' — recognizing that a changing electric field, not just a physical current, generates a magnetic field. This small addition made the equations mathematically consistent and had a staggering consequence: it allowed a changing electric field to create a magnetic field, which creates an electric field, and so on — a self-sustaining wave.",
+      },
+      {
+        title: "4 · Light is an electromagnetic wave",
+        body: "When Maxwell solved his equations for empty space, they predicted waves of oscillating electric and magnetic fields traveling at a speed set by two measured electric and magnetic constants. That speed came out to ≈3×10⁸ m/s — exactly the measured speed of light. The conclusion was inescapable and breathtaking: light is an electromagnetic wave. Radio, microwaves, X-rays, and visible light are all the same phenomenon at different frequencies.",
+      },
+      {
+        title: "5 · The technological harvest",
+        body: "Hertz generated and detected radio waves in 1887, confirming the prediction; within decades came radio, television, radar, and wireless communication. Electric motors, generators, transformers, and the entire power grid are applied Maxwell. Antennas, fiber optics, MRI, and Wi-Fi all rest on these four equations. Few pieces of pure theory have so thoroughly remade daily life.",
+      },
+      {
+        title: "6 · The bridge to relativity",
+        body: "Maxwell's equations hold the same form for all observers and build in a fixed speed of light — which sat awkwardly with Newtonian mechanics, where speeds simply add. Einstein resolved the tension in 1905 with special relativity, taking the constancy of light's speed as a postulate. Electromagnetism was already, secretly, a relativistic theory; Maxwell's equations were the clue that reshaped our understanding of space and time itself.",
       },
     ],
   },
@@ -1389,6 +1506,45 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     ],
   },
   {
+    slug: "law-of-conservation-of-mass",
+    title: "Law of Conservation of Mass",
+    summary:
+      "Matter is neither created nor destroyed in a chemical reaction — the insight that turned alchemy into quantitative chemistry.",
+    systemPath:
+      "Human Knowledge/Natural Sciences/Chemistry/Law of Conservation of Mass",
+    breadcrumb: "Natural Sciences · Chemistry",
+    category: "natural",
+    kind: "law",
+    thumbnail: "/ConservationOfMass.webp",
+    imageSource: "first-party",
+    steps: [
+      {
+        title: "1 · Weighing the invisible",
+        body: "Before the late 1700s, chemists thought burning destroyed matter — a log became a little ash, so surely mass was lost. The trouble was that nobody had weighed the gases. Combustion releases or consumes invisible gas, and ignoring it made matter seem to vanish or appear. The law of conservation of mass began with the discipline of accounting for everything, including what you cannot see.",
+      },
+      {
+        title: "2 · Lavoisier's sealed flasks",
+        body: "Antoine Lavoisier (1770s) ran reactions in sealed vessels and weighed them before and after with great care. When he heated mercury in a closed flask, the metal gained exactly the mass of air that disappeared; reverse the reaction and the air came back. His conclusion, stated in 1789: in every chemical reaction, the total mass of the reactants equals the total mass of the products. Nothing is lost; matter only rearranges.",
+      },
+      {
+        title: "3 · Atoms rearranging",
+        body: "Dalton's atomic theory (early 1800s) explained why: a chemical reaction shuffles atoms into new combinations but neither creates nor destroys them. Every atom on the left side of an equation must appear on the right. This is exactly why chemical equations are balanced — the count of each kind of atom is identical before and after. Conservation of mass is the bookkeeping rule that makes chemical equations meaningful.",
+      },
+      {
+        title: "4 · The payoff: stoichiometry",
+        body: "Once you trust that mass is conserved, chemistry becomes quantitative. You can calculate exactly how much oxygen a given mass of fuel needs, how much product a reaction will yield, and what's left over. This arithmetic — stoichiometry — underpins all of chemical manufacturing, pharmacology, and metallurgy. A qualitative craft became a predictive science the moment reactions had to balance.",
+      },
+      {
+        title: "5 · The relativistic footnote",
+        body: "Einstein's E = mc² (1905) showed that mass and energy are interconvertible, so in nuclear reactions a tiny amount of mass is converted to energy and 'mass alone' is not strictly conserved — what's conserved is total mass-energy. But the mass change in ordinary chemical reactions is far too small to measure (about one part in a billion). For all of chemistry, Lavoisier's law holds with complete practical exactness.",
+      },
+      {
+        title: "6 · A founding pillar",
+        body: "Conservation of mass, together with the laws of definite and multiple proportions, established that matter is made of discrete, countable units combining in fixed ratios — the empirical ground from which atomic theory grew. It remains one of the first laws every chemistry student learns, because nothing else in the subject makes sense without it.",
+      },
+    ],
+  },
+  {
     slug: "periodic-law",
     title: "Periodic Law",
     summary:
@@ -1424,6 +1580,45 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
       {
         title: "6 · Reach and limits",
         body: "The periodic law organizes all of chemistry and guided the discovery and synthesis of elements out to the superheavy region (the table now runs to oganesson, element 118). Its limits are instructive: relativistic effects make the heaviest elements behave unexpectedly (gold's color, mercury's liquidity), and the very heaviest synthetic atoms exist for only fractions of a second. But as an organizing principle that turned a list of substances into a predictive system, the periodic law is one of the most successful generalizations in all of science.",
+      },
+    ],
+  },
+  {
+    slug: "laws-of-inheritance",
+    title: "Laws of Inheritance",
+    summary:
+      "Mendel's three rules of heredity — discovered in a monastery pea garden, ignored for 35 years, then made the foundation of genetics.",
+    systemPath:
+      "Human Knowledge/Natural Sciences/Biology/Genetics & Genomics/Laws of Inheritance (Mendelian Genetics)",
+    breadcrumb: "Natural Sciences · Biology",
+    category: "natural",
+    kind: "law",
+    thumbnail: "/LawsOfInheritance.webp",
+    imageSource: "first-party",
+    steps: [
+      {
+        title: "1 · Counting peas",
+        body: "Gregor Mendel, an Augustinian friar, spent the 1850s–60s breeding tens of thousands of pea plants and — unusually for his time — counting the offspring. He tracked simple either/or traits: tall vs. short, round vs. wrinkled seeds, purple vs. white flowers. Where others saw a blurry blend of parental features, Mendel's quantitative approach revealed sharp, repeatable numerical ratios. Heredity, it turned out, was discrete, not a smooth mixing of fluids.",
+      },
+      {
+        title: "2 · The Law of Segregation",
+        body: "Each organism carries two copies (alleles) of each hereditary factor, and the two separate during the formation of sex cells, so each gamete carries just one. Offspring receive one allele from each parent. This explains why a trait can disappear in one generation and reappear in the next: a recessive allele can be carried, hidden, then expressed when paired with another copy.",
+      },
+      {
+        title: "3 · Dominant and recessive",
+        body: "When two different alleles are present, one (dominant) can mask the other (recessive). Crossing pure tall with pure short peas gave all-tall offspring — but crossing those hybrids produced tall and short in a clean 3:1 ratio. The recessive trait wasn't destroyed; it was hidden in the hybrids and re-emerged in a quarter of the next generation. The 3:1 ratio is the fingerprint of single-gene Mendelian inheritance.",
+      },
+      {
+        title: "4 · The Law of Independent Assortment",
+        body: "Alleles for different traits are distributed to gametes independently of one another — seed shape is inherited without regard to flower color, yielding predictable combined ratios (9:3:3:1 for two traits). This holds for genes on different chromosomes; genes close together on the same chromosome are an important exception (linkage), discovered later. The Punnett square is just a tidy way of enumerating these independent combinations.",
+      },
+      {
+        title: "5 · Lost, then rediscovered",
+        body: "Mendel published in 1866 to near-total silence; the significance of his counting was missed for a generation. In 1900 three botanists — de Vries, Correns, and Tschermak — independently rediscovered the same rules and found Mendel's paper. The timing was decisive: chromosomes had just been observed, and biologists quickly realized Mendel's 'factors' rode on them. The science of genetics was born from a 35-year-old forgotten paper.",
+      },
+      {
+        title: "6 · From peas to the gene",
+        body: "Mendel's abstract 'factors' became genes; alleles became variants of DNA sequence; segregation and assortment became the visible behavior of chromosomes in meiosis. The laws have well-understood exceptions — linkage, incomplete dominance, polygenic and sex-linked traits — but they remain the bedrock framework. Combined with natural selection, Mendelian inheritance produced the modern evolutionary synthesis and underlies all of medical and agricultural genetics.",
       },
     ],
   },
