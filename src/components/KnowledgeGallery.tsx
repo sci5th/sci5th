@@ -106,7 +106,13 @@ function Thumbnail({ entry }: { entry: KnowledgeGalleryEntry }) {
     // The credit caption is overlaid on the bottom-right corner of the
     // thumbnail with a soft right-side gradient — Instagram/Vimeo style —
     // so it sits next to the image without claiming a separate row.
-    const credit = imageCreditFor(entry.imageSource, entry.attribution);
+    // First-party original work carries no caption: there's nothing to
+    // disclose and no third party to credit. Absence of a caption therefore
+    // means "original work made for this site" (explained on /about).
+    const credit =
+      entry.imageSource === "first-party"
+        ? null
+        : imageCreditFor(entry.imageSource, entry.attribution);
     return (
       <div
         className="relative aspect-video w-full overflow-hidden rounded-md bg-ink-800 bg-cover bg-center"
@@ -114,14 +120,16 @@ function Thumbnail({ entry }: { entry: KnowledgeGalleryEntry }) {
         role="img"
         aria-label={`${entry.title} thumbnail`}
       >
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-y-0 right-0 flex w-2/3 items-end justify-end bg-gradient-to-l from-black/60 via-black/30 to-transparent px-2 pb-1"
-        >
-          <span className="font-mono text-[0.625rem] uppercase tracking-wide text-white/90">
-            {credit}
-          </span>
-        </div>
+        {credit && (
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-y-0 right-0 flex w-2/3 items-end justify-end bg-gradient-to-l from-black/60 via-black/30 to-transparent px-2 pb-1"
+          >
+            <span className="font-mono text-[0.625rem] uppercase tracking-wide text-white/90">
+              {credit}
+            </span>
+          </div>
+        )}
       </div>
     );
   }

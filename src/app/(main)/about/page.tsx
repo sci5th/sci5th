@@ -37,11 +37,13 @@ export default function AboutPage() {
             Images and other assets
           </h2>
           <p className="mt-2 text-sm leading-relaxed text-text-300 md:text-base">
-            Every image on the site is credited next to itself, on the card or
-            hero where it appears. The credit names the source &mdash; which AI
-            model generated it, or that it is original first-party work (the
-            sci5th logo, site chrome, and any interactive demos). If the credit
-            is missing, treat that as a bug and let us know.
+            Images that come from somewhere else are credited next to
+            themselves, on the card or hero where they appear &mdash; the credit
+            names the source, such as which AI model generated the image or the
+            course a tutorial-derived demo was built from. Images shown{" "}
+            <em>without</em> a credit are original artwork made for this site
+            (diagrams, the sci5th logo, site chrome, and interactive demos); the
+            absence of a caption is intentional, not an oversight.
           </p>
         </section>
 

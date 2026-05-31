@@ -113,6 +113,7 @@ export default function KnowledgeGalleryEntryView({
       )}
 
       {!entry.interactive &&
+        entry.imageSource !== "first-party" &&
         (() => {
           // Render the credit with a real link when the entry has
           // attribution. Non-attributed sources render the plain prefix.
