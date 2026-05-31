@@ -137,8 +137,9 @@ export interface KnowledgeGalleryEntry {
    * renders a self-contained interactive widget instead of the static image
    * (the grid-card thumbnail still uses `thumbnail`). Currently supported:
    *  • "periodic-table" — an interactive periodic table (Periodic Law).
+   *  • "neuron" — an interactive action-potential demo (Nervous System).
    */
-  interactive?: "periodic-table";
+  interactive?: "periodic-table" | "neuron";
 }
 
 /**
@@ -845,6 +846,7 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     kind: "system",
     thumbnail: "/NervousSystem.webp",
     imageSource: "first-party",
+    interactive: "neuron",
   },
   {
     slug: "plate-tectonics",
