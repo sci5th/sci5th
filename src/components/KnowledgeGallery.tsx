@@ -96,6 +96,83 @@ function resolveSection(raw: string | undefined): GallerySection {
   return SECTIONS.find((s) => s.id === raw)?.id ?? "all";
 }
 
+// Curated "learning path" order per kind: the sequence to study the entries
+// start-to-end, where each builds on the ones before. Used to order (and
+// number) every kind-scoped tab. The "All" tab stays A–Z. Slugs not listed
+// for a kind fall to the end, A–Z. Keep in sync when adding entries.
+const LEARNING_ORDER: Record<KnowledgeGalleryKind, string[]> = {
+  law: [
+    "newtons-laws-of-motion",
+    "law-of-universal-gravitation",
+    "conservation-laws",
+    "laws-of-thermodynamics",
+    "maxwells-equations",
+    "law-of-conservation-of-mass",
+    "periodic-law",
+    "laws-of-inheritance",
+  ],
+  theory: [
+    "set-theory",
+    "model-theory",
+    "information-theory",
+    "game-theory",
+    "general-systems-theory",
+    "chaos-theory",
+    "atomic-theory",
+    "quantum-mechanics",
+    "special-relativity",
+    "general-relativity",
+    "big-bang-theory",
+    "cell-theory",
+    "germ-theory-of-disease",
+    "theory-of-evolution",
+    "plate-tectonics",
+    "cognitive-theory",
+  ],
+  model: [
+    "bohr-model",
+    "standard-model",
+    "standard-model-of-cosmology",
+    "dna-double-helix",
+    "generative-models",
+    "foundation-models",
+  ],
+  system: [
+    "solar-system",
+    "ecosystems",
+    "nervous-system",
+    "complex-systems",
+    "complex-adaptive-systems",
+    "operating-systems",
+    "distributed-systems",
+    "obsidian-zettelkasten",
+  ],
+  algorithm: [
+    "binary-search",
+    "quicksort",
+    "dijkstras-algorithm",
+    "behavior-trees",
+    "goal-oriented-action-planning",
+  ],
+  modularity: [
+    "software-modularity",
+    "modular-design",
+    "network-modularity",
+    "biological-modularity",
+    "modularity-of-mind",
+    "modular-organizations",
+  ],
+  other: [
+    "human-knowledge",
+    "formal-sciences",
+    "natural-sciences",
+    "applied-sciences",
+    "social-sciences",
+    "humanities",
+    "professions",
+  ],
+};
+
 // ── Card thumbnail ───────────────────────────────────────────────────────────
 
 function Thumbnail({ entry }: { entry: KnowledgeGalleryEntry }) {
@@ -242,16 +319,36 @@ export default function KnowledgeGallery() {
   }
 
   // Display ordering, applied at render time so the data file keeps its
-  // authored tree-order. Every view is sorted A–Z by title: "All" across
-  // all entries, and each tab (including "Others") within its own kind.
+  // authored tree-order. "All" is a flat A–Z sort. Each kind-scoped tab
+  // (including "Others") follows its curated LEARNING_ORDER — the
+  // study-it-in-this-sequence path — and its cards are numbered 1..n.
   const byTitle = (a: KnowledgeGalleryEntry, b: KnowledgeGalleryEntry) =>
     a.title.localeCompare(b.title);
 
-  const visible: KnowledgeGalleryEntry[] = (
+  let visible: KnowledgeGalleryEntry[];
+  if (activeMeta.kind !== null) {
+    const order = LEARNING_ORDER[activeMeta.kind];
+    visible = KNOWLEDGE_GALLERY_ENTRIES.filter(
+      (e) => e.kind === activeMeta.kind
+    ).sort((a, b) => {
+      const ia = order.indexOf(a.slug);
+      const ib = order.indexOf(b.slug);
+      if (ia === -1 && ib === -1) return byTitle(a, b);
+      if (ia === -1) return 1;
+      if (ib === -1) return -1;
+      return ia - ib;
+    });
+  } else {
+    visible = [...KNOWLEDGE_GALLERY_ENTRIES].sort(byTitle);
+  }
+
+  // Number the cards on kind-scoped tabs (the learning-path sequence); the
+  // "All" tab is unnumbered. Built from the ordered `visible` so the numbers
+  // stay correct even where the Theories view splits into two sub-sections.
+  const numbers =
     activeMeta.kind !== null
-      ? KNOWLEDGE_GALLERY_ENTRIES.filter((e) => e.kind === activeMeta.kind)
-      : [...KNOWLEDGE_GALLERY_ENTRIES]
-  ).sort(byTitle);
+      ? new Map(visible.map((e, i) => [e.slug, i + 1]))
+      : null;
 
   return (
     <section className="w-full">
@@ -281,9 +378,9 @@ export default function KnowledgeGallery() {
       {visible.length === 0 ? (
         <p className="text-center text-sm text-text-500">{activeMeta.empty}</p>
       ) : active === "theories" ? (
-        <TheoriesView entries={visible} active={active} />
+        <TheoriesView entries={visible} active={active} numbers={numbers} />
       ) : (
-        <EntryGrid entries={visible} active={active} />
+        <EntryGrid entries={visible} active={active} numbers={numbers} />
       )}
     </section>
   );
@@ -294,9 +391,11 @@ export default function KnowledgeGallery() {
 function EntryGrid({
   entries,
   active,
+  numbers,
 }: {
   entries: ReadonlyArray<KnowledgeGalleryEntry>;
   active: GallerySection;
+  numbers?: Map<string, number> | null;
 }) {
   return (
     <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3">
@@ -321,6 +420,11 @@ function EntryGrid({
                 {entry.breadcrumb}
               </p>
               <h3 className="mt-1 line-clamp-1 text-lg font-medium text-text-100 group-hover:text-brand-pink">
+                {numbers?.get(entry.slug) != null && (
+                  <span className="text-text-500">
+                    {numbers.get(entry.slug)}.{" "}
+                  </span>
+                )}
                 {entry.title}
               </h3>
               <p className="mt-1 line-clamp-2 text-sm text-text-300">
@@ -360,9 +464,11 @@ function EntryGrid({
 function TheoriesView({
   entries,
   active,
+  numbers,
 }: {
   entries: ReadonlyArray<KnowledgeGalleryEntry>;
   active: GallerySection;
+  numbers?: Map<string, number> | null;
 }) {
   const foundational = entries.filter((e) => e.category === "formal");
   const empirical = entries.filter((e) => e.category !== "formal");
@@ -383,7 +489,7 @@ function TheoriesView({
               experiment.
             </p>
           </header>
-          <EntryGrid entries={foundational} active={active} />
+          <EntryGrid entries={foundational} active={active} numbers={numbers} />
         </section>
       )}
       {empirical.length > 0 && (
@@ -400,7 +506,7 @@ function TheoriesView({
               to observation.
             </p>
           </header>
-          <EntryGrid entries={empirical} active={active} />
+          <EntryGrid entries={empirical} active={active} numbers={numbers} />
         </section>
       )}
     </div>
