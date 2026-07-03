@@ -13,6 +13,7 @@ import { ENTRY_STEPS } from "@/config/knowledge-gallery-content";
 import UnityHero from "./UnityHero";
 import InteractivePeriodicTable from "./InteractivePeriodicTable";
 import InteractiveNeuron from "./InteractiveNeuron";
+import InteractiveThruster from "./InteractiveThruster";
 import BackButton from "./BackButton";
 
 export default function KnowledgeGalleryEntryView({
@@ -87,6 +88,8 @@ export default function KnowledgeGalleryEntryView({
         <InteractivePeriodicTable />
       ) : entry.interactive === "neuron" ? (
         <InteractiveNeuron />
+      ) : entry.interactive === "thruster" ? (
+        <InteractiveThruster />
       ) : entry.unity ? (
         <UnityHero
           title={entry.title}

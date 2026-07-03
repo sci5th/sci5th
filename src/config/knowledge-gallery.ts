@@ -138,8 +138,9 @@ export interface KnowledgeGalleryEntry {
    * (the grid-card thumbnail still uses `thumbnail`). Currently supported:
    *  • "periodic-table" — an interactive periodic table (Periodic Law).
    *  • "neuron" — an interactive action-potential demo (Nervous System).
+   *  • "thruster" — a frictionless-spacecraft mini-game (Newton's Laws).
    */
-  interactive?: "periodic-table" | "neuron";
+  interactive?: "periodic-table" | "neuron" | "thruster";
 }
 
 /**
@@ -564,6 +565,7 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     kind: "law",
     thumbnail: "/NewtonsLaws.webp",
     imageSource: "first-party",
+    interactive: "thruster",
   },
   {
     slug: "law-of-universal-gravitation",
