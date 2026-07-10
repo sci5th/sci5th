@@ -138,7 +138,7 @@ export interface KnowledgeGalleryEntry {
    * (the grid-card thumbnail still uses `thumbnail`). Currently supported:
    *  • "periodic-table" — an interactive periodic table (Periodic Law).
    *  • "neuron" — an interactive action-potential demo (Nervous System).
-   *  • "thruster" — a frictionless-spacecraft mini-game (Newton's Laws).
+   *  • "thruster" — an asteroid-tug momentum mini-game (Newton's Laws).
    *  • "gravity" — a Newton's-cannonball orbit-launcher mini-game (Law of
    *    Universal Gravitation).
    */

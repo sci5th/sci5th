@@ -4,30 +4,37 @@ import { useEffect, useRef, useState } from "react";
 
 // Interactive hero + mini-game for the "Newton's Laws of Motion" entry.
 //
-// A frictionless spacecraft you steer to a docking ring using directional
-// thrust. All three laws are visible in play:
+// Asteroid Tug: nudge drifting asteroids into a capture ring by bumping them
+// with your ship. All three laws ARE the gameplay:
 //
-//  • 1st law (inertia): with no thrust the ship coasts forever at constant
-//    velocity — it never slows on its own, so you must thrust *backwards* to
-//    stop. This is the lesson most players feel first.
-//  • 2nd law (F = ma): thrust is a fixed force; the Mass slider changes how
-//    much that force accelerates the ship. Heavier ship → sluggish response.
-//  • 3rd law (action–reaction): every thrust fires an exhaust plume in the
-//    exact opposite direction to the push the ship receives.
+//  • 1st law (inertia): nothing slows down on its own — your ship and every
+//    rock coast at constant velocity until something pushes them.
+//  • 2nd law (F = ma): the same bump barely budges a heavy asteroid and sends
+//    a light one flying. Every rock wears its mass on its face.
+//  • 3rd law (action–reaction): every push is mutual — the collision impulse
+//    on the rock is paired with an equal, opposite impulse on your ship
+//    (watch the paired arrows at the contact point, and feel the recoil).
 //
-// Pure React + SVG, no external libs, no storage. Respects
-// prefers-reduced-motion by dropping the decorative star drift and exhaust
-// flicker (the physics loop still runs — it is the point of the widget).
+// Collisions conserve momentum exactly (impulse-based, equal and opposite by
+// construction). Pure React + SVG, no external libs, no storage. Respects
+// prefers-reduced-motion by dropping the decorative star drift, exhaust
+// flicker, and impulse-arrow fade (the physics loop still runs — it is the
+// point of the widget).
 
 const VW = 960;
 const VH = 540;
 
-const SHIP_R = 16;
-const RING_R = 46;
-const DOCK_SPEED = 70; // must be slower than this, inside the ring, to dock
-const THRUST = 640; // force magnitude (units / s^2 at mass = 1)
-const RESTITUTION = 0.68; // wall bounce energy retained
-const MARGIN = 70; // keep target away from the edges
+const SHIP_R = 14;
+const SHIP_M = 1;
+const THRUST = 620; // force magnitude (ship mass is 1)
+const WALL_E = 0.6; // wall bounce energy retained
+const HIT_E = 0.35; // body–body restitution: soft, push-friendly bumps
+const ZONE_R = 78;
+const CAPTURE_SPEED = 55; // slower than this, inside the ring → captured
+const MARGIN = 60;
+
+// Scripted opening rounds, then random heavier ones.
+const ROUND_MASSES: number[][] = [[2], [2, 5], [3, 6, 10]];
 
 // Palette (mirrors the dark ink tokens; SVG needs literal colors).
 const SKY = "#a7c5e8";
@@ -60,8 +67,33 @@ const DIR_VEC: Record<Dir, { x: number; y: number }> = {
   right: { x: 1, y: 0 },
 };
 
+type Body = {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  m: number;
+  r: number;
+};
+type Asteroid = Body & {
+  captured: boolean;
+  craters: { dx: number; dy: number; cr: number }[];
+};
+type Flash = {
+  x: number;
+  y: number;
+  nx: number;
+  ny: number;
+  mag: number;
+  t: number;
+};
+
 function rand(min: number, max: number) {
   return min + Math.random() * (max - min);
+}
+
+function asteroidRadius(m: number) {
+  return 14 + m * 2.6;
 }
 
 // A fixed starfield, generated once (module scope) so it never re-seeds.
@@ -73,46 +105,100 @@ const STARS = Array.from({ length: 46 }, () => ({
 }));
 
 export default function InteractiveThruster() {
-  const [mass, setMass] = useState(1.4);
-  const [docks, setDocks] = useState(0);
-  const [docked, setDocked] = useState(false);
+  const [round, setRound] = useState(0);
+  const [captured, setCaptured] = useState(0);
+  const [total, setTotal] = useState(1);
+  const [cleared, setCleared] = useState(false);
   const [thrusting, setThrusting] = useState(false);
   const [, setTick] = useState(0); // forces a re-render each animation frame
 
   // Physics state lives in refs so the rAF loop mutates without re-subscribing.
-  const pos = useRef({ x: 190, y: VH / 2 });
-  const vel = useRef({ x: 0, y: 0 });
-  const heading = useRef(0); // radians, ship nose direction
-  const target = useRef({ x: VW - 220, y: VH / 2 });
+  const ship = useRef<Body>({
+    x: 150,
+    y: VH / 2,
+    vx: 0,
+    vy: 0,
+    m: SHIP_M,
+    r: SHIP_R,
+  });
+  const rocks = useRef<Asteroid[]>([]);
+  const zone = useRef({ x: VW - 200, y: VH / 2 });
+  const heading = useRef(0);
   const active = useRef<Set<Dir>>(new Set());
-  const massRef = useRef(mass);
-  const dockedRef = useRef(false);
+  const flashes = useRef<Flash[]>([]);
+  const lastBumpAt = useRef(-1e9);
+  const roundRef = useRef(0);
+  const clearedRef = useRef(false);
   const reduced = useRef(false);
   const focused = useRef(false);
   const raf = useRef<number | null>(null);
   const last = useRef(0);
   const starPhase = useRef(0);
 
-  useEffect(() => {
-    massRef.current = mass;
-  }, [mass]);
+  const setupRound = (idx: number) => {
+    const masses =
+      idx < ROUND_MASSES.length
+        ? ROUND_MASSES[idx]
+        : Array.from({ length: 3 }, () => Math.round(rand(3, 12)));
 
-  const placeTarget = () => {
-    // Drop the ring somewhere new, comfortably away from the ship + edges.
-    for (let i = 0; i < 40; i++) {
-      const x = rand(MARGIN, VW - MARGIN);
-      const y = rand(MARGIN, VH - MARGIN);
-      const dx = x - pos.current.x;
-      const dy = y - pos.current.y;
-      if (Math.hypot(dx, dy) > 260) {
-        target.current = { x, y };
-        return;
+    ship.current = { x: 150, y: VH / 2, vx: 0, vy: 0, m: SHIP_M, r: SHIP_R };
+    heading.current = 0;
+    active.current.clear();
+    flashes.current = [];
+    lastBumpAt.current = -1e9;
+
+    for (let i = 0; i < 60; i++) {
+      const x = rand(MARGIN + ZONE_R, VW - MARGIN - ZONE_R);
+      const y = rand(MARGIN + ZONE_R, VH - MARGIN - ZONE_R);
+      if (Math.hypot(x - ship.current.x, y - ship.current.y) > 300) {
+        zone.current = { x, y };
+        break;
       }
     }
-    target.current = {
-      x: rand(MARGIN, VW - MARGIN),
-      y: rand(MARGIN, VH - MARGIN),
-    };
+
+    const placed: Asteroid[] = [];
+    masses.forEach((m) => {
+      const r = asteroidRadius(m);
+      for (let i = 0; i < 80; i++) {
+        const x = rand(MARGIN + r, VW - MARGIN - r);
+        const y = rand(MARGIN + r, VH - MARGIN - r);
+        const clearOfZone =
+          Math.hypot(x - zone.current.x, y - zone.current.y) > ZONE_R + r + 60;
+        const clearOfShip =
+          Math.hypot(x - ship.current.x, y - ship.current.y) > 140;
+        const clearOfRocks = placed.every(
+          (a) => Math.hypot(x - a.x, y - a.y) > a.r + r + 14
+        );
+        if (clearOfZone && clearOfShip && clearOfRocks) {
+          placed.push({
+            x,
+            y,
+            vx: 0,
+            vy: 0,
+            m,
+            r,
+            captured: false,
+            craters: [
+              {
+                dx: rand(-0.4, 0.1) * r,
+                dy: rand(-0.4, 0.2) * r,
+                cr: r * 0.22,
+              },
+              { dx: rand(0.1, 0.45) * r, dy: rand(0, 0.45) * r, cr: r * 0.15 },
+            ],
+          });
+          break;
+        }
+      }
+    });
+    rocks.current = placed;
+    roundRef.current = idx;
+    clearedRef.current = false;
+    setRound(idx);
+    setTotal(placed.length);
+    setCaptured(0);
+    setCleared(false);
+    setThrusting(false);
   };
 
   const setDir = (d: Dir, on: boolean) => {
@@ -121,14 +207,59 @@ export default function InteractiveThruster() {
     setThrusting(active.current.size > 0);
   };
 
-  const reset = () => {
-    pos.current = { x: 190, y: VH / 2 };
-    vel.current = { x: 0, y: 0 };
-    active.current.clear();
-    dockedRef.current = false;
-    setDocked(false);
-    setThrusting(false);
-    placeTarget();
+  // Momentum-conserving impulse between two bodies, with positional
+  // de-penetration. The ±j pair is the third law, literally.
+  const collide = (A: Body, B: Body) => {
+    const dx = B.x - A.x;
+    const dy = B.y - A.y;
+    const dist = Math.hypot(dx, dy) || 0.001;
+    const overlap = A.r + B.r - dist;
+    if (overlap <= 0) return;
+    const nx = dx / dist;
+    const ny = dy / dist;
+    const invA = 1 / A.m;
+    const invB = 1 / B.m;
+    const corr = overlap / (invA + invB);
+    A.x -= nx * corr * invA;
+    A.y -= ny * corr * invA;
+    B.x += nx * corr * invB;
+    B.y += ny * corr * invB;
+    const rvn = (B.vx - A.vx) * nx + (B.vy - A.vy) * ny;
+    if (rvn > 0) return;
+    const j = (-(1 + HIT_E) * rvn) / (invA + invB);
+    A.vx -= j * nx * invA;
+    A.vy -= j * ny * invA;
+    B.vx += j * nx * invB;
+    B.vy += j * ny * invB;
+    if (j > 14) {
+      flashes.current.push({
+        x: A.x + nx * A.r,
+        y: A.y + ny * A.r,
+        nx,
+        ny,
+        mag: j,
+        t: 0.45,
+      });
+      if (flashes.current.length > 8) flashes.current.shift();
+    }
+    lastBumpAt.current = performance.now();
+  };
+
+  const bounceWalls = (b: Body) => {
+    if (b.x < b.r) {
+      b.x = b.r;
+      b.vx = Math.abs(b.vx) * WALL_E;
+    } else if (b.x > VW - b.r) {
+      b.x = VW - b.r;
+      b.vx = -Math.abs(b.vx) * WALL_E;
+    }
+    if (b.y < b.r) {
+      b.y = b.r;
+      b.vy = Math.abs(b.vy) * WALL_E;
+    } else if (b.y > VH - b.r) {
+      b.y = VH - b.r;
+      b.vy = -Math.abs(b.vy) * WALL_E;
+    }
   };
 
   useEffect(() => {
@@ -137,7 +268,7 @@ export default function InteractiveThruster() {
     const onMq = () => (reduced.current = mq.matches);
     mq.addEventListener("change", onMq);
 
-    placeTarget();
+    setupRound(0);
 
     const onKeyDown = (e: KeyboardEvent) => {
       const d = KEY_TO_DIR[e.key];
@@ -160,52 +291,59 @@ export default function InteractiveThruster() {
       const dt = Math.min((now - last.current) / 1000, 0.032);
       last.current = now;
 
-      const a = THRUST / massRef.current;
+      const s = ship.current;
       let ax = 0;
       let ay = 0;
       active.current.forEach((d) => {
-        ax += DIR_VEC[d].x * a;
-        ay += DIR_VEC[d].y * a;
+        ax += (DIR_VEC[d].x * THRUST) / s.m;
+        ay += (DIR_VEC[d].y * THRUST) / s.m;
+      });
+      s.vx += ax * dt;
+      s.vy += ay * dt;
+      s.x += s.vx * dt;
+      s.y += s.vy * dt;
+      bounceWalls(s);
+
+      const live = rocks.current.filter((a) => !a.captured);
+      live.forEach((a) => {
+        a.x += a.vx * dt;
+        a.y += a.vy * dt;
+        bounceWalls(a);
       });
 
-      if (!dockedRef.current) {
-        vel.current.x += ax * dt;
-        vel.current.y += ay * dt;
-        pos.current.x += vel.current.x * dt;
-        pos.current.y += vel.current.y * dt;
+      live.forEach((a) => collide(s, a));
+      for (let i = 0; i < live.length; i++)
+        for (let k = i + 1; k < live.length; k++) collide(live[i], live[k]);
 
-        // Elastic-ish walls (an external force — the only thing that isn't
-        // pure coasting). Keeps the ship on screen without killing momentum.
-        if (pos.current.x < SHIP_R) {
-          pos.current.x = SHIP_R;
-          vel.current.x = Math.abs(vel.current.x) * RESTITUTION;
-        } else if (pos.current.x > VW - SHIP_R) {
-          pos.current.x = VW - SHIP_R;
-          vel.current.x = -Math.abs(vel.current.x) * RESTITUTION;
+      let caught = 0;
+      rocks.current.forEach((a) => {
+        if (a.captured) {
+          caught++;
+          return;
         }
-        if (pos.current.y < SHIP_R) {
-          pos.current.y = SHIP_R;
-          vel.current.y = Math.abs(vel.current.y) * RESTITUTION;
-        } else if (pos.current.y > VH - SHIP_R) {
-          pos.current.y = VH - SHIP_R;
-          vel.current.y = -Math.abs(vel.current.y) * RESTITUTION;
+        const inZone =
+          Math.hypot(a.x - zone.current.x, a.y - zone.current.y) <
+          ZONE_R - a.r * 0.3;
+        if (inZone && Math.hypot(a.vx, a.vy) < CAPTURE_SPEED) {
+          a.captured = true;
+          a.vx = 0;
+          a.vy = 0;
+          caught++;
         }
-
-        const sp = Math.hypot(vel.current.x, vel.current.y);
-        if (sp > 4) heading.current = Math.atan2(vel.current.y, vel.current.x);
-
-        const dx = target.current.x - pos.current.x;
-        const dy = target.current.y - pos.current.y;
-        if (Math.hypot(dx, dy) < RING_R - 6 && sp < DOCK_SPEED) {
-          dockedRef.current = true;
-          vel.current = { x: 0, y: 0 };
-          active.current.clear();
-          pos.current = { x: target.current.x, y: target.current.y };
-          setDocked(true);
-          setThrusting(false);
-          setDocks((n) => n + 1);
+      });
+      setCaptured(caught);
+      if (caught === rocks.current.length && rocks.current.length > 0) {
+        if (!clearedRef.current) {
+          clearedRef.current = true;
+          setCleared(true);
         }
       }
+
+      const sp = Math.hypot(s.vx, s.vy);
+      if (sp > 4) heading.current = Math.atan2(s.vy, s.vx);
+
+      flashes.current.forEach((f) => (f.t -= dt));
+      flashes.current = flashes.current.filter((f) => f.t > 0);
 
       if (!reduced.current) starPhase.current += dt * 10;
       setTick((t) => (t + 1) % 1000000);
@@ -221,25 +359,20 @@ export default function InteractiveThruster() {
     };
   }, []);
 
-  const p = pos.current;
-  const v = vel.current;
-  const tg = target.current;
-  const sp = Math.hypot(v.x, v.y);
-  const slowEnough = sp < DOCK_SPEED;
-  const distToRing = Math.hypot(tg.x - p.x, tg.y - p.y);
-  const near = distToRing < RING_R + 40;
+  const s = ship.current;
+  const sp = Math.hypot(s.vx, s.vy);
 
   // Ship triangle, oriented to heading.
   const hx = Math.cos(heading.current);
   const hy = Math.sin(heading.current);
-  const nose = { x: p.x + hx * SHIP_R * 1.5, y: p.y + hy * SHIP_R * 1.5 };
+  const nose = { x: s.x + hx * SHIP_R * 1.5, y: s.y + hy * SHIP_R * 1.5 };
   const tailL = {
-    x: p.x - hx * SHIP_R + -hy * SHIP_R * 0.9,
-    y: p.y - hy * SHIP_R + hx * SHIP_R * 0.9,
+    x: s.x - hx * SHIP_R + -hy * SHIP_R * 0.9,
+    y: s.y - hy * SHIP_R + hx * SHIP_R * 0.9,
   };
   const tailR = {
-    x: p.x - hx * SHIP_R - -hy * SHIP_R * 0.9,
-    y: p.y - hy * SHIP_R - hx * SHIP_R * 0.9,
+    x: s.x - hx * SHIP_R - -hy * SHIP_R * 0.9,
+    y: s.y - hy * SHIP_R - hx * SHIP_R * 0.9,
   };
 
   // Net thrust direction, for the exhaust plume (fires opposite the push).
@@ -254,13 +387,19 @@ export default function InteractiveThruster() {
     ? 1
     : 0.75 + Math.sin(starPhase.current * 3) * 0.25;
 
-  const statusText = docked
-    ? "Docked — the ship stopped only because you cancelled its momentum."
-    : thrusting
-      ? "Thrusting — force adds velocity (F = ma). Exhaust fires the other way."
-      : sp > 6
-        ? "Coasting — no force, yet it keeps moving. That's inertia (1st law)."
-        : "At rest. Thrust to move — and remember you'll have to thrust back to stop.";
+  const recentBump = performance.now() - lastBumpAt.current < 1100;
+  const anyDrifting = rocks.current.some(
+    (a) => !a.captured && Math.hypot(a.vx, a.vy) > 8
+  );
+  const statusText = cleared
+    ? `Round ${round + 1} clear — every rock parked. The next one brings more mass.`
+    : recentBump
+      ? "Equal and opposite (3rd law): the rock pushed your ship back exactly as hard. Heavier rock → smaller change in its motion (F = ma)."
+      : thrusting
+        ? "Thrusting — force changes your velocity (F = ma). Exhaust fires the other way."
+        : anyDrifting
+          ? "Coasting — nothing pushes the rock, yet it keeps moving. Inertia (1st law)."
+          : "Bump the asteroids into the ring — gently. Nothing out here stops on its own.";
 
   return (
     <div className="mb-8">
@@ -268,7 +407,7 @@ export default function InteractiveThruster() {
         className="relative w-full overflow-hidden rounded-lg border border-line-700 bg-ink-950 outline-none focus-visible:border-brand-blue"
         tabIndex={0}
         role="application"
-        aria-label="Thruster pilot: steer a frictionless spacecraft into the docking ring"
+        aria-label="Asteroid tug: bump asteroids of different masses into the capture ring"
         onFocus={() => (focused.current = true)}
         onBlur={() => {
           focused.current = false;
@@ -278,10 +417,10 @@ export default function InteractiveThruster() {
       >
         <svg viewBox={`0 0 ${VW} ${VH}`} className="block w-full">
           {/* starfield */}
-          {STARS.map((s, i) => {
+          {STARS.map((st, i) => {
             const drift = reduced.current
-              ? s.x
-              : (((s.x - starPhase.current * (0.4 + s.r * 0.3)) % (VW + 4)) +
+              ? st.x
+              : (((st.x - starPhase.current * (0.4 + st.r * 0.3)) % (VW + 4)) +
                   VW +
                   4) %
                 (VW + 4);
@@ -289,50 +428,104 @@ export default function InteractiveThruster() {
               <circle
                 key={i}
                 cx={drift}
-                cy={s.y}
-                r={s.r}
+                cy={st.y}
+                r={st.r}
                 fill="#ffffff"
-                opacity={s.o}
+                opacity={st.o}
               />
             );
           })}
 
-          {/* docking ring */}
+          {/* capture ring */}
           <circle
-            cx={tg.x}
-            cy={tg.y}
-            r={RING_R}
-            fill={
-              docked
-                ? `${SAGE}22`
-                : near && slowEnough
-                  ? `${SAGE}18`
-                  : `${SKY}10`
-            }
-            stroke={docked ? SAGE : near && slowEnough ? SAGE : SKY_DIM}
+            cx={zone.current.x}
+            cy={zone.current.y}
+            r={ZONE_R}
+            fill={cleared ? `${SAGE}22` : `${SKY}10`}
+            stroke={cleared ? SAGE : SKY_DIM}
             strokeWidth={2.5}
             strokeDasharray="6 7"
           />
-          <circle cx={tg.x} cy={tg.y} r={5} fill={docked ? SAGE : SKY_DIM} />
           <text
-            x={tg.x}
-            y={tg.y - RING_R - 10}
+            x={zone.current.x}
+            y={zone.current.y - ZONE_R - 10}
             textAnchor="middle"
             fontSize={13}
-            fill={docked ? SAGE : TEXT300}
+            fill={cleared ? SAGE : TEXT300}
             fontFamily="ui-monospace, monospace"
           >
-            {docked ? "DOCKED" : "DOCK"}
+            {cleared ? "SECURED" : "CAPTURE"}
           </text>
 
+          {/* asteroids */}
+          {rocks.current.map((a, i) => (
+            <g key={i} opacity={a.captured ? 0.55 : 1}>
+              <circle
+                cx={a.x}
+                cy={a.y}
+                r={a.r}
+                fill="#2a3346"
+                stroke={a.captured ? SAGE : SKY_DIM}
+                strokeWidth={2}
+              />
+              {a.craters.map((c, k) => (
+                <circle
+                  key={k}
+                  cx={a.x + c.dx}
+                  cy={a.y + c.dy}
+                  r={c.cr}
+                  fill="#1b2434"
+                />
+              ))}
+              <text
+                x={a.x}
+                y={a.y + 4}
+                textAnchor="middle"
+                fontSize={12}
+                fill={a.captured ? SAGE : TEXT300}
+                fontFamily="ui-monospace, monospace"
+              >
+                {a.captured ? "✓" : `m ${a.m}`}
+              </text>
+            </g>
+          ))}
+
+          {/* paired collision impulses — the 3rd law made visible */}
+          {flashes.current.map((f, i) => {
+            const L = Math.min(12 + f.mag * 0.12, 46);
+            const o = reduced.current ? 0.9 : Math.max(f.t / 0.45, 0) * 0.9;
+            return (
+              <g key={i} opacity={o}>
+                <line
+                  x1={f.x}
+                  y1={f.y}
+                  x2={f.x + f.nx * L}
+                  y2={f.y + f.ny * L}
+                  stroke={SAND}
+                  strokeWidth={2.5}
+                  strokeLinecap="round"
+                />
+                <line
+                  x1={f.x}
+                  y1={f.y}
+                  x2={f.x - f.nx * L}
+                  y2={f.y - f.ny * L}
+                  stroke={ROSE}
+                  strokeWidth={2.5}
+                  strokeLinecap="round"
+                />
+              </g>
+            );
+          })}
+
           {/* velocity vector from the ship */}
-          {sp > 10 && !docked && (
+          {sp > 10 && (
             <line
-              x1={p.x}
-              y1={p.y}
-              x2={p.x + v.x * 0.32}
-              y2={p.y + v.y * 0.32}
-              stroke={slowEnough ? SAGE : SAND}
+              x1={s.x}
+              y1={s.y}
+              x2={s.x + s.vx * 0.32}
+              y2={s.y + s.vy * 0.32}
+              stroke={SAND}
               strokeWidth={2}
               strokeLinecap="round"
               opacity={0.65}
@@ -340,12 +533,12 @@ export default function InteractiveThruster() {
           )}
 
           {/* exhaust plume — opposite the applied push (3rd law) */}
-          {tmag > 0 && !docked && (
+          {tmag > 0 && (
             <g opacity={flicker}>
               {[0, 1, 2].map((k) => {
-                const len = (18 + k * 12) * (1 / massRef.current) * 1.1;
-                const ex = p.x + (tx / tmag) * (SHIP_R + len);
-                const ey = p.y + (ty / tmag) * (SHIP_R + len);
+                const len = 18 + k * 12;
+                const ex = s.x + (tx / tmag) * (SHIP_R + len);
+                const ey = s.y + (ty / tmag) * (SHIP_R + len);
                 return (
                   <circle
                     key={k}
@@ -363,19 +556,20 @@ export default function InteractiveThruster() {
           {/* ship */}
           <polygon
             points={`${nose.x},${nose.y} ${tailL.x},${tailL.y} ${tailR.x},${tailR.y}`}
-            fill={docked ? SAGE : SKY}
+            fill={SKY}
             stroke="#0f1218"
             strokeWidth={1.5}
           />
-          <circle cx={p.x} cy={p.y} r={4} fill="#0f1218" opacity={0.5} />
+          <circle cx={s.x} cy={s.y} r={4} fill="#0f1218" opacity={0.5} />
         </svg>
 
         {/* readout overlay */}
         <div className="pointer-events-none absolute left-3 top-3 flex gap-4 font-mono text-[0.65rem] sm:text-xs">
-          <span style={{ color: slowEnough ? SAGE : SAND }}>
-            speed {Math.round(sp)}
+          <span style={{ color: SKY }}>round {round + 1}</span>
+          <span style={{ color: cleared ? SAGE : TEXT300 }}>
+            captured {captured}/{total}
           </span>
-          <span style={{ color: TEXT300 }}>docked {docks}</span>
+          <span style={{ color: SAND }}>speed {Math.round(sp)}</span>
         </div>
       </div>
 
@@ -413,50 +607,33 @@ export default function InteractiveThruster() {
           />
         </div>
 
-        {/* Mass slider (F = ma) */}
-        <div className="flex-1">
-          <div className="flex items-center justify-between text-[0.7rem] text-text-300 sm:text-xs">
-            <span>Ship mass (F = ma)</span>
-            <span className="font-mono" style={{ color: SKY }}>
-              {mass.toFixed(1)}× · accel {Math.round(THRUST / mass)}
-            </span>
-          </div>
-          <input
-            type="range"
-            min={0.6}
-            max={3}
-            step={0.1}
-            value={mass}
-            onChange={(e) => setMass(Number(e.target.value))}
-            className="mt-1 w-full accent-[#a7c5e8]"
-            aria-label="Ship mass"
-          />
-          <p className="mt-1 text-[0.65rem] text-text-500 sm:text-[0.7rem]">
-            Same thrust, more mass → less acceleration. Heavier ships turn and
-            stop slower.
-          </p>
-        </div>
+        <p className="flex-1 text-[0.7rem] text-text-500 sm:text-xs">
+          An asteroid is captured when it sits inside the ring and is moving
+          slowly. Light rocks fly off a hard bump — heavy ones need a long,
+          patient push. Your ship recoils either way.
+        </p>
 
-        {/* Reset / new target */}
         <button
           type="button"
-          onClick={reset}
+          onClick={() => setupRound(cleared ? round + 1 : round)}
           className="shrink-0 rounded-md border border-line-700 bg-ink-800 px-4 py-2 text-sm font-medium text-text-100 transition-colors hover:border-brand-pink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-blue"
         >
-          {docked ? "New target ↻" : "Reset"}
+          {cleared ? "Next round ▶" : "Reset round"}
         </button>
       </div>
 
       <p
         className="mt-3 text-[0.7rem] sm:text-xs"
-        style={{ color: docked ? SAGE : thrusting ? SAND : TEXT300 }}
+        style={{
+          color: cleared ? SAGE : recentBump ? SAND : TEXT300,
+        }}
         aria-live="polite"
       >
         {statusText}
       </p>
       <p className="mt-1 text-[0.65rem] text-text-500 sm:text-[0.7rem]">
         Click the pad or focus the game and use arrow keys / WASD. There is no
-        friction: the ship only changes motion when you push it.
+        friction: everything keeps its motion until something pushes it.
       </p>
     </div>
   );
