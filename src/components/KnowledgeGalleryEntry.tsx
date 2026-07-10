@@ -14,6 +14,7 @@ import UnityHero from "./UnityHero";
 import InteractivePeriodicTable from "./InteractivePeriodicTable";
 import InteractiveNeuron from "./InteractiveNeuron";
 import InteractiveThruster from "./InteractiveThruster";
+import InteractiveGravity from "./InteractiveGravity";
 import BackButton from "./BackButton";
 
 export default function KnowledgeGalleryEntryView({
@@ -90,6 +91,8 @@ export default function KnowledgeGalleryEntryView({
         <InteractiveNeuron />
       ) : entry.interactive === "thruster" ? (
         <InteractiveThruster />
+      ) : entry.interactive === "gravity" ? (
+        <InteractiveGravity />
       ) : entry.unity ? (
         <UnityHero
           title={entry.title}

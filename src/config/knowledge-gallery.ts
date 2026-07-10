@@ -139,8 +139,10 @@ export interface KnowledgeGalleryEntry {
    *  • "periodic-table" — an interactive periodic table (Periodic Law).
    *  • "neuron" — an interactive action-potential demo (Nervous System).
    *  • "thruster" — a frictionless-spacecraft mini-game (Newton's Laws).
+   *  • "gravity" — a Newton's-cannonball orbit-launcher mini-game (Law of
+   *    Universal Gravitation).
    */
-  interactive?: "periodic-table" | "neuron" | "thruster";
+  interactive?: "periodic-table" | "neuron" | "thruster" | "gravity";
 }
 
 /**
@@ -579,6 +581,7 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     kind: "law",
     thumbnail: "/UniversalGravitation.webp",
     imageSource: "first-party",
+    interactive: "gravity",
   },
   {
     slug: "conservation-laws",
