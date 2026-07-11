@@ -141,8 +141,14 @@ export interface KnowledgeGalleryEntry {
    *  • "thruster" — an asteroid-tug momentum mini-game (Newton's Laws).
    *  • "gravity" — a Newton's-cannonball orbit-launcher mini-game (Law of
    *    Universal Gravitation).
+   *  • "black-hole" — a horizon-slingshot courier mini-game (Black Hole).
    */
-  interactive?: "periodic-table" | "neuron" | "thruster" | "gravity";
+  interactive?:
+    | "periodic-table"
+    | "neuron"
+    | "thruster"
+    | "gravity"
+    | "black-hole";
 }
 
 /**
@@ -710,6 +716,7 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     kind: "other",
     thumbnail: "/BlackHole.webp",
     imageSource: "first-party",
+    interactive: "black-hole",
   },
   {
     slug: "atomic-theory",

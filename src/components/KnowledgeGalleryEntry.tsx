@@ -15,6 +15,7 @@ import InteractivePeriodicTable from "./InteractivePeriodicTable";
 import InteractiveNeuron from "./InteractiveNeuron";
 import InteractiveThruster from "./InteractiveThruster";
 import InteractiveGravity from "./InteractiveGravity";
+import InteractiveBlackHole from "./InteractiveBlackHole";
 import BackButton from "./BackButton";
 
 export default function KnowledgeGalleryEntryView({
@@ -93,6 +94,8 @@ export default function KnowledgeGalleryEntryView({
         <InteractiveThruster />
       ) : entry.interactive === "gravity" ? (
         <InteractiveGravity />
+      ) : entry.interactive === "black-hole" ? (
+        <InteractiveBlackHole />
       ) : entry.unity ? (
         <UnityHero
           title={entry.title}
