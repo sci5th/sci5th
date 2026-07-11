@@ -1095,6 +1095,32 @@ export const ENTRY_STEPS: Record<string, KnowledgeGalleryStep[]> = {
       body: "ΛCDM works astonishingly well but isn't the final word. We don't know what dark energy or dark matter actually are. The 'Hubble tension' — different methods measuring the expansion rate disagree at a level too large to ignore — may signal new physics. And the cosmological constant's tiny measured value is wildly smaller than quantum theory naively predicts. ΛCDM is the best map we have of the cosmos, and a signpost pointing at everything we still don't understand.",
     },
   ],
+  "black-hole": [
+    {
+      title: "1 · Gravity's point of no return",
+      body: "A black hole is a region of spacetime where matter has collapsed so completely that gravity overwhelms everything else. Its defining feature is the event horizon — a one-way boundary in space. Anything that crosses it, including light, can never come back out; that is what makes the hole 'black.' The horizon is not a surface you could touch — an infalling astronaut would notice nothing special crossing it — but from outside, whatever falls in is gone for good.",
+    },
+    {
+      title: "2 · Predicted, then resisted",
+      body: "Months after Einstein published general relativity in 1915, Karl Schwarzschild solved its equations for the gravity around a point mass — and the solution contained a critical radius at which the mathematics turned strange. In 1939 Oppenheimer and Snyder showed a massive collapsing star would actually form one. Einstein and Eddington both doubted nature would permit anything so pathological; the term 'black hole' only caught on in the 1960s, popularized by John Archibald Wheeler.",
+    },
+    {
+      title: "3 · How they form",
+      body: "When a star more than roughly twenty times the Sun's mass exhausts its fuel, no known force can hold its core against its own gravity — it collapses past neutron-star density into a black hole of a few solar masses. Separately, almost every large galaxy hosts a supermassive black hole of millions to billions of solar masses at its center; how those grew so large so early in cosmic history is an active puzzle. Sagittarius A*, the Milky Way's own, weighs about four million Suns.",
+    },
+    {
+      title: "4 · Astonishingly simple objects",
+      body: "The 'no-hair theorem' says a settled black hole is completely described by just three numbers: mass, spin, and electric charge. Everything else about what fell in — its composition, shape, history — is erased from outside view. Two black holes made from utterly different material, if they match in those three numbers, are physically identical. Nothing else in nature is so simple, which is why black holes are physicists' favorite laboratory for testing gravity at its most extreme.",
+    },
+    {
+      title: "5 · Not quite black — Hawking radiation",
+      body: "In 1974 Stephen Hawking showed that quantum effects near the horizon make black holes glow faintly and slowly evaporate, with a temperature inversely proportional to their mass. For any astrophysical black hole the effect is unobservably tiny — evaporation would take vastly longer than the age of the universe. But it links gravity, quantum theory, and thermodynamics in one formula, and it raises the unresolved 'information paradox': what happens to the information about everything the hole swallowed?",
+    },
+    {
+      title: "6 · From invisible to photographed",
+      body: "Once thought forever unobservable, black holes are now routine astronomy. X-ray binaries revealed matter heating up as it spirals in; stellar orbits traced the Milky Way's central mass; LIGO heard two black holes merge via gravitational waves in 2015; and in 2019 the Event Horizon Telescope published the first image of a black hole's shadow, in galaxy M87 — followed in 2022 by Sagittarius A* itself. The most extreme prediction of general relativity has become one of its best-confirmed.",
+    },
+  ],
   "atomic-theory": [
     {
       title: "1 · The ancient guess",

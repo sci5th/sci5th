@@ -699,6 +699,19 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     imageSource: "first-party",
   },
   {
+    slug: "black-hole",
+    title: "Black Hole",
+    summary:
+      "A region of spacetime where gravity is so strong that nothing — not even light — can escape. Predicted by general relativity, dismissed as a curiosity, now photographed and heard.",
+    systemPath:
+      "Human Knowledge/Natural Sciences/Physics/Astrophysics & Cosmology/Black Hole",
+    breadcrumb: "Natural Sciences · Astrophysics & Cosmology",
+    category: "natural",
+    kind: "other",
+    thumbnail: "/BlackHole.webp",
+    imageSource: "first-party",
+  },
+  {
     slug: "atomic-theory",
     title: "Atomic Theory",
     summary:

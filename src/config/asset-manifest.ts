@@ -12,6 +12,7 @@ export const ASSET_HASHES: Readonly<Record<string, string>> = {
   "/BigBangTheory.webp": "d688c99ed5",
   "/BinarySearch.webp": "da70c9215c",
   "/BiologicalModularity.webp": "5f0708769e",
+  "/BlackHole.webp": "1c324ff586",
   "/BohrModel.webp": "8abc806962",
   "/CellTheory.webp": "3b635031d7",
   "/ChaosTheory.webp": "b9e0b03187",

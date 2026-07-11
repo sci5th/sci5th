@@ -452,6 +452,7 @@ export const DATA: KnowledgeNode = {
               c: [
                 { name: "Big Bang Theory" },
                 { name: "Standard Model of Cosmology (ΛCDM)" },
+                { name: "Black Hole" },
               ],
             },
           ],
