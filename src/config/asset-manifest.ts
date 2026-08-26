@@ -51,6 +51,7 @@ export const ASSET_HASHES: Readonly<Record<string, string>> = {
   "/OperatingSystems.webp": "29f5b6d988",
   "/PeriodicLaw.webp": "c0407e4768",
   "/PlateTectonics.webp": "904ccf7dc3",
+  "/ProbabilityTheory.webp": "40548a27d4",
   "/Professions.webp": "4455d52fe9",
   "/QuantumMechanics.webp": "9d391ee8f6",
   "/Quicksort.webp": "1adf61b7d2",

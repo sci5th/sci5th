@@ -16,6 +16,7 @@ import InteractiveNeuron from "./InteractiveNeuron";
 import InteractiveThruster from "./InteractiveThruster";
 import InteractiveGravity from "./InteractiveGravity";
 import InteractiveBlackHole from "./InteractiveBlackHole";
+import InteractiveGaltonBoard from "./InteractiveGaltonBoard";
 import BackButton from "./BackButton";
 
 export default function KnowledgeGalleryEntryView({
@@ -96,6 +97,8 @@ export default function KnowledgeGalleryEntryView({
         <InteractiveGravity />
       ) : entry.interactive === "black-hole" ? (
         <InteractiveBlackHole />
+      ) : entry.interactive === "galton-board" ? (
+        <InteractiveGaltonBoard />
       ) : entry.unity ? (
         <UnityHero
           title={entry.title}

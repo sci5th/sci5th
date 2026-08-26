@@ -59,7 +59,9 @@ component conventions. The site is dark-only with modest pastel accents.
 │   │   ├── KnowledgeGallery.tsx        # Gallery index (cards + sub-navbar)
 │   │   ├── KnowledgeGalleryEntry.tsx   # Gallery entry view (hero + steps)
 │   │   ├── KnowledgeGalleryFocusHandler.tsx  # Scroll/highlight via ?focus=<slug>
-│   │   ├── InteractivePeriodicTable.tsx  # Interactive Periodic Law hero (client)
+│   │   ├── Interactive*.tsx            # First-party interactive entry heroes (client):
+│   │   │                               #   PeriodicTable, Neuron, Thruster, Gravity,
+│   │   │                               #   BlackHole, GaltonBoard
 │   │   ├── UnityHero.tsx               # Click-to-play wrapper for Unity demos
 │   │   └── UnityPlayer.tsx             # Unity WebGL loader (client-only)
 │   ├── config/

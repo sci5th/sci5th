@@ -395,6 +395,42 @@ export const ENTRY_STEPS: Record<string, KnowledgeGalleryStep[]> = {
       body: "Model theory crystallizes a hard-won insight: mathematical theories don't describe unique structures — they describe families of structures that share formal properties. What we call 'the integers' or 'the reals' is really an isomorphism type picked out by a combination of axioms and intended interpretation; first-order axioms alone are rarely strong enough to do it. Model theory is how mathematicians measure this gap, and how they turn it from a limitation into a source of new mathematics.",
     },
   ],
+  "probability-theory": [
+    {
+      title: "1 \u00b7 A gambler\u2019s question becomes a science",
+      body: "Probability began as a practical puzzle. In 1654 the Chevalier de M\u00e9r\u00e9 asked Blaise Pascal how to divide the stakes of an interrupted dice game fairly \u2014 the problem of points. Pascal\u2019s correspondence with Pierre de Fermat that summer solved it by reasoning about all the ways the unplayed rounds could have gone, and in doing so invented the idea of an expected value. Christiaan Huygens wrote the first printed treatise in 1657, Jacob Bernoulli\u2019s posthumous Ars Conjectandi (1713) proved the first limit theorem, and Laplace\u2019s Th\u00e9orie analytique des probabilit\u00e9s (1812) turned the subject into a general tool for reasoning under uncertainty.",
+    },
+    {
+      title: "2 \u00b7 Kolmogorov\u2019s axioms",
+      body: "For two centuries probability worked without knowing quite what a probability was. Andrey Kolmogorov settled it in 1933 with three axioms built on measure theory: take a sample space of possible outcomes, a collection of events (a \u03c3-algebra) closed under complement and countable union, and a measure P assigning each event a number that is non-negative, gives the whole space the value 1, and adds up over disjoint events. Everything else \u2014 conditional probability, independence, the limit theorems \u2014 is a consequence. Probability became a branch of mathematics rather than a collection of gambling recipes.",
+    },
+    {
+      title: "3 \u00b7 Random variables and distributions",
+      body: "A random variable is not a variable that wobbles; it is a function from outcomes to numbers. The count of rights a ball takes on a Galton board is one. Its distribution lists how much probability each value carries \u2014 for n independent trials each succeeding with probability p, that is the binomial law C(n,k)\u00b7p\u1d4f\u00b7(1\u2212p)\u207f\u207b\u1d4f. A few families recur everywhere because they arise from a few recurring mechanisms: binomial from counting successes, Poisson from rare events in continuous time, exponential from waiting, normal from adding many small independent contributions.",
+    },
+    {
+      title: "4 \u00b7 Conditioning, independence, and Bayes",
+      body: "Two events are independent when P(A \u2229 B) = P(A)\u00b7P(B) \u2014 knowing one tells you nothing about the other. When they are not independent, conditional probability P(A|B) = P(A \u2229 B)/P(B) tracks how learning B revises the odds on A. Reversing that relation gives Bayes\u2019 theorem, the engine of all inference from evidence: the probability of a hypothesis after seeing data is its prior probability times how well it predicted that data, normalized. Independence is what lets a Galton board\u2019s rows multiply into a binomial; conditioning is what makes real-world randomness so much harder than dice.",
+    },
+    {
+      title:
+        "5 \u00b7 Expectation \u2014 and why every fair bet is worth the same",
+      body: "The expected value of a random variable is its probability-weighted average, and it is linear: E[X + Y] = E[X] + E[Y] whether or not X and Y are independent. Variance measures the spread around that average. The mini-game above pays fair odds \u2014 1/P on a hit, nothing on a miss \u2014 so every bet you can place, from one improbable bin to nine likely ones, has an expected return of exactly one chip per drop. What changes across strategies is only the variance: rare-bin bets are long droughts punctuated by big payouts, wide bets are a steady trickle. Distinguishing expectation from variance is the whole of risk management in one idea.",
+    },
+    {
+      title: "6 \u00b7 The law of large numbers",
+      body: "Jacob Bernoulli\u2019s theorem, which he worked on for twenty years and called his \u2018golden\u2019 result, says that the observed frequency of an event converges to its probability as trials accumulate. It is the bridge between the abstract measure P and anything you can actually observe. It is also routinely misread: the law says the average settles down, not that the universe keeps a ledger. A run of misses creates no debt that future drops must repay \u2014 believing otherwise is the gambler\u2019s fallacy, and the board above will demonstrate it against you for as long as you care to watch.",
+    },
+    {
+      title:
+        "7 \u00b7 The central limit theorem \u2014 why the bell keeps appearing",
+      body: "Abraham de Moivre noticed in 1733 that the binomial distribution, for large n, is closely approximated by a smooth bell-shaped curve; Laplace generalized it, and by the twentieth century the central limit theorem stated it in full: sums of many independent contributions, whatever their individual distributions (given finite variance), tend toward a normal distribution with mean n\u00b5 and standard deviation \u03c3\u221an. That is precisely what a Galton board builds \u2014 Francis Galton designed his quincunx in the 1870s as a physical demonstration of it. The bell curve is not a fact about nature\u2019s preferences; it is a fact about addition.",
+    },
+    {
+      title: "8 \u00b7 Where it went",
+      body: "Probability stopped being a subject and became infrastructure. Statistics is applied probability; statistical mechanics rebuilt thermodynamics on it; quantum mechanics makes probability irreducible rather than a confession of ignorance; Shannon\u2019s information theory measures information as surprise, defined probabilistically. It underwrites randomized algorithms, cryptography, insurance and option pricing, epidemiological modelling, and essentially all of machine learning, where a trained model is a probability distribution over outputs. Kolmogorov\u2019s three axioms turn out to describe most of what we can say about a world we only partly observe.",
+    },
+  ],
   "game-theory": [
     {
       title: "1 · What is a game?",

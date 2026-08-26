@@ -142,13 +142,16 @@ export interface KnowledgeGalleryEntry {
    *  • "gravity" — a Newton's-cannonball orbit-launcher mini-game (Law of
    *    Universal Gravitation).
    *  • "black-hole" — a horizon-slingshot courier mini-game (Black Hole).
+   *  • "galton-board" — a fair-odds Galton board betting game (Probability
+   *    Theory).
    */
   interactive?:
     | "periodic-table"
     | "neuron"
     | "thruster"
     | "gravity"
-    | "black-hole";
+    | "black-hole"
+    | "galton-board";
 }
 
 /**
@@ -320,6 +323,20 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     kind: "theory",
     thumbnail: "/ModelTheory.webp",
     imageSource: "openai",
+  },
+  {
+    slug: "probability-theory",
+    title: "Probability Theory",
+    summary:
+      "The mathematics of chance — how a handful of axioms about uncertain events yield laws precise enough to predict the shape of randomness itself.",
+    systemPath:
+      "Human Knowledge/Formal Sciences/Mathematics/Applied Mathematics/Statistics & Probability/Probability Theory",
+    breadcrumb: "Formal Sciences · Statistics & Probability",
+    category: "formal",
+    kind: "theory",
+    thumbnail: "/ProbabilityTheory.webp",
+    imageSource: "first-party",
+    interactive: "galton-board",
   },
   {
     slug: "game-theory",

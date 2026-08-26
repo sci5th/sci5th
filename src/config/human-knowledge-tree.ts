@@ -162,7 +162,10 @@ export const DATA: KnowledgeNode = {
             {
               name: "Applied Mathematics",
               c: [
-                { name: "Statistics & Probability" },
+                {
+                  name: "Statistics & Probability",
+                  c: [{ name: "Probability Theory" }],
+                },
                 { name: "Numerical Methods" },
                 { name: "Optimization" },
                 { name: "Dynamical Systems" },
