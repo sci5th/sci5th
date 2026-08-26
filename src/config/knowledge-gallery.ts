@@ -144,6 +144,7 @@ export interface KnowledgeGalleryEntry {
    *  • "black-hole" — a horizon-slingshot courier mini-game (Black Hole).
    *  • "galton-board" — a fair-odds Galton board betting game (Probability
    *    Theory).
+   *  • "strain" — a strain / coping pressure game (General Strain Theory).
    */
   interactive?:
     | "periodic-table"
@@ -151,7 +152,8 @@ export interface KnowledgeGalleryEntry {
     | "thruster"
     | "gravity"
     | "black-hole"
-    | "galton-board";
+    | "galton-board"
+    | "strain";
 }
 
 /**
@@ -967,6 +969,20 @@ export const KNOWLEDGE_GALLERY_ENTRIES: KnowledgeGalleryEntry[] = [
     kind: "theory",
     thumbnail: "/CognitiveTheory.webp",
     imageSource: "openai",
+  },
+  {
+    slug: "general-strain-theory",
+    title: "General Strain Theory",
+    summary:
+      "Robert Agnew's account of why pressure turns into crime — not blocked opportunity alone, but strain that produces anger, and anger with nowhere legitimate to go.",
+    systemPath:
+      "Human Knowledge/Social Sciences/Sociology/Criminology & Deviance/General Strain Theory",
+    breadcrumb: "Social Sciences · Criminology & Deviance",
+    category: "social",
+    kind: "theory",
+    thumbnail: "/GeneralStrainTheory.webp",
+    imageSource: "first-party",
+    interactive: "strain",
   },
   {
     slug: "modularity-of-mind",

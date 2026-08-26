@@ -83,6 +83,7 @@ export const FIELD_ICONS: Record<string, IconComponent> = {
   // Social
   Economics: ChartBarIcon,
   Psychology: SparklesIcon,
+  Sociology: UserGroupIcon,
   Linguistics: LanguageIcon,
   "Cognitive Science": LightBulbIcon,
   // Humanities
@@ -878,7 +879,15 @@ export const DATA: KnowledgeNode = {
             { name: "Clinical Psychology" },
           ],
         },
-        { name: "Sociology" },
+        {
+          name: "Sociology",
+          c: [
+            {
+              name: "Criminology & Deviance",
+              c: [{ name: "General Strain Theory" }],
+            },
+          ],
+        },
         { name: "Political Science" },
         { name: "Anthropology" },
         {

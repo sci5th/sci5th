@@ -30,6 +30,7 @@ export const ASSET_HASHES: Readonly<Record<string, string>> = {
   "/GOAP.webp": "ca30510d2f",
   "/GameTheory.webp": "52f31d4b7b",
   "/GeneralRelativity.webp": "8c7184fe9c",
+  "/GeneralStrainTheory.webp": "f90a93b898",
   "/GeneralSystemsTheory.webp": "3293f82afd",
   "/GenerativeModels.webp": "12a79ec22b",
   "/GermTheory.webp": "607cfe4524",

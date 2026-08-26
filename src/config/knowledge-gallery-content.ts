@@ -1519,6 +1519,42 @@ export const ENTRY_STEPS: Record<string, KnowledgeGalleryStep[]> = {
       body: "Cognitive theory underwrites cognitive behavioral therapy (the most empirically supported psychotherapy — change thoughts, change emotions), human-computer interaction (designing interfaces that respect attention and working-memory limits), evidence-based education (spaced repetition, retrieval practice, dual coding), usability testing, and large parts of modern AI (the representation/computation framing came straight out of this era). It's one of the most practically consequential theoretical shifts in 20th-century science.",
     },
   ],
+  "general-strain-theory": [
+    {
+      title: "1 \u00b7 The theory it was built to rescue",
+      body: "Robert Merton\u2019s 1938 essay \u2019Social Structure and Anomie\u2019 argued that American society pushes everyone toward the same goal \u2014 money, status, success \u2014 while distributing the legitimate means to reach it very unevenly. The gap between goal and means is strain, and crime is one adaptation to it. Albert Cohen (1955) applied this to working-class boys facing middle-class school standards; Cloward and Ohlin (1960) added that illegitimate opportunities are unequally distributed too. Then the evidence turned. Through the 1970s and 1980s, surveys kept failing to find that the gap between what young people wanted and what they expected predicted delinquency, and control theorists like Travis Hirschi argued strain was the wrong question entirely. By the late 1980s strain theory was widely written off.",
+    },
+    {
+      title: "2 \u00b7 Agnew\u2019s move: widen what counts as strain",
+      body: "In \u2019Foundation for a General Strain Theory of Crime and Delinquency\u2019 (Criminology, 1992), Agnew argued that classic strain theory had not failed \u2014 it had been defined too narrowly. Strain is not only blocked economic aspiration. It is any negative relationship in which a person is not treated the way they want to be treated. That reframing moves the theory from the social-structural level to the social-psychological one: it is about what happens inside a particular life, in a particular week, and it explains why crime is common among adolescents who are not poor and rare among many adults who are.",
+    },
+    {
+      title: "3 \u00b7 Three types of strain",
+      body: "Agnew grouped strain into three families. First, failure to achieve positively valued goals \u2014 including the gap between aspirations and expectations, between expectations and outcomes, and between what feels fair and what actually happens. Second, removal of positively valued stimuli: a friend moving away, a parent leaving, a death, a job lost. Third, presentation of negative stimuli: victimization, harassment, humiliation by a teacher, abuse at home, discrimination. The three sources on the left of the game above are exactly these; the theory\u2019s reach comes from the fact that almost everyone meets all three.",
+    },
+    {
+      title: "4 \u00b7 The mechanism is emotion, and mostly anger",
+      body: "Strain does not cause crime directly. It causes negative emotion, and emotion is what does the work. Anger is the most criminogenic: it energizes action, lowers inhibition, reduces awareness of consequences, and supplies a felt justification for retaliation. It is the emotion produced when a strain is blamed on someone else and read as unjust. Strains blamed on nobody \u2014 loss, grief, failure \u2014 tend toward depression, anxiety and fear, which push toward escapist deviance such as drug use and withdrawal rather than aggression. That is why the game runs two meters instead of one, and why a strain\u2019s perceived injustice decides which one it fills.",
+    },
+    {
+      title:
+        "5 \u00b7 Crime is a coping strategy, and usually not the first one",
+      body: "Faced with pressure, people cope. Cognitively, by reinterpreting the strain \u2014 deciding it matters less, that the outcome was deserved, that they can live with it. Emotionally, by managing the feeling directly through exercise, distraction, or substances. Behaviourally, by acting: seeking the blocked goal another way, escaping the situation, or striking back. Criminal coping is one option on that last list, and most people reach for it only when the legitimate options are unavailable, exhausted, or have already failed. The mini-game gives you all of them and then quietly removes the good ones as the buffers erode.",
+    },
+    {
+      title:
+        "6 \u00b7 Conditioning factors \u2014 why most strained people never offend",
+      body: "This is the question any strain theory must answer, since strain is close to universal and crime is not. Agnew\u2019s answer is that a set of conditioning factors decides whether strain converts into criminal coping: coping skills and resources, self-efficacy and self-esteem, conventional social support, attachment to conventional institutions, moral beliefs about crime, temperament \u2014 particularly the combination of negative emotionality and low constraint \u2014 and association with delinquent peers, who supply both models and approval for criminal coping. Whether a person blames others or themselves matters too, because that attribution is what produces anger rather than guilt.",
+    },
+    {
+      title: "7 \u00b7 The 2001 refinement: which strains actually matter",
+      body: "The 1992 version had an obvious weakness \u2014 if nearly everything is strain, the theory predicts nearly everything. Agnew answered it in 2001 with \u2019Building on the Foundation of General Strain Theory,\u2019 specifying that strains lead to crime when they are high in magnitude, seen as unjust, associated with low social control, and create some pressure or incentive for criminal coping. That set includes parental rejection, harsh or erratic discipline, abuse and neglect, negative school experiences, abusive peer relations, chronic unemployment or work in the secondary labour market, criminal victimization, homelessness, and discrimination \u2014 and pointedly excludes strains like unpopularity or excessive parental supervision, which are unpleasant but raise social control rather than lower it. His 2006 book Pressured Into Crime is the accessible version of the whole framework.",
+    },
+    {
+      title: "8 \u00b7 Evidence, extensions, and honest limits",
+      body: "The core chain has held up reasonably well: strain predicts negative emotion, and anger in particular predicts aggression and other offending. The conditioning factors have fared worse \u2014 the statistical interaction effects the theory predicts are notoriously hard to detect, and results have been inconsistent, though better measurement of subjective (rather than objective) strain has helped. The theory has been extended to gender (Broidy and Agnew, 1997, on why women experience comparable strain but offend far less), and to the macro level in a version explaining community differences in crime rates. Its standing critique remains breadth: a theory that can accommodate almost any adverse experience is hard to falsify. Read the mini-game accordingly \u2014 it dramatizes the mechanism cleanly, and the buffers there matter far more than the real-world evidence says they do.",
+    },
+  ],
   "modularity-of-mind": [
     {
       title: "1 · The question Fodor was asking",
